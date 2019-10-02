@@ -1,9 +1,11 @@
 package org.carly.user_management.core.mapper;
 
 import org.carly.shared.utils.MapperService;
-import org.carly.user_management.api.UserRest;
+import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper implements MapperService<UserRest, User> {
 
     @Override

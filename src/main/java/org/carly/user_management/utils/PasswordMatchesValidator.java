@@ -1,6 +1,6 @@
 package org.carly.user_management.utils;
 
-import org.carly.user_management.api.UserRest;
+import org.carly.user_management.api.model.UserRest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package org.carly.shared.sercurity.model;
+package org.carly.user_management.security;
 
 public enum UserRole {
     CUSTOMER,

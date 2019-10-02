@@ -1,4 +1,4 @@
-package org.carly.company_management.core.controller;
+package org.carly.company_management.api.model.controller;
 
 import org.bson.types.ObjectId;
 import org.carly.company_management.api.model.CompanyRest;

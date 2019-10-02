@@ -1,4 +1,4 @@
-package org.carly.user_management.api;
+package org.carly.user_management.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
