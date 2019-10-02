@@ -8,6 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Document(collection = "users")
 public class User {
+
+    private String name;
+    private String lastName;
     private String email;
     private String password;
+    private String matchingPassword;
 }
