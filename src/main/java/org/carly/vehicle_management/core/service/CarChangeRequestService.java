@@ -35,10 +35,10 @@ public class CarChangeRequestService {
         this.timeService = timeService;
     }
 
-    public Car saveCarChangeRequest(Car car) {
+    Car saveCarChangeRequest(Car car) {
         Car findCarByVinNumberAndStatus = carRepository.findByVinNumberAndRequestStatus(car.getVinNumber(), ChangeRequestStatus.PENDING);
         if (findCarByVinNumberAndStatus == null) {
-            CarChangeRequest requestToSave = createCarChangeRequest(car, ChangeRequestStatus.PENDING);
+            CarChangeRequest requestToSave = createCarChangeRequest(car);
             carChangeRequestRepository.save(requestToSave);
             return car;
         }
@@ -46,8 +46,7 @@ public class CarChangeRequestService {
         throw new EntityAlreadyExistsException("Entity already exists!");
     }
 
-    private CarChangeRequest createCarChangeRequest(Car car, ChangeRequestStatus status) {
-
+    private CarChangeRequest createCarChangeRequest(Car car) {
         CarChangeRequest result = new CarChangeRequest();
         car.setRequestStatus(ChangeRequestStatus.PENDING);
         car.setCreateAt(timeService.getLocalDate());
@@ -55,29 +54,18 @@ public class CarChangeRequestService {
         carRepository.save(car);
         result.setCar(car);
         result.setCreateDate(timeService.getLocalDate());
-        result.setStatus(status);
+        result.setStatus(ChangeRequestStatus.PENDING);
         result.setLastModificationDate(timeService.getLocalDate());
         return result;
     }
 
-    public CarChangeRequest update(CarChangeRequest carChangeRequest, CarChangeRequestRest request) {
-        CarChangeRequest carForUpdate = carChangeRequestRepository.findById(carChangeRequest.getId())
-                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-
-        carForUpdate.setId(carChangeRequest.getId());
-        carForUpdate.setLastModificationDate(LocalDate.now());
-        carChangeRequestRepository.save(carForUpdate);
-        return carForUpdate;
-    }
-
-    public Car updatePendingCar(CarChangeRequestRest changeDecision) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", changeDecision.getCarId());
-        params.put("status", ChangeRequestStatus.PENDING);
-        CarChangeRequest carChangeRequest = carChangeRequestRepository.find("id = :id and status= :status", params).singleResult();
-        update(carChangeRequest, changeDecision);
-        if (changeDecision.getChangeRequestStatus() == ChangeRequestStatusRest.ACCEPTED) {
-            return carChangeRequest.getCar();
-        } else throw new IllegalArgumentException();
+    CarChangeRequest updatePendingCar(CarChangeRequestRest changeDecision) {
+        CarChangeRequest carChangeRequest = carChangeRequestRepository.findByIdAndStatus(changeDecision.getCarId(),
+                ChangeRequestStatus.PENDING).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        carChangeRequest.setStatus(ChangeRequestStatus.valueOf(changeDecision.getChangeRequestStatus()));
+        carChangeRequest.setStatusChangeReason(changeDecision.getDeclinedReason() != null ? changeDecision.getDeclinedReason() : "");
+        carChangeRequest.setLastModificationDate(timeService.getLocalDate());
+        carChangeRequestRepository.save(carChangeRequest);
+        return carChangeRequest;
     }
 }

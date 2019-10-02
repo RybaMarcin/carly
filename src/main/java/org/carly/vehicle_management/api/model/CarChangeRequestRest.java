@@ -1,10 +1,11 @@
 package org.carly.vehicle_management.api.model;
 
 import lombok.Data;
+import org.bson.types.ObjectId;
 
 @Data
 public class CarChangeRequestRest {
-    private Long carId;
-    private ChangeRequestStatusRest changeRequestStatus;
+    private ObjectId carId;
+    private String changeRequestStatus;
     private String declinedReason;
 }

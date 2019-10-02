@@ -8,6 +8,6 @@ public interface VehicleSaveService<T> {
 
     T updateVehicle(T newCar);
 
-    T deleteVehicle(ObjectId id);
+    void deleteVehicle(ObjectId id);
 
 }

@@ -36,6 +36,7 @@ public class CarFindService implements VehicleFindService {
     @Override
     public Collection<CarRest> findAll() {
         List<Car> carList = carRepository.findAll();
+        log.info("Car list contains: {}", carList.size());
         return carList.stream().map(carMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
@@ -53,7 +54,7 @@ public class CarFindService implements VehicleFindService {
 
     @Override
     public CarRest findPendingVehicleById(ObjectId id) {
-        Car car = carRepository.findById(id).orElseThrow(()->new EntityNotFoundException(NOT_FOUND));
+        Car car = carRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (car.getRequestStatus() != ChangeRequestStatus.PENDING) {
             log.warn("Car with id: {}, was found but state is not pending!", id);
             return carMapper.simplifyRestObject(car);
