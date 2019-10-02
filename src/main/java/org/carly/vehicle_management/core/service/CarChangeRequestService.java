@@ -1,8 +1,9 @@
 package org.carly.vehicle_management.core.service;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import io.quarkus.panache.common.Parameters;
 import lombok.extern.slf4j.Slf4j;
+import org.carly.shared.config.EntityAlreadyExistsException;
+import org.carly.shared.config.EntityNotFoundException;
+import org.carly.shared.utils.TimeService;
 import org.carly.vehicle_management.api.model.CarChangeRequestRest;
 import org.carly.vehicle_management.api.model.ChangeRequestStatusRest;
 import org.carly.vehicle_management.core.model.Car;
@@ -10,16 +11,13 @@ import org.carly.vehicle_management.core.model.CarChangeRequest;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
 import org.carly.vehicle_management.core.repository.CarChangeRequestRepository;
 import org.carly.vehicle_management.core.repository.CarRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
 @Service
@@ -27,49 +25,48 @@ public class CarChangeRequestService {
 
     private final CarChangeRequestRepository carChangeRequestRepository;
     private final CarRepository carRepository;
+    private final TimeService timeService;
 
-    public CarChangeRequestService(CarChangeRequestRepository carChangeRequestRepository, CarRepository carRepository) {
+    public CarChangeRequestService(CarChangeRequestRepository carChangeRequestRepository,
+                                   CarRepository carRepository,
+                                   TimeService timeService) {
         this.carChangeRequestRepository = carChangeRequestRepository;
         this.carRepository = carRepository;
+        this.timeService = timeService;
     }
 
-
     public Car saveCarChangeRequest(Car car) {
-        PanacheQuery<Car> findCarByVinNumberAndStatus = findByVinAndStatus(car.getVinNumber(), ChangeRequestStatus.PENDING);
-        if (findCarByVinNumberAndStatus.firstResult() == null) {
+        Car findCarByVinNumberAndStatus = carRepository.findByVinNumberAndRequestStatus(car.getVinNumber(), ChangeRequestStatus.PENDING);
+        if (findCarByVinNumberAndStatus == null) {
             CarChangeRequest requestToSave = createCarChangeRequest(car, ChangeRequestStatus.PENDING);
-            carChangeRequestRepository.persistAndFlush(requestToSave);
+            carChangeRequestRepository.save(requestToSave);
             return car;
         }
         log.error("Entity exists and waiting for change request!");
-        throw new EntityExistsException();
-    }
-
-    public PanacheQuery<Car> findByVinAndStatus(String vinNumber, ChangeRequestStatus status) {
-        return carRepository.find("vinNumber = :vinNumber and requestStatus = :requestStatus",
-                Parameters.with("vinNumber", vinNumber).and("requestStatus", status).map());
+        throw new EntityAlreadyExistsException("Entity already exists!");
     }
 
     private CarChangeRequest createCarChangeRequest(Car car, ChangeRequestStatus status) {
-        LocalDate now = LocalDate.now();
+
         CarChangeRequest result = new CarChangeRequest();
         car.setRequestStatus(ChangeRequestStatus.PENDING);
-        car.setCreateAt(now);
+        car.setCreateAt(timeService.getLocalDate());
 
-        carRepository.persistAndFlush(car);
+        carRepository.save(car);
         result.setCar(car);
-        result.setCreateDate(now);
+        result.setCreateDate(timeService.getLocalDate());
         result.setStatus(status);
-        result.setLastModificationDate(now);
+        result.setLastModificationDate(timeService.getLocalDate());
         return result;
     }
 
     public CarChangeRequest update(CarChangeRequest carChangeRequest, CarChangeRequestRest request) {
-        CarChangeRequest carForUpdate = carChangeRequestRepository.findById(carChangeRequest.getId());
+        CarChangeRequest carForUpdate = carChangeRequestRepository.findById(carChangeRequest.getId())
+                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
 
         carForUpdate.setId(carChangeRequest.getId());
         carForUpdate.setLastModificationDate(LocalDate.now());
-        carChangeRequestRepository.persistAndFlush(carForUpdate);
+        carChangeRequestRepository.save(carForUpdate);
         return carForUpdate;
     }
 

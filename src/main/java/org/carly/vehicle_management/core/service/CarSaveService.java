@@ -30,9 +30,9 @@ public class CarSaveService implements VehicleSaveService<CarRest> {
 
     @Override
     public CarRest createVehicle(CarRest carRest) {
-        Car car = modelMapper.map(carRest, Car.class);
+        Car car = carMapper.simplifyDomainObject(carRest);
         Car carChangeRequest = carChangeRequestService.saveCarChangeRequest(car);
-        return modelMapper.map(carChangeRequest, CarRest.class);
+        return carMapper.simplifyRestObject(carChangeRequest);
     }
 
     @Override

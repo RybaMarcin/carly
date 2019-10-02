@@ -7,9 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 
 @Data
-@Document(collection = "EQUIPMENTS")
+@Document(collection = "equipment")
 public class Equipment {
-
     private ObjectId id;
     private Brand brand;
     private String name;

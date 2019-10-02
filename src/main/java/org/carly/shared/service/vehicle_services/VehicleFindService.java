@@ -1,7 +1,6 @@
 package org.carly.shared.service.vehicle_services;
 
 import org.bson.types.ObjectId;
-import org.carly.vehicle_management.core.model.Vehicle;
 
 import java.util.Collection;
 

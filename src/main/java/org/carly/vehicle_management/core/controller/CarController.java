@@ -22,7 +22,6 @@ public class CarController {
     private final CarFindService carFindService;
     private final CarSaveService carSaveService;
 
-    private static final String FIND_CAR_BY_ID = "Find car by id";
 
     public CarController(CarFindService carFindService, CarSaveService carSaveService) {
         this.carFindService = carFindService;
@@ -60,7 +59,6 @@ public class CarController {
     }
 
     @PutMapping("/cars")
-    @RolesAllowed({"OPERATIONS", "COMPANY"})
     public CarRest updateCar(CarRest car) {
         return carSaveService.updateVehicle(car);
     }
