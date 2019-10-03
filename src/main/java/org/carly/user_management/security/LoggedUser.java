@@ -13,8 +13,9 @@ public class LoggedUser implements UserDetails {
     private String name;
     private List<CarlyGrantedAuthority> authorities;
 
-    public LoggedUser(String id, String name, List<CarlyGrantedAuthority> authorities) {
+    public LoggedUser(String id, String email, String name, List<CarlyGrantedAuthority> authorities) {
         this.id = id;
+        this.email = email;
         this.name = name;
         this.authorities = authorities;
     }
@@ -25,6 +26,10 @@ public class LoggedUser implements UserDetails {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
