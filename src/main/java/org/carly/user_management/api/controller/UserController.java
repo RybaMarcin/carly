@@ -1,5 +1,6 @@
 package org.carly.user_management.api.controller;
 
+import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.service.UserService;
@@ -43,8 +44,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public LoggedUser login(@Valid @RequestBody UserRest userRest,
-                            BindingResult result) {
+    public CarlyUserRest login(@Valid @RequestBody UserRest userRest,
+                               BindingResult result) {
         return userService.login(userRest);
     }
 }

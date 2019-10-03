@@ -2,6 +2,8 @@ package org.carly.user_management.core.service;
 
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
+import org.carly.user_management.core.repository.VerificationTokenRepository;
+import org.carly.user_management.security.token.VerificationToken;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
@@ -10,13 +12,15 @@ import org.springframework.web.context.request.WebRequest;
 public class VerificationService {
 
     private final ApplicationEventPublisher eventPublisher;
+    private final VerificationTokenRepository tokenRepository;
 
-    public VerificationService(ApplicationEventPublisher eventPublisher) {
+    public VerificationService(ApplicationEventPublisher eventPublisher, VerificationTokenRepository tokenRepository) {
         this.eventPublisher = eventPublisher;
+        this.tokenRepository = tokenRepository;
     }
 
-    public OnRegistrationCompleteEvent publish(User user, WebRequest request) {
-        OnRegistrationCompleteEvent onRegistrationCompleteEvent = null;
+    public void publish(User user, WebRequest request) {
+        OnRegistrationCompleteEvent onRegistrationCompleteEvent;
         try {
             String appUrl = request.getContextPath();
             onRegistrationCompleteEvent = new OnRegistrationCompleteEvent(appUrl, request.getLocale(), user);
@@ -24,6 +28,10 @@ public class VerificationService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return onRegistrationCompleteEvent;
+    }
+
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
     }
 }

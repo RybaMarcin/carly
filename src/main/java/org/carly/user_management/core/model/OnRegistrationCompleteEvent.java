@@ -1,9 +1,11 @@
 package org.carly.user_management.core.model;
 
+import lombok.Data;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.Locale;
 
+@Data
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     private String appUrl;
