@@ -1,4 +1,4 @@
-package org.carly.user_management.utils;
+package org.carly.user_management.utils.validation;
 
 import org.carly.user_management.api.model.UserRest;
 
