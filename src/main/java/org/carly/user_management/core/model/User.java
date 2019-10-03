@@ -22,4 +22,5 @@ public class User {
     private String matchingPassword;
     private List<CarlyGrantedAuthority> role;
     private LocalDate createdAt;
+    private boolean enabled;
 }
