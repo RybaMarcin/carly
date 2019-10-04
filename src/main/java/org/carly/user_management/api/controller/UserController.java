@@ -1,29 +1,29 @@
 package org.carly.user_management.api.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.model.User;
+import org.carly.user_management.core.service.RegistrationListener;
 import org.carly.user_management.core.service.UserService;
-import org.carly.user_management.core.service.VerificationService;
-import org.carly.user_management.security.LoggedUser;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 
-@RestController("/user")
+@Slf4j
+@RestController
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
-    private final VerificationService verificationService;
+    private final RegistrationListener registrationListener;
 
-    public UserController(UserService userService, VerificationService verificationService) {
+    public UserController(UserService userService,
+                          RegistrationListener registrationListener) {
         this.userService = userService;
-        this.verificationService = verificationService;
+        this.registrationListener = registrationListener;
     }
 
     @PostMapping("/registration")
@@ -32,9 +32,7 @@ public class UserController {
                                     WebRequest request) {
         User registered = null;
         if (!result.hasErrors()) {
-            registered = userService.createUser(userRest);
-            verificationService.publish(registered, request);
-
+            registered = userService.createUser(userRest, request);
         }
         if (registered == null) {
             result.rejectValue(userRest.getEmail(), "Account with that email already exists!");
@@ -43,9 +41,22 @@ public class UserController {
         return registered;
     }
 
+    @GetMapping("/registrationConfirmation")
+    public String confirmRegistration(WebRequest request,
+                                      @RequestParam("token") String token) {
+        return userService.confirmRegistration(request, token);
+    }
+
     @GetMapping("/login")
     public CarlyUserRest login(@Valid @RequestBody UserRest userRest,
                                BindingResult result) {
         return userService.login(userRest);
+    }
+
+
+    //for mail test
+    @GetMapping("/send")
+    public void sendMail() {
+        registrationListener.sendSimpleEmail("d.szwajkos@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
     }
 }

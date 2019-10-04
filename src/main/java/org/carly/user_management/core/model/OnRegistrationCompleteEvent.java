@@ -1,11 +1,14 @@
 package org.carly.user_management.core.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Locale;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     private String appUrl;

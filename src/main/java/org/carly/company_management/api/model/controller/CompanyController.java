@@ -26,12 +26,12 @@ public class CompanyController {
     }
 
     @GetMapping("/pending/{id}")
-    public CompanyRest findPendingCompanyById(@PathVariable("id") Long id) {
+    public CompanyRest findPendingCompanyById(@PathVariable("id") ObjectId id) {
         return companyFindService.findPendingCompany(id);
     }
 
     @PostMapping("/create")
-    public Long createCompany(CompanyRest companyRest) {
+    public ObjectId createCompany(CompanyRest companyRest) {
         return companySaveService.saveCompany(companyRest);
     }
 }

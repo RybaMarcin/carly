@@ -48,7 +48,7 @@ public class CarController {
         return carFindService.findPendingVehicleById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create-car")
     public CarRest createCar(CarRest car) {
         return carSaveService.createVehicle(car);
     }

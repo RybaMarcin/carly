@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.service.vehicle_services.VehicleSaveService;
-import org.carly.shared.utils.TimeService;
 import org.carly.vehicle_management.api.model.CarChangeRequestRest;
 import org.carly.vehicle_management.api.model.CarRest;
 import org.carly.vehicle_management.core.mapper.CarMapper;

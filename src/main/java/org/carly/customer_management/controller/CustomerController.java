@@ -21,7 +21,7 @@ public class CustomerController {
         this.customerSaveService = customerSaveService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/customer-by-id/{id}")
     public CustomerRest findCustomer(@PathVariable("id") ObjectId carId) {
         return customerFindService.findCustomerByCarId(carId);
     }

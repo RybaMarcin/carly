@@ -28,5 +28,5 @@ public class UserRest {
     @NotNull
     @NotEmpty
     private String matchingPassword;
-
+    private String role;
 }

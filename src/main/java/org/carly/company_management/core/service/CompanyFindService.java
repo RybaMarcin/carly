@@ -6,12 +6,11 @@ import org.carly.company_management.api.model.CompanyRest;
 import org.carly.company_management.core.mapper.CompanyMapper;
 import org.carly.company_management.core.model.Company;
 import org.carly.company_management.core.repository.CompanyRepository;
+import org.carly.shared.config.EntityNotFoundException;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
 import org.springframework.stereotype.Service;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
+import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
@@ -26,17 +25,18 @@ public class CompanyFindService {
     }
 
     public CompanyRest findCompanyById(ObjectId id) {
-        Company company = companyRepository.findById(id);
+        Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         return companyMapper.simplifyRestObject(company);
     }
 
-    public CompanyRest findPendingCompany(Long id) {
-        Company company = companyRepository.findById(id);
+    //todo
+    public CompanyRest findPendingCompany(ObjectId id) {
+        Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (company != null && company.getRequestStatus() == ChangeRequestStatus.PENDING) {
             log.info("Company with id {} was found! {}", id, company);
             return companyMapper.simplifyRestObject(company);
         }
         log.error("Company with id: {}, not found!", id);
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException(NOT_FOUND);
     }
 }

@@ -7,6 +7,7 @@ import org.carly.user_management.security.CarlyGrantedAuthority;
 import org.carly.user_management.security.UserRole;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 

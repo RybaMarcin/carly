@@ -3,22 +3,30 @@ package org.carly.user_management.core.mapper;
 import org.carly.shared.utils.MapperService;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.model.User;
+import org.carly.user_management.security.CarlyGrantedAuthority;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component
 public class UserMapper implements MapperService<UserRest, User> {
 
     @Override
     public UserRest mapFromDomainObject(User domain, UserRest rest) {
+        rest.setName(domain.getName());
+        rest.setLastName(domain.getLastName());
         rest.setEmail(domain.getEmail());
-        rest.setPassword(domain.getPassword());
         return rest;
     }
 
     @Override
     public User mapToDomainObject(User domain, UserRest rest) {
+        domain.setName(rest.getName());
+        domain.setLastName(rest.getLastName());
         domain.setEmail(rest.getEmail());
         domain.setPassword(rest.getPassword());
+        domain.setRole(new ArrayList<>());
+        domain.getRole().add(CarlyGrantedAuthority.of(rest.getRole()));
         return domain;
     }
 

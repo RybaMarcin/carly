@@ -3,19 +3,14 @@ package org.carly.vehicle_management.core.service;
 import lombok.extern.slf4j.Slf4j;
 import org.carly.shared.config.EntityAlreadyExistsException;
 import org.carly.shared.config.EntityNotFoundException;
-import org.carly.shared.utils.TimeService;
+import org.carly.shared.utils.time.service.TimeService;
 import org.carly.vehicle_management.api.model.CarChangeRequestRest;
-import org.carly.vehicle_management.api.model.ChangeRequestStatusRest;
 import org.carly.vehicle_management.core.model.Car;
 import org.carly.vehicle_management.core.model.CarChangeRequest;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
 import org.carly.vehicle_management.core.repository.CarChangeRequestRepository;
 import org.carly.vehicle_management.core.repository.CarRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 

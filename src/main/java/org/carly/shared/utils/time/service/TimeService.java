@@ -1,4 +1,4 @@
-package org.carly.shared.utils;
+package org.carly.shared.utils.time.service;
 
 import org.springframework.stereotype.Component;
 
@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 
 @Component
 public interface TimeService {
+
     LocalDate getLocalDate();
 
     LocalDateTime getLocalDateTime();
+
 }

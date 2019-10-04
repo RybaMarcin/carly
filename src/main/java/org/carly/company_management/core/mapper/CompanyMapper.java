@@ -6,8 +6,6 @@ import org.carly.shared.utils.MapperService;
 import org.carly.vehicle_management.core.mapper.CarMapper;
 import org.springframework.stereotype.Component;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.stream.Collectors;
 
 @Component

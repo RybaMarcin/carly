@@ -14,14 +14,14 @@ import java.util.UUID;
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
     private final MessageSource messageSource;
-    private final VerificationService verificationService;
+    private final TokenService tokenService;
     private final JavaMailSender mailSender;
 
     public RegistrationListener(MessageSource messageSource,
-                                VerificationService verificationService,
+                                TokenService tokenService,
                                 JavaMailSender mailSender) {
         this.messageSource = messageSource;
-        this.verificationService = verificationService;
+        this.tokenService = tokenService;
         this.mailSender = mailSender;
     }
 
@@ -33,7 +33,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         String token = UUID.randomUUID().toString();
-        verificationService.createVerificationToken(user, token);
+        tokenService.createVerificationToken(user, token);
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
@@ -48,4 +48,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         mailSender.send(email);
     }
 
+    public void sendSimpleEmail(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+    }
 }
