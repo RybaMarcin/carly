@@ -24,7 +24,6 @@ public class UserMapper implements MapperService<UserRest, User> {
         domain.setName(rest.getName());
         domain.setLastName(rest.getLastName());
         domain.setEmail(rest.getEmail());
-        domain.setPassword(rest.getPassword());
         domain.setRole(new ArrayList<>());
         domain.getRole().add(CarlyGrantedAuthority.of(rest.getRole()));
         return domain;

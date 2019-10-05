@@ -1,5 +1,6 @@
 package org.carly.user_management.core.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
 import org.springframework.context.ApplicationListener;
@@ -8,8 +9,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
+@Slf4j
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
@@ -32,8 +32,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
-        String token = UUID.randomUUID().toString();
-        tokenService.createVerificationToken(user, token);
+        String token = tokenService.createVerificationToken(user);
+        log.info("token: {}", token);
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";

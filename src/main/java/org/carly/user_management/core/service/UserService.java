@@ -15,11 +15,12 @@ import org.carly.user_management.security.token.VerificationToken;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,17 +36,22 @@ public class UserService {
     private final UserMapper userMapper;
     private final TimeService timeService;
     private final ApplicationEventPublisher eventPublisher;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
-                       TokenService tokenService, MessageSource messageSource, UserMapper userMapper,
+                       TokenService tokenService,
+                       MessageSource messageSource,
+                       UserMapper userMapper,
                        TimeService timeService,
-                       ApplicationEventPublisher eventPublisher) {
+                       ApplicationEventPublisher eventPublisher,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;
         this.userMapper = userMapper;
         this.timeService = timeService;
         this.eventPublisher = eventPublisher;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -53,6 +59,17 @@ public class UserService {
         User registered = registrationNewUserAccount(userRest);
         publishRegistrationUser(registered, request);
         return registered;
+    }
+
+    private User registrationNewUserAccount(UserRest userRest) {
+        if (emailExists(userRest.getEmail())) {
+            throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
+        }
+        User user = userMapper.simplifyDomainObject(userRest);
+        user.setPassword(passwordEncoder.encode(userRest.getPassword()));
+        user.setCreatedAt(timeService.getLocalDate());
+        user.setEnabled(false);
+        return userRepository.save(user);
     }
 
     private void publishRegistrationUser(User user, WebRequest request) {
@@ -66,16 +83,6 @@ public class UserService {
         }
     }
 
-    private User registrationNewUserAccount(UserRest userRest) {
-        if (emailExists(userRest.getEmail())) {
-            throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
-        }
-        User user = userMapper.simplifyDomainObject(userRest);
-        user.setCreatedAt(timeService.getLocalDate());
-        user.setEnabled(false);
-        return userRepository.save(user);
-    }
-
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
@@ -87,9 +94,9 @@ public class UserService {
             return messageSource.getMessage("auth.message.expired", null, locale);
         }
         User user = verificationToken.getUser();
-        Calendar cal = Calendar.getInstance();
+        LocalDateTime clickedDateTime = timeService.getLocalDateTime();
 
-        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+        if (clickedDateTime.isAfter(verificationToken.getExpiryDate()) || clickedDateTime.isEqual(verificationToken.getExpiryDate())) {
             return messageSource.getMessage("auth.message.expired", null, locale);
         }
         user.setEnabled(true);
@@ -100,7 +107,7 @@ public class UserService {
     public CarlyUserRest login(UserRest userRest) {
         User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         LoggedUser loggedUser = initLogin(user);
-        if (loggedUser.isEnabled()) {
+        if(user.isEnabled()){
             CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
             return carlyUserBuilder
                     .withId(user.getId().toHexString())
@@ -109,6 +116,7 @@ public class UserService {
                     .withRole(provideCurrentRole(user.getRole()))
                     .build();
         }
+
         return null;
     }
 
