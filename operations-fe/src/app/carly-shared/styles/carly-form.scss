@@ -1,0 +1,12 @@
+.column-select {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.edit-buttons {
+  justify-content: flex-end;
+}
+
+.revision-select /deep/ .mat-form-field-infix {
+  width: 240px;
+}
