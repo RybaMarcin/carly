@@ -1,0 +1,4 @@
+export enum Roles {
+  CARLY_OPERATOR = 'CARLY_OPERATOR',
+  CARLY_COMPANY = 'CARLY_COMPANY'
+}
