@@ -1,0 +1,33 @@
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="wheelsDetailsForm"
+        [fg]="generalForm"
+        [name]="'wheelsDetailsForm'"
+        [controls]="wheelsDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+
+      <p>IMPLEMENT ME!!!</p>
+
+    </div>
+
+  </div>
+
+
+  <div class="align-space-between" *ngIf="!isRequest">
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>
+<p>General form: {{ wheelsDetailsForm.value | json }}</p>
+<p>Is form valid: {{ wheelsDetailsForm.valid }}</p>
