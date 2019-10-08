@@ -1,13 +1,11 @@
 package org.carly.user_management.security;
 
-import org.bson.types.ObjectId;
 import org.carly.user_management.api.model.CarlyUserRest;
 
 public class CarlyUserBuilder {
     private String id;
     private String name;
     private String email;
-
     private UserRole role;
 
     public CarlyUserBuilder withId(String id) {

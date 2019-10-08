@@ -7,6 +7,7 @@ public class LoggedUserBuilder {
     private String email;
     private String name;
     private List<CarlyGrantedAuthority> authorities;
+    private boolean enable;
 
     public LoggedUserBuilder withId(String id) {
         this.id = id;
@@ -27,9 +28,13 @@ public class LoggedUserBuilder {
         this.authorities = authorities;
         return this;
     }
+    public LoggedUserBuilder withEnabled(boolean isEnabled){
+        this.enable = isEnabled;
+        return this;
+    }
 
     public LoggedUser build() {
-        return new LoggedUser(id, email, name, authorities);
+        return new LoggedUser(id, email, name, authorities, enable);
     }
 
 }

@@ -1,5 +1,6 @@
 package org.carly.user_management.security;
 
+import org.carly.user_management.core.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,12 +13,14 @@ public class LoggedUser implements UserDetails {
     private String email;
     private String name;
     private List<CarlyGrantedAuthority> authorities;
+    private boolean userEnable;
 
-    public LoggedUser(String id, String email, String name, List<CarlyGrantedAuthority> authorities) {
+    public LoggedUser(String id, String email, String name, List<CarlyGrantedAuthority> authorities, boolean userEnable) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.authorities = authorities;
+        this.userEnable = userEnable;
     }
 
     public String getId() {
@@ -30,6 +33,10 @@ public class LoggedUser implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    private boolean isUserEnable() {
+        return userEnable;
     }
 
     @Override
@@ -64,7 +71,7 @@ public class LoggedUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isUserEnable();
     }
 
     public List<UserRole> getRoles() {

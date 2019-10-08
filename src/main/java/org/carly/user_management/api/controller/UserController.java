@@ -1,15 +1,20 @@
 package org.carly.user_management.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.carly.shared.utils.mail_service.MailService;
 import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.UserRest;
+import org.carly.user_management.core.config.LoggedUserProvider;
+import org.carly.user_management.core.model.Password;
 import org.carly.user_management.core.model.User;
-import org.carly.user_management.core.service.RegistrationListener;
 import org.carly.user_management.core.service.UserService;
+import org.carly.user_management.security.LoggedUser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Slf4j
@@ -18,12 +23,15 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final RegistrationListener registrationListener;
+    private final MailService mailService;
+    private final LoggedUserProvider loggedUserProvider;
 
     public UserController(UserService userService,
-                          RegistrationListener registrationListener) {
+                          MailService mailService,
+                          LoggedUserProvider loggedUserProvider) {
         this.userService = userService;
-        this.registrationListener = registrationListener;
+        this.mailService = mailService;
+        this.loggedUserProvider = loggedUserProvider;
     }
 
     @PostMapping("/registration")
@@ -47,16 +55,33 @@ public class UserController {
         return userService.confirmRegistration(request, token);
     }
 
+    @PostMapping("/resetPassword")
+    public ResponseEntity<String> resetPassword(HttpServletRequest request,
+                                                @RequestParam("email") String email) {
+        return userService.resetUserPassword(request, email);
+    }
+
+    @GetMapping("/changePassword")
+    public ResponseEntity changePassword(@RequestParam("id") String id,
+                                                 @RequestParam("token") String token) {
+        return userService.changePassword(id, token);
+    }
+
+    @GetMapping("/savePassword")
+    public ResponseEntity saveNewPassword(@Valid @RequestBody Password password){
+        LoggedUser loggedUser = loggedUserProvider.provideCurrent();
+        return userService.saveNewPassword(loggedUser, password.getNewPassword());
+    }
+
     @GetMapping("/login")
     public CarlyUserRest login(@Valid @RequestBody UserRest userRest,
                                BindingResult result) {
         return userService.login(userRest);
     }
 
-
     //for mail test
     @GetMapping("/send")
     public void sendMail() {
-        registrationListener.sendSimpleEmail("d.szwajkos@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
+        mailService.sendSimpleEmail("d.szwajkos@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
     }
 }
