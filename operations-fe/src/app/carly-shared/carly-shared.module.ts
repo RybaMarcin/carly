@@ -57,6 +57,7 @@ import { BreaksComponent } from './components/breaks/breaks.component';
 import { BreaksAddComponent } from './components/breaks/breaks-add/breaks-add.component';
 import { BreaksEditComponent } from './components/breaks/breaks-edit/breaks-edit.component';
 import { BreaksFormComponent } from './components/breaks/breaks-form/breaks-form.component';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 
 @NgModule({
   imports: [
@@ -109,6 +110,7 @@ import { BreaksFormComponent } from './components/breaks/breaks-form/breaks-form
     BreaksAddComponent,
     BreaksEditComponent,
     BreaksFormComponent,
+    SideMenuComponent,
   ],
   providers: [
     BreakpointService,

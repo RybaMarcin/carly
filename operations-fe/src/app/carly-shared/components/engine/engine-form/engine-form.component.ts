@@ -154,7 +154,7 @@ export class EngineFormComponent implements OnInit {
     //     this.router.navigate(['/'])
     //   });
     //
-    this.router.navigate(['/parts/engine']);
+    this.router.navigate(['/parts/engines']);
   }
 
 

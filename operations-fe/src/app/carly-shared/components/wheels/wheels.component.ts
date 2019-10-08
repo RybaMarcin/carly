@@ -15,7 +15,7 @@ import {HttpParamsUtils} from "../../utils/http/http-params-utils";
 @Component({
   selector: 'wheels',
   templateUrl: './wheels.component.html',
-  styleUrls: ['./wheels.component.scss']
+  styleUrls: ['./wheels.component.scss', '../../../carly-shared/styles/table-card.scss']
 })
 export class WheelsComponent implements OnInit {
 
@@ -53,10 +53,10 @@ export class WheelsComponent implements OnInit {
   ngOnInit() {
     this.datasource = new WheelsDatasource(this.wheelsService, this.paginator, this.messageService);
 
-    merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadCompanies());
+    merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadWheels());
   }
 
-  loadCompanies() {
+  loadWheels() {
     this.datasource.reload(this.buildSearchParams());
   }
 

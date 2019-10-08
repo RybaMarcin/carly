@@ -1,3 +1,33 @@
-<p>
-  breaks-form works!
-</p>
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="breaksDetailsForm"
+        [fg]="generalForm"
+        [name]="'breaksDetailsForm'"
+        [controls]="breaksDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+
+      <div class="image-preview">
+        <img src="" alt="">
+      </div>
+
+    </div>
+
+  </div>
+  <div class="align-space-between" *ngIf="!isRequest">
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>
+<p>General form: {{ breaksDetailsForm.value | json }}</p>
+<p>Is form valid: {{ breaksDetailsForm.valid }}</p>

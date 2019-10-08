@@ -14,5 +14,8 @@ export namespace Breaks {
 
   export type PUT = Model;
 
+  export enum BreaksType {
+
+  }
 
 }

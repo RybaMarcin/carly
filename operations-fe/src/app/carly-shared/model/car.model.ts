@@ -25,7 +25,7 @@ export namespace Car {
     yearOfProduction: Date;
     engine: Engine.Model;
     transmission: Transmission;
-    tires: Tires;
+    tires: Tires.Model;
     wheels: Wheels.Model;
     windows: Windows.Model;
     carBody: CarBody;

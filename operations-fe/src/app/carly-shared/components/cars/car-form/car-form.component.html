@@ -1,3 +1,10 @@
-<p>
-  car-form works!
-</p>
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <mat-divider class="divider-bigger"></mat-divider>
+
+  <div class="align-space-between" *ngIf="!isRequest">
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+
+</form>
