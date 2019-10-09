@@ -14,7 +14,9 @@ import {WheelsManagementService} from "../../../resources/wheels-management.serv
 @Component({
   selector: 'wheels-form',
   templateUrl: './wheels-form.component.html',
-  styleUrls: ['./wheels-form.component.scss']
+  styleUrls: ['./wheels-form.component.scss',
+    '../../../../carly-shared/styles/side-nav.scss',
+    '../../../../carly-shared/styles/buttons.scss']
 })
 export class WheelsFormComponent implements OnInit {
 
