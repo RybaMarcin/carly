@@ -15,6 +15,7 @@ import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.repository.UserRepository;
 import org.carly.user_management.security.*;
+import org.carly.user_management.security.config.LoginOrPasswordException;
 import org.carly.user_management.security.config.TokenTimeException;
 import org.carly.user_management.security.token.VerificationToken;
 import org.springframework.context.ApplicationEventPublisher;
@@ -123,8 +124,8 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.ok().toString();
     }
 
-    public CarlyUserRest login(LoginRest userRest) {
-        User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+    public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {
+        User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new LoginOrPasswordException(NOT_FOUND));
         boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
         if (matches) {
             LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
@@ -138,7 +139,7 @@ public class UserService implements UserDetailsService {
                         .build();
             }
         }
-        throw new IllegalArgumentException();
+        throw new LoginOrPasswordException("Password or Email was incorrect");
     }
 
     @Override

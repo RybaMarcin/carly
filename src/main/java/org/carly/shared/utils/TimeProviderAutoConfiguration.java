@@ -1,10 +1,10 @@
-package org.carly.shared.utils.time;
+package org.carly.shared.utils;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({"com.ds.config.time.service", "com.ds.config.time.api"})
+@ComponentScan({"org.carly.shared.utils"})
 public class TimeProviderAutoConfiguration {
 
 }

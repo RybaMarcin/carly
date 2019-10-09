@@ -1,12 +1,11 @@
 package org.carly.user_management.core.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.carly.shared.utils.mail_service.MailService;
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -15,14 +14,14 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private final MessageSource messageSource;
     private final TokenService tokenService;
-    private final JavaMailSender mailSender;
+    private final MailService mailService;
 
     public RegistrationListener(MessageSource messageSource,
                                 TokenService tokenService,
-                                JavaMailSender mailSender) {
+                                MailService mailService) {
         this.messageSource = messageSource;
         this.tokenService = tokenService;
-        this.mailSender = mailSender;
+        this.mailService = mailService;
     }
 
     @Override
@@ -35,16 +34,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String token = tokenService.createVerificationToken(user);
         log.info("token: {}", token);
 
-        String recipientAddress = user.getEmail();
-        String subject = "Registration Confirmation";
-        String confirmUrl = event.getAppUrl() + "/registrationConfirm.html?token=" + token;
-        String message = messageSource.getMessage("message.regSucc", null, event.getLocale());
+        String confirmUrl = event.getAppUrl();
+//        String message = messageSource.getMessage("message.regSucc", null, event.getLocale());
+        String text = "http://localhost:8080/user/registrationConfirm.html?token=" + token;
 
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientAddress);
-        email.setSubject(subject);
-        email.setText(message + " rn" + "http://localhost:8080" + confirmUrl);
-
-        mailSender.send(email);
+        mailService.sendSimpleEmail(user.getEmail(), "Registration Confirmation", text);
+        log.info("Mail was sent");
     }
 }

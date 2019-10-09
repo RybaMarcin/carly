@@ -18,7 +18,7 @@ public class UserRest {
     @NotNull
     @NotEmpty
     private String lastName;
-    @ValidEmail
+//    @ValidEmail
     @NotNull
     @NotEmpty
     private String email;

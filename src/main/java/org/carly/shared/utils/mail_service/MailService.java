@@ -12,7 +12,8 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final LoggedUserProvider loggedUserProvider;
 
-    public MailService(JavaMailSender mailSender, LoggedUserProvider loggedUserProvider) {
+    public MailService(JavaMailSender mailSender,
+                       LoggedUserProvider loggedUserProvider) {
         this.mailSender = mailSender;
         this.loggedUserProvider = loggedUserProvider;
     }

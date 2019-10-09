@@ -11,10 +11,13 @@ import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.service.UserService;
 import org.carly.user_management.security.LoggedUser;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -56,20 +59,23 @@ public class UserController {
         return userService.confirmRegistration(request, token);
     }
 
+    @PreAuthorize("hasAnyAuthority('CUSTOMER','OPERATIONS')")
     @PostMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(HttpServletRequest request,
                                                 @RequestParam("email") String email) {
         return userService.resetUserPassword(request, email);
     }
 
+    @PreAuthorize("hasAnyAuthority('CUSTOMER', 'OPERATIONS')")
     @GetMapping("/changePassword")
     public ResponseEntity changePassword(@RequestParam("id") String id,
-                                                 @RequestParam("token") String token) {
+                                         @RequestParam("token") String token) {
         return userService.changePassword(id, token);
     }
 
+    @PreAuthorize("hasAnyAuthority('CHANGE_PASSWORD_PRIVILEGE', 'OPERATIONS')")
     @GetMapping("/savePassword")
-    public ResponseEntity saveNewPassword(@Valid @RequestBody Password password){
+    public ResponseEntity saveNewPassword(@Valid @RequestBody Password password) {
         LoggedUser loggedUser = loggedUserProvider.provideCurrent();
         return userService.saveNewPassword(loggedUser, password.getNewPassword());
     }
@@ -83,6 +89,6 @@ public class UserController {
     //for mail test
     @GetMapping("/send")
     public void sendMail() {
-        mailService.sendSimpleEmail("d.szwajkos@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
+        mailService.sendSimpleEmail("ryba.marcin20@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
     }
 }
