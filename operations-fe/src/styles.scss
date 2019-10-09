@@ -138,10 +138,13 @@ html, body {
 
   .flex-container {
     display: flex;
+    justify-content: flex-start;
+    align-content: stretch;
   }
 
   .flex-container-content {
-    flex-grow: 1;
+    flex: 50%;
+    //border: 1px solid mediumpurple;
   }
 
   .vertical-divider {

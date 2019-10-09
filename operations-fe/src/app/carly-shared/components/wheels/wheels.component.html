@@ -1,12 +1,11 @@
-<section>
-
-  <div class="flex-container">
-
-    <div>
-      <side-menu></side-menu>
-    </div>
-
-    <div class="content">
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <a [routerLink]="['/parts/engines']">ENGINE</a>
+    <a [routerLink]="['/parts/wheels']">WHEELS</a>
+    <a [routerLink]="['/parts/breaks']">BREAKS</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section>
 
       <h2 class="align-space-between">
         Wheels
@@ -62,9 +61,7 @@
       <div class="full-width warning-no-records" *ngIf="datasource.dataToDisplay.length == 0">
         No records found...
       </div>
+    </section>
+  </mat-sidenav-content>
 
-    </div>
-
-  </div>
-
-</section>
+</mat-sidenav-container>

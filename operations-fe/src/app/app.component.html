@@ -1,39 +1,18 @@
 <header>
-<!--  <mat-toolbar class="toolbar-header">-->
-<!--    <mat-toolbar-row class="toolbar-header-row">-->
-<!--      <img src="/assets/carly_logo.png" alt="Carly">-->
-<!--      <img alt="Carly">-->
-<!--      <div>-->
-<!--        <span></span>-->
-<!--        <app-notification-badge *ngIf="notificationIsActive"></app-notification-badge>-->
-<!--      </div>-->
-<!--    </mat-toolbar-row>-->
-<!--  </mat-toolbar>-->
-  <mat-toolbar class="toolbar-subheader" color="primary">
-    <mat-toolbar-row class="toolbar-subheader-row">
-      <img src="/assets/carly_logo.png" alt="Carly">
-      <a [routerLink]="['/dashboard']">dashboard</a>
-
-<!--      todo: Uncomment links below when user management service will be finished!!!!-->
-
-      <!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/companies']">Companies</a>-->
-<!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/cars']">Cars</a>-->
-<!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/parts']">Parts</a>-->
-<!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/customers']">Customers</a>-->
-<!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/matching']">Matchings</a>-->
-<!--      <a *userCanAccess="[CarlyOperator, CarlyCompany]" [routerLink]="['/details']">Company Data</a>-->
-
-
-      <a [routerLink]="['/companies']">companies</a>
-      <a [routerLink]="['/cars']">cars</a>
-      <a [routerLink]="['/parts']">parts</a>
-      <a [routerLink]="['/customers']">customers</a>
-      <a [routerLink]="['/matching']">matchings</a>
-      <a [routerLink]="['/details']">company Data</a>
-
-
-      <a [routerLink]="['/logout']">logout</a>
-    </mat-toolbar-row>
+  <mat-toolbar class="toolbar-header" color="primary">
+      <div>
+        <img src="/assets/carly_logo.png" alt="Carly">
+      </div>
+      <div>
+        <a [routerLink]="['/dashboard']">dashboard</a>
+        <a [routerLink]="['/companies']">companies</a>
+        <a [routerLink]="['/cars']">cars</a>
+        <a [routerLink]="['/parts']">parts</a>
+        <a [routerLink]="['/customers']">customers</a>
+        <a [routerLink]="['/matching']">matchings</a>
+        <a [routerLink]="['/details']">company data</a>
+        <a [routerLink]="['/logout']">logout</a>
+      </div>
   </mat-toolbar>
 </header>
 
@@ -43,12 +22,10 @@
 
 <footer>
   <mat-toolbar class="toolbar-footer">
-    <mat-toolbar-row class="toolbar-footer-row">
-      <a href="#">Contact us</a>
-      <a href="#">FAQ</a>
-      <a href="#">About</a>
-      <a href="#">Legal information</a>
-      <a href="#">Site security</a>
-    </mat-toolbar-row>
+    <a href="#">Contact us</a>
+    <a href="#">FAQ</a>
+    <a href="#">About</a>
+    <a href="#">Legal information</a>
+    <a href="#">Site security</a>
   </mat-toolbar>
 </footer>

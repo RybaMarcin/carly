@@ -16,15 +16,12 @@
     <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
 
     <div class="flex-container-content">
-
-      <div class="image-preview">
-        <img src="../../../assets/wheels/wheels_1.png" alt="">
-      </div>
-
+      <img src="../../../assets/wheels/{{getWheelsPreview()}}" class="image-preview">
     </div>
 
   </div>
 
+  <mat-divider class="divider-large divider-blank"></mat-divider>
 
   <div class="align-space-between" *ngIf="!isRequest">
     <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>

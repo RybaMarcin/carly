@@ -7,15 +7,18 @@ import {MessageService} from "../../services/message.service";
 import {FormBuilder} from "@angular/forms";
 import {EngineManagementService} from "../../resources/engine-management.service";
 import {EnginesDatasource} from "./engines-datasource";
-import {enginesFilterFormFields} from "./engines-filter-form";
 import {merge} from "rxjs";
 import {HttpParamsUtils} from "../../utils/http/http-params-utils";
 import {FilterMask} from "../../model/filter.model";
+import {partsFilterFormFields} from "../parts/parts-filter-form";
 
 @Component({
   selector: 'engines',
   templateUrl: './engines.component.html',
-  styleUrls: ['./engines.component.scss',  '../../../carly-shared/styles/table-card.scss']
+  styleUrls: ['./engines.component.scss',
+    '../../../carly-shared/styles/table-card.scss',
+    '../../../carly-shared/styles/side-nav.scss',
+    '../../../carly-shared/styles/buttons.scss']
 })
 export class EnginesComponent implements OnInit {
 
@@ -23,7 +26,7 @@ export class EnginesComponent implements OnInit {
   @ViewChild('filterBar') filterBar: FilterBarComponent;
   @ViewChild(MatSort) sort: MatSort;
 
-  public engineFilterFormControls = this.fgService.addControlToModel(enginesFilterFormFields);
+  public engineFilterFormControls = this.fgService.addControlToModel(partsFilterFormFields);
   public engineFilterForm = this.fb.group(this.fgService.getControlsFromModel(this.engineFilterFormControls));
 
   public generalForm = this.fb.group({engineFilterForm: this.engineFilterForm});
@@ -52,7 +55,8 @@ export class EnginesComponent implements OnInit {
   ngOnInit() {
     this.datasource = new EnginesDatasource(this.engineService, this.paginator, this.messageService);
 
-    merge(this.sort.sortChange, this.engineFilterForm.value).subscribe(() => this.loadEngines());
+    // todo: Uncomment below when backend will be finished.
+    // merge(this.sort.sortChange, this.engineFilterForm.value).subscribe(() => this.loadEngines());
   }
 
   loadEngines() {

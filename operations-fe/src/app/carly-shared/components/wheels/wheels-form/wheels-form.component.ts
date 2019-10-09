@@ -54,6 +54,8 @@ export class WheelsFormComponent implements OnInit {
     });
 
 
+    this.wheelsDetailsForm.get('preview').setValue('wheel_1.png');
+
     if(this.wheels) {
       this.setFormValue(this.wheels);
     }
@@ -188,6 +190,10 @@ export class WheelsFormComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  getWheelsPreview(): string {
+    return this.wheelsDetailsForm.get('preview').value;
   }
 
 

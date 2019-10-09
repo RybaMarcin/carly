@@ -6,16 +6,19 @@ import {FormGroupHelperService} from "../../services/form-group-helper.service";
 import {MessageService} from "../../services/message.service";
 import {FormBuilder} from "@angular/forms";
 import {WheelsManagementService} from "../../resources/wheels-management.service";
-import {wheelsFilterFormFields} from "./wheels-filter-form";
 import {WheelsDatasource} from "./wheels-datasource";
 import {FilterMask} from "../../model/filter.model";
 import {merge} from "rxjs";
 import {HttpParamsUtils} from "../../utils/http/http-params-utils";
+import {partsFilterFormFields} from "../parts/parts-filter-form";
 
 @Component({
   selector: 'wheels',
   templateUrl: './wheels.component.html',
-  styleUrls: ['./wheels.component.scss', '../../../carly-shared/styles/table-card.scss']
+  styleUrls: ['./wheels.component.scss',
+    '../../../carly-shared/styles/table-card.scss',
+    '../../../carly-shared/styles/side-nav.scss',
+    '../../../carly-shared/styles/buttons.scss']
 })
 export class WheelsComponent implements OnInit {
 
@@ -23,7 +26,7 @@ export class WheelsComponent implements OnInit {
   @ViewChild('filterBar') filterBar: FilterBarComponent;
   @ViewChild(MatSort) sort: MatSort;
 
-  public wheelsFilterFormControls = this.fgService.addControlToModel(wheelsFilterFormFields);
+  public wheelsFilterFormControls = this.fgService.addControlToModel(partsFilterFormFields);
   public wheelsFilterForm = this.fb.group(this.fgService.getControlsFromModel(this.wheelsFilterFormControls));
 
   public generalForm = this.fb.group({
@@ -53,7 +56,8 @@ export class WheelsComponent implements OnInit {
   ngOnInit() {
     this.datasource = new WheelsDatasource(this.wheelsService, this.paginator, this.messageService);
 
-    merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadWheels());
+    // todo: Uncomment below when backend will be finished.
+    // merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadWheels());
   }
 
   loadWheels() {
