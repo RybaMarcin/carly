@@ -4,12 +4,10 @@ import org.bson.types.ObjectId;
 import org.carly.company_management.api.model.CompanyRest;
 import org.carly.company_management.core.service.CompanyFindService;
 import org.carly.company_management.core.service.CompanySaveService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/company")
+@RestController
+@RequestMapping("/company")
 public class CompanyController {
 
     private final CompanyFindService companyFindService;
@@ -31,7 +29,7 @@ public class CompanyController {
     }
 
     @PostMapping("/create")
-    public ObjectId createCompany(CompanyRest companyRest) {
+    public ObjectId createCompany(@RequestBody CompanyRest companyRest) {
         return companySaveService.saveCompany(companyRest);
     }
 }

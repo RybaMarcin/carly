@@ -12,5 +12,4 @@ public class CarlyUserRest {
     private String name;
     private String email;
     private UserRole role;
-
 }

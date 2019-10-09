@@ -3,6 +3,7 @@ package org.carly.user_management.api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.carly.shared.utils.mail_service.MailService;
 import org.carly.user_management.api.model.CarlyUserRest;
+import org.carly.user_management.api.model.LoginRest;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.config.LoggedUserProvider;
 import org.carly.user_management.core.model.Password;
@@ -74,7 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public CarlyUserRest login(@Valid @RequestBody UserRest userRest,
+    public CarlyUserRest login(@Valid @RequestBody LoginRest userRest,
                                BindingResult result) {
         return userService.login(userRest);
     }

@@ -1,6 +1,5 @@
 package org.carly.user_management.security;
 
-import org.carly.user_management.core.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

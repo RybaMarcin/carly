@@ -7,11 +7,11 @@ import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.utils.mail_service.MailService;
 import org.carly.shared.utils.time.service.TimeService;
 import org.carly.user_management.api.model.CarlyUserRest;
+import org.carly.user_management.api.model.LoginRest;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.config.LoggedUserProvider;
 import org.carly.user_management.core.mapper.UserMapper;
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
-import org.carly.user_management.core.model.Password;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.repository.UserRepository;
 import org.carly.user_management.security.*;
@@ -30,10 +30,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -88,6 +86,7 @@ public class UserService implements UserDetailsService {
         User user = userMapper.simplifyDomainObject(userRest);
         user.setPassword(passwordEncoder.encode(userRest.getPassword()));
         user.setCreatedAt(timeService.getLocalDate());
+        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name())));
         user.setEnabled(false);
         return userRepository.save(user);
     }
@@ -124,19 +123,22 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.ok().toString();
     }
 
-    public CarlyUserRest login(UserRest userRest) {
-        LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
-        if (loggedUser.isEnabled()) {
-            CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
-            return carlyUserBuilder
-                    .withId(loggedUser.getId())
-                    .withEmail(loggedUser.getEmail())
-                    .withName(loggedUser.getName())
-                    .withRole(provideCurrentRole(loggedUser.getRoles()))
-                    .build();
+    public CarlyUserRest login(LoginRest userRest) {
+        User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        if (matches) {
+            LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
+            if (loggedUser.isEnabled()) {
+                CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
+                return carlyUserBuilder
+                        .withId(loggedUser.getId())
+                        .withEmail(loggedUser.getEmail())
+                        .withName(loggedUser.getName())
+                        .withRole(provideCurrentRole(loggedUser.getRoles()))
+                        .build();
+            }
         }
-
-        return null;
+        throw new IllegalArgumentException();
     }
 
     @Override
