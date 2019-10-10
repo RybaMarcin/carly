@@ -21,13 +21,14 @@ import {CarsComponent} from "./carly-operator/components/cars/cars.component";
 import {CarsAddComponent} from "./carly-company/components/cars/cars-add/cars-add.component";
 import {CarEditComponent} from "./carly-shared/components/cars/car-edit/car-edit.component";
 import {LoginComponent} from "./login/login.component";
+import {RegistrationComponent} from "./registration/registration.component";
 
 
 const ROUTES: Routes = [
 
   {path: 'logout', component: LogoutComponent},
   {path: 'login', component: LoginComponent},
-
+  {path: 'registration', component: RegistrationComponent},
   //TODO: Uncomment paths below when authentication will be finished!
 
   // {
