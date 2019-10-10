@@ -1,3 +1,17 @@
-<p>
-  login works!
-</p>
+<div class="login-container">
+  <h2>Login to Carly</h2>
+  <div>
+    <div class="input-field">
+      <h3>Username:</h3>
+      <input type="text" [(ngModel)]="username">
+    </div>
+    <div class="input-field">
+      <h3>Password:</h3>
+      <input type="password" [(ngModel)]="password">
+    </div>
+  </div>
+
+  <mat-divider class="divider-large"></mat-divider>
+
+  <button mat-stroked-button color="primary" (click)="checkLogin()">Login</button>
+</div>

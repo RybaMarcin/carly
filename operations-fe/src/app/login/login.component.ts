@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogin() {
+    console.log(400, this.username);
+    console.log(410, this.password);
     // this.loginService.authenticate().subscribe()
   }
 
