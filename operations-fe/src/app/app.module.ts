@@ -14,6 +14,7 @@ import {AppRoutingModule} from "./app.routing";
 import {UserManagementService} from "./carly-shared/resources/user-management.service";
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 
 // const userContextFactory = (userService: UserManagementService) => {
 //   return () => userService.getUserContext();
@@ -38,7 +39,8 @@ import { RegistrationComponent } from './registration/registration.component';
     AppComponent,
     LogoutComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RegistrationFormComponent
   ],
   providers: [
     // {

@@ -1,0 +1,36 @@
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="registrationDetailsForm"
+        [fg]="generalForm"
+        [name]="'registrationDetailsForm'"
+        [controls]="registrationDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
+
+    </div>
+
+    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+
+
+    </div>
+
+  </div>
+
+  <mat-divider class="divider-large divider-blank"></mat-divider>
+
+  <div>
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+
+
+</form>
+<p>General form value: {{generalForm.value | json}}</p>
+<p>Is form valid: {{generalForm.valid}}</p>
