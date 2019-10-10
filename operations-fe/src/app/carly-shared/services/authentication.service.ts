@@ -19,8 +19,8 @@ export class AuthenticationService {
   ) {
   }
 
-  authenticate(params: HttpParams): Observable<User> {
-    return this.http.get<User>(`${this.carlyApi}/user/login`, {params});
+  authenticate(login: User): Observable<User> {
+    return this.http.post<User>(`${this.carlyApi}/user/login`, login);
   }
 
 }

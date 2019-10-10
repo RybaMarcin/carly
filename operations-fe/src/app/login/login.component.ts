@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../carly-shared/services/authentication.service";
 import {Login} from "../carly-shared/model/login.model";
+import {User} from "../carly-shared/model/user.model";
 
 @Component({
   selector: 'login',
@@ -10,7 +11,7 @@ import {Login} from "../carly-shared/model/login.model";
 })
 export class LoginComponent implements OnInit {
 
-  username = "";
+  email = "";
   password = "";
   invalidLogin = false;
 
@@ -26,9 +27,20 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogin() {
-    console.log(400, this.username);
+    console.log(400, this.email);
     console.log(410, this.password);
-    // this.loginService.authenticate().subscribe()
+
+    const login: User = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.loginService.authenticate(login).subscribe(data => {
+      console.log(data);
+    },
+      error => {
+        console.log(error)
+      });
   }
 
 

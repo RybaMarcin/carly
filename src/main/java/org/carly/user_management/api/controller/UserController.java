@@ -78,8 +78,8 @@ public class UserController {
         return userService.saveNewPassword(loggedUser, password.getNewPassword());
     }
 
-    @GetMapping("/login")
-    public CarlyUserRest login(@Valid @RequestBody LoginRest userRest,
+    @PostMapping("/login")
+    public CarlyUserRest login(@RequestBody LoginRest userRest,
                                BindingResult result) {
         return userService.login(userRest);
     }
