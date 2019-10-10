@@ -1,0 +1,34 @@
+<mat-form-field class="column-filter" [formGroup]="filterForm">
+  <mat-chip-list #chipList>
+    <mat-chip
+      formArrayName="filterValues"
+      *ngFor="let filter of queryParamModel; let ind = index;"
+      [selectable]="!preventRemove"
+      [removable]="!preventRemove"
+      [disabled]="preventRemove"
+      (removed)="onRemoveFilter(filter)">
+      {{filter.label}}:
+      <input
+          #i
+          class="filter-value-input"
+          (focus)="onFocus(i, filter)"
+          (blur)="onBlur()"
+          placeholder="Type value"
+          [value]="filter.value"
+          type="text"/>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      [placeholder]="'Search filter'"
+      #filterColumnInput
+      [formControl]="columnFilterCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectOption($event)">
+    <mat-option *ngFor="let filter of autocompletedFilters$ | async" [value]="filter">
+      {{filter.label}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

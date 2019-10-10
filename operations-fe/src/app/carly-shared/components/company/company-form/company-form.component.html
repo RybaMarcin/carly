@@ -1,0 +1,30 @@
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <h3>Company details:</h3>
+
+  <form-group
+    *ngIf="companyDetailsForm"
+    [fg]="generalForm"
+    [name]="'companyDetailsForm'"
+    [controls]="companyDetailsFormControls"
+    [gridColumns]="gridColumns"></form-group>
+
+  <mat-divider class="divider-large"></mat-divider>
+
+  <h3>Address details:</h3>
+
+  <form-group
+    *ngIf="addressDetailsFormFields"
+    [fg]="generalForm"
+    [name]="'addressDetailsFormFields'"
+    [controls]="addressDetailsFormControls"
+    [gridColumns]="gridColumns"></form-group>
+
+
+  <div class="align-space-between" *ngIf="!isRequest">
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>
+<p>General form: {{generalForm.value | json}}</p>
+<p>Is form valid: {{generalForm.valid}}</p>

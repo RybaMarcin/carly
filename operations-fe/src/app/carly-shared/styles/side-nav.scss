@@ -1,0 +1,31 @@
+@import "../../../colors.scss";
+
+mat-sidenav-container {
+  border: 1px solid blue;
+  margin: -10px -25px;
+  height: 100%;
+}
+
+mat-sidenav-content {
+  padding: 10px 25px;
+  background-color: $bodyBg;
+}
+
+mat-sidenav {
+  height: 100%;
+  float: left;
+  width: 200px;
+  background: $sidebarMenu;
+
+  a {
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 20px;
+  }
+
+  a:hover, a.active {
+    background-color: $bodyBg;
+  }
+}
