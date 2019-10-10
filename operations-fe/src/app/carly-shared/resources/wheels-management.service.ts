@@ -33,5 +33,8 @@ export class WheelsManagementService {
     return this.http.put<Wheels.Model>(`${this.wheelsManagementApi}`, wheels);
   }
 
+  getAllWheels(): Observable<Wheels.Model[]> {
+    return this.http.get<Wheels.Model[]>(`${this.wheelsManagementApi}/all-wheelss`);
+  }
 
 }
