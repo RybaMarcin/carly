@@ -1,0 +1,57 @@
+<section>
+  <h2 class="align-space-between">
+    Cars
+    <div>
+      <button (click)="clearFilters()" mat-flat-button color="accent">
+        clear all
+      </button>
+      <button mat-stroked-button color="accent" [routerLink]="['add']">
+        add car
+      </button>
+    </div>
+  </h2>
+
+  <div class="filter-container">
+    <div class="filter-car-container">
+      <filter-bar #filterBar [columnsToFilter]="columnsToFilter" (modelUpdateEvent)="loadCars()"></filter-bar>
+    </div>
+    <div class="dates-container">
+      <form-group
+        [fg]="generalForm"
+        [name]="'carsFilterForm'"
+        [controls]="carsFilterFormControls"
+        [gridColumns]="2"></form-group>
+    </div>
+  </div>
+
+  <div class="full-width" *ngIf="datasource.loading">
+    Searching, please wait...
+  </div>
+
+  <div *ngIf="datasource.loading">
+    <mat-progress-bar mode="indeterminate" class="full-width"></mat-progress-bar>
+  </div>
+
+
+  <table>
+
+    <!--todo: Finish implementation-->
+
+  </table>
+
+  <div class="full-width">
+    <mat-paginator #paginator
+                    class="paginator"
+                    [length]="datasource.max"
+                    [pageIndex]="0"
+                    [pageSize]="20"
+                    [pageSizeOptions]="[20, 50, 100]"
+                    [hidden]="datasource.dataToDisplay.length == 0">
+    </mat-paginator>
+  </div>
+
+  <div class="full-width warning-no-records" *ngIf="datasource.dataToDisplay.length == 0">
+    No records found...
+  </div>
+
+</section>
