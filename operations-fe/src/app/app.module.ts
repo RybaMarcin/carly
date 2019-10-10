@@ -15,6 +15,7 @@ import {UserManagementService} from "./carly-shared/resources/user-management.se
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { RegistrationConfirmationComponent } from './registration/registration-confirmation/registration-confirmation.component';
 
 // const userContextFactory = (userService: UserManagementService) => {
 //   return () => userService.getUserContext();
@@ -40,7 +41,8 @@ import { RegistrationFormComponent } from './registration/registration-form/regi
     LogoutComponent,
     LoginComponent,
     RegistrationComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    RegistrationConfirmationComponent
   ],
   providers: [
     // {
