@@ -13,7 +13,7 @@ export class RegistrationService {
   //todo: uncomment this when endpoint will be ready.
 
   // private userManagementApi = `${BASE_API_URL}`;
-  private userManagementApi = "http://localhost:8080/user/registration";
+  private userManagementApi = "api";
 
   constructor(
     protected http: HttpClient
@@ -23,7 +23,7 @@ export class RegistrationService {
 
   createNewAccount(newUser: Registration.POST): Observable<Registration.Model> {
     debugger;
-    return this.http.post<Registration.POST>(`${this.userManagementApi}`, newUser);
+    return this.http.post<Registration.POST>(`${this.userManagementApi}/user/registration`, newUser);
   }
 
 }
