@@ -13,6 +13,7 @@ import {LocalStorageModule} from "angular-2-local-storage";
 import {AppRoutingModule} from "./app.routing";
 import {UserManagementService} from "./carly-shared/resources/user-management.service";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 // const userContextFactory = (userService: UserManagementService) => {
 //   return () => userService.getUserContext();
@@ -36,7 +37,8 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     LogoutComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   providers: [
     // {
