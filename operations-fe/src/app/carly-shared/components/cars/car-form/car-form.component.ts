@@ -14,6 +14,8 @@ import {Wheels} from "../../../model/wheels.model";
 import {Breaks} from "../../../model/breaks.model";
 import {Tires} from "../../../model/tires.model";
 import {Breakpoints} from "../../../model/breakpoints.model";
+import {carDetailsFormFields} from "./car-form-fields";
+import {CarManagementService} from "../../../resources/car-management.service";
 
 @Component({
   selector: 'car-form',
@@ -30,30 +32,34 @@ export class CarFormComponent implements OnInit {
 
   generalForm: FormGroup;
 
+  carDetailsForm: FormGroup;
+  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields);
+
+
   gridColumns = 1;
 
   //Parts
   engine: Engine.Model;
+  allEngines: Engine.Model[];
+
   wheels: Wheels.Model;
+  allWheels: Wheels.Model[];
+
   breaks: Breaks.Model;
+  allBreaks: Breaks.Model[];
+
   tires: Tires.Model;
-
-
-  constructor(
-      private formBuilder: FormBuilder,
-      private messageService: MessageService,
-      private router: Router,
-      private breakpointService: BreakpointService,
-      private fgService: FormGroupHelperService,
-      private engineService: EngineManagementService,
-      private wheelsService: WheelsManagementService,
-      private breaksService: BreaksManagementService
-  ) {
-  }
-
   ngOnInit() {
 
-    this.generalForm = this.formBuilder.group([]);
+    this.getAllPartsForCar();
+
+    this.carDetailsForm = this.formBuilder.group(
+      this.fgService.getControlsFromModel(this.carDetailsFormControls)
+    );
+
+    this.generalForm = this.formBuilder.group({
+      carDetailsForm: this.carDetailsForm
+    });
 
     const setGridColumn = (breakpoint: string) => {
       switch(breakpoint) {
@@ -77,11 +83,36 @@ export class CarFormComponent implements OnInit {
       console.log(510, this.findInvalidControls());
     })
 
+  }
 
 
 
+
+  allTires: Tires.Model[];
+
+  constructor(
+      private formBuilder: FormBuilder,
+      private messageService: MessageService,
+      private router: Router,
+      private breakpointService: BreakpointService,
+      private fgService: FormGroupHelperService,
+      private engineService: EngineManagementService,
+      private wheelsService: WheelsManagementService,
+      private breaksService: BreaksManagementService,
+      private carService: CarManagementService
+  ) {
+  }
+
+
+  getAllPartsForCar() {
+    this.wheelsService.getAllWheels().subscribe(data => {
+      this.allWheels = data;
+    },
+      error => console.log(error)
+    );
 
   }
+
 
 
   setFormValue() {
@@ -96,11 +127,26 @@ export class CarFormComponent implements OnInit {
 
   createOrUpdateCar() {
 
+    let carAction;
+
+    const car: Car.Model = {
+      ...this.carDetailsForm.value
+    };
+
+
+    if(this.formAction !== CarFormAction.EDIT) {
+      carAction = this.carService.createCar(car);
+    } else {
+      carAction = this.carService.updateCar(this.supplyInfo(car));
+    }
+
   }
 
 
-  supplyInfo() {
-
+  supplyInfo(car: Car.Model): Car.Model {
+    return {
+      ...car
+    }
   }
 
 

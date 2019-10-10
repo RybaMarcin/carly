@@ -38,5 +38,8 @@ export class EngineManagementService {
     return this.http.put<Engine.Model>(`${this.engineManagementApi}`, engine);
   }
 
+  getAllEngines(): Observable<Engine.Model[]> {
+    return this.http.get<Engine.Model[]>(`${this.engineManagementApi}/all-engines`);
+  }
 
 }

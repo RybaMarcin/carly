@@ -1,6 +1,37 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
-  <mat-divider class="divider-bigger"></mat-divider>
+  <mat-divider class="divider-large"></mat-divider>
+
+  <h3>Basic car info:</h3>
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="carDetailsForm"
+        [fg]="generalForm"
+        [name]="'carDetailsForm'"
+        [controls]="carDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+    <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+
+      <p>Preview of car body</p>
+
+    </div>
+
+  </div>
+
+  <mat-divider class="divider-large"></mat-divider>
+
+  <h3>Wheels:</h3>
+
+  <mat-divider class="divider-large divider-blank"></mat-divider>
 
   <div class="align-space-between" *ngIf="!isRequest">
     <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
@@ -8,3 +39,5 @@
   </div>
 
 </form>
+<p>General form: {{ carDetailsForm.value | json }}</p>
+<p>Is form valid: {{ carDetailsForm.valid }}</p>
