@@ -11,7 +11,8 @@ declare const BASE_API_URL;
 })
 export class AuthenticationService {
 
-  carlyApi = `${BASE_API_URL}`;
+  // carlyApi = `${BASE_API_URL}`;
+  private carlyApi = "api";
 
   constructor(
     protected http: HttpClient
