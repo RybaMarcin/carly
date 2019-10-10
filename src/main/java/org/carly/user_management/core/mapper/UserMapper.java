@@ -3,7 +3,6 @@ package org.carly.user_management.core.mapper;
 import org.carly.shared.utils.MapperService;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.model.User;
-import org.carly.user_management.security.CarlyGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

@@ -2,10 +2,10 @@ package org.carly.user_management.core.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.carly.shared.config.EntityNotFoundException;
-import org.carly.shared.utils.time.service.TimeService;
+import org.carly.shared.utils.time.TimeService;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.repository.VerificationTokenRepository;
-import org.carly.user_management.security.token.VerificationToken;
+import org.carly.user_management.core.model.VerificationToken;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;

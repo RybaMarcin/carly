@@ -3,11 +3,9 @@ package org.carly.user_management.core.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.carly.user_management.security.CarlyGrantedAuthority;
-import org.carly.user_management.security.UserRole;
+import org.carly.shared.security.model.CarlyGrantedAuthority;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 

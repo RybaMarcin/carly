@@ -1,12 +1,11 @@
 package org.carly.user_management.api.model;
 
 import lombok.AllArgsConstructor;
-import org.carly.user_management.security.UserRole;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
+import lombok.Getter;
+import org.carly.shared.security.model.UserRole;
 
 @AllArgsConstructor
+@Getter
 public class CarlyUserRest {
     private String id;
     private String name;

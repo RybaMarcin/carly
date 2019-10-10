@@ -1,6 +1,6 @@
 package org.carly.shared.utils.mail_service;
 
-import org.carly.user_management.core.config.LoggedUserProvider;
+import org.carly.shared.security.config.LoggedUserProvider;
 import org.carly.user_management.core.model.User;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

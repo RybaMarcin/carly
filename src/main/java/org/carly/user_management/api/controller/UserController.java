@@ -5,19 +5,17 @@ import org.carly.shared.utils.mail_service.MailService;
 import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.LoginRest;
 import org.carly.user_management.api.model.UserRest;
-import org.carly.user_management.core.config.LoggedUserProvider;
+import org.carly.shared.security.config.LoggedUserProvider;
 import org.carly.user_management.core.model.Password;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.service.UserService;
-import org.carly.user_management.security.LoggedUser;
+import org.carly.shared.security.model.LoggedUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 

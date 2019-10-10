@@ -1,7 +1,7 @@
 package org.carly.user_management.api.model;
 
 import lombok.Getter;
-import org.carly.user_management.utils.validation.ValidEmail;
+import org.carly.shared.security.validation.ValidEmail;
 
 import javax.validation.constraints.NotEmpty;
 
