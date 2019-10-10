@@ -10,8 +10,10 @@ declare const BASE_API_URL;
 })
 export class RegistrationService {
 
-  private userManagementApi = `${BASE_API_URL}`;
+  //todo: uncomment this when endpoint will be ready.
 
+  // private userManagementApi = `${BASE_API_URL}`;
+  private userManagementApi = "http://localhost:8080/user/registration";
 
   constructor(
     protected http: HttpClient
