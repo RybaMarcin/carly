@@ -7,7 +7,7 @@ import {FormGroupHelperService} from "../../../services/form-group-helper.servic
 import {Router} from "@angular/router";
 import {UserManagementService} from "../../../resources/user-management.service";
 import {BreakpointService} from "../../../services/breakpoint.service";
-import {wheelsDetailsFormFields} from "./wheels-form-fields";
+import {wheelsDetailsFormFields, wheelsPreviews} from "./wheels-form-fields";
 import {Breakpoints} from "../../../model/breakpoints.model";
 import {WheelsManagementService} from "../../../resources/wheels-management.service";
 
@@ -29,7 +29,13 @@ export class WheelsFormComponent implements OnInit {
   generalForm: FormGroup;
 
   wheelsDetailsForm: FormGroup;
-  wheelsDetailsFormControls = this.fgService.addControlToModel(wheelsDetailsFormFields);
+  wheelsDetailsFormControls = this.fgService.addControlToModel(wheelsDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'preview') {
+        controlModel.selectOptions = wheelsPreviews;
+      }
+      return controlModel;
+    });
 
   gridColumns = 4;
 

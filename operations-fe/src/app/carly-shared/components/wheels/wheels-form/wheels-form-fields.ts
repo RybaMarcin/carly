@@ -28,20 +28,7 @@ export const wheelsDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'select',
     cols: 4,
     rows: 1,
-    selectOptions: [
-      {
-        value: 'wheel_1.png',
-        label: 'Preview 1'
-      },
-      {
-        value: 'wheel_2.png',
-        label: 'Preview 2'
-      },
-      {
-        value: 'wheel_3.png',
-        label: 'Preview 3'
-      }
-    ]
+    selectOptions: []
   },
   {
     inputName: 'diameter',
@@ -78,6 +65,10 @@ export const wheelsPreviews: Array<ValueLabel> = [
   {
     value: 'wheel_2.png',
     label: 'Preview 2'
+  },
+  {
+    value: 'wheel_3.png',
+    label: 'Preview 3'
   }
 ];
 
