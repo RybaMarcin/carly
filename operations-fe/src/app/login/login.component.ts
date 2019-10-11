@@ -5,6 +5,9 @@ import {Login} from "../carly-shared/model/login.model";
 import {User} from "../carly-shared/model/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {RegistrationComponent} from "../registration/registration.component";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormGroupHelperService} from "../carly-shared/services/form-group-helper.service";
+import {loginFormFields} from "./login-form-fields";
 
 @Component({
   selector: 'login',
@@ -19,14 +22,29 @@ export class LoginComponent implements OnInit {
 
   login: Login;
 
+  generalForm: FormGroup;
+
+  loginDetailsForm: FormGroup;
+  loginDetailsFormControls = this.fgService.addControlToModel(loginFormFields);
+
   constructor(
     private router: Router,
     private loginService: AuthenticationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private fgService: FormGroupHelperService
   ) {
   }
 
   ngOnInit() {
+
+    this.loginDetailsForm = this.formBuilder.group(
+      this.fgService.getControlsFromModel(this.loginDetailsFormControls)
+    );
+
+    this.generalForm = this.formBuilder.group({
+      loginDetails: this.loginDetailsForm
+    });
   }
 
   checkLogin() {
