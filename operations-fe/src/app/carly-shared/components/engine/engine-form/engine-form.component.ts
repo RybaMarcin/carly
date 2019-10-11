@@ -16,7 +16,9 @@ import * as moment from 'moment';
 @Component({
   selector: 'engine-form',
   templateUrl: './engine-form.component.html',
-  styleUrls: ['./engine-form.component.scss']
+  styleUrls: ['./engine-form.component.scss',
+    '../../../../carly-shared/styles/side-nav.scss',
+    '../../../../carly-shared/styles/buttons.scss']
 })
 export class EngineFormComponent implements OnInit {
 
@@ -53,6 +55,8 @@ export class EngineFormComponent implements OnInit {
     this.generalForm = this.formBuilder.group({
       engineDetailsForm: this.engineDetailsForm
     });
+
+    this.engineDetailsForm.get('preview').setValue('engine_1.png');
 
 
     if(this.engine) {
@@ -168,6 +172,10 @@ export class EngineFormComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  getEnginePreview(): string {
+    return this.engineDetailsForm.get('preview').value;
   }
 
 

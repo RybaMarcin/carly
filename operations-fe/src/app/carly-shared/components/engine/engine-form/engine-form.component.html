@@ -1,32 +1,47 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <a [routerLink]="['/parts/engines']">ENGINE</a>
+    <a [routerLink]="['/parts/wheels']">WHEELS</a>
+    <a [routerLink]="['/parts/breaks']">BREAKS</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
 
-  <div class="flex-container">
+    <h2>Add new wheels</h2>
 
-    <div class="flex-container-content">
-      <form-group
-        *ngIf="engineDetailsForm"
-        [fg]="generalForm"
-        [name]="'engineDetailsForm'"
-        [controls]="engineDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
-    </div>
+    <mat-divider class="divider-large divider-blank"></mat-divider>
 
-    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+    <form [formGroup]="generalForm" *ngIf="generalForm">
 
-    <div class="flex-container-content">
+      <div class="flex-container">
 
-      <p>IMPLEMENT ME!!!</p>
+        <div class="flex-container-content">
 
-    </div>
+          <form-group
+            *ngIf="engineDetailsForm"
+            [fg]="generalForm"
+            [name]="'engineDetailsForm'"
+            [controls]="engineDetailsFormControls"
+            [gridColumns]="gridColumns"></form-group>
 
-  </div>
+        </div>
 
+        <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
 
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
+        <div class="flex-container-content">
+          <img src="../../../assets/engines/{{getEnginePreview()}}" class="image-preview">
+        </div>
 
-</form>
-<p>General form: {{ generalForm.value | json }}</p>
-<p>Is form valid: {{ generalForm.valid }}</p>
+      </div>
+
+      <mat-divider class="divider-large divider-blank"></mat-divider>
+
+      <div class="align-space-between" *ngIf="!isRequest">
+        <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+        <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+      </div>
+    </form>
+    <p>General form: {{ engineDetailsForm.value | json }}</p>
+    <p>Is form valid: {{ engineDetailsForm.valid }}</p>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

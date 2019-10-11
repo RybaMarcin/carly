@@ -14,7 +14,7 @@ import {Wheels} from "../../../model/wheels.model";
 import {Breaks} from "../../../model/breaks.model";
 import {Tires} from "../../../model/tires.model";
 import {Breakpoints} from "../../../model/breakpoints.model";
-import {carDetailsFormFields} from "./car-form-fields";
+import {carDetailsFormFields, carTypes} from "./car-form-fields";
 import {CarManagementService} from "../../../resources/car-management.service";
 
 @Component({
@@ -33,7 +33,13 @@ export class CarFormComponent implements OnInit {
   generalForm: FormGroup;
 
   carDetailsForm: FormGroup;
-  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields);
+  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'carBody') {
+        controlModel.selectOptions = carTypes;
+      }
+      return controlModel;
+    });
 
 
   gridColumns = 1;
