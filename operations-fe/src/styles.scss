@@ -10,6 +10,13 @@ html, body {
   padding: 0;
   background-color: $bodyBg;
 
+
+  header, section {
+    padding: 0;
+    margin: 0;
+  }
+
+
   // Override materials
   /deep/ {
     .mat-list .mat-list-item {

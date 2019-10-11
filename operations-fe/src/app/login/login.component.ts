@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../carly-shared/services/authentication.service";
 import {Login} from "../carly-shared/model/login.model";
 import {User} from "../carly-shared/model/user.model";
+import {MatDialog} from "@angular/material/dialog";
+import {RegistrationComponent} from "../registration/registration.component";
 
 @Component({
   selector: 'login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private loginService: AuthenticationService
+    private loginService: AuthenticationService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -41,6 +44,11 @@ export class LoginComponent implements OnInit {
       error => {
         console.log(error)
       });
+  }
+
+
+  openRegistrationDialog() {
+    this.dialog.open(RegistrationComponent);
   }
 
 

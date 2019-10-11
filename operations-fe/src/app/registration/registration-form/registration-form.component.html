@@ -1,27 +1,11 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
-  <div class="flex-container">
-
-    <div class="flex-container-content">
-
-      <form-group
-        *ngIf="registrationDetailsForm"
-        [fg]="generalForm"
-        [name]="'registrationDetailsForm'"
-        [controls]="registrationDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
-
-
-    </div>
-
-    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-    <div class="flex-container-content">
-
-
-    </div>
-
-  </div>
+  <form-group
+    *ngIf="registrationDetailsForm"
+    [fg]="generalForm"
+    [name]="'registrationDetailsForm'"
+    [controls]="registrationDetailsFormControls"
+    [gridColumns]="gridColumns"></form-group>
 
   <mat-divider class="divider-large divider-blank"></mat-divider>
 

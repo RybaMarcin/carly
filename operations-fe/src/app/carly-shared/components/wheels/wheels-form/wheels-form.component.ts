@@ -26,6 +26,8 @@ export class WheelsFormComponent implements OnInit {
   @Input() isRequest = false;
   @Input() submitEvent: EventEmitter<Wheels.Model> = new EventEmitter();
 
+  active = true;
+
   generalForm: FormGroup;
 
   wheelsDetailsForm: FormGroup;

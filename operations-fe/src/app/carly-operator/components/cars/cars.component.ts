@@ -15,6 +15,7 @@ import {carsFilterFormFields} from "./cars-filter-fields";
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.scss',
     '../../../carly-shared/styles/table-card.scss',
+    '../../../carly-shared/styles/side-nav.scss',
     '../../../carly-shared/styles/buttons.scss']
 })
 export class CarsComponent implements OnInit {

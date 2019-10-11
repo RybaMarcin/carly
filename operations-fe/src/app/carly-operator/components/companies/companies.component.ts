@@ -16,6 +16,7 @@ import {HttpParamsUtils} from "../../../carly-shared/utils/http/http-params-util
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.scss',
     '../../../carly-shared/styles/table-card.scss',
+    '../../../carly-shared/styles/side-nav.scss',
     '../../../carly-shared/styles/buttons.scss']
 })
 export class CompaniesComponent implements OnInit {

@@ -63,6 +63,8 @@ export class CarFormComponent implements OnInit {
       this.fgService.getControlsFromModel(this.carDetailsFormControls)
     );
 
+    this.carDetailsForm.get('carBody').setValue('body_1.png');
+
     this.generalForm = this.formBuilder.group({
       carDetailsForm: this.carDetailsForm
     });
@@ -174,5 +176,8 @@ export class CarFormComponent implements OnInit {
     return invalid;
   }
 
+  getCarBodyPreview(): string {
+    return this.carDetailsForm.get('carBody').value;
+  }
 
 }

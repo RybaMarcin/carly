@@ -1,6 +1,7 @@
 import {FormGroupHelper} from "../../../model/form-group-helper.model";
 import {Validators} from "@angular/forms";
 import {Breaks} from "../../../model/breaks.model";
+import {ValueLabel} from "../../../model/value-label";
 
 export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
   {
@@ -14,6 +15,15 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
   {
     inputName: 'brand',
     label: 'Brand',
+    validators: [Validators.required],
+    type: 'select',
+    cols: 4,
+    rows: 1,
+    selectOptions: []
+  },
+  {
+    inputName: 'preview',
+    label: 'Preview',
     validators: [Validators.required],
     type: 'select',
     cols: 4,
@@ -36,5 +46,21 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'number',
     cols: 4,
     rows: 1
+  }
+];
+
+
+export const breaksPreviews: Array<ValueLabel> = [
+  {
+    value: '',
+    label: 'Preview 1'
+  },
+  {
+    value: '',
+    label: 'Preview 2'
+  },
+  {
+    value: '',
+    label: 'Preview 3'
   }
 ];

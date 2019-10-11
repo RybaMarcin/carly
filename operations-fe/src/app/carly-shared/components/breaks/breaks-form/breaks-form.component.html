@@ -1,33 +1,47 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <a [routerLink]="['/parts/engines']">ENGINE</a>
+    <a [routerLink]="['/parts/wheels']">WHEELS</a>
+    <a [routerLink]="['/parts/breaks']">BREAKS</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
 
-  <div class="flex-container">
+    <h2>Add new breaks</h2>
 
-    <div class="flex-container-content">
+    <mat-divider class="divider-large divider-blank"></mat-divider>
 
-      <form-group
-        *ngIf="breaksDetailsForm"
-        [fg]="generalForm"
-        [name]="'breaksDetailsForm'"
-        [controls]="breaksDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
+    <form [formGroup]="generalForm" *ngIf="generalForm">
 
-    </div>
+      <div class="flex-container">
 
-    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+        <div class="flex-container-content">
 
-    <div class="flex-container-content">
+          <form-group
+            *ngIf="breaksDetailsForm"
+            [fg]="generalForm"
+            [name]="'breaksDetailsForm'"
+            [controls]="breaksDetailsFormControls"
+            [gridColumns]="gridColumns"></form-group>
 
-      <div class="image-preview">
-        <img src="" alt="">
+        </div>
+
+        <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+
+        <div class="flex-container-content">
+          <img src="../../../assets/breaks/{{getBreaksPreview()}}" class="image-preview">
+        </div>
+
       </div>
 
-    </div>
+      <mat-divider class="divider-large divider-blank"></mat-divider>
 
-  </div>
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
-</form>
-<p>General form: {{ breaksDetailsForm.value | json }}</p>
-<p>Is form valid: {{ breaksDetailsForm.valid }}</p>
+      <div class="align-space-between" *ngIf="!isRequest">
+        <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+        <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+      </div>
+    </form>
+    <p>General form: {{ breaksDetailsForm.value | json }}</p>
+    <p>Is form valid: {{ breaksDetailsForm.valid }}</p>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
