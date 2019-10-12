@@ -1,47 +1,75 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
-  <mat-divider class="divider-large"></mat-divider>
+    <mat-divider class="divider-large"></mat-divider>
 
-  <h3>Basic car info:</h3>
+    <h3>Basic car info:</h3>
 
-  <div class="flex-container">
+    <div class="flex-container">
 
-    <div class="flex-container-content">
+      <div class="flex-container-content">
 
-      <form-group
-        *ngIf="carDetailsForm"
-        [fg]="generalForm"
-        [name]="'carDetailsForm'"
-        [controls]="carDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
+        <form-group
+          *ngIf="carDetailsForm"
+          [fg]="generalForm"
+          [name]="'carDetailsForm'"
+          [controls]="carDetailsFormControls"
+          [gridColumns]="gridColumns"></form-group>
+
+      </div>
+
+      <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+
+      <div class="flex-container-content">
+
+        <!--todo: change styling of that img-->
+        <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview-car">
+
+      </div>
 
     </div>
 
-    <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+    <mat-divider class="divider-large"></mat-divider>
 
-    <div class="flex-container-content">
+    <!--  todo: Finish implementing this component-->
+    <h3>Engine:
+      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
+      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    </h3>
 
-      <!--todo: change styling of that img-->
-      <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview-car">
+    <mat-divider class="divider-large"></mat-divider>
 
+
+
+    <!--  todo: Finish implementing this component-->
+    <h3>Wheels:
+      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
+      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    </h3>
+
+    <mat-divider class="divider-large"></mat-divider>
+
+
+    <!--  todo: Finish implementing this component-->
+    <h3>Breaks:
+      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
+      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    </h3>
+
+    <mat-divider class="divider-large"></mat-divider>
+
+    <!--  todo: Finish implementing this component-->
+    <h3>Tires:
+      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
+      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    </h3>
+
+    <mat-divider class="divider-large divider-blank"></mat-divider>
+
+
+    <div class="align-space-between" *ngIf="!isRequest">
+      <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+      <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
     </div>
-
-  </div>
-
-  <mat-divider class="divider-large"></mat-divider>
-
-<!--  todo: Finish implementing this component-->
-  <h3>Wheels:
-  <button mat-flat-button><i class="fas fa-angle-left"></i></button>
-  <button mat-flat-button><i class="fas fa-angle-right"></i></button>
-  </h3>
-
-  <mat-divider class="divider-large divider-blank"></mat-divider>
-
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
 
 </form>
 <p>General form: {{ carDetailsForm.value | json }}</p>

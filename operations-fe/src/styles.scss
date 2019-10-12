@@ -23,6 +23,15 @@ html, body {
       font-size: 1rem;
     }
 
+    mat-dialog-container {
+      background-color: $bodyBg !important;
+    }
+
+    mat-divider {
+      background-color: $dark !important;
+    }
+
+
     mat-dialog-container > * {
       display: block;
       position: relative;
@@ -151,7 +160,7 @@ html, body {
 
     &-content {
       flex: 50%;
-      border: 1px solid red;
+      //border: 1px solid red;
     }
 
   }

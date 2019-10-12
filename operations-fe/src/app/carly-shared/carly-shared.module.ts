@@ -59,6 +59,9 @@ import { BreaksFormComponent } from './components/breaks/breaks-form/breaks-form
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { HomeComponent } from './components/home/home.component';
+import { EquipmentComponent } from './components/equipment/equipment.component';
+import { EquipmentAddComponent } from './components/equipment/equipment-add/equipment-add.component';
+import { EquipmentFormComponent } from './components/equipment/equipment-form/equipment-form.component';
 
 @NgModule({
   imports: [
@@ -113,6 +116,9 @@ import { HomeComponent } from './components/home/home.component';
     SideMenuComponent,
     CustomersComponent,
     HomeComponent,
+    EquipmentComponent,
+    EquipmentAddComponent,
+    EquipmentFormComponent,
   ],
   providers: [
     BreakpointService,

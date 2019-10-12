@@ -16,6 +16,7 @@ import {Tires} from "../../../model/tires.model";
 import {Breakpoints} from "../../../model/breakpoints.model";
 import {carDetailsFormFields, carTypes} from "./car-form-fields";
 import {CarManagementService} from "../../../resources/car-management.service";
+import {Equipment} from "../../../model/equipment.model";
 
 @Component({
   selector: 'car-form',
@@ -44,17 +45,32 @@ export class CarFormComponent implements OnInit {
 
   gridColumns = 1;
 
-  //Parts
+  //Engines
   engine: Engine.Model;
   allEngines: Engine.Model[];
 
+
+  //Wheels
   wheels: Wheels.Model;
   allWheels: Wheels.Model[];
 
+
+  //Breaks
   breaks: Breaks.Model;
   allBreaks: Breaks.Model[];
 
+
+  //Tires
   tires: Tires.Model;
+  allTires: Tires.Model[];
+
+
+  //Equipment
+  equipment: Equipment.Model;
+  allEquipment: Equipment.Model[];
+
+
+
   ngOnInit() {
 
     this.getAllPartsForCar();
@@ -93,10 +109,6 @@ export class CarFormComponent implements OnInit {
 
   }
 
-
-
-
-  allTires: Tires.Model[];
 
   constructor(
       private formBuilder: FormBuilder,

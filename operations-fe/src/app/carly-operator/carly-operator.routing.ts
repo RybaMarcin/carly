@@ -26,6 +26,8 @@ import {BreaksComponent} from "../carly-shared/components/breaks/breaks.componen
 import {BreaksAddComponent} from "../carly-shared/components/breaks/breaks-add/breaks-add.component";
 import {CustomersComponent} from "../carly-shared/components/customers/customers.component";
 import {HomeComponent} from "../carly-shared/components/home/home.component";
+import {EquipmentComponent} from "../carly-shared/components/equipment/equipment.component";
+import {EquipmentAddComponent} from "../carly-shared/components/equipment/equipment-add/equipment-add.component";
 
 export const ROUTES: Routes = [
   {
@@ -107,6 +109,13 @@ export const ROUTES: Routes = [
             children: [
               {path: '', component: BreaksComponent},
               {path: 'add', component: BreaksAddComponent}
+            ]
+          },
+          {
+            path: 'equipment',
+            children: [
+              {path: '', component: EquipmentComponent},
+              {path: 'add', component: EquipmentAddComponent}
             ]
           }
         ]
