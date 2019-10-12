@@ -148,15 +148,18 @@ html, body {
     display: flex;
     justify-content: flex-start;
     align-content: stretch;
+
+    &-content {
+      flex: 50%;
+      border: 1px solid red;
+    }
+
   }
 
-  .flex-container-content {
-    flex: 50%;
-    //border: 1px solid mediumpurple;
-  }
 
   .vertical-divider {
     margin: 30px;
+    color: $black;
   }
 
 }
