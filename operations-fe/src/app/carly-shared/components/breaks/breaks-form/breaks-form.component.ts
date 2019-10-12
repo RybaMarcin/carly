@@ -60,7 +60,7 @@ export class BreaksFormComponent implements OnInit {
       breaksDetailsForm: this.breaksDetailsForm
     });
 
-    this.breaksDetailsForm.get('preview').setValue('');
+    this.breaksDetailsForm.get('preview').setValue('breaks_1.png');
 
     if(this.breaks) {
       this.setFormValue(this.breaks);

@@ -23,3 +23,21 @@
 
 }
 
+.article {
+
+  margin: 100px 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  i {
+    font-size: 8rem;
+    margin: 30px 30px;
+  }
+
+  p {
+    font-size: 1.4rem;
+  }
+
+
+}

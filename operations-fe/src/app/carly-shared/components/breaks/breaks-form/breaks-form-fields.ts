@@ -52,15 +52,15 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
 
 export const breaksPreviews: Array<ValueLabel> = [
   {
-    value: '',
+    value: 'breaks_1.png',
     label: 'Preview 1'
   },
   {
-    value: '',
+    value: 'breaks_2.png',
     label: 'Preview 2'
   },
   {
-    value: '',
+    value: 'breaks_3.png',
     label: 'Preview 3'
   }
 ];

@@ -39,7 +39,6 @@ import {DateISO8601Pipe, DateTimeISO8601Pipe} from "./services/date.pipe";
 import {FileSizeModule} from "ngx-filesize";
 import {AuthInterceptor} from "./services/auth-interceptor";
 import {PartsDashboardComponent} from "./components/parts/parts-dashboard.component";
-import {CustomersDashboardComponent} from "./components/customers/customers-dashboard.component";
 import {CompanyContextGuard} from "./services/guards/company-context.guard";
 import {CompanyManagementService} from "./resources/company-management.service";
 import { AuthenticationGuard } from './services/guards/authentication.guard';
@@ -58,6 +57,8 @@ import { BreaksAddComponent } from './components/breaks/breaks-add/breaks-add.co
 import { BreaksEditComponent } from './components/breaks/breaks-edit/breaks-edit.component';
 import { BreaksFormComponent } from './components/breaks/breaks-form/breaks-form.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   imports: [
@@ -91,7 +92,6 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     SecureUriPipe,
     PartsDashboardComponent,
     PartsComponent,
-    CustomersDashboardComponent,
     CompanyContextComponent,
     UserCanAccessDirective,
     FormGroupComponent,
@@ -111,6 +111,8 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     BreaksEditComponent,
     BreaksFormComponent,
     SideMenuComponent,
+    CustomersComponent,
+    HomeComponent,
   ],
   providers: [
     BreakpointService,

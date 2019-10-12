@@ -1,3 +1,53 @@
-<p>
-  customer-form works!
-</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <a [routerLink]="['/parts/engines']">CARS</a>
+    <a [routerLink]="['/parts/engines']">PARTS</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <h2>Customer information</h2>
+
+    <mat-divider class="divider-large divider-blank"></mat-divider>
+
+    <form [formGroup]="generalForm" *ngIf="generalForm">
+
+      <div class="flex-container">
+
+        <div class="flex-container-content">
+
+          <form-group
+            *ngIf="customerDetailsForm"
+            [fg]="generalForm"
+            [name]="'customerDetailsForm'"
+            [controls]="customerDetailsFormControls"
+            [gridColumns]="gridColumns"></form-group>
+
+        </div>
+
+        <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+
+        <div class="flex-container-content">
+
+          <form-group
+            *ngIf="addressDetailsForm"
+            [fg]="generalForm"
+            [name]="'addressDetailsForm'"
+            [controls]="addressDetailsFormControls"
+            [gridColumns]="gridColumns"></form-group>
+
+        </div>
+
+      </div>
+
+      <mat-divider class="divider-large divider-blank"></mat-divider>
+
+      <div class="align-space-between" *ngIf="!isRequest">
+        <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+        <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+      </div>
+    </form>
+    <p>General form: {{ generalForm.value | json }}</p>
+    <p>Is form valid: {{ generalForm.valid }}</p>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -23,15 +23,15 @@
   <mat-toolbar class="toolbar">
     <div><img src="/assets/carly_logo.png" alt="Carly"></div>
     <div>
-      <a [routerLink]="['/dashboard']">home</a>
+      <a [routerLink]="['/home']">home</a>
       <a [routerLink]="['/companies']">companies</a>
       <a [routerLink]="['/cars']">cars</a>
       <a [routerLink]="['/parts']">parts</a>
       <a [routerLink]="['/customers']">customers</a>
-      <a [routerLink]="['/matching']">matchings</a>
       <a [routerLink]="['/details']">company data</a>
       <button (click)="openLoginDialog()" class="btn-login"><i class="fas fa-user"></i></button>
      <a [routerLink]="['/logout']"><i class="fas fa-sign-out-alt"></i></a>
+     <a [routerLink]="['/logout']"><i class="fas fa-bars"></i></a>
     </div>
   </mat-toolbar>
 </header>

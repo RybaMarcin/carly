@@ -15,7 +15,6 @@ import {CompanyEditComponent} from "./carly-shared/components/company/company-ed
 import {CarsDashboardComponent} from "./carly-shared/components/cars/cars-dashboard.component";
 import {DataType} from "./carly-shared/model/data-type.enum";
 import {PartsDashboardComponent} from "./carly-shared/components/parts/parts-dashboard.component";
-import {CustomersDashboardComponent} from "./carly-shared/components/customers/customers-dashboard.component";
 import {ContractsMatchingComponent} from "./carly-operator/components/contracts-matching/contracts-matching.component";
 import {CarsComponent} from "./carly-operator/components/cars/cars.component";
 import {CarsAddComponent} from "./carly-company/components/cars/cars-add/cars-add.component";
