@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.UUID;
 
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
@@ -27,20 +28,22 @@ public class TokenService {
     }
 
     String createVerificationToken(User user) {
-        String token = generateToken();
+        String token = UUID.randomUUID().toString();
         VerificationToken myToken = new VerificationToken(user, token, timeService.getLocalDateTime().plusHours(24));
         tokenRepository.save(myToken);
         return token;
     }
 
-    private static String generateToken() {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] bytes = new byte[20];
-        secureRandom.nextBytes(bytes);
-        return Arrays.toString(bytes);
-    }
-
     VerificationToken getVerificationToken(String token) {
         return tokenRepository.findByToken(token).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+    }
+
+    void removeToken(VerificationToken token) {
+        if (token != null) {
+            tokenRepository.delete(token);
+            log.info("Token was deleted");
+            return;
+        }
+        log.info("Token don't exists");
     }
 }

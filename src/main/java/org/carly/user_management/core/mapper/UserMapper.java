@@ -1,29 +1,33 @@
 package org.carly.user_management.core.mapper;
 
+import org.bson.types.ObjectId;
 import org.carly.shared.utils.MapperService;
 import org.carly.user_management.api.model.UserRest;
+import org.carly.user_management.core.model.Gender;
 import org.carly.user_management.core.model.User;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 @Component
 public class UserMapper implements MapperService<UserRest, User> {
 
     @Override
     public UserRest mapFromDomainObject(User domain, UserRest rest) {
-        rest.setName(domain.getName());
+        rest.setFirstName(domain.getFirstName());
         rest.setLastName(domain.getLastName());
+        rest.setPhoneNumber(domain.getPhoneNumber());
+        rest.setGender(domain.getGender().name());
         rest.setEmail(domain.getEmail());
         return rest;
     }
 
     @Override
     public User mapToDomainObject(User domain, UserRest rest) {
-        domain.setName(rest.getName());
+        domain.setId(rest.getId() != null ? rest.getId() : new ObjectId());
+        domain.setFirstName(rest.getFirstName());
         domain.setLastName(rest.getLastName());
+        domain.setPhoneNumber(rest.getPhoneNumber());
         domain.setEmail(rest.getEmail());
-        domain.setRole(new ArrayList<>());
+        domain.setGender(Gender.valueOf(rest.getGender()));
         return domain;
     }
 

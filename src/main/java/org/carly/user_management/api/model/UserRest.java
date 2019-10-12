@@ -2,29 +2,30 @@ package org.carly.user_management.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.carly.shared.security.validation.PasswordMatcher;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Setter
-@Getter
 @PasswordMatcher
+@Getter
+@Setter
 public class UserRest {
-    @NotNull
+    private ObjectId id;
     @NotEmpty
-    private String name;
-    @NotNull
+    private String firstName;
     @NotEmpty
     private String lastName;
-//    @ValidEmail
-    @NotNull
     @NotEmpty
+    private String phoneNumber;
+    @NotEmpty
+//    @ValidEmail
     private String email;
     @NotNull
+    private String gender;
     @NotEmpty
     private String password;
-    @NotNull
     @NotEmpty
     private String matchingPassword;
 }

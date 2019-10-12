@@ -38,4 +38,5 @@ public class MailService {
         email.setFrom(loggedUserProvider.provideCurrent().getEmail());
         return email;
     }
+
 }

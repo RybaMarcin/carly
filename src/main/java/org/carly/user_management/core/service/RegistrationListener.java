@@ -1,27 +1,67 @@
 package org.carly.user_management.core.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.carly.shared.utils.mail_service.MailService;
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Slf4j
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
-    private final MessageSource messageSource;
-    private final TokenService tokenService;
-    private final MailService mailService;
+    private static final String EMAIL_VERIFICATION_TEMPLATE = "emailinlineimage";
+    private static final String VERIFICATION_URL = "http://localhost:8080/user/registrationConfirmation?token=";
 
-    public RegistrationListener(MessageSource messageSource,
-                                TokenService tokenService,
-                                MailService mailService) {
-        this.messageSource = messageSource;
+    private final TokenService tokenService;
+    private final JavaMailSender mailSender;
+    private SpringTemplateEngine templateEngine;
+
+    public RegistrationListener(TokenService tokenService,
+                                JavaMailSender mailSender) {
         this.tokenService = tokenService;
-        this.mailService = mailService;
+        this.mailSender = mailSender;
+    }
+
+    @Bean
+    ResourceBundleMessageSource emailMessageSource() {
+        final ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("mail/MailMessages");
+        return messageSource;
+    }
+
+    @Bean
+    public TemplateEngine emailTemplateEngine() {
+        templateEngine = new SpringTemplateEngine();
+        templateEngine.addTemplateResolver(htmlTemplateResolver());
+
+        templateEngine.setTemplateEngineMessageSource(emailMessageSource());
+        return templateEngine;
+    }
+
+    private static ITemplateResolver htmlTemplateResolver() {
+        final ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setOrder(Integer.valueOf(0));
+        templateResolver.setPrefix("/mail/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setCacheable(false);
+        return templateResolver;
     }
 
     @Override
@@ -31,14 +71,26 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
+        final Context ctx = new Context(event.getLocale());
         String token = tokenService.createVerificationToken(user);
         log.info("token: {}", token);
 
-        String confirmUrl = event.getAppUrl();
-//        String message = messageSource.getMessage("message.regSucc", null, event.getLocale());
-        String text = "http://localhost:8080/user/registrationConfirm.html?token=" + token;
+        final String text = VERIFICATION_URL + token;
+        ctx.setVariable("registration", text);
 
-        mailService.sendSimpleEmail(user.getEmail(), "Registration Confirmation", text);
+        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+        final MimeMessageHelper message; // true = multipart
+        try {
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            message.setSubject("User Registration in Carly -noReplay ");
+            message.setFrom("e.carly.company@gmail.com");
+            message.setTo(user.getEmail());
+            final String htmlContent = this.templateEngine.process(new ClassPathResource(EMAIL_VERIFICATION_TEMPLATE).getPath(), ctx);
+            message.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            log.info(e.getMessage());
+        }
         log.info("Mail was sent");
     }
 }

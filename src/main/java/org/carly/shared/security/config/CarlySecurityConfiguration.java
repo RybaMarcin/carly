@@ -59,6 +59,5 @@ public class CarlySecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/user/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-//                .anyRequest().authenticated();
     }
 }

@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
@@ -85,6 +86,7 @@ public class UserService implements UserDetailsService {
             throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
         }
         User user = userMapper.simplifyDomainObject(userRest);
+        user.setCode(UUID.randomUUID().toString().substring(6));
         user.setPassword(passwordEncoder.encode(userRest.getPassword()));
         user.setCreatedAt(timeService.getLocalDate());
         user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name())));
@@ -121,7 +123,8 @@ public class UserService implements UserDetailsService {
         }
         user.setEnabled(true);
         userRepository.save(user);
-        return ResponseEntity.ok().toString();
+        tokenService.removeToken(verificationToken);
+        return messageSource.getMessage("auth.message.complate", null, locale);
     }
 
     public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {
@@ -152,7 +155,7 @@ public class UserService implements UserDetailsService {
         LoggedUserBuilder loginUser = new LoggedUserBuilder()
                 .withId(user.getId().toHexString())
                 .withEmail(user.getEmail())
-                .withName(user.getName())
+                .withName(user.getFirstName())
                 .withAuthorities(user.getRole())
                 .withEnabled(user.isEnabled());
         return loginUser.build();
@@ -194,7 +197,6 @@ public class UserService implements UserDetailsService {
     public ResponseEntity saveNewPassword(LoggedUser loggedUser, String password) {
         User user = userRepository.findById(new ObjectId(loggedUser.getId())).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         user.setPassword(passwordEncoder.encode(password));
-        user.setMatchingPassword(passwordEncoder.encode(password));
         userRepository.save(user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

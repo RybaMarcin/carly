@@ -40,21 +40,14 @@ public class UserController {
     public User registerUserAccount(@Valid @RequestBody UserRest userRest,
                                     BindingResult result,
                                     WebRequest request) {
-        User registered = null;
-        if (!result.hasErrors()) {
-            registered = userService.createUser(userRest, request);
-        }
-        if (registered == null) {
-            result.rejectValue(userRest.getEmail(), "Account with that email already exists!");
-            throw new IllegalArgumentException("Cannot registration user");
-        }
-        return registered;
+        return userService.createUser(userRest, request);
     }
 
     @GetMapping("/registrationConfirmation")
     public String confirmRegistration(WebRequest request,
                                       @RequestParam("token") String token) {
-        return userService.confirmRegistration(request, token);
+        String response = userService.confirmRegistration(request, token);
+        return ResponseEntity.ok(response).getBody();
     }
 
     @PreAuthorize("hasAnyAuthority('CUSTOMER','OPERATIONS')")
