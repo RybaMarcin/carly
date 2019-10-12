@@ -113,7 +113,7 @@ public class UserService implements UserDetailsService {
         Locale locale = request.getLocale();
         VerificationToken verificationToken = tokenService.getVerificationToken(token);
         if (verificationToken == null) {
-            return messageSource.getMessage("auth.message.expired", null, locale);
+            return messageSource.getMessage("auth.message.clicked", null, locale);
         }
         User user = verificationToken.getUser();
         LocalDateTime clickedDateTime = timeService.getLocalDateTime();
@@ -124,7 +124,7 @@ public class UserService implements UserDetailsService {
         user.setEnabled(true);
         userRepository.save(user);
         tokenService.removeToken(verificationToken);
-        return messageSource.getMessage("auth.message.complate", null, locale);
+        return messageSource.getMessage("auth.message.complete", null, locale);
     }
 
     public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {

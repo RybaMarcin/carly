@@ -1,6 +1,7 @@
 package org.carly.user_management.core.model;
 
 import lombok.Getter;
+import org.bson.types.ObjectId;
 import org.carly.user_management.core.model.User;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Document(collection = "tokens")
 @Getter
 public class VerificationToken {
+    private ObjectId id;
     private String token;
     private User user;
     private LocalDateTime expiryDate;

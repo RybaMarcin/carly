@@ -4,11 +4,14 @@ import org.bson.types.ObjectId;
 import org.carly.shared.config.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -20,6 +23,7 @@ import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 public class MailSenderConfig {
 
     private static final String JAVA_MAIL_FILE = "classpath:mail/javamail.properties";
+    private static final String MESSAGES_FILE = "classpath:mail/messages";
     private static final ObjectId MAIL_PROPERTIES = new ObjectId("5da0715c1c9d440000f105fe");
 
     private final ApplicationContext applicationContext;
@@ -33,6 +37,22 @@ public class MailSenderConfig {
     @PostConstruct
     public MailData getEmailPassword() {
         return repository.findById(MAIL_PROPERTIES).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource
+                = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename(MESSAGES_FILE);
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean getValidator() {
+        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
     }
 
     @Bean

@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
-    private static final String EMAIL_VERIFICATION_TEMPLATE = "emailinlineimage";
+    private static final String EMAIL_VERIFICATION_TEMPLATE = "verification";
     private static final String VERIFICATION_URL = "http://localhost:8080/user/registrationConfirmation?token=";
 
     private final TokenService tokenService;
@@ -77,12 +77,13 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
         final String text = VERIFICATION_URL + token;
         ctx.setVariable("registration", text);
+        ctx.setVariable("userName", user.getFirstName());
 
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message; // true = multipart
         try {
             message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            message.setSubject("User Registration in Carly -noReplay ");
+            message.setSubject("User Registration in Carly");
             message.setFrom("e.carly.company@gmail.com");
             message.setTo(user.getEmail());
             final String htmlContent = this.templateEngine.process(new ClassPathResource(EMAIL_VERIFICATION_TEMPLATE).getPath(), ctx);

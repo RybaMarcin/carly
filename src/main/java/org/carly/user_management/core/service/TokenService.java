@@ -35,7 +35,7 @@ public class TokenService {
     }
 
     VerificationToken getVerificationToken(String token) {
-        return tokenRepository.findByToken(token).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        return tokenRepository.findByToken(token).orElse(null);
     }
 
     void removeToken(VerificationToken token) {
