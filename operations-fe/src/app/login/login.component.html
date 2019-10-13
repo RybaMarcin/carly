@@ -4,22 +4,23 @@
     <div>
       <div class="input-field">
         <h3>Username:</h3>
-        <input type="text" [(ngModel)]="email">
+        <input matInput type="text" [(ngModel)]="email">
       </div>
       <div class="input-field">
         <h3>Password:</h3>
-        <input type="password" [(ngModel)]="password">
+        <input matInput type="password" [(ngModel)]="password">
       </div>
     </div>
   </mat-dialog-content>
 
+  <div class="login-wrapper">
+    <button mat-dialog-close class="btn-login" (click)="checkLogin()">Login</button>
+  </div>
+
   <mat-divider class="divider-large"></mat-divider>
 
-  <button mat-stroked-button mat-dialog-close color="primary" (click)="checkLogin()">Login</button>
-
-  <mat-divider class="divider-large"></mat-divider>
-
-  <h3>Don't have account? Sign up now!</h3>
-  <button mat-stroked-button mat-dialog-close color="primary" (click)="openRegistrationDialog()">Sign up now</button>
+  <div class="login-wrapper">
+    <button mat-dialog-close class="btn-login" (click)="openRegistrationDialog()">Sign up now</button>
+  </div>
 
 </div>

@@ -21,7 +21,8 @@ import {Equipment} from "../../../model/equipment.model";
 @Component({
   selector: 'car-form',
   templateUrl: './car-form.component.html',
-  styleUrls: ['./car-form.component.scss', '../../../styles/form-actions.scss']
+  styleUrls: ['./car-form.component.scss',
+    '../../../styles/form-actions.scss']
 })
 export class CarFormComponent implements OnInit {
 
@@ -190,6 +191,14 @@ export class CarFormComponent implements OnInit {
 
   getCarBodyPreview(): string {
     return this.carDetailsForm.get('carBody').value;
+  }
+
+  previousEngine() {
+
+  }
+
+  nextEngine() {
+
   }
 
 }

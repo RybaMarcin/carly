@@ -1,15 +1,15 @@
 <div class="flex-container">
 
   <div class="flex-container-content home-article">
-    <h3>{{getHomePageInformation().title}}</h3>
+    <h2>{{getHomePageInformation().title}}</h2>
 
-    <p>{{getHomePageInformation().information}}</p>
+    <h3>{{getHomePageInformation().information}}</h3>
 
     <button (click)="openLoginPage()" class="btn-login">Start today!</button>
 
   </div>
 
-  <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+<!--  <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
 
   <div class="flex-container-content home-article">
 
@@ -20,7 +20,7 @@
 </div>
 
 <div class="btn-carousel">
-  <button mat-stroked-button type="button" (click)="previous()">Previous</button>
-  <button mat-stroked-button type="button" (click)="next()">Next</button>
+  <button mat-stroked-button type="button" (click)="previous()"><i class="fas fa-angle-left"></i></button>
+  <button mat-stroked-button type="button" (click)="next()"><i class="fas fa-angle-right"></i></button>
 </div>
 

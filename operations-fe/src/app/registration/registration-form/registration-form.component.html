@@ -1,15 +1,27 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
-  <form-group
-    *ngIf="registrationDetailsForm"
-    [fg]="generalForm"
-    [name]="'registrationDetailsForm'"
-    [controls]="registrationDetailsFormControls"
-    [gridColumns]="gridColumns"></form-group>
+  <div class="flex-container">
 
-  <mat-divider class="divider-large divider-blank"></mat-divider>
+    <div class="flex-container-content">
 
-  <div>
+      <form-group
+        *ngIf="registrationDetailsForm"
+        [fg]="generalForm"
+        [name]="'registrationDetailsForm'"
+        [controls]="registrationDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+<!--    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>-->
+
+    <div class="flex-container-content">
+      <img src="../../../assets/carly_logo.png" class="image-preview">
+    </div>
+
+  </div>
+
+  <div class="align-space-between">
     <button mat-stroked-button mat-dialog-close type="button" color="primary" (click)="goBack()">Cancel</button>
     <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
   </div>

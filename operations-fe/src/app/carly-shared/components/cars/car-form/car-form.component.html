@@ -1,7 +1,5 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
-    <mat-divider class="divider-large"></mat-divider>
-
     <h3>Basic car info:</h3>
 
     <div class="flex-container">
@@ -31,39 +29,67 @@
     <mat-divider class="divider-large"></mat-divider>
 
     <!--  todo: Finish implementing this component-->
-    <h3>Engine:
-      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
-      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+
+    <h3 class="align-space-between">
+      Engine:
+      <div class="btn-carousel">
+        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <button mat-stroked-button type="button" (click)="nextEngine()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
     </h3>
+
 
     <mat-divider class="divider-large"></mat-divider>
 
 
 
     <!--  todo: Finish implementing this component-->
-    <h3>Wheels:
-      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
-      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    <h3 class="align-space-between">
+      Wheels:
+      <div class="btn-carousel">
+        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <button mat-stroked-button type="button" (click)="nextEngine()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
     </h3>
 
     <mat-divider class="divider-large"></mat-divider>
 
 
     <!--  todo: Finish implementing this component-->
-    <h3>Breaks:
-      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
-      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    <h3 class="align-space-between">
+      Breaks:
+      <div class="btn-carousel">
+        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <button mat-stroked-button type="button" (click)="nextEngine()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
     </h3>
 
     <mat-divider class="divider-large"></mat-divider>
 
     <!--  todo: Finish implementing this component-->
-    <h3>Tires:
-      <button mat-flat-button><i class="fas fa-angle-left"></i></button>
-      <button mat-flat-button><i class="fas fa-angle-right"></i></button>
+    <h3 class="align-space-between">
+      Tires:
+      <div class="btn-carousel">
+        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <button mat-stroked-button type="button" (click)="nextEngine()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
     </h3>
-
-    <mat-divider class="divider-large divider-blank"></mat-divider>
 
 
     <div class="align-space-between" *ngIf="!isRequest">

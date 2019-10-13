@@ -7,9 +7,10 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
-      <h2>Add new wheels</h2>
 
-  <!--    <mat-divider class="divider-large divider-blank"></mat-divider>-->
+      <h2>Add new equipment</h2>
+
+      <!--    <mat-divider class="divider-large divider-blank"></mat-divider>-->
 
       <form [formGroup]="generalForm" *ngIf="generalForm">
 
@@ -18,31 +19,32 @@
           <div class="flex-container-content">
 
             <form-group
-              *ngIf="wheelsDetailsForm"
+              *ngIf="equipmentDetailsForm"
               [fg]="generalForm"
-              [name]="'wheelsDetailsForm'"
-              [controls]="wheelsDetailsFormControls"
+              [name]="'equipmentDetailsForm'"
+              [controls]="equipmentDetailsFormControl"
               [gridColumns]="gridColumns"></form-group>
 
           </div>
 
-          <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+          <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
 
           <div class="flex-container-content">
-            <img src="../../../assets/wheels/{{getWheelsPreview()}}" class="image-preview">
+            <!--todo: Add assets for equipment-->
+            <img src="../../../assets/wheels/wheel_1.png" class="image-preview">
           </div>
 
         </div>
 
-  <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
+        <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
 
         <div class="align-space-between" *ngIf="!isRequest">
           <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
           <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
         </div>
       </form>
-      <p>General form: {{ wheelsDetailsForm.value | json }}</p>
-      <p>Is form valid: {{ wheelsDetailsForm.valid }}</p>
+      <p>General form: {{ equipmentDetailsForm.value | json }}</p>
+      <p>Is form valid: {{ equipmentDetailsForm.valid }}</p>
     </section>
   </mat-sidenav-content>
 

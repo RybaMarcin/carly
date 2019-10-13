@@ -23,4 +23,27 @@
 
   }
 
+  .login-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn-login {
+    color: $white;
+    background-color: $mainColor;
+    border: none;
+    font-size: 1.3rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 60%;
+    margin: auto;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $mainColorHover;
+    }
+
+  }
+
+
 }

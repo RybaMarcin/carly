@@ -1,3 +1,5 @@
+@import "../../../../colors.scss";
+
 .home-page {
   padding: 10px 25px;
   width: 100%;
@@ -14,6 +16,55 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  margin-bottom: 100px;
-  margin-left: 50px;
+  margin-bottom: 75px;
+  margin-left: 75px;
+
+  button {
+    margin-right: 25px;
+  }
+
+}
+
+
+.flex-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //justify-content: space-between;
+  //align-content: stretch;
+
+  &-content {
+    flex: 50%;
+  }
+
+}
+
+
+h2 {
+  font-size: 50px;
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 25px;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.btn-login {
+  color: $white;
+  background-color: $mainColor;
+  border: none;
+  font-size: 1.3rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 40%;
+  margin: auto;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $mainColorHover;
+  }
+
 }

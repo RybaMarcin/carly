@@ -9,13 +9,13 @@
     <section>
 
       <h2 class="align-space-between">
-        Breaks
+        Equipment
         <div>
           <button mat-flat-button color="accent">
             clear all
           </button>
-          <button mat-stroked-button color="accent" [routerLink]="['/parts/breaks/add']">
-            add breaks
+          <button mat-stroked-button color="accent" [routerLink]="['/parts/equipment/add']">
+            add equipment
           </button>
         </div>
       </h2>
@@ -23,13 +23,13 @@
 
       <div class="filter-container">
         <div class="filter-bar-container">
-          <filter-bar #filterBar [columnsToFilter]="columnsToFilter" (modelUpdateEvent)="loadBreaks()"></filter-bar>
+          <filter-bar #filterBar [columnsToFilter]="columnsToFilter" (modelUpdateEvent)="loadEquipment()"></filter-bar>
         </div>
         <div class="dates-container">
           <form-group
             [fg]="generalForm"
-            [name]="'breaksFilterForm'"
-            [controls]="breaksFilterFormControls"
+            [name]="'equipmentFilterForm'"
+            [controls]="equipmentFilterFormControls"
             [gridColumns]="2"></form-group>
         </div>
       </div>
