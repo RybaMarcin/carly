@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Login} from "../carly-shared/model/login.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {loginFormFields} from "./login-form-fields";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../carly-shared/services/authentication.service";
-import {Login} from "../carly-shared/model/login.model";
-import {User} from "../carly-shared/model/user.model";
 import {MatDialog} from "@angular/material/dialog";
-import {RegistrationComponent} from "../registration/registration.component";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormGroupHelperService} from "../carly-shared/services/form-group-helper.service";
-import {loginFormFields} from "./login-form-fields";
+import {User} from "../carly-shared/model/user.model";
+import {RegistrationComponent} from "../registration/registration.component";
 
 @Component({
   selector: 'login',
@@ -15,6 +15,8 @@ import {loginFormFields} from "./login-form-fields";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+
 
   email = "";
   password = "";
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
 
   loginDetailsForm: FormGroup;
   loginDetailsFormControls = this.fgService.addControlToModel(loginFormFields);
+
+  gridColumns = 4;
 
   constructor(
     private router: Router,
@@ -43,22 +47,23 @@ export class LoginComponent implements OnInit {
     );
 
     this.generalForm = this.formBuilder.group({
-      loginDetails: this.loginDetailsForm
+      loginDetailsForm: this.loginDetailsForm
     });
   }
 
   checkLogin() {
-    console.log(400, this.email);
-    console.log(410, this.password);
+    // console.log(400, this.email);
+    // console.log(410, this.password);
 
     const login: User = {
-      email: this.email,
-      password: this.password
+      // email: this.email,
+      // password: this.password
+      ...this.loginDetailsForm.value
     };
 
     this.loginService.authenticate(login).subscribe(data => {
-      console.log(data);
-    },
+        console.log(data);
+      },
       error => {
         console.log(error)
       });

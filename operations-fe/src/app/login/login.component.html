@@ -1,17 +1,24 @@
-<div class="login-container">
-  <h2 mat-dialog-title>Login to Carly</h2>
-  <mat-dialog-content>
-    <div>
-      <div class="input-field">
-        <h3>Username:</h3>
-        <input matInput type="text" [(ngModel)]="email">
-      </div>
-      <div class="input-field">
-        <h3>Password:</h3>
-        <input matInput type="password" [(ngModel)]="password">
-      </div>
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="login-logo">
+    <img src="../../../assets/carly_logo.png" class="image-preview">
+  </div>
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="loginDetailsForm"
+        [fg]="generalForm"
+        [name]="'loginDetailsForm'"
+        [controls]="loginDetailsFormControls"
+        [gridColumns]="gridColumns"></form-group>
+
     </div>
-  </mat-dialog-content>
+
+  </div>
+
 
   <div class="login-wrapper">
     <button mat-dialog-close class="btn-login" (click)="checkLogin()">Login</button>
@@ -23,4 +30,6 @@
     <button mat-dialog-close class="btn-login" (click)="openRegistrationDialog()">Sign up now</button>
   </div>
 
-</div>
+</form>
+<p>General form value: {{generalForm.value | json}}</p>
+<p>Is form valid: {{generalForm.valid}}</p>

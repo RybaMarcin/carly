@@ -36,11 +36,22 @@
     padding-top: 15px;
     padding-bottom: 15px;
     width: 60%;
-    margin: auto;
+    margin: 20px auto;
 
     &:hover {
       cursor: pointer;
       background-color: $mainColorHover;
+    }
+
+  }
+
+  .login-logo {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+    img {
+      width: 60%;
     }
 
   }

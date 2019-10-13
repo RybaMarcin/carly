@@ -8,7 +8,13 @@ export const loginFormFields: FormGroupHelper.Model[] = [
     validators: [Validators.required],
     type: 'text',
     cols: 4,
-    rows: 1
+    rows: 1,
+    errors: [
+      {
+        message: 'Please enter e-mail to login!',
+        validator: 'required'
+      }
+    ]
   },
   {
     inputName: 'password',
@@ -16,6 +22,12 @@ export const loginFormFields: FormGroupHelper.Model[] = [
     validators: [Validators.required],
     type: 'password',
     cols: 4,
-    rows: 1
+    rows: 1,
+    errors: [
+      {
+        message: 'Please enter password!',
+        validator: 'required'
+      }
+    ]
   }
 ];
