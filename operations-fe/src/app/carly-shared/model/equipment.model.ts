@@ -22,7 +22,9 @@ export namespace Equipment {
 
     export enum EquipmentType {
       Radio = "Radio",
-
+      GPS = "GPS",
+      DVD = "DVD",
+      MP3 = "MP3"
     }
 
 }

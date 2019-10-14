@@ -26,4 +26,9 @@ export class RegistrationService {
     return this.http.post<Registration.POST>(`${this.userManagementApi}/user/registration`, newUser);
   }
 
+  resetPassword(reset: Registration.POST): Observable<Registration.Model> {
+    debugger;
+    return this.http.post<Registration.POST>(`${this.userManagementApi}/user/reset-password`, reset);
+  }
+
 }

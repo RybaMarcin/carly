@@ -17,7 +17,7 @@
   bottom: 0;
   left: 0;
   margin-bottom: 75px;
-  margin-left: 75px;
+  margin-left: 50px;
 
   button {
     margin-right: 25px;
@@ -65,6 +65,18 @@ h3 {
   &:hover {
     cursor: pointer;
     background-color: $mainColorHover;
+  }
+
+}
+
+
+.image-preview {
+  width: 75%;
+
+  > img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 
 }

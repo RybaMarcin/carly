@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {FormGroupHelperService} from "../carly-shared/services/form-group-helper.service";
 import {User} from "../carly-shared/model/user.model";
 import {RegistrationComponent} from "../registration/registration.component";
+import {ResetPasswordComponent} from "../reset-password/reset-password.component";
 
 @Component({
   selector: 'login',
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: AuthenticationService,
     private dialog: MatDialog,
+    private resetDialog: MatDialog,
     private formBuilder: FormBuilder,
     private fgService: FormGroupHelperService
   ) {
@@ -72,6 +74,11 @@ export class LoginComponent implements OnInit {
 
   openRegistrationDialog() {
     this.dialog.open(RegistrationComponent);
+  }
+
+
+  openForgetPasswordDialog() {
+    this.resetDialog.open(ResetPasswordComponent);
   }
 
 

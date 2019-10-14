@@ -22,6 +22,8 @@ import {CarEditComponent} from "./carly-shared/components/cars/car-edit/car-edit
 import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {RegistrationConfirmationComponent} from "./registration/registration-confirmation/registration-confirmation.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {ResetPasswordConfirmationComponent} from "./reset-password/reset-password-confirmation/reset-password-confirmation.component";
 
 
 const ROUTES: Routes = [
@@ -30,6 +32,8 @@ const ROUTES: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'confirmation', component: RegistrationConfirmationComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
+  {path: 'reset-confirmation', component: ResetPasswordConfirmationComponent},
   //TODO: Uncomment paths below when authentication will be finished!
 
   // {

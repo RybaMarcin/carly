@@ -1,5 +1,6 @@
 import {FormGroupHelper} from "../../carly-shared/model/form-group-helper.model";
 import {Validators} from "@angular/forms";
+import {Registration} from "../../carly-shared/model/registration.model";
 
 export const registrationDetailsFormFields: FormGroupHelper.Model[] = [
   {
@@ -29,6 +30,15 @@ export const registrationDetailsFormFields: FormGroupHelper.Model[] = [
         validator: 'required'
       }
     ]
+  },
+  {
+    inputName: 'gender',
+    label: 'Gender',
+    validators: [Validators.required],
+    type: 'select',
+    cols: 4,
+    rows: 1,
+    selectOptions: [...Object.values(Registration.Gender).map(value => ({label: value, value}))]
   },
   {
     inputName: 'email',

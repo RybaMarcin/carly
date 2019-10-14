@@ -62,6 +62,7 @@ import { HomeComponent } from './components/home/home.component';
 import { EquipmentComponent } from './components/equipment/equipment.component';
 import { EquipmentAddComponent } from './components/equipment/equipment-add/equipment-add.component';
 import { EquipmentFormComponent } from './components/equipment/equipment-form/equipment-form.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { EquipmentFormComponent } from './components/equipment/equipment-form/eq
     EquipmentComponent,
     EquipmentAddComponent,
     EquipmentFormComponent,
+    NotificationsComponent,
   ],
   providers: [
     BreakpointService,

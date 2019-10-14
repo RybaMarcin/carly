@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { RegistrationConfirmationComponent } from './registration/registration-confirmation/registration-confirmation.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordConfirmationComponent } from './reset-password/reset-password-confirmation/reset-password-confirmation.component';
 
 // const userContextFactory = (userService: UserManagementService) => {
 //   return () => userService.getUserContext();
@@ -42,7 +44,9 @@ import { RegistrationConfirmationComponent } from './registration/registration-c
     LoginComponent,
     RegistrationComponent,
     RegistrationFormComponent,
-    RegistrationConfirmationComponent
+    RegistrationConfirmationComponent,
+    ResetPasswordComponent,
+    ResetPasswordConfirmationComponent
   ],
   providers: [
     // {
