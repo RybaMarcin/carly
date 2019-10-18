@@ -43,7 +43,7 @@ export const registrationDetailsFormFields: FormGroupHelper.Model[] = [
   {
     inputName: 'email',
     label: 'E-mail',
-    validators: [Validators.required],
+    validators: [Validators.required, Validators.pattern('')],
     type: 'text',
     cols: 4,
     rows: 1,
@@ -51,6 +51,10 @@ export const registrationDetailsFormFields: FormGroupHelper.Model[] = [
       {
         message: 'Please provide e-mail address!',
         validator: 'required'
+      },
+      {
+        message: 'Please enter valid e-mail.',
+        validator: 'pattern'
       }
     ]
   },

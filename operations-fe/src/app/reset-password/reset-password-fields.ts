@@ -5,7 +5,7 @@ export const resetPasswordFormFields: FormGroupHelper.Model[] = [
   {
     inputName: 'email',
     label: 'E-mail',
-    validators: [Validators.required],
+    validators: [Validators.required, Validators.pattern('')],
     type: 'text',
     cols: 4,
     rows: 1,
@@ -13,6 +13,10 @@ export const resetPasswordFormFields: FormGroupHelper.Model[] = [
       {
         message: 'Please provide e-mail address!',
         validator: 'required'
+      },
+      {
+        message: 'Please provide valid email!',
+        validator: 'pattern'
       }
     ]
   },

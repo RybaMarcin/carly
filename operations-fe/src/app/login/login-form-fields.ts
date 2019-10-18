@@ -5,7 +5,7 @@ export const loginFormFields: FormGroupHelper.Model[] = [
   {
     inputName: 'login',
     label: 'Email',
-    validators: [Validators.required],
+    validators: [Validators.required, Validators.pattern('')],
     type: 'text',
     cols: 4,
     rows: 1,
@@ -13,6 +13,10 @@ export const loginFormFields: FormGroupHelper.Model[] = [
       {
         message: 'Please enter e-mail to login!',
         validator: 'required'
+      },
+      {
+        message: 'Please enter valid e-mail.',
+        validator: 'pattern'
       }
     ]
   },
