@@ -69,6 +69,14 @@ export const wheelsPreviews: Array<ValueLabel> = [
   {
     value: 'wheel_3.png',
     label: 'Preview 3'
+  },
+  {
+    value: 'wheel_4.png',
+    label: 'Preview 4'
+  },
+  {
+    value: 'wheel_5.png',
+    label: 'Preview 5'
   }
 ];
 

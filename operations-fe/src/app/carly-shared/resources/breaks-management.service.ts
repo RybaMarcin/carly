@@ -13,7 +13,8 @@ export class BreaksManagementService {
   constructor(protected http: HttpClient) {
   }
 
-  breaksManagementApi: string = `${BASE_API_URL}`;
+  // breaksManagementApi: string = `${BASE_API_URL}`;
+  breaksManagementApi: string = "api";
 
   //BREAKS
 
