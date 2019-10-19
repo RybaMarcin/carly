@@ -1,4 +1,4 @@
-package org.carly.vehicle_management.api.model;
+package org.carly.parts_management.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
