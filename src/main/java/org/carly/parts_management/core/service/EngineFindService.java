@@ -1,5 +1,6 @@
 package org.carly.parts_management.core.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.parts_management.api.model.EngineRest;
 import org.carly.parts_management.api.model.EngineSearchCriteriaRest;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class EngineFindService implements PartFindService {
 
 
@@ -27,11 +30,11 @@ public class EngineFindService implements PartFindService {
         this.engineRepository = engineRepository;
     }
 
-
-
     @Override
-    public Collection findAll() {
-        return null;
+    public Collection<EngineRest> findAll() {
+        List<Engine> engineList = engineRepository.findAll();
+        log.info("Engine list contains: {}", engineList.size());
+        return engineList.stream().map(engineMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     @Override

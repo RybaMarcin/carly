@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,8 +32,10 @@ public class BreaksFindService implements PartFindService {
 
 
     @Override
-    public Collection findAll() {
-        return null;
+    public Collection<BreaksRest> findAll() {
+        List<Breaks> breaksList = breaksrepository.findAll();
+        log.info("Breaks list contains: {}", breaksList.size());
+        return breaksList.stream().map(breaksMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     @Override

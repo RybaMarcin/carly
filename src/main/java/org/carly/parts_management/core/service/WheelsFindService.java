@@ -37,7 +37,7 @@ public class WheelsFindService implements PartFindService {
     @Override
     public Collection<WheelsRest> findAll() {
         List<Wheels> wheelsList = wheelsRepository.findAll();
-
+        log.info("Wheels list contains: {}", wheelsList.size());
         return wheelsList.stream().map(wheelsMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
