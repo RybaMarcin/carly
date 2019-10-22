@@ -4,8 +4,6 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 @Data
-public class Windows {
-    private ObjectId id;
-    private String name;
+public class Windows extends Part {
     private String color;
 }

@@ -4,6 +4,6 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 @Data
-public class Tires {
-    private ObjectId id;
+public class Tires extends Part {
+
 }

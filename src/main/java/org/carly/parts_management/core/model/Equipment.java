@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 
 @Data
 @Document(collection = "equipment")
-public class Equipment {
-    private ObjectId id;
+public class Equipment extends Part {
     private Brand brand;
-    private String name;
     private BigDecimal price;
 }

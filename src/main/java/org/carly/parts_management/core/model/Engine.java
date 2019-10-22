@@ -7,9 +7,7 @@ import org.carly.vehicle_management.core.model.Brand;
 import java.math.BigDecimal;
 
 @Data
-public class Engine {
-    private ObjectId id;
-    private String name;
+public class Engine extends Part {
     private BigDecimal price;
     private Brand brand;
     private double horsePower;
