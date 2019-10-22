@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-@RestController("/breaks")
+@RestController
+@RequestMapping("/breaks")
 @Slf4j
 public class BreaksController {
 

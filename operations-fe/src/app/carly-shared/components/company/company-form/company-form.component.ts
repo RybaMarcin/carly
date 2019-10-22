@@ -130,8 +130,12 @@ export class CompanyFormComponent implements OnInit {
 
     const company: Company.Model = {
       ...this.companyDetailsForm.value,
+    };
+
+    company.address = {
       ...this.addressDetailsFormFields.value
     };
+
 
     if(this.formAction !== CompanyFormAction.EDIT) {
       company.createdDate = moment(company.createdDate, moment.HTML5_FMT.DATETIME_LOCAL).utc(true).format();

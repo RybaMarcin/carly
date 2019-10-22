@@ -148,7 +148,7 @@ export class BreaksFormComponent implements OnInit {
 
     partAction.subscribe(data => {
       this.messageService.showMessage('Breaks created!');
-      this.submitEvent.emit(true);
+      this.submitEvent.emit(breaks);
       this.router.navigate(['/parts/breaks', 'details', data.id, 'edit']);
     },
       error => console.log(error));

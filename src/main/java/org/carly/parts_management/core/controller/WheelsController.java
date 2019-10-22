@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-@RestController("/wheels")
+@RestController
+@RequestMapping("/wheels")
 @Slf4j
 public class WheelsController {
 

@@ -12,4 +12,5 @@ import java.math.BigDecimal;
 public class Equipment extends Part {
     private Brand brand;
     private BigDecimal price;
+    private EquipmentType type;
 }

@@ -31,10 +31,10 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
     selectOptions: []
   },
   {
-    inputName: 'type',
-    label: 'Type',
+    inputName: 'breaksType',
+    label: 'Breaks type',
     validators: [Validators.required],
-    type: '',
+    type: 'select',
     cols: 4,
     rows: 1,
     selectOptions: [...Object.values(Breaks.BreaksType).map(value => ({label: value, value}))]

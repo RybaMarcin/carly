@@ -1,10 +1,12 @@
 package org.carly.vehicle_management.core.mapper;
 
 import org.carly.parts_management.api.model.*;
+import org.carly.parts_management.api.model.BrandRest;
 import org.carly.parts_management.core.model.*;
 import org.carly.shared.utils.MapperService;
-import org.carly.vehicle_management.api.model.*;
-import org.carly.vehicle_management.core.model.*;
+import org.carly.vehicle_management.api.model.CarRest;
+import org.carly.vehicle_management.core.model.Brand;
+import org.carly.vehicle_management.core.model.Car;
 import org.springframework.stereotype.Component;
 
 @Component

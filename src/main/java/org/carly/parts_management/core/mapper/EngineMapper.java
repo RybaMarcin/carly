@@ -37,6 +37,7 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         rest.setWeight(domain.getWeight());
         rest.setCapacity(domain.getCapacity());
         rest.setNumberOfCylinders(domain.getNumberOfCylinders());
+        rest.setCreateDate(domain.getCreateDate());
         return rest;
     }
 
@@ -53,6 +54,7 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         domain.setWeight(rest.getWeight());
         domain.setCapacity(rest.getCapacity());
         domain.setNumberOfCylinders(rest.getNumberOfCylinders());
+        domain.setCreateDate(rest.getCreateDate());
         return domain;
     }
 

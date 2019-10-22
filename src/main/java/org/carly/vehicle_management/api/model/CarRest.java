@@ -2,7 +2,6 @@ package org.carly.vehicle_management.api.model;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.carly.vehicle_management.core.model.*;
 import org.carly.parts_management.api.model.*;
 
 import java.math.BigDecimal;

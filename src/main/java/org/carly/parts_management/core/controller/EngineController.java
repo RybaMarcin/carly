@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-@RestController("/engines")
+@RestController
+@RequestMapping("/engines")
 @Slf4j
 public class EngineController {
 
