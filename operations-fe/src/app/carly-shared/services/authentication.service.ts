@@ -11,15 +11,17 @@ declare const BASE_API_URL;
 })
 export class AuthenticationService {
 
-  carlyApi = `${BASE_API_URL}`;
+  // carlyApi = `${BASE_API_URL}`;
+  private carlyApi = "api";
 
   constructor(
     protected http: HttpClient
   ) {
   }
 
-  authenticate(params: HttpParams): Observable<User> {
-    return this.http.get<User>(`${this.carlyApi}/user/login`, {params});
+  authenticate(login: User): Observable<User> {
+    debugger;
+    return this.http.post<User>(`${this.carlyApi}/user/login`, login);
   }
 
 }

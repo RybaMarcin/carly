@@ -28,7 +28,20 @@ export const engineDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'select',
     cols: 4,
     rows: 1,
-    selectOptions: []
+    selectOptions: [
+      {
+        value: 'engine_1.png',
+        label: 'Preview 1'
+      },
+      {
+        value: 'engine_2.png',
+        label: 'Preview 2'
+      },
+      {
+        value: 'engine_3.png',
+        label: 'Preview 3'
+      }
+    ]
   },
   {
     inputName: 'horsePower',

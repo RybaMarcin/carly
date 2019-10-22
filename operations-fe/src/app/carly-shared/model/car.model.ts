@@ -33,7 +33,7 @@ export namespace Car {
     numberOfDoors: number;
     bodyPainting: Painting.Model;
     leasingAvailable: boolean;
-    equipment: Equipment.Model;
+    equipment: Array<Equipment.Model>;
   }
 
   export type PaginatedModel = Page<Model>

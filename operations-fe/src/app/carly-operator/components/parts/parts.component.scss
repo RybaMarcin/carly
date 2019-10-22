@@ -7,7 +7,7 @@
   border: 2px solid green;
   float: left;
   width: 200px;
-  background: $sidebarMenu;
+  background: $menu;
 
   a {
     text-decoration: none;
@@ -23,3 +23,25 @@
 
 }
 
+.article {
+
+  margin: 100px 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  i {
+    font-size: 8rem;
+    margin: 30px 30px;
+  }
+
+  p {
+    font-size: 1.4rem;
+  }
+
+
+}

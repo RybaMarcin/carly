@@ -3,6 +3,7 @@
     <a [routerLink]="['/parts/engines']">ENGINE</a>
     <a [routerLink]="['/parts/wheels']">WHEELS</a>
     <a [routerLink]="['/parts/breaks']">BREAKS</a>
+    <a [routerLink]="['/parts/equipment']">EQUIPMENT</a>
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
@@ -57,7 +58,7 @@
         </mat-paginator>
       </div>
 
-      <div class="full-width warning-no-records" *ngIf="datasource.dataToDisplay.length == 0">
+      <div class="warning-no-records" *ngIf="datasource.dataToDisplay.length == 0">
         No records found...
       </div>
 

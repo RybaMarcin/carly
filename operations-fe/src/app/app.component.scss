@@ -8,45 +8,135 @@
 
   .app-content {
     flex: 1;
-    padding: 10px 25px;
+    //padding: 10px 25px;
   }
+
+
+  //.toolbar {
+  //  &-header {
+  //
+  //    justify-content: space-between;
+  //    background-color: $black;
+  //    height: 100px;
+  //
+  //    li {
+  //      display: inline;
+  //
+  //      a {
+  //        color: $white;
+  //        text-decoration: none;
+  //        font-size: 1.2rem;
+  //        border: 1px solid blue;
+  //        margin-right: 50px;
+  //        text-align: center;
+  //
+  //        &:hover {
+  //          background-color: $bodyBg;
+  //        }
+  //
+  //      }
+  //    }
+  //
+  //    img {
+  //      max-height: 100%;
+  //      width: 150px;
+  //      border: 1px solid green;
+  //    }
+  //
+  //    button {
+  //      background-color: transparent;
+  //      border: none;
+  //      color: $white;
+  //      text-decoration: none;
+  //      font-size: 1.2rem;
+  //      margin-right: 50px;
+  //      text-align: center;
+  //
+  //      &:hover {
+  //        cursor: pointer;
+  //        background-color: $bodyBg;
+  //      }
+  //
+  //    }
+  //
+  //
+  //  }
+  //
+  //  &-footer {
+  //    background-color: $footerBg;
+  //    justify-content: space-between;
+  //
+  //    a {
+  //      color: $white;
+  //      text-decoration: none;
+  //      font-size: 1.2rem;
+  //      border: 1px solid blue;
+  //      padding: 25px 25px;
+  //    }
+  //
+  //  }
+  //
+  //}
 
 
   .toolbar {
-    &-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: $black;
 
-      justify-content: space-between;
+    img {
+      padding-top: 30px;
+      padding-left: 25px;
+      width:150px;
+    }
+
+    a {
       background-color: $black;
-      height: 100px;
+      color: $white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      //border: 1px solid blue;
+      padding: 40px 20px;
+      text-align: center;
 
-      a {
-        color: $white;
-        text-decoration: none;
-        font-size: 1.2rem;
-        border: 1px solid blue;
-        margin-right: 50px;
-        text-align: center;
+      &:hover {
+        background-color: $menu;
       }
-
-      img {
-        max-height: 100%;
-        width: 150px;
-        border: 1px solid green;
-      }
-
 
     }
 
+    button {
+      background-color: $black;
+      border: none;
+      color: $white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 40px 20px;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $bodyBg;
+      }
+    }
+
     &-footer {
+      display: flex;
       background-color: $footerBg;
       justify-content: space-between;
-      background-color: $footerBg;
+
 
       a {
         color: $white;
         text-decoration: none;
         font-size: 1.2rem;
-        border: 1px solid blue;
+        padding: 10px 10px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $bodyBg;
+        }
+
       }
 
     }
@@ -54,4 +144,8 @@
   }
 
 
+}
+
+.application-content {
+  padding: 10px 25px;
 }

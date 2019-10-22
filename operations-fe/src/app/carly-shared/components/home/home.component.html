@@ -1,0 +1,26 @@
+<div class="flex-container">
+
+  <div class="flex-container-content home-article">
+    <h2>{{getHomePageInformation().title}}</h2>
+
+    <h3>{{getHomePageInformation().information}}</h3>
+
+    <button (click)="openLoginPage()" class="btn-login">Start today!</button>
+
+  </div>
+
+<!--  <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
+
+  <div class="flex-container-content home-article align-space-center">
+
+    <img src="../../assets/home/{{getHomePageInformation().image}}" class="image-preview">
+
+  </div>
+
+</div>
+
+<div class="btn-carousel">
+  <button mat-stroked-button type="button" (click)="previous()"><i class="fas fa-angle-left"></i></button>
+  <button mat-stroked-button type="button" (click)="next()"><i class="fas fa-angle-right"></i></button>
+</div>
+

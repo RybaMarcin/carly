@@ -21,6 +21,10 @@ export namespace Customer {
 
   export type PATCH = Model;
 
+  export type POST = Model;
+
+  export type PUT = Model;
+
   export type PaginatedModel = Page<Model>;
 
   export enum Gender {

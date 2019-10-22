@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./colors.scss";
 @import "./theme/theme.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 html, body {
 
@@ -9,11 +10,27 @@ html, body {
   padding: 0;
   background-color: $bodyBg;
 
+
+  header, section {
+    padding: 0;
+    margin: 0;
+  }
+
+
   // Override materials
   /deep/ {
     .mat-list .mat-list-item {
       font-size: 1rem;
     }
+
+    mat-dialog-container {
+      background-color: $bodyBg !important;
+    }
+
+    mat-divider {
+      background-color: $dark !important;
+    }
+
 
     mat-dialog-container > * {
       display: block;
@@ -125,8 +142,9 @@ html, body {
 
   .image-preview {
     width: 100%;
-    height: 100%;
-    display: flex;
+    //height: 100%;
+    //display: flex;
+    //align-items: center;
 
     > img {
       max-width: 100%;
@@ -137,18 +155,23 @@ html, body {
   }
 
   .flex-container {
+    height: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-content: stretch;
+    //align-items: center;
+    //justify-content: center;
+    //justify-content: space-between;
+    //align-content: stretch;
+
+    &-content {
+      flex: 50%;
+    }
+
   }
 
-  .flex-container-content {
-    flex: 50%;
-    //border: 1px solid mediumpurple;
-  }
 
   .vertical-divider {
     margin: 30px;
+    color: $black;
   }
 
 }

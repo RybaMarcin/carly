@@ -7,14 +7,16 @@ import {FormGroupHelperService} from "../../../services/form-group-helper.servic
 import {Router} from "@angular/router";
 import {BreakpointService} from "../../../services/breakpoint.service";
 import {BreaksManagementService} from "../../../resources/breaks-management.service";
-import {breaksDetailsFormFields} from "./breaks-form-fields";
+import {breaksDetailsFormFields, breaksPreviews} from "./breaks-form-fields";
 import {Breakpoints} from "../../../model/breakpoints.model";
 import {CompanyManagementService} from "../../../resources/company-management.service";
 
 @Component({
   selector: 'breaks-form',
   templateUrl: './breaks-form.component.html',
-  styleUrls: ['./breaks-form.component.scss']
+  styleUrls: ['./breaks-form.component.scss',
+    '../../../../carly-shared/styles/side-nav.scss',
+    '../../../../carly-shared/styles/buttons.scss']
 })
 export class BreaksFormComponent implements OnInit {
 
@@ -27,7 +29,13 @@ export class BreaksFormComponent implements OnInit {
   generalForm: FormGroup;
 
   breaksDetailsForm: FormGroup;
-  breaksDetailsFormControls = this.fgService.addControlToModel(breaksDetailsFormFields);
+  breaksDetailsFormControls = this.fgService.addControlToModel(breaksDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'preview') {
+        controlModel.selectOptions = breaksPreviews;
+      }
+      return controlModel;
+    });
 
   gridColumns = 4;
 
@@ -52,6 +60,7 @@ export class BreaksFormComponent implements OnInit {
       breaksDetailsForm: this.breaksDetailsForm
     });
 
+    this.breaksDetailsForm.get('preview').setValue('breaks_1.png');
 
     if(this.breaks) {
       this.setFormValue(this.breaks);
@@ -170,6 +179,11 @@ export class BreaksFormComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+
+  getBreaksPreview(): string {
+    return this.breaksDetailsForm.get('preview').value;
   }
 
 }

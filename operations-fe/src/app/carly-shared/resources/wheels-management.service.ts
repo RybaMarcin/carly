@@ -13,7 +13,8 @@ export class WheelsManagementService {
   constructor(protected http: HttpClient) {
   }
 
-  wheelsManagementApi: string = `${BASE_API_URL}`;
+  // wheelsManagementApi: string = `${BASE_API_URL}`;
+  wheelsManagementApi: string = "api";
 
   //WHEELS
 

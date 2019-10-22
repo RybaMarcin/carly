@@ -14,13 +14,15 @@ import {Wheels} from "../../../model/wheels.model";
 import {Breaks} from "../../../model/breaks.model";
 import {Tires} from "../../../model/tires.model";
 import {Breakpoints} from "../../../model/breakpoints.model";
-import {carDetailsFormFields} from "./car-form-fields";
+import {carDetailsFormFields, carTypes} from "./car-form-fields";
 import {CarManagementService} from "../../../resources/car-management.service";
+import {Equipment} from "../../../model/equipment.model";
 
 @Component({
   selector: 'car-form',
   templateUrl: './car-form.component.html',
-  styleUrls: ['./car-form.component.scss', '../../../styles/form-actions.scss']
+  styleUrls: ['./car-form.component.scss',
+    '../../../styles/form-actions.scss']
 })
 export class CarFormComponent implements OnInit {
 
@@ -33,22 +35,43 @@ export class CarFormComponent implements OnInit {
   generalForm: FormGroup;
 
   carDetailsForm: FormGroup;
-  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields);
+  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'carBody') {
+        controlModel.selectOptions = carTypes;
+      }
+      return controlModel;
+    });
 
 
   gridColumns = 1;
 
-  //Parts
+  //Engines
   engine: Engine.Model;
   allEngines: Engine.Model[];
 
+
+  //Wheels
   wheels: Wheels.Model;
   allWheels: Wheels.Model[];
 
+
+  //Breaks
   breaks: Breaks.Model;
   allBreaks: Breaks.Model[];
 
+
+  //Tires
   tires: Tires.Model;
+  allTires: Tires.Model[];
+
+
+  //Equipment
+  equipment: Equipment.Model;
+  allEquipment: Equipment.Model[];
+
+
+
   ngOnInit() {
 
     this.getAllPartsForCar();
@@ -56,6 +79,8 @@ export class CarFormComponent implements OnInit {
     this.carDetailsForm = this.formBuilder.group(
       this.fgService.getControlsFromModel(this.carDetailsFormControls)
     );
+
+    this.carDetailsForm.get('carBody').setValue('body_1.png');
 
     this.generalForm = this.formBuilder.group({
       carDetailsForm: this.carDetailsForm
@@ -85,10 +110,6 @@ export class CarFormComponent implements OnInit {
 
   }
 
-
-
-
-  allTires: Tires.Model[];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -168,5 +189,16 @@ export class CarFormComponent implements OnInit {
     return invalid;
   }
 
+  getCarBodyPreview(): string {
+    return this.carDetailsForm.get('carBody').value;
+  }
+
+  previousEngine() {
+
+  }
+
+  nextEngine() {
+
+  }
 
 }

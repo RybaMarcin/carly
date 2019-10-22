@@ -2,6 +2,7 @@ import {FormGroupHelper} from "../../../model/form-group-helper.model";
 import {Validators} from "@angular/forms";
 import {Transmission} from "../../../model/transmission.enum";
 import {Equipment} from "../../../model/equipment.model";
+import {ValueLabel} from "../../../model/value-label";
 
 export const carDetailsFormFields: FormGroupHelper.Model[] = [
   {
@@ -31,19 +32,19 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     selectOptions: []
   },
   {
-    inputName: 'maxSpeed',
-    label: 'Max speed',
+    inputName: 'carBody',
+    label: 'Car body',
     validators: [Validators.required],
-    type: 'number',
+    type: 'select',
     rows: 1,
     cols: 4,
     selectOptions: []
   },
   {
-    inputName: 'carBody',
-    label: 'Car body',
+    inputName: 'maxSpeed',
+    label: 'Max speed',
     validators: [Validators.required],
-    type: 'select',
+    type: 'number',
     rows: 1,
     cols: 4,
     selectOptions: []
@@ -79,10 +80,54 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     inputName: 'equipment',
     label: 'Equipment',
     validators: [Validators.required],
-    type: 'number',
+    type: 'select',
     rows: 1,
     cols: 4,
     selectOptions: [],
     selectMultiple: true
   },
+];
+
+
+export const carTypes: Array<ValueLabel> = [
+  {
+    value: 'body_1.png',
+    label: 'Kombi'
+  },
+  {
+    value: 'body_2.png',
+    label: 'Sedan'
+  },
+  {
+    value: 'body_3.png',
+    label: 'Hatchback'
+  },
+  {
+    value: '',
+    label: 'Compact'
+  },
+  {
+    value: '',
+    label: 'SUV'
+  },
+  {
+    value: '',
+    label: 'Minivan'
+  },
+  {
+    value: '',
+    label: 'Cabriolet'
+  },
+  {
+    value: '',
+    label: 'Coupe'
+  },
+  {
+    value: '',
+    label: 'Small car'
+  },
+  {
+    value: '',
+    label: 'City car'
+  }
 ];

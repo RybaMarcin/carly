@@ -9,6 +9,8 @@ import {environment} from "../../../environments/environment";
 import jwt_decode from 'jwt-decode';
 import {Roles} from "../model/roles.model";
 import {CARLY_JWT_TOKEN} from "../model/carly-jwt-token.model";
+import {HttpClient} from "@angular/common/http";
+import {Customer} from "../model/customer.model";
 
 declare const JWT_TOKEN;
 declare const SUBSCRIPTION_KEY;
@@ -26,6 +28,7 @@ export class UserManagementService {
   invalidJwtTokenMessage = 'Invalid JWT token';
 
   constructor(
+    protected http: HttpClient,
     private storageService: LocalStorageService,
     private operationsService: OperationsService,
     private companyContextService: CompanyContextService
@@ -133,5 +136,17 @@ export class UserManagementService {
   isUserHasRole$(role: Roles): Observable<boolean> {
     return this.getUserContext$().pipe(map(user => user.role === role));
   }
+
+
+  //User
+
+  createCustomer(customer: Customer.POST): Observable<Customer.Model> {
+    return this.http.post<Customer.POST>(`${this.userManagementApi}`, customer);
+  }
+
+  updateCustomer(customer: Customer.PUT): Observable<Customer.Model> {
+    return this.http.put<Customer.PUT>(`${this.userManagementApi}`, customer);
+  }
+
 
 }
