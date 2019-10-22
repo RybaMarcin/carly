@@ -4,7 +4,7 @@ import org.carly.parts_management.api.model.BrandRest;
 import org.carly.parts_management.api.model.EngineRest;
 import org.carly.shared.utils.MapperService;
 import org.carly.vehicle_management.core.model.Brand;
-import org.carly.vehicle_management.core.model.Engine;
+import org.carly.parts_management.core.model.Engine;
 import org.springframework.stereotype.Component;
 
 @Component

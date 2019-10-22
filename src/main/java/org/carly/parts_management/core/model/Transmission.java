@@ -1,4 +1,4 @@
-package org.carly.vehicle_management.core.model;
+package org.carly.parts_management.core.model;
 
 import java.util.Map;
 import java.util.function.Function;

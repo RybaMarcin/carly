@@ -7,7 +7,7 @@ import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.service.part_services.PartFindService;
 import org.carly.parts_management.api.model.WheelsRest;
 import org.carly.parts_management.core.mapper.WheelsMapper;
-import org.carly.vehicle_management.core.model.Wheels;
+import org.carly.parts_management.core.model.Wheels;
 import org.carly.parts_management.core.repository.WheelsRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -42,9 +42,11 @@ public class WheelsFindService implements PartFindService {
     }
 
     @Override
-    public Wheels findPartById(ObjectId id) {
-        Wheels wheels = wheelsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        return wheels;
+    public WheelsRest findPartById(ObjectId id) {
+        Wheels wheels = wheelsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        log.info("Wheels with id: {} was found!", id);
+        return wheelsMapper.simplifyRestObject(wheels);
     }
 
 

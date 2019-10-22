@@ -7,7 +7,6 @@ import org.carly.parts_management.api.model.BreaksRest;
 import org.carly.parts_management.api.model.BreaksSearchCriteriaRest;
 import org.carly.parts_management.core.service.BreaksFindService;
 import org.carly.parts_management.core.service.BreaksSaveService;
-import org.carly.vehicle_management.core.model.Breaks;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,7 @@ public class BreaksController {
 
 
     @GetMapping("/{id}")
-    public Breaks findBreaksById(@PathVariable("id") ObjectId id) {
+    public BreaksRest findBreaksById(@PathVariable("id") ObjectId id) {
         return breaksFindService.findPartById(id);
     }
 

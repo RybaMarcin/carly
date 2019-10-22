@@ -6,14 +6,17 @@ import org.carly.parts_management.api.model.BreaksRest;
 import org.carly.parts_management.api.model.BreaksSearchCriteriaRest;
 import org.carly.parts_management.core.mapper.BreaksMapper;
 import org.carly.parts_management.core.repository.BreaksRepository;
+import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.service.part_services.PartFindService;
-import org.carly.vehicle_management.core.model.Breaks;
+import org.carly.parts_management.core.model.Breaks;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
@@ -39,8 +42,11 @@ public class BreaksFindService implements PartFindService {
     }
 
     @Override
-    public Breaks findPartById(ObjectId id) {
-        return null;
+    public BreaksRest findPartById(ObjectId id) {
+        Breaks breaks = breaksrepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        log.info("Breaks with id: {} was found!", id);
+        return breaksMapper.simplifyRestObject(breaks);
     }
 
 

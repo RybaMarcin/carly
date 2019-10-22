@@ -6,7 +6,6 @@ import org.carly.parts_management.api.model.EngineRest;
 import org.carly.parts_management.api.model.EngineSearchCriteriaRest;
 import org.carly.parts_management.core.service.EngineFindService;
 import org.carly.parts_management.core.service.EngineSaveService;
-import org.carly.vehicle_management.core.model.Engine;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +37,7 @@ public class EngineController {
 
 
     @GetMapping("/{id}")
-    public Engine findEngineById(@PathVariable("id") ObjectId id) {
+    public EngineRest findEngineById(@PathVariable("id") ObjectId id) {
         return engineFindService.findPartById(id);
     }
 

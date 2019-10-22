@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.parts_management.api.model.WheelsRest;
 import org.carly.parts_management.api.model.WheelsSearchCriteriaRest;
-import org.carly.vehicle_management.core.model.Wheels;
 import org.carly.parts_management.core.service.WheelsFindService;
 import org.carly.parts_management.core.service.WheelsSaveService;
 import org.springframework.data.domain.Page;
@@ -35,7 +34,7 @@ public class WheelsController {
     }
 
     @GetMapping("/{id}")
-    public Wheels findWheelsById(@PathVariable("id") ObjectId id) {
+    public WheelsRest findWheelsById(@PathVariable("id") ObjectId id) {
         return wheelsFindService.findPartById(id);
     }
 
