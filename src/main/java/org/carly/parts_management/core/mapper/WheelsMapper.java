@@ -31,6 +31,7 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
         rest.getBrand().setName(domain.getBrand().getName());
         rest.getBrand().setRating(domain.getBrand().getRating());
         rest.setDiameter(domain.getDiameter());
+        rest.setPreview(domain.getPreview());
         return rest;
     }
 
@@ -43,6 +44,7 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
         domain.getBrand().setName(rest.getBrand().getName());
         domain.getBrand().setRating(rest.getBrand().getRating());
         domain.setDiameter(rest.getDiameter());
+        domain.setPreview(rest.getPreview());
         return domain;
     }
 

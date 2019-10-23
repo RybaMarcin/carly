@@ -49,7 +49,7 @@ public class EngineController {
     }
 
 
-    @PostMapping("/create-engine")
+    @PostMapping()
     public EngineRest createEngine(@RequestBody EngineRest engine) {
         return engineSaveService.createPart(engine);
     }

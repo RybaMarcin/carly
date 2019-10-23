@@ -14,7 +14,7 @@ export class WheelsManagementService {
   }
 
   // wheelsManagementApi: string = `${BASE_API_URL}`;
-  wheelsManagementApi: string = "api";
+  wheelsManagementApi: string = "api/wheels";
 
   //WHEELS
 
@@ -35,7 +35,7 @@ export class WheelsManagementService {
   }
 
   getAllWheels(): Observable<Wheels.Model[]> {
-    return this.http.get<Wheels.Model[]>(`${this.wheelsManagementApi}/all-wheelss`);
+    return this.http.get<Wheels.Model[]>(`${this.wheelsManagementApi}/all-wheels`);
   }
 
 }

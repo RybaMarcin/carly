@@ -138,7 +138,7 @@ export class CompanyFormComponent implements OnInit {
 
 
     if(this.formAction !== CompanyFormAction.EDIT) {
-      company.createdDate = moment(company.createdDate, moment.HTML5_FMT.DATETIME_LOCAL).utc(true).format();
+      // company.createdDate = moment(company.createdDate, moment.HTML5_FMT.DATETIME_LOCAL).utc(true).format();
 
       companyAction = this.companyService.createCompany(company);
     } else {

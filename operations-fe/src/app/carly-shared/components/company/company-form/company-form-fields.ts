@@ -95,16 +95,16 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
       cols: 4
     },
     {
-      inputName: 'firstLine',
-      label: 'First line',
+      inputName: 'street',
+      label: 'Street',
       validators: [Validators.required],
       type: 'text',
       rows: 1,
       cols: 4
     },
     {
-      inputName: 'secondLine',
-      label: 'Second line',
+      inputName: 'number',
+      label: 'Number',
       validators: [Validators.required],
       type: 'text',
       rows: 1,

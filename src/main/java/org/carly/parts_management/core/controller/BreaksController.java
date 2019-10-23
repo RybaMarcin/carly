@@ -45,7 +45,7 @@ public class BreaksController {
         return breaksFindService.findAll();
     }
 
-    @PostMapping("/create-breaks")
+    @PostMapping()
     public BreaksRest createBreaks(@RequestBody BreaksRest breaks) {
         return breaksSaveService.createPart(breaks);
     }

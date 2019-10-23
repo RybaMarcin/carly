@@ -44,7 +44,7 @@ public class WheelsController {
         return wheelsFindService.findAll();
     }
 
-    @PostMapping("/create-wheels")
+    @PostMapping()
     public WheelsRest createWheels(@RequestBody WheelsRest wheels) {
         return wheelsSaveService.createPart(wheels);
     }

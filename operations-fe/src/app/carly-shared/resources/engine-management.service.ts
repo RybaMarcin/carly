@@ -14,7 +14,7 @@ export class EngineManagementService {
   }
 
   // engineManagementApi: string = `${BASE_API_URL}`;
-  engineManagementApi: string = "api";
+  engineManagementApi: string = "api/engines";
 
 
   //ENGINE

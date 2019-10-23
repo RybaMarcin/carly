@@ -13,4 +13,5 @@ public class Wheels extends Part{
     private double diameter;
     private double weight;
     private BigDecimal price;
+    private String preview;
 }

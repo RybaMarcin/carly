@@ -14,7 +14,7 @@ export class BreaksManagementService {
   }
 
   // breaksManagementApi: string = `${BASE_API_URL}`;
-  breaksManagementApi: string = "api";
+  breaksManagementApi: string = "api/breaks";
 
   //BREAKS
 

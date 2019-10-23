@@ -16,12 +16,15 @@ public class Company {
 
     public static final String ID = "id";
 
+    //todo: Fields commented temporarily.
+
     @Value(ID)
     private ObjectId id;
     private String name;
-    private int yearOfEstablishment;
-    private Long logoId;
+    private String brand;
+    //    private int yearOfEstablishment;
+//    private Long logoId;
     private Address address;
-    private List<Car> cars;
+//    private List<Car> cars;
     private ChangeRequestStatus requestStatus;
 }

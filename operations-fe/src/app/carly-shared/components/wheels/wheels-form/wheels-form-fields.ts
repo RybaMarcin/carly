@@ -11,7 +11,10 @@ export const wheelsDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'select',
     cols: 4,
     rows: 1,
-    selectOptions: []
+    selectOptions: [
+      {value: 'Brand one', label: 'Brand one'},
+      {value: 'Brand two', label: 'Brand two'}
+    ]
   },
   {
     inputName: 'name',

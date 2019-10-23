@@ -14,6 +14,7 @@ export namespace Wheels {
     diameter: number;
     weight: number;
     price: number;
+    preview: string;
   }
 
   export type PaginatedModel = Page<Model>;
