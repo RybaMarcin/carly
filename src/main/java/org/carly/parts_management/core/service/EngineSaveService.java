@@ -27,8 +27,6 @@ public class EngineSaveService implements PartSaveService<EngineRest> {
     }
 
 
-    //todo: Finish implementation
-
     @Override
     public EngineRest createPart(EngineRest part) {
         Engine engine = engineMapper.simplifyDomainObject(part);

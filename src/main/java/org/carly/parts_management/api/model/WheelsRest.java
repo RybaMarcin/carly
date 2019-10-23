@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class WheelsRest {
     private ObjectId id;
     private String name;
-    private BrandRest brand;
+//    private BrandRest brand;
     private double diameter;
     private double weight;
     private BigDecimal price;

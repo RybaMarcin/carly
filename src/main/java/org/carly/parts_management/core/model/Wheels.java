@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Document(collection = "wheels")
 public class Wheels extends Part{
-    private Brand brand;
+//    private Brand brand;
     private double diameter;
     private double weight;
     private BigDecimal price;

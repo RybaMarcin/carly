@@ -26,10 +26,10 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
     public WheelsRest mapFromDomainObject(Wheels domain, WheelsRest rest) {
         rest.setId(domain.getId());
         rest.setName(domain.getName());
-        rest.setBrand(new BrandRest());
-        rest.getBrand().setId(domain.getBrand().getId());
-        rest.getBrand().setName(domain.getBrand().getName());
-        rest.getBrand().setRating(domain.getBrand().getRating());
+//        rest.setBrand(new BrandRest());
+//        rest.getBrand().setId(domain.getBrand().getId());
+//        rest.getBrand().setName(domain.getBrand().getName());
+//        rest.getBrand().setRating(domain.getBrand().getRating());
         rest.setDiameter(domain.getDiameter());
         rest.setPreview(domain.getPreview());
         return rest;
@@ -39,10 +39,10 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
     public Wheels mapToDomainObject(Wheels domain, WheelsRest rest) {
         domain.setId(rest.getId());
         domain.setName(rest.getName());
-        domain.setBrand(new Brand());
-        domain.getBrand().setId(rest.getBrand().getId());
-        domain.getBrand().setName(rest.getBrand().getName());
-        domain.getBrand().setRating(rest.getBrand().getRating());
+//        domain.setBrand(new Brand());
+//        domain.getBrand().setId(rest.getBrand().getId());
+//        domain.getBrand().setName(rest.getBrand().getName());
+//        domain.getBrand().setRating(rest.getBrand().getRating());
         domain.setDiameter(rest.getDiameter());
         domain.setPreview(rest.getPreview());
         return domain;

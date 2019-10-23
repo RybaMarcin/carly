@@ -10,7 +10,7 @@ export namespace Wheels {
   }
 
   export interface Model extends PreModel, Part.Model {
-    brand: Brand;
+    // brand: Brand;
     diameter: number;
     weight: number;
     price: number;
