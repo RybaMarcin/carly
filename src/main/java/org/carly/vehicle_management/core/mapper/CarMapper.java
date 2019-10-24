@@ -5,6 +5,9 @@ import org.carly.vehicle_management.api.model.*;
 import org.carly.vehicle_management.core.model.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class CarMapper implements MapperService<CarRest, Car> {
 
@@ -60,15 +63,7 @@ public class CarMapper implements MapperService<CarRest, Car> {
         carRest.getBodyPainting().setId(domain.getBodyPainting().getId());
         carRest.getBodyPainting().setName(domain.getBodyPainting().getName());
         carRest.getBodyPainting().setType(domain.getBodyPainting().getType().getType());
-
-        carRest.setEquipment(new EquipmentRest());
-        carRest.getEquipment().setId(domain.getEquipment().getId());
-        carRest.getEquipment().setBrand(new BrandRest());
-        carRest.getEquipment().getBrand().setId(domain.getEquipment().getBrand().getId());
-        carRest.getEquipment().getBrand().setName(domain.getEquipment().getBrand().getName());
-        carRest.getEquipment().getBrand().setRating(domain.getEquipment().getBrand().getRating());
-        carRest.getEquipment().setName(domain.getEquipment().getName());
-        carRest.getEquipment().setPrice(domain.getEquipment().getPrice());
+        carRest.setEquipment(mapEquipmentToRest(domain.getEquipment()));
 
         return carRest;
     }
@@ -121,14 +116,37 @@ public class CarMapper implements MapperService<CarRest, Car> {
         car.getBodyPainting().setId(rest.getBodyPainting().getId());
         car.getBodyPainting().setName(rest.getBodyPainting().getName());
         car.getBodyPainting().setType(PaintType.of(rest.getBodyPainting().getType()));
-
-        car.setEquipment(new Equipment());
-        car.getEquipment().setId(rest.getEquipment().getId());
-        car.getEquipment().setName(rest.getEquipment().getName());
-        car.getEquipment().setBrand(new Brand());
-        car.getEquipment().getBrand().setId(rest.getEquipment().getBrand().getId());
-        car.getEquipment().getBrand().setName(rest.getEquipment().getBrand().getName());
-        car.getEquipment().getBrand().setRating(rest.getEquipment().getBrand().getRating());
+        car.setEquipment(mapEquipmentFromRest(rest.getEquipment()));
         return car;
+    }
+
+    private List<Equipment> mapEquipmentFromRest(List<EquipmentRest> restList) {
+        List<Equipment> equipmentList = new ArrayList<>();
+        for (EquipmentRest rest : restList) {
+            Equipment domain = new Equipment();
+            domain.setId(rest.getId());
+            domain.setName(rest.getName());
+            domain.setBrand(new Brand());
+            domain.getBrand().setId(rest.getBrand().getId());
+            domain.getBrand().setName(rest.getBrand().getName());
+            domain.getBrand().setRating(rest.getBrand().getRating());
+            equipmentList.add(domain);
+        }
+        return equipmentList;
+    }
+
+    private List<EquipmentRest> mapEquipmentToRest(List<Equipment> restList) {
+        List<EquipmentRest> equipmentList = new ArrayList<>();
+        for (Equipment domain : restList) {
+            EquipmentRest rest = new EquipmentRest();
+            rest.setId(domain.getId());
+            rest.setName(domain.getName());
+            rest.setBrand(new BrandRest());
+            rest.getBrand().setId(rest.getBrand().getId());
+            rest.getBrand().setName(rest.getBrand().getName());
+            rest.getBrand().setRating(rest.getBrand().getRating());
+            equipmentList.add(rest);
+        }
+        return equipmentList;
     }
 }

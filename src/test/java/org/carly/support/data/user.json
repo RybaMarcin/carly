@@ -1,0 +1,30 @@
+[
+  {
+    "id": "5da1cd6cbe0ad871080c2622",
+    "role": [
+      {
+        "userRole": "CUSTOMER"
+      },
+      {
+        "userRole": "CHANGE_PASSWORD_PRIVILEGE"
+      }
+    ],
+    "code": "f307ba",
+    "firstName": "John",
+    "lastName": "Wick",
+    "phoneNumber": "888777555",
+    "email": "john.wick@pencil.com",
+    "address": {
+      "street": "Wolf Street",
+      "number": "12D",
+      "flat": "14",
+      "town": "New York",
+      "zipCode": "32-223",
+      "country": "USA"
+    },
+    "gender": "MALE",
+    "password": "1234",
+    "createdAt": "2017-2-22T00:00:00",
+    "enabled": true
+  }
+]

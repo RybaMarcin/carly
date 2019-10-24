@@ -27,7 +27,7 @@ public class TokenService {
         this.timeService = timeService;
     }
 
-    String createVerificationToken(User user) {
+   public String createVerificationToken(User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken myToken = new VerificationToken(user, token, timeService.getLocalDateTime().plusHours(24));
         tokenRepository.save(myToken);

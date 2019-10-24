@@ -6,6 +6,7 @@ import org.carly.vehicle_management.core.model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class CarRest {
@@ -27,5 +28,5 @@ public class CarRest {
     private double weight;
     private int numberOfDoors;
     private PaintingRest bodyPainting;
-    private EquipmentRest equipment;
+    private List<EquipmentRest> equipment;
 }

@@ -21,6 +21,8 @@ public class User {
     private String lastName;
     private String phoneNumber;
     private String email;
+    private Address address;
+    private List<Address> addressHistory;
     private List<Car> cars;
     private Gender gender;
     private String password;

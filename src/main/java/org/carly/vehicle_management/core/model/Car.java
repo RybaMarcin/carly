@@ -7,14 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Document(collection = "cars")
 public class Car {
 
-    public static final String ID = "id";
-
-    @Field(ID)
     private ObjectId id;
     private LocalDate createAt;
     private LocalDate modifyAt;
@@ -36,5 +34,5 @@ public class Car {
     private double weight;
     private int numberOfDoors;
     private Painting bodyPainting;
-    private Equipment equipment;
+    private List<Equipment> equipment;
 }

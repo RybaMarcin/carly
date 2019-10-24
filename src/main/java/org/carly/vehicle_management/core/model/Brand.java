@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 public class Brand {
     private ObjectId id;
     private String name;
-    private BigDecimal rating;
+    private double rating;
 }

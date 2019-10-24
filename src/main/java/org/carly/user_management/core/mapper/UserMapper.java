@@ -2,7 +2,9 @@ package org.carly.user_management.core.mapper;
 
 import org.bson.types.ObjectId;
 import org.carly.shared.utils.MapperService;
+import org.carly.user_management.api.model.AddressRest;
 import org.carly.user_management.api.model.UserRest;
+import org.carly.user_management.core.model.Address;
 import org.carly.user_management.core.model.Gender;
 import org.carly.user_management.core.model.User;
 import org.springframework.stereotype.Component;
@@ -41,5 +43,16 @@ public class UserMapper implements MapperService<UserRest, User> {
     public User simplifyDomainObject(UserRest rest) {
         User domain = new User();
         return mapToDomainObject(domain, rest);
+    }
+
+    public Address mapAddressToDomain(AddressRest rest) {
+        Address domain = new Address();
+        domain.setStreet(rest.getStreet());
+        domain.setNumber(rest.getNumber());
+        domain.setFlat(rest.getFlat());
+        domain.setTown(rest.getTown());
+        domain.setZipCode(rest.getZipCode());
+        domain.setCountry(rest.getCountry());
+        return domain;
     }
 }

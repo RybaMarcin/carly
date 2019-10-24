@@ -11,5 +11,5 @@ import java.math.BigDecimal;
 public class BrandRest {
     private ObjectId id;
     private String name;
-    private BigDecimal rating;
+    private double rating;
 }

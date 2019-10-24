@@ -6,14 +6,15 @@ import org.carly.shared.config.EntityAlreadyExistsException;
 import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.security.config.LoggedUserProvider;
 import org.carly.shared.security.exceptions.LoginOrPasswordException;
-import org.carly.shared.security.exceptions.TokenTimeException;
 import org.carly.shared.security.model.*;
 import org.carly.shared.utils.mail_service.MailService;
 import org.carly.shared.utils.time.TimeService;
+import org.carly.user_management.api.model.AddressRest;
 import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.LoginRest;
 import org.carly.user_management.api.model.UserRest;
 import org.carly.user_management.core.mapper.UserMapper;
+import org.carly.user_management.core.model.Address;
 import org.carly.user_management.core.model.OnRegistrationCompleteEvent;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.model.VerificationToken;
@@ -34,10 +35,9 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
+import static org.carly.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
@@ -52,7 +52,6 @@ public class UserService implements UserDetailsService {
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
-    private final LoggedUserProvider loggedUserProvider;
 
     public UserService(UserRepository userRepository,
                        TokenService tokenService,
@@ -61,8 +60,7 @@ public class UserService implements UserDetailsService {
                        TimeService timeService,
                        ApplicationEventPublisher eventPublisher,
                        PasswordEncoder passwordEncoder,
-                       MailService mailService,
-                       LoggedUserProvider loggedUserProvider) {
+                       MailService mailService){
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;
@@ -71,7 +69,6 @@ public class UserService implements UserDetailsService {
         this.eventPublisher = eventPublisher;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
-        this.loggedUserProvider = loggedUserProvider;
     }
 
     @Transactional
@@ -86,10 +83,11 @@ public class UserService implements UserDetailsService {
             throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
         }
         User user = userMapper.simplifyDomainObject(userRest);
-        user.setCode(UUID.randomUUID().toString().substring(6));
+        user.setCode(UUID.randomUUID().toString().substring(0, 6));
         user.setPassword(passwordEncoder.encode(userRest.getPassword()));
         user.setCreatedAt(timeService.getLocalDate());
-        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name())));
+        user.setRole(new ArrayList<>());
+        user.getRole().add(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name()));
         user.setEnabled(false);
         return userRepository.save(user);
     }
@@ -169,35 +167,64 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         String verificationToken = tokenService.createVerificationToken(user);
         String url = "http://localhost:8080/user/changePassowrd?id=" + user.getId() + "&token=" + verificationToken;
-        String message = messageSource.getMessage("message.resetPassowrd", null, request.getLocale());
-        mailService.send(mailService.constructSimpleMessage("Reset password", message + "\r\n" + url, user));
-        return ResponseEntity.ok("Mail was sent");
+        mailService.resetPassword(request, url, user);
+        return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity changePassword(String id, String token) {
+    public String changePassword(String id, String token, WebRequest request) {
         User user = userRepository.findById(new ObjectId(id)).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         VerificationToken verificationToken = tokenService.getVerificationToken(token);
         if (verificationToken == null) {
-            throw new IllegalArgumentException();
+            return messageSource.getMessage("auth.message.clicked", null, request.getLocale());
         }
         User userFromVerification = verificationToken.getUser();
         if (userFromVerification.getId().equals(user.getId())) {
             LocalDateTime clickedDateTime = timeService.getLocalDateTime();
             if (clickedDateTime.isAfter(verificationToken.getExpiryDate()) || clickedDateTime.isEqual(verificationToken.getExpiryDate())) {
-                throw new TokenTimeException("Token is expire!");
+                return messageSource.getMessage("auth.message.expired", null, request.getLocale());
             }
             Authentication authentication = new UsernamePasswordAuthenticationToken
-                    (user, null, List.of(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+                    (user, null, List.of(new SimpleGrantedAuthority(CHANGE_PASSWORD_PRIVILEGE.name())));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok().build();
+            return messageSource.getMessage("auth.message.complete", null, request.getLocale());
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build().toString();
     }
 
     public ResponseEntity saveNewPassword(LoggedUser loggedUser, String password) {
         User user = userRepository.findById(new ObjectId(loggedUser.getId())).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        if (user.getRole().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
+            user.setPassword(passwordEncoder.encode(password));
+            user.getRole().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);
+            userRepository.save(user);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
+    public ResponseEntity addAddress(ObjectId userId, AddressRest newAddress) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        if (user.getAddress() != null) {
+            Address oldAddress = user.getAddress();
+            oldAddress.setModifiedAt(timeService.getLocalDate());
+
+            Address address = userMapper.mapAddressToDomain(newAddress);
+            address.setCreatedAt(timeService.getLocalDate());
+            user.setAddress(address);
+            if (user.getAddressHistory() == null) {
+                user.setAddressHistory(new ArrayList<>());
+                user.getAddressHistory().add(oldAddress);
+            } else {
+                user.getAddressHistory().add(oldAddress);
+            }
+            userRepository.save(user);
+            return ResponseEntity.ok().body(newAddress);
+        } else {
+            Address address = userMapper.mapAddressToDomain(newAddress);
+            address.setCreatedAt(timeService.getLocalDate());
+            user.setAddress(address);
+            userRepository.save(user);
+            return ResponseEntity.ok().body(newAddress);
+        }
     }
 }

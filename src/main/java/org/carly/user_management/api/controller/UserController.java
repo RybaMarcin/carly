@@ -1,18 +1,18 @@
 package org.carly.user_management.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.carly.shared.utils.mail_service.MailService;
+import org.bson.types.ObjectId;
+import org.carly.shared.security.config.LoggedUserProvider;
+import org.carly.shared.security.model.LoggedUser;
+import org.carly.user_management.api.model.AddressRest;
 import org.carly.user_management.api.model.CarlyUserRest;
 import org.carly.user_management.api.model.LoginRest;
 import org.carly.user_management.api.model.UserRest;
-import org.carly.shared.security.config.LoggedUserProvider;
 import org.carly.user_management.core.model.Password;
 import org.carly.user_management.core.model.User;
 import org.carly.user_management.core.service.UserService;
-import org.carly.shared.security.model.LoggedUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
@@ -25,20 +25,16 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final MailService mailService;
     private final LoggedUserProvider loggedUserProvider;
 
     public UserController(UserService userService,
-                          MailService mailService,
                           LoggedUserProvider loggedUserProvider) {
         this.userService = userService;
-        this.mailService = mailService;
         this.loggedUserProvider = loggedUserProvider;
     }
 
     @PostMapping("/registration")
     public User registerUserAccount(@Valid @RequestBody UserRest userRest,
-                                    BindingResult result,
                                     WebRequest request) {
         return userService.createUser(userRest, request);
     }
@@ -50,6 +46,13 @@ public class UserController {
         return ResponseEntity.ok(response).getBody();
     }
 
+    @PreAuthorize("hasAnyAuthority('CUSTOMER')")
+    @PostMapping("/addAddress/{id}")
+    public ResponseEntity addAddressToUserAccount(@PathVariable("id") ObjectId userId,
+                                                  @RequestBody AddressRest addressRest) {
+        return userService.addAddress(userId, addressRest);
+    }
+
     @PreAuthorize("hasAnyAuthority('CUSTOMER','OPERATIONS')")
     @PostMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(HttpServletRequest request,
@@ -59,9 +62,11 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('CUSTOMER', 'OPERATIONS')")
     @GetMapping("/changePassword")
-    public ResponseEntity changePassword(@RequestParam("id") String id,
-                                         @RequestParam("token") String token) {
-        return userService.changePassword(id, token);
+    public ResponseEntity<String> changePassword(@RequestParam("id") String id,
+                                                 @RequestParam("token") String token,
+                                                 WebRequest request) {
+        String response = userService.changePassword(id, token, request);
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyAuthority('CHANGE_PASSWORD_PRIVILEGE', 'OPERATIONS')")
@@ -72,14 +77,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public CarlyUserRest login(@Valid @RequestBody LoginRest userRest,
-                               BindingResult result) {
+    public CarlyUserRest login(@Valid @RequestBody LoginRest userRest) {
         return userService.login(userRest);
-    }
-
-    //for mail test
-    @GetMapping("/send")
-    public void sendMail() {
-        mailService.sendSimpleEmail("ryba.marcin20@gmail.com", "Carly company mail sender", "Nasz mail który bedzie potwierdzał rejerstracje:P");
     }
 }

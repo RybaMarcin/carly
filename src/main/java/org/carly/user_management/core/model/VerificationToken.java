@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Document(collection = "tokens")
 @Getter
 public class VerificationToken {
-    private ObjectId id;
     private String token;
     private User user;
     private LocalDateTime expiryDate;
