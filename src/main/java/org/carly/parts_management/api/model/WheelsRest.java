@@ -1,19 +1,22 @@
 package org.carly.parts_management.api.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 import org.bson.types.ObjectId;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
 public class WheelsRest {
+
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
+
     private String name;
 //    private BrandRest brand;
-    private double diameter;
-    private double weight;
+    private BigDecimal diameter;
+    private BigDecimal weight;
     private BigDecimal price;
     private String preview;
 }

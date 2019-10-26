@@ -1,5 +1,7 @@
 package org.carly.parts_management.api.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.bson.types.ObjectId;
 
@@ -9,13 +11,15 @@ import java.time.LocalDate;
 @Data
 public class EngineRest {
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
+
     private String name;
     private BrandRest brand;
-    private double horsePower;
-    private double weight;
-    private double capacity;
-    private int numberOfCylinders;
+    private BigDecimal horsePower;
+    private BigDecimal weight;
+    private BigDecimal capacity;
+    private BigDecimal numberOfCylinders;
     private BigDecimal price;
     private LocalDate createDate;
 }

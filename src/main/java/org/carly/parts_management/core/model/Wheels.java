@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 @Document(collection = "wheels")
 public class Wheels extends Part{
 //    private Brand brand;
-    private double diameter;
-    private double weight;
+    private BigDecimal diameter;
+    private BigDecimal weight;
     private BigDecimal price;
     private String preview;
 }

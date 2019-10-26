@@ -1,4 +1,4 @@
-package org.carly.parts_management.api.model;
+package org.carly.parts_management.api.model.criteria;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,15 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EngineSearchCriteriaRest {
+public class BreaksSearchCriteriaRest extends PartSearchCriteriaRest {
 
-    private List<String> names;
     private List<String> engineCodes;
     private List<String> brandNames;
 
 
-    public static EngineSearchCriteriaRest ofNull() {
-        return new EngineSearchCriteriaRest();
+
+    public static BreaksSearchCriteriaRest ofNull() {
+        return new BreaksSearchCriteriaRest();
     }
 
 }

@@ -12,9 +12,9 @@ import java.time.LocalDate;
 public class Engine extends Part {
     private BigDecimal price;
     private Brand brand;
-    private double horsePower;
-    private double weight;
-    private double capacity;
-    private int numberOfCylinders;
+    private BigDecimal horsePower;
+    private BigDecimal weight;
+    private BigDecimal capacity;
+    private BigDecimal numberOfCylinders;
     private LocalDate createDate;
 }

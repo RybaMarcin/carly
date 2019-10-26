@@ -9,24 +9,38 @@ import org.springframework.stereotype.Component;
 public class BreaksMapper implements MapperService<BreaksRest, Breaks> {
 
 
+    //todo: Add missing fields to mapper when models will be ready.
+
     @Override
     public BreaksRest simplifyRestObject(Breaks domain) {
-        return null;
+        BreaksRest rest = new BreaksRest();
+        return mapFromDomainObject(domain, rest);
     }
 
     @Override
     public Breaks simplifyDomainObject(BreaksRest rest) {
-        return null;
+        Breaks domain = new Breaks();
+        return mapToDomainObject(domain, rest);
     }
 
     @Override
     public BreaksRest mapFromDomainObject(Breaks domain, BreaksRest rest) {
-        return null;
+        rest.setId(domain.getId());
+//        rest.setBreaksType(domain.getBreaksType());
+        rest.setName(domain.getName());
+        rest.setPreview(domain.getPreview());
+        rest.setPrice(domain.getPrice());
+        return rest;
     }
 
     @Override
     public Breaks mapToDomainObject(Breaks domain, BreaksRest rest) {
-        return null;
+        domain.setId(rest.getId());
+//        domain.setBreaksType(rest.getBreaksType());
+        domain.setName(rest.getName());
+        domain.setPreview(rest.getPreview());
+        domain.setPrice(rest.getPrice());
+        return domain;
     }
 
 }
