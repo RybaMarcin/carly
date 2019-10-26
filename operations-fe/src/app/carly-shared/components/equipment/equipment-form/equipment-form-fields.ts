@@ -4,7 +4,7 @@ import {Equipment} from "../../../model/equipment.model";
 
 export const equipmentFormFields: FormGroupHelper.Model[] = [
   {
-    inputName: 'name',
+    inputName: 'partName',
     label: 'Name',
     validators: [Validators.required],
     type: 'text',
@@ -12,7 +12,7 @@ export const equipmentFormFields: FormGroupHelper.Model[] = [
     rows: 1
   },
   {
-    inputName: 'brand',
+    inputName: 'partBrand',
     label: 'Brand',
     validators: [Validators.required],
     type: 'select',
@@ -30,7 +30,7 @@ export const equipmentFormFields: FormGroupHelper.Model[] = [
     selectOptions: [...Object.values(Equipment.EquipmentType).map(value => ({label: value, value}))]
   },
   {
-    inputName: 'price',
+    inputName: 'partPrice',
     label: 'Price',
     validators: [Validators.required],
     type: 'number',

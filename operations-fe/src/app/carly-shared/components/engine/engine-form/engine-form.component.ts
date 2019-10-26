@@ -3,7 +3,7 @@ import {EngineManagementService} from "../../../resources/engine-management.serv
 import {MessageService} from "../../../services/message.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormGroupHelperService} from "../../../services/form-group-helper.service";
-import {engineDetailsFormFields} from "./engine-form-fields";
+import {engineDetailsFormFields, enginePreviews} from "./engine-form-fields";
 import {Engine} from "../../../model/engine.model";
 import {PartFormAction} from "../../../model/part-form-action.model";
 import {Router} from "@angular/router";
@@ -31,7 +31,13 @@ export class EngineFormComponent implements OnInit {
   generalForm: FormGroup;
 
   engineDetailsForm: FormGroup;
-  engineDetailsFormControls = this.fgService.addControlToModel(engineDetailsFormFields);
+  engineDetailsFormControls = this.fgService.addControlToModel(engineDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'preview') {
+        controlModel.selectOptions = enginePreviews;
+      }
+      return controlModel;
+    });
 
   gridColumns = 1;
 
@@ -123,7 +129,7 @@ export class EngineFormComponent implements OnInit {
 
     if(this.formAction !== PartFormAction.EDIT) {
 
-      engine.createDate = moment(engine.createDate, moment.HTML5_FMT.DATETIME_LOCAL).utc(true).format();
+      engine.createdDate = moment(engine.createdDate, moment.HTML5_FMT.DATETIME_LOCAL).utc(true).format();
 
       engineAction = this.engineManagementService.createEngine(engine);
     } else {
