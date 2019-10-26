@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
+
+  userRegistration: boolean;
+
   constructor() { }
 
   ngOnInit() {
+
+    this.userRegistration = true;
+
+  }
+
+  onChange() {
+    if(this.userRegistration === false) {
+      this.userRegistration = true;
+    } else {
+      this.userRegistration = false;
+    }
   }
 
 }

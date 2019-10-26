@@ -1,5 +1,7 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
+  <h2>Add new account:</h2>
+
   <div class="flex-container">
 
     <div class="flex-container-content">
@@ -25,7 +27,6 @@
     <button mat-stroked-button mat-dialog-close type="button" color="primary" (click)="goBack()">Cancel</button>
     <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
   </div>
-
 
 </form>
 <p>General form value: {{generalForm.value | json}}</p>

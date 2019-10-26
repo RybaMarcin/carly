@@ -1,6 +1,13 @@
 <section>
-  <h2>Add new account:</h2>
 
-  <registration-form></registration-form>
+  <mat-slide-toggle (click)="onChange()">
+    Company registration
+  </mat-slide-toggle>
+
+  <mat-divider class="divider-large"></mat-divider>
+
+  <registration-form *ngIf="userRegistration"></registration-form>
+
+  <registration-company-form *ngIf="!userRegistration"></registration-company-form>
 
 </section>

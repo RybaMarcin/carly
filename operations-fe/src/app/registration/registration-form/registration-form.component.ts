@@ -91,7 +91,7 @@ export class RegistrationFormComponent implements OnInit {
         this.router.navigate(['']);
       },
         error => {
-          this.messageService.showMessage('Account creation has failed! ');
+          this.messageService.showMessage('Account creation has failed!');
           this.router.navigate(['']);
           console.log(error);
         });
