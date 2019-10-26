@@ -28,6 +28,13 @@ import {CustomersComponent} from "../carly-shared/components/customers/customers
 import {HomeComponent} from "../carly-shared/components/home/home.component";
 import {EquipmentComponent} from "../carly-shared/components/equipment/equipment.component";
 import {EquipmentAddComponent} from "../carly-shared/components/equipment/equipment-add/equipment-add.component";
+import {TiresComponent} from "../carly-shared/components/tires/tires.component";
+import {TiresAddComponent} from "../carly-shared/components/tires/tires-add/tires-add.component";
+import {WindowsComponent} from "../carly-shared/components/windows/windows.component";
+import {WindowsAddComponent} from "../carly-shared/components/windows/windows-add/windows-add.component";
+import {PaintingComponent} from "../carly-shared/components/painting/painting.component";
+import {PaintingAddComponent} from "../carly-shared/components/painting/painting-add/painting-add.component";
+import {WheelsEditComponent} from "../carly-shared/components/wheels/wheels-edit/wheels-edit.component";
 
 export const ROUTES: Routes = [
   {
@@ -101,7 +108,8 @@ export const ROUTES: Routes = [
             path: 'wheels',
             children: [
               {path: '', component: WheelsComponent},
-              {path: 'add', component: WheelsAddComponent}
+              {path: 'add', component: WheelsAddComponent},
+              {path: 'detail/:id', component: WheelsEditComponent},
             ]
           },
           {
@@ -109,6 +117,27 @@ export const ROUTES: Routes = [
             children: [
               {path: '', component: BreaksComponent},
               {path: 'add', component: BreaksAddComponent}
+            ]
+          },
+          {
+            path: 'tires',
+            children: [
+              {path: '', component: TiresComponent},
+              {path: 'add', component: TiresAddComponent}
+            ]
+          },
+          {
+            path: 'windows',
+            children: [
+              {path: '', component: WindowsComponent},
+              {path: 'add', component: WindowsAddComponent}
+            ]
+          },
+          {
+            path: 'painting',
+            children: [
+              {path: '', component: PaintingComponent},
+              {path: 'add', component: PaintingAddComponent}
             ]
           },
           {
