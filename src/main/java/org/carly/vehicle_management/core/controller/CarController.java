@@ -9,13 +9,13 @@ import org.carly.vehicle_management.core.model.Car;
 import org.carly.vehicle_management.core.service.CarFindService;
 import org.carly.vehicle_management.core.service.CarSaveService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
-import java.util.List;
 
-@RestController("/cars")
+@RestController
+@RequestMapping("/cars")
 @Slf4j
 public class CarController {
 
@@ -28,8 +28,8 @@ public class CarController {
         this.carSaveService = carSaveService;
     }
 
-    @GetMapping("/cars")
-    public List<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Page pageable){
+    @GetMapping
+    public Page<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Pageable pageable){
         return carFindService.findCars(searchCriteria, pageable);
     }
 

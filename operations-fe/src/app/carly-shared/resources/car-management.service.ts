@@ -14,11 +14,11 @@ export class CarManagementService {
   }
 
 
-  carlyManagementApi: string = `${BASE_API_URL}`;
-  cars: string = 'cars';
+  // carlyManagementApi: string = `${BASE_API_URL}`;
+  carlyManagementApi: string = 'api/cars';
 
   findCars(params: HttpParams): Observable<Car.PaginatedModel> {
-    return this.http.get<Car.PaginatedModel>(`${this.carlyManagementApi}/${this.cars}`, {params});
+    return this.http.get<Car.PaginatedModel>(`${this.carlyManagementApi}`, {params});
   }
 
   findCarsByCompanyId(companyId: string, params: HttpParams): Observable<Car.PaginatedModel> {
@@ -26,27 +26,27 @@ export class CarManagementService {
   }
 
   findCarById(id: string): Observable<Car.Model> {
-    return this.http.get<Car.Model>(`${this.carlyManagementApi}/${this.cars}/${id}`);
+    return this.http.get<Car.Model>(`${this.carlyManagementApi}/${id}`);
   }
 
   findPendingCarById(id: string): Observable<Car.Model> {
-    return this.http.get<Car.Model>(`${this.carlyManagementApi}/${this.cars}/pending/${id}`);
+    return this.http.get<Car.Model>(`${this.carlyManagementApi}/pending/${id}`);
   }
 
   createCar(car: Car.POST): Observable<Car.Model> {
-    return this.http.post<Car.Model>(`${this.carlyManagementApi}/${this.cars}`, car);
+    return this.http.post<Car.Model>(`${this.carlyManagementApi}`, car);
   }
 
   createPendingCar(decision: ChangeDecision): Observable<ChangeDecision> {
-    return this.http.post<ChangeDecision>(`${this.carlyManagementApi}/${this.cars}/pending`, decision);
+    return this.http.post<ChangeDecision>(`${this.carlyManagementApi}/pending`, decision);
   }
 
   updateCar(car: Car.PUT): Observable<Car.Model> {
-    return this.http.put<Car.Model>(`${this.carlyManagementApi}/${this.cars}`, car);
+    return this.http.put<Car.Model>(`${this.carlyManagementApi}`, car);
   }
 
   findAllCars(): Observable<Car.Model[]> {
-    return this.http.get<Car.Model[]>(`${this.carlyManagementApi}/${this.cars}/all`);
+    return this.http.get<Car.Model[]>(`${this.carlyManagementApi}/all`);
   }
 
 }

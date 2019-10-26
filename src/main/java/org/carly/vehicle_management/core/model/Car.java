@@ -14,14 +14,16 @@ import java.time.LocalDate;
 public class Car {
 
     public static final String ID = "id";
+    public static final String NAME = "name";
 
     @Field(ID)
     private ObjectId id;
+    @Field(NAME)
+    private String name;
     private LocalDate createAt;
     private LocalDate modifyAt;
     private String vinNumber;
     private ChangeRequestStatus requestStatus;
-    private String name;
     private String code;
     private Brand brand;
     private Model model;

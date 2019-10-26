@@ -9,14 +9,14 @@ import org.carly.vehicle_management.api.model.CarSearchCriteriaRest;
 import org.carly.vehicle_management.core.mapper.CarMapper;
 import org.carly.vehicle_management.core.model.Car;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
+import org.carly.vehicle_management.core.repository.CarMongoRepository;
 import org.carly.vehicle_management.core.repository.CarRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
@@ -27,10 +27,14 @@ public class CarFindService implements VehicleFindService {
 
     private final CarMapper carMapper;
     private final CarRepository carRepository;
+    private final CarMongoRepository carMongoRepository;
 
-    public CarFindService(CarMapper carMapper, CarRepository carRepository) {
+    public CarFindService(CarMapper carMapper,
+                          CarRepository carRepository,
+                          CarMongoRepository carMongoRepository) {
         this.carMapper = carMapper;
         this.carRepository = carRepository;
+        this.carMongoRepository = carMongoRepository;
     }
 
     @Override
@@ -62,11 +66,8 @@ public class CarFindService implements VehicleFindService {
         return carMapper.simplifyRestObject(car);
     }
 
-    public List<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Page pageable) {
-        Map<String, Object> params = new HashMap();
-        params.put("name", searchCriteria.getNames());
-        params.put("code", searchCriteria.getCarCodes());
-        params.put("brand", searchCriteria.getBrandNames());
-        return null;
+    public Page<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Pageable pageable) {
+        return carMongoRepository.findWithFilters(searchCriteria, pageable)
+                .map(carMapper::simplifyRestObject);
     }
 }
