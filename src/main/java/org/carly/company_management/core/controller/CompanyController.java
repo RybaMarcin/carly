@@ -1,9 +1,12 @@
-package org.carly.company_management.api.model.controller;
+package org.carly.company_management.core.controller;
 
 import org.bson.types.ObjectId;
 import org.carly.company_management.api.model.CompanyRest;
+import org.carly.company_management.api.model.CompanySearchCriteriaRest;
 import org.carly.company_management.core.service.CompanyFindService;
 import org.carly.company_management.core.service.CompanySaveService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +19,12 @@ public class CompanyController {
     public CompanyController(CompanyFindService companyFindService, CompanySaveService companySaveService) {
         this.companyFindService = companyFindService;
         this.companySaveService = companySaveService;
+    }
+
+    @GetMapping
+    public Page<CompanyRest> findCompanies(CompanySearchCriteriaRest searchCriteria,
+                                           Pageable pageable) {
+        return companyFindService.findCompanies(searchCriteria, pageable);
     }
 
     @GetMapping("{id}")

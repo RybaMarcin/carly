@@ -1,4 +1,4 @@
-import {Roles} from "../../model/roles.model";
+import {Roles} from "./roles.model";
 
 export interface NavLink {
   label: string;

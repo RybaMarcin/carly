@@ -7,6 +7,7 @@ import org.carly.vehicle_management.core.model.Car;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -15,11 +16,14 @@ import java.util.List;
 public class Company {
 
     public static final String ID = "id";
+    public static final String NAME = "name";
 
     //todo: Fields commented temporarily.
 
     @Value(ID)
     private ObjectId id;
+
+    @Field(NAME)
     private String name;
     private String brand;
     //    private int yearOfEstablishment;

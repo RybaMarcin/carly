@@ -1,6 +1,12 @@
-<div class="side-menu">
-  <a [routerLink]="['/parts/engines']">ENGINE</a>
-  <a [routerLink]="['/parts/wheels']">WHEELS</a>
-  <a [routerLink]="['/parts/breaks']">BREAKS</a>
-  <a [routerLink]="['/parts/equipment']">EQUIPMENT</a>
-</div>
+<nav class="side-nav-bar" mat-tab-nav-bar>
+  <ng-container *ngFor="let link of navLinks">
+    <a mat-tab-link
+      [routerLink]="[link.path]"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </ng-container>
+</nav>
+
+<router-outlet></router-outlet>

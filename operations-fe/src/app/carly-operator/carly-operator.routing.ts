@@ -35,6 +35,7 @@ import {WindowsAddComponent} from "../carly-shared/components/windows/windows-ad
 import {PaintingComponent} from "../carly-shared/components/painting/painting.component";
 import {PaintingAddComponent} from "../carly-shared/components/painting/painting-add/painting-add.component";
 import {WheelsEditComponent} from "../carly-shared/components/wheels/wheels-edit/wheels-edit.component";
+import {SideMenuComponent} from "../carly-shared/components/side-menu/side-menu.component";
 
 export const ROUTES: Routes = [
   {
