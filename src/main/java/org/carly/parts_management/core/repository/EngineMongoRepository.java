@@ -29,7 +29,7 @@ public class EngineMongoRepository {
     public Page<Engine> findWithFilters(EngineSearchCriteriaRest searchCriteria, Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
-                regexCriteria(Engine.NAME, searchCriteria.getNameToSearch()));
+                regexCriteria(Engine.PART_NAME, searchCriteria.getNameToSearch()));
 
 
         Query query = new Query();

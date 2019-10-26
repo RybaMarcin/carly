@@ -1,6 +1,5 @@
 package org.carly.parts_management.core.repository;
 
-import org.carly.parts_management.api.model.TiresRest;
 import org.carly.parts_management.api.model.criteria.TiresSearchCriteriaRest;
 import org.carly.parts_management.core.model.Tires;
 import org.springframework.data.domain.Page;
