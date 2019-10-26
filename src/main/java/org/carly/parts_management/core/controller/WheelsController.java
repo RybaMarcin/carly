@@ -3,14 +3,14 @@ package org.carly.parts_management.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.parts_management.api.model.WheelsRest;
-import org.carly.parts_management.api.model.WheelsSearchCriteriaRest;
+import org.carly.parts_management.api.model.criteria.WheelsSearchCriteriaRest;
 import org.carly.parts_management.core.service.WheelsFindService;
 import org.carly.parts_management.core.service.WheelsSaveService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/wheels")
@@ -29,8 +29,8 @@ public class WheelsController {
 
 
     @GetMapping("/wheels")
-    public List<WheelsRest> findWheels(WheelsSearchCriteriaRest searchCriteria,
-                                       Page pageable) {
+    public Page<WheelsRest> findWheels(WheelsSearchCriteriaRest searchCriteria,
+                                       Pageable pageable) {
         return wheelsFindService.findWheels(searchCriteria, pageable);
     }
 
