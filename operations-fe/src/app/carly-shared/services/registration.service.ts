@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Registration} from "../model/registration.model";
 import {Observable} from "rxjs";
+import {RegistrationCompany} from "../model/registration-company.model";
 
 declare const BASE_API_URL;
 
@@ -30,5 +31,11 @@ export class RegistrationService {
     debugger;
     return this.http.post<Registration.POST>(`${this.userManagementApi}/user/reset-password`, reset);
   }
+
+  createNewCompanyAccount(newCompany: RegistrationCompany.POST): Observable<Registration.Model> {
+    debugger;
+    return this.http.post<RegistrationCompany.POST>(`${this.userManagementApi}/company/registration`, newCompany);
+  }
+
 
 }

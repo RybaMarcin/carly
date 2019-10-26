@@ -63,6 +63,26 @@ import { EquipmentComponent } from './components/equipment/equipment.component';
 import { EquipmentAddComponent } from './components/equipment/equipment-add/equipment-add.component';
 import { EquipmentFormComponent } from './components/equipment/equipment-form/equipment-form.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { WindowsComponent } from './components/windows/windows.component';
+import { WindowsAddComponent } from './components/windows/windows-add/windows-add.component';
+import { WindowsEditComponent } from './components/windows/windows-edit/windows-edit.component';
+import { WindowsFormComponent } from './components/windows/windows-form/windows-form.component';
+import { PaintingComponent } from './components/painting/painting.component';
+import { PaintingAddComponent } from './components/painting/painting-add/painting-add.component';
+import { PaintingEditComponent } from './components/painting/painting-edit/painting-edit.component';
+import { PaintingFormComponent } from './components/painting/painting-form/painting-form.component';
+import { TiresComponent } from './components/tires/tires.component';
+import { TiresAddComponent } from './components/tires/tires-add/tires-add.component';
+import { TiresEditComponent } from './components/tires/tires-edit/tires-edit.component';
+import { TiresFormComponent } from './components/tires/tires-form/tires-form.component';
+import { WheelsStepComponent } from './components/wheels/wheels-step/wheels-step.component';
+import { EngineStepComponent } from './components/engine/engine-step/engine-step.component';
+import { BreaksStepComponent } from './components/breaks/breaks-step/breaks-step.component';
+import { PartStepComponent } from './components/parts/part-step/part-step.component';
+import { PartFormComponent } from './components/parts/part-form/part-form.component';
+import { TiresStepComponent } from './components/tires/tires-step/tires-step.component';
+import { WindowsStepComponent } from './components/windows/windows-step/windows-step.component';
+import { EquipmentStepComponent } from './components/equipment/equipment-step/equipment-step.component';
 
 @NgModule({
   imports: [
@@ -121,6 +141,26 @@ import { NotificationsComponent } from './components/notifications/notifications
     EquipmentAddComponent,
     EquipmentFormComponent,
     NotificationsComponent,
+    WindowsComponent,
+    WindowsAddComponent,
+    WindowsEditComponent,
+    WindowsFormComponent,
+    PaintingComponent,
+    PaintingAddComponent,
+    PaintingEditComponent,
+    PaintingFormComponent,
+    TiresComponent,
+    TiresAddComponent,
+    TiresEditComponent,
+    TiresFormComponent,
+    WheelsStepComponent,
+    EngineStepComponent,
+    BreaksStepComponent,
+    PartStepComponent,
+    PartFormComponent,
+    TiresStepComponent,
+    WindowsStepComponent,
+    EquipmentStepComponent,
   ],
   providers: [
     BreakpointService,
