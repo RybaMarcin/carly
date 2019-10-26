@@ -4,7 +4,6 @@ import {MessageService} from "../../../services/message.service";
 import {TiresManagementService} from "../../../resources/tires-management.service";
 import {Tires} from "../../../model/tires.model";
 import {PartFormAction} from "../../../model/part-form-action.model";
-import {Wheels} from "../../../model/wheels.model";
 import {FormGroupHelperService} from "../../../services/form-group-helper.service";
 import {tirePreviews, tiresDetailsFormFields} from "./tires-form-fields";
 import {Router} from "@angular/router";
