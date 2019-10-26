@@ -3,13 +3,15 @@ package org.carly.parts_management.core.service;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.parts_management.api.model.EngineRest;
-import org.carly.parts_management.api.model.EngineSearchCriteriaRest;
+import org.carly.parts_management.api.model.criteria.EngineSearchCriteriaRest;
 import org.carly.parts_management.core.mapper.EngineMapper;
+import org.carly.parts_management.core.repository.EngineMongoRepository;
 import org.carly.parts_management.core.repository.EngineRepository;
 import org.carly.shared.config.EntityNotFoundException;
 import org.carly.shared.service.part_services.PartFindService;
 import org.carly.parts_management.core.model.Engine;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -25,12 +27,15 @@ public class EngineFindService implements PartFindService {
 
     private final EngineMapper engineMapper;
     private final EngineRepository engineRepository;
+    private final EngineMongoRepository engineMongoRepository;
 
 
     public EngineFindService(EngineMapper engineMapper,
-                             EngineRepository engineRepository) {
+                             EngineRepository engineRepository,
+                             EngineMongoRepository engineMongoRepository) {
         this.engineMapper = engineMapper;
         this.engineRepository = engineRepository;
+        this.engineMongoRepository = engineMongoRepository;
     }
 
     @Override
@@ -49,9 +54,9 @@ public class EngineFindService implements PartFindService {
     }
 
 
-    public List<EngineRest> findEngines(EngineSearchCriteriaRest searchCriteria, Page pageable) {
-
-        return null;
+    public Page<EngineRest> findEngines(EngineSearchCriteriaRest searchCriteria, Pageable pageable) {
+        return engineMongoRepository.findWithFilters(searchCriteria, pageable)
+                .map(engineMapper::simplifyRestObject);
     }
 
 }

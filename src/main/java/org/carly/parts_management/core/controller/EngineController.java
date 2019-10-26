@@ -3,14 +3,14 @@ package org.carly.parts_management.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.parts_management.api.model.EngineRest;
-import org.carly.parts_management.api.model.EngineSearchCriteriaRest;
+import org.carly.parts_management.api.model.criteria.EngineSearchCriteriaRest;
 import org.carly.parts_management.core.service.EngineFindService;
 import org.carly.parts_management.core.service.EngineSaveService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/engines")
@@ -28,11 +28,10 @@ public class EngineController {
 
     }
 
-    //todo: Finish implementation
 
     @GetMapping("/engines")
-    public List<EngineRest> findEngines(EngineSearchCriteriaRest searchCriteria,
-                                        Page pageable) {
+    public Page<EngineRest> findEngines(EngineSearchCriteriaRest searchCriteria,
+                                        Pageable pageable) {
         return engineFindService.findEngines(searchCriteria, pageable);
     }
 
