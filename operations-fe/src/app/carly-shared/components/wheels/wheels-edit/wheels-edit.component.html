@@ -1,6 +1,10 @@
 <section>
 
-  <wheels-form></wheels-form>
+  <wheels-form
+    *ngIf="wheels"
+    [wheels]="wheels"
+    [formAction]="formAction"
+    [edit]="true"></wheels-form>
 
 
 </section>

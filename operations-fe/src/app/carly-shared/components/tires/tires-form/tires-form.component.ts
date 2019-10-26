@@ -18,6 +18,7 @@ import {ValueLabel} from "../../../model/value-label";
 })
 export class TiresFormComponent implements OnInit {
 
+  @Input() tires: Tires.Model;
   @Input() formAction: PartFormAction;
   @Input() submitEvent: EventEmitter<Tires.Model> = new EventEmitter();
 

@@ -25,6 +25,7 @@ export class WheelsFormComponent implements OnInit {
   @Input() formAction: PartFormAction;
   @Input() wheels: Wheels.Model;
   @Input() isRequest = false;
+  @Input() edit = false;
   @Input() submitEvent: EventEmitter<Wheels.Model> = new EventEmitter();
 
   @ViewChild(PartFormComponent) partFormComponent: PartFormComponent;
@@ -77,6 +78,11 @@ export class WheelsFormComponent implements OnInit {
     if(this.isDisabled) {
       this.wheelsDetailsForm.disable();
     }
+
+    if(this.formAction === PartFormAction.EDIT) {
+      this.wheelsDetailsForm.disable();
+    }
+
 
 
     const setGridColumn = (breakpoint: string) => {
@@ -207,6 +213,10 @@ export class WheelsFormComponent implements OnInit {
 
   getWheelsPreview(): string {
     return this.wheelsDetailsForm.get('preview').value;
+  }
+
+  enableEdit() {
+    this.wheelsDetailsForm.enable();
   }
 
 
