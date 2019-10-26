@@ -32,12 +32,10 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         rest.setBrand(new BrandRest());
         rest.getBrand().setId(domain.getBrand().getId());
         rest.getBrand().setName(domain.getBrand().getName());
-        rest.getBrand().setRating(domain.getBrand().getRating());
         rest.setHorsePower(domain.getHorsePower());
         rest.setWeight(domain.getWeight());
         rest.setCapacity(domain.getCapacity());
         rest.setNumberOfCylinders(domain.getNumberOfCylinders());
-        rest.setCreateDate(domain.getCreateDate());
         return rest;
     }
 
@@ -49,12 +47,10 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         domain.setBrand(new Brand());
         domain.getBrand().setId(rest.getBrand().getId());
         domain.getBrand().setName(rest.getBrand().getName());
-        domain.getBrand().setRating(rest.getBrand().getRating());
         domain.setHorsePower(rest.getHorsePower());
         domain.setWeight(rest.getWeight());
         domain.setCapacity(rest.getCapacity());
         domain.setNumberOfCylinders(rest.getNumberOfCylinders());
-        domain.setCreateDate(rest.getCreateDate());
         return domain;
     }
 

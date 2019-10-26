@@ -13,15 +13,15 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     rows: 1,
     cols: 4
   },
-  {
-    inputName: 'brand',
-    label: 'Brand',
-    validators: [Validators.required],
-    type: 'select',
-    rows: 1,
-    cols: 4,
-    selectOptions: []
-  },
+  // {
+  //   inputName: 'brand',
+  //   label: 'Brand',
+  //   validators: [Validators.required],
+  //   type: 'select',
+  //   rows: 1,
+  //   cols: 4,
+  //   selectOptions: []
+  // },
   {
     inputName: 'model',
     label: 'Model',

@@ -1,102 +1,186 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<!--<form [formGroup]="generalForm" *ngIf="generalForm">-->
 
-    <h3>Basic car info:</h3>
+<!--    <h3>Basic car info:</h3>-->
 
-    <div class="flex-container">
+<!--    <div class="flex-container">-->
 
-      <div class="flex-container-content">
+<!--      <div class="flex-container-content">-->
 
-        <form-group
-          *ngIf="carDetailsForm"
-          [fg]="generalForm"
-          [name]="'carDetailsForm'"
-          [controls]="carDetailsFormControls"
-          [gridColumns]="gridColumns"></form-group>
+<!--        <form-group-->
+<!--          *ngIf="carDetailsForm"-->
+<!--          [fg]="generalForm"-->
+<!--          [name]="'carDetailsForm'"-->
+<!--          [controls]="carDetailsFormControls"-->
+<!--          [gridColumns]="gridColumns"></form-group>-->
 
-      </div>
+<!--      </div>-->
 
-      <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+<!--      <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
 
-      <div class="flex-container-content">
+<!--      <div class="flex-container-content">-->
 
-        <!--todo: change styling of that img-->
-        <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">
+<!--        &lt;!&ndash;todo: change styling of that img&ndash;&gt;-->
+<!--        <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">-->
 
-      </div>
+<!--      </div>-->
 
+<!--    </div>-->
+
+<!--    <mat-divider class="divider-large"></mat-divider>-->
+
+<!--    &lt;!&ndash;  todo: Finish implementing this component&ndash;&gt;-->
+
+<!--    <h3 class="align-space-between">-->
+<!--      Engine:-->
+<!--      <div class="btn-carousel">-->
+<!--        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">-->
+<!--          <i class="fas fa-angle-left"></i>-->
+<!--        </button>-->
+<!--        <button mat-stroked-button type="button" (click)="nextEngine()">-->
+<!--          <i class="fas fa-angle-right"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </h3>-->
+
+
+<!--    <mat-divider class="divider-large"></mat-divider>-->
+
+
+
+<!--    &lt;!&ndash;  todo: Finish implementing this component&ndash;&gt;-->
+<!--    <h3 class="align-space-between">-->
+<!--      Wheels:-->
+<!--      <div class="btn-carousel">-->
+<!--        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">-->
+<!--          <i class="fas fa-angle-left"></i>-->
+<!--        </button>-->
+<!--        <button mat-stroked-button type="button" (click)="nextEngine()">-->
+<!--          <i class="fas fa-angle-right"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </h3>-->
+
+<!--    <mat-divider class="divider-large"></mat-divider>-->
+
+
+<!--    &lt;!&ndash;  todo: Finish implementing this component&ndash;&gt;-->
+<!--    <h3 class="align-space-between">-->
+<!--      Breaks:-->
+<!--      <div class="btn-carousel">-->
+<!--        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">-->
+<!--          <i class="fas fa-angle-left"></i>-->
+<!--        </button>-->
+<!--        <button mat-stroked-button type="button" (click)="nextEngine()">-->
+<!--          <i class="fas fa-angle-right"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </h3>-->
+
+<!--    <mat-divider class="divider-large"></mat-divider>-->
+
+<!--    &lt;!&ndash;  todo: Finish implementing this component&ndash;&gt;-->
+<!--    <h3 class="align-space-between">-->
+<!--      Tires:-->
+<!--      <div class="btn-carousel">-->
+<!--        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">-->
+<!--          <i class="fas fa-angle-left"></i>-->
+<!--        </button>-->
+<!--        <button mat-stroked-button type="button" (click)="nextEngine()">-->
+<!--          <i class="fas fa-angle-right"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </h3>-->
+
+
+<!--    <div class="align-space-between" *ngIf="!isRequest">-->
+<!--      <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>-->
+<!--      <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>-->
+<!--    </div>-->
+
+<!--</form>-->
+<!--<p>General form: {{ carDetailsForm.value | json }}</p>-->
+<!--<p>Is form valid: {{ carDetailsForm.valid }}</p>-->
+
+
+<mat-horizontal-stepper linear #stepper>
+<!--  <mat-step [stepControl]="generalForm">-->
+<!--    <form [formGroup]="generalForm">-->
+<!--      <ng-template matStepLabel>Basic car details</ng-template>-->
+<!--          <div class="flex-container">-->
+
+<!--            <div class="flex-container-content">-->
+
+<!--              <form-group-->
+<!--                *ngIf="carDetailsForm"-->
+<!--                [fg]="generalForm"-->
+<!--                [name]="'carDetailsForm'"-->
+<!--                [controls]="carDetailsFormControls"-->
+<!--                [gridColumns]="gridColumns"></form-group>-->
+
+<!--            </div>-->
+
+<!--            <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
+
+<!--            <div class="flex-container-content">-->
+
+<!--              &lt;!&ndash;todo: change styling of that img&ndash;&gt;-->
+<!--              <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">-->
+
+<!--            </div>-->
+
+<!--          </div>-->
+<!--          <div>-->
+<!--            <button mat-button matStepperNext>Next</button>-->
+<!--          </div>-->
+<!--    </form>-->
+<!--  </mat-step>-->
+  <mat-step>
+    <ng-template matStepLabel>Engine</ng-template>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Wheels</ng-template>
 
-    <mat-divider class="divider-large"></mat-divider>
+    <wheels-step></wheels-step>
 
-    <!--  todo: Finish implementing this component-->
-
-    <h3 class="align-space-between">
-      Engine:
-      <div class="btn-carousel">
-        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
-          <i class="fas fa-angle-left"></i>
-        </button>
-        <button mat-stroked-button type="button" (click)="nextEngine()">
-          <i class="fas fa-angle-right"></i>
-        </button>
-      </div>
-    </h3>
-
-
-    <mat-divider class="divider-large"></mat-divider>
-
-
-
-    <!--  todo: Finish implementing this component-->
-    <h3 class="align-space-between">
-      Wheels:
-      <div class="btn-carousel">
-        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
-          <i class="fas fa-angle-left"></i>
-        </button>
-        <button mat-stroked-button type="button" (click)="nextEngine()">
-          <i class="fas fa-angle-right"></i>
-        </button>
-      </div>
-    </h3>
-
-    <mat-divider class="divider-large"></mat-divider>
-
-
-    <!--  todo: Finish implementing this component-->
-    <h3 class="align-space-between">
-      Breaks:
-      <div class="btn-carousel">
-        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
-          <i class="fas fa-angle-left"></i>
-        </button>
-        <button mat-stroked-button type="button" (click)="nextEngine()">
-          <i class="fas fa-angle-right"></i>
-        </button>
-      </div>
-    </h3>
-
-    <mat-divider class="divider-large"></mat-divider>
-
-    <!--  todo: Finish implementing this component-->
-    <h3 class="align-space-between">
-      Tires:
-      <div class="btn-carousel">
-        <button mat-stroked-button type="button" (click)="previousEngine()" class="btn-previous">
-          <i class="fas fa-angle-left"></i>
-        </button>
-        <button mat-stroked-button type="button" (click)="nextEngine()">
-          <i class="fas fa-angle-right"></i>
-        </button>
-      </div>
-    </h3>
-
-
-    <div class="align-space-between" *ngIf="!isRequest">
-      <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-      <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Breaks</ng-template>
 
-</form>
-<p>General form: {{ carDetailsForm.value | json }}</p>
-<p>Is form valid: {{ carDetailsForm.valid }}</p>
+    <breaks-step></breaks-step>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Tires</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Windows</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

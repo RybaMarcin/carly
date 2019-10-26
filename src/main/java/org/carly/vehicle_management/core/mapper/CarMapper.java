@@ -32,7 +32,7 @@ public class CarMapper implements MapperService<CarRest, Car> {
         carRest.setBrand(new BrandRest());
         carRest.getBrand().setId(domain.getBrand().getId());
         carRest.getBrand().setName(domain.getBrand().getName());
-        carRest.getBrand().setRating(domain.getBrand().getRating());
+
 
         carRest.setModel(new ModelRest());
         carRest.getModel().setId(domain.getModel().getId());
@@ -70,7 +70,6 @@ public class CarMapper implements MapperService<CarRest, Car> {
         carRest.getEquipment().setBrand(new BrandRest());
         carRest.getEquipment().getBrand().setId(domain.getEquipment().getBrand().getId());
         carRest.getEquipment().getBrand().setName(domain.getEquipment().getBrand().getName());
-        carRest.getEquipment().getBrand().setRating(domain.getEquipment().getBrand().getRating());
         carRest.getEquipment().setName(domain.getEquipment().getName());
         carRest.getEquipment().setPrice(domain.getEquipment().getPrice());
 
@@ -85,7 +84,6 @@ public class CarMapper implements MapperService<CarRest, Car> {
         car.setBrand(new Brand());
         car.getBrand().setId(rest.getBrand().getId());
         car.getBrand().setName(rest.getName());
-        car.getBrand().setRating(rest.getBrand().getRating());
 
         car.setModel(new Model());
         car.getModel().setId(rest.getModel().getId());
@@ -132,7 +130,6 @@ public class CarMapper implements MapperService<CarRest, Car> {
         car.getEquipment().setBrand(new Brand());
         car.getEquipment().getBrand().setId(rest.getEquipment().getBrand().getId());
         car.getEquipment().getBrand().setName(rest.getEquipment().getBrand().getName());
-        car.getEquipment().getBrand().setRating(rest.getEquipment().getBrand().getRating());
         return car;
     }
 }
