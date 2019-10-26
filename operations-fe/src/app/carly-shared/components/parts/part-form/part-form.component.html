@@ -1,0 +1,32 @@
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="partDetailsForm"
+        [fg]="generalForm"
+        [name]="'partDetailsForm'"
+        [controls]="partFormDetailsControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+    <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+      <img src="../../../assets/{{partGroup}}/{{getPartPreview()}}" class="image-preview">
+    </div>
+
+  </div>
+
+  <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
+
+  <div class="align-space-between">
+    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>
+<p>General form: {{ partDetailsForm.value | json }}</p>
+<p>Is form valid: {{ partDetailsForm.valid }}</p>

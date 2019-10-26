@@ -1,0 +1,30 @@
+<form [formGroup]="generalForm" *ngIf="generalForm">
+
+  <div class="btn-carousel">
+    <button mat-stroked-button type="button" (click)="previous()"><i class="fas fa-angle-left"></i></button>
+    <button mat-stroked-button type="button" (click)="next()"><i class="fas fa-angle-right"></i></button>
+  </div>
+
+  <div class="flex-container">
+
+    <div class="flex-container-content">
+
+      <form-group
+        *ngIf="partStepDetailsForm"
+        [fg]="generalForm"
+        [name]="'partStepDetailsForm'"
+        [controls]="partStepDetailsControls"
+        [gridColumns]="gridColumns"></form-group>
+
+    </div>
+
+    <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+
+    <div class="flex-container-content">
+      <img src="../../../assets/{{partGroup}}/{{part.preview}}" class="image-preview">
+    </div>
+
+  </div>
+
+</form>
+<p>General form: {{ partStepDetailsForm.value | json }}</p>
