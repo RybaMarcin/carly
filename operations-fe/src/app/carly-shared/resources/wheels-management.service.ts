@@ -19,7 +19,7 @@ export class WheelsManagementService {
   //WHEELS
 
   findWheels(params: HttpParams): Observable<Wheels.PaginatedModel> {
-    return this.http.get<Wheels.PaginatedModel>(`${this.wheelsManagementApi}`, {params});
+    return this.http.get<Wheels.PaginatedModel>(`${this.wheelsManagementApi}/wheels`, {params});
   }
 
   findWheelsById(id: string): Observable<Wheels.Model> {
@@ -35,7 +35,7 @@ export class WheelsManagementService {
   }
 
   getAllWheels(): Observable<Wheels.Model[]> {
-    return this.http.get<Wheels.Model[]>(`${this.wheelsManagementApi}/all-wheels`);
+    return this.http.get<Wheels.Model[]>(`${this.wheelsManagementApi}/all`);
   }
 
 }
