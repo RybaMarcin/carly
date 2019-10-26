@@ -1,0 +1,22 @@
+.flex-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-content {
+    flex: 50%;
+  }
+
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+
+  img {
+    width: 60%;
+  }
+
+}
