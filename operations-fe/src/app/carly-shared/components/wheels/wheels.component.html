@@ -11,7 +11,7 @@
       <h2 class="align-space-between">
         Wheels
         <div>
-          <button mat-flat-button color="accent">
+          <button mat-flat-button color="accent" (click)="clearFilters()">
             clear all
           </button>
           <button mat-stroked-button color="accent" [routerLink]="['/parts/wheels/add']">
@@ -42,7 +42,27 @@
         <mat-progress-bar mode="indeterminate" class="full-width"></mat-progress-bar>
       </div>
 
-      <table>
+      <table mat-table #table [dataSource]="datasource"
+              [hidden]="datasource.max === 0" class="full-width"
+              matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns">
+        </mat-row>
+
+        <ng-container cdkColumnDef="name">
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *cdkCellDef="let col">
+            <mat-card class="table-card">
+              <mat-card-header class="table-card-header">
+                <mat-card-title><a [routerLink]="['detail', col.id]">{{col.name}}</a></mat-card-title>
+              </mat-card-header>
+            </mat-card>
+          </mat-cell>
+        </ng-container>
+
+
 
         <!--todo: Finish implementation-->
 

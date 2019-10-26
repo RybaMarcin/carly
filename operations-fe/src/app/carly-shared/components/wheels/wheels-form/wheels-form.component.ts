@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, ViewChild} from '@angular/core';
 import {PartFormAction} from "../../../model/part-form-action.model";
 import {Wheels} from "../../../model/wheels.model";
 import {MessageService} from "../../../services/message.service";
@@ -10,6 +10,7 @@ import {BreakpointService} from "../../../services/breakpoint.service";
 import {wheelsDetailsFormFields, wheelsPreviews} from "./wheels-form-fields";
 import {Breakpoints} from "../../../model/breakpoints.model";
 import {WheelsManagementService} from "../../../resources/wheels-management.service";
+import {PartFormComponent} from "../../parts/part-form/part-form.component";
 
 @Component({
   selector: 'wheels-form',
@@ -25,6 +26,8 @@ export class WheelsFormComponent implements OnInit {
   @Input() wheels: Wheels.Model;
   @Input() isRequest = false;
   @Input() submitEvent: EventEmitter<Wheels.Model> = new EventEmitter();
+
+  @ViewChild(PartFormComponent) partFormComponent: PartFormComponent;
 
   active = true;
 

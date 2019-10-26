@@ -3,13 +3,14 @@
     <a [routerLink]="['/parts/engines']">ENGINE</a>
     <a [routerLink]="['/parts/wheels']">WHEELS</a>
     <a [routerLink]="['/parts/breaks']">BREAKS</a>
+    <a [routerLink]="['/parts/tires']">TIRES</a>
+    <a [routerLink]="['/parts/windows']">WINDOWS</a>
+    <a [routerLink]="['/parts/painting']">PAINTING</a>
     <a [routerLink]="['/parts/equipment']">EQUIPMENT</a>
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
       <h2>Add new wheels</h2>
-
-  <!--    <mat-divider class="divider-large divider-blank"></mat-divider>-->
 
       <form [formGroup]="generalForm" *ngIf="generalForm">
 
@@ -33,8 +34,6 @@
           </div>
 
         </div>
-
-  <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
 
         <div class="align-space-between" *ngIf="!isRequest">
           <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
