@@ -1,3 +1,25 @@
-<p>
-  painting works!
-</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <!--Nav-bar links-->
+    <side-nav-bar></side-nav-bar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section>
+
+      <h2 class="align-space-between">
+        Painting
+        <div>
+          <button mat-flat-button color="accent">
+            clear all
+          </button>
+          <button mat-stroked-button color="accent" [routerLink]="['/parts/painting/add']">
+            add painting
+          </button>
+        </div>
+      </h2>
+
+
+    </section>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
