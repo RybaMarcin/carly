@@ -5,17 +5,18 @@ export namespace Engine {
 
   export interface PreModel {
     id: string;
+    name: string;
+    brand: Brand;
+    preview: string;
+    price: number;
+    createdDate: Date | string;
   }
 
   export interface Model extends PreModel {
-    name: string;
-    brand: Brand;
     horsePower: number;
     weight: number;
     capacity: number;
     numberOfCylinders: number;
-    price: number;
-    createDate: Date | string;
   }
 
   export type PaginatedModel = Page<Model>;

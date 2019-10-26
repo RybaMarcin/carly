@@ -17,7 +17,7 @@ export namespace Car {
   }
 
   export interface Model extends PreModel {
-    brand: Brand;
+    // brand: Brand;
     model: Model;
     maxSpeed: number;
     accelerate: number;

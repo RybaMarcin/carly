@@ -4,12 +4,19 @@ import {Brand} from "./brand.model";
 
 export namespace Breaks {
 
-  export interface Model {
+  export interface PreModel {
+    id: string;
     name: string;
     brand: Brand;
     preview: string;
-    breaksType: string;
     price: number;
+    createdDate: Date | string;
+  }
+
+  export interface Model extends PreModel {
+
+    breaksType: string;
+
   }
 
   export type PaginatedModel = Page<Model>;
@@ -19,7 +26,9 @@ export namespace Breaks {
   export type PUT = Model;
 
   export enum BreaksType {
-
+    HYDRAULIC = 'Hydraulic',
+    MECHANIC = 'Mechanic',
+    PNEUMATIC = 'Pneumatic'
   }
 
 }

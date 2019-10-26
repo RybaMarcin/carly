@@ -5,13 +5,15 @@ export namespace Equipment {
 
     export interface PreModel {
       id: string;
+      name: string;
+      brand: Brand;
+      preview: string;
+      price: number;
+      createdDate: Date | string;
     }
 
     export interface Model extends PreModel {
-      name: string;
-      brand: Brand;
       type: EquipmentType;
-      price: number;
     }
 
     export type POST = Model;

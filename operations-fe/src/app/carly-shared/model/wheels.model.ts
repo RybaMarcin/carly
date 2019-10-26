@@ -7,14 +7,15 @@ export namespace Wheels {
   export interface PreModel {
     id: string;
     name: string;
+    brand: Brand;
+    preview: string;
+    price: number;
+    createdDate: Date | string;
   }
 
-  export interface Model extends PreModel, Part.Model {
-    // brand: Brand;
+  export interface Model extends PreModel {
     diameter: number;
     weight: number;
-    price: number;
-    preview: string;
   }
 
   export type PaginatedModel = Page<Model>;
