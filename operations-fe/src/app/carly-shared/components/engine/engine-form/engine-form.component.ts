@@ -11,6 +11,7 @@ import {UserManagementService} from "../../../resources/user-management.service"
 import {BreakpointService} from "../../../services/breakpoint.service";
 import {Breakpoints} from "../../../model/breakpoints.model";
 import * as moment from 'moment';
+import {ValueLabel} from "../../../model/value-label";
 
 
 @Component({
@@ -27,8 +28,7 @@ export class EngineFormComponent implements OnInit {
   @Input() engine: Engine.Model;
   @Input() isRequest = false;
   @Input() submitEvent: EventEmitter<boolean> = new EventEmitter();
-
-  generalForm: FormGroup;
+  @Input() details = false;
 
   engineDetailsForm: FormGroup;
   engineDetailsFormControls = this.fgService.addControlToModel(engineDetailsFormFields)
@@ -39,93 +39,38 @@ export class EngineFormComponent implements OnInit {
       return controlModel;
     });
 
-  gridColumns = 1;
+  enginePreviews: Array<ValueLabel>;
 
   constructor(
     private engineManagementService: EngineManagementService,
     private messageService: MessageService,
-    private formBuilder: FormBuilder,
     private fgService: FormGroupHelperService,
     private router: Router,
-    private userService: UserManagementService,
-    private breakpointService: BreakpointService
   ) {
   }
 
   ngOnInit() {
 
-    this.engineDetailsForm = this.formBuilder.group(
-      this.fgService.getControlsFromModel(this.engineDetailsFormControls)
-    );
-
-    this.generalForm = this.formBuilder.group({
-      engineDetailsForm: this.engineDetailsForm
-    });
-
-    this.engineDetailsForm.get('preview').setValue('engine_1.png');
-
-
-    if(this.engine) {
-      this.setFormValue(this.engine)
-    }
-
-
-    if(this.isDisabled) {
-      this.engineDetailsForm.disable();
-    }
-
-
-    const setGridColumn = (breakpoint: string) => {
-      switch(breakpoint) {
-        case Breakpoints.XXS:
-          this.gridColumns = 1;
-          break;
-        case Breakpoints.XS || Breakpoints.SM:
-          this.gridColumns = 2;
-          break;
-        default:
-          this.gridColumns = 4;
-      }
-    };
-
-    setGridColumn(this.breakpointService.getBreakpoint(window.innerWidth));
-    this.breakpointService.size.subscribe(setGridColumn);
-
-    //Method below only for debug form controls
-    this.engineDetailsForm.valueChanges.subscribe(() => {
-      console.log(500, this.engineDetailsForm.controls);
-      console.log(510, this.findInvalidControls());
-    })
-
+    this.enginePreviews = enginePreviews;
 
   }
 
 
-  setFormValue(engine: Engine.Model) {
+  onSubmit($event) {
 
-    this.engineDetailsFormControls
-      .forEach(control => this.engineDetailsForm
-        .get(control.inputName)
-        .setValue(engine[control.inputName]));
-
-  }
-
-
-  onSubmit() {
-    if(this.generalForm.invalid) {
-      return;
-    }
-    this.createOrUpdateEngine();
-
-  }
-
-
-  createOrUpdateEngine() {
-    let engineAction;
+    this.engineDetailsForm = $event;
 
     const engine: Engine.Model = {
       ...this.engineDetailsForm.value
     };
+
+    this.createOrUpdateEngine(engine);
+
+  }
+
+
+  createOrUpdateEngine(engine: Engine.Model) {
+    let engineAction;
 
     if(this.formAction !== PartFormAction.EDIT) {
 
@@ -150,38 +95,6 @@ export class EngineFormComponent implements OnInit {
       ...engine,
       id: engine.id
     }
-  }
-
-
-
-  goBack() {
-
-    // this.userService.isUserHasRole$(Roles.CARLY_OPERATOR)
-    //   .subscribe(hasRole => {
-    //     if(hasRole) {
-    //       this.router.navigate(['/parts/engines'])
-    //     }
-    //     this.router.navigate(['/'])
-    //   });
-    //
-    this.router.navigate(['/parts/engines']);
-  }
-
-
-  //Method to debug form controls.
-  public findInvalidControls() {
-    const invalid = [];
-    const controls = this.engineDetailsForm.controls;
-    for(const name in controls) {
-      if(controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
-    return invalid;
-  }
-
-  getEnginePreview(): string {
-    return this.engineDetailsForm.get('preview').value;
   }
 
 

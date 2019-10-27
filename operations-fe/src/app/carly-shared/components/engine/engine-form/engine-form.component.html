@@ -6,38 +6,33 @@
   <mat-sidenav-content>
     <section>
 
-      <h2>Add new engine</h2>
+      <!--For adding new part-->
 
-      <form [formGroup]="generalForm" *ngIf="generalForm">
+      <div *ngIf="!details">
+        <h2>Add new engine</h2>
 
-        <div class="flex-container">
+        <part-form
+          [partFormDetailsControls]="engineDetailsFormControls"
+          [partGroup]="'engines'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="enginePreviews"></part-form>
+      </div>
 
-          <div class="flex-container-content">
 
-            <form-group
-              *ngIf="engineDetailsForm"
-              [fg]="generalForm"
-              [name]="'engineDetailsForm'"
-              [controls]="engineDetailsFormControls"
-              [gridColumns]="gridColumns"></form-group>
+      <!--For editing part-->
 
-          </div>
+      <div *ngIf="details">
+        <h2>{{engine.name}}</h2>
 
-          <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-          <div class="flex-container-content">
-            <img src="../../../assets/engines/{{getEnginePreview()}}" class="image-preview">
-          </div>
-
-        </div>
-
-        <div class="align-space-between" *ngIf="!isRequest">
-          <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-          <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-        </div>
-      </form>
-      <p>General form: {{ engineDetailsForm.value | json }}</p>
-      <p>Is form valid: {{ engineDetailsForm.valid }}</p>
+        <part-form
+          [part]="engine"
+          [partFormDetailsControls]="engineDetailsFormControls"
+          [partGroup]="'engines'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="enginePreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
 
     </section>
 

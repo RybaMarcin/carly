@@ -92,9 +92,5 @@ export class WheelsFormComponent implements OnInit {
     }
   }
 
-  enableEdit() {
-    this.wheelsDetailsForm.enable();
-  }
-
 
 }
