@@ -1,3 +1,40 @@
-<p>
-  painting-form works!
-</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <!--Nav-bar links-->
+    <side-nav-bar></side-nav-bar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section>
+
+      <!--For adding new part-->
+
+      <div *ngIf="!details">
+        <h2>Add new painting</h2>
+
+        <part-form
+          [partFormDetailsControls]="paintingDetailsFormControls"
+          [partGroup]="'painting'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="paintingPreviews"></part-form>
+      </div>
+
+
+      <!--For editing part-->
+
+      <div *ngIf="details">
+        <h2>{{painting.name}}</h2>
+
+        <part-form
+          [part]="painting"
+          [partFormDetailsControls]="paintingDetailsFormControls"
+          [partGroup]="'painting'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="paintingPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
+
+    </section>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

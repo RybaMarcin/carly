@@ -1,3 +1,9 @@
-<p>
-  painting-edit works!
-</p>
+<section>
+
+  <painting-form
+    *ngIf="painting"
+    [painting]="painting"
+    [formAction]="formAction"
+    [details]="true"></painting-form>
+
+</section>
