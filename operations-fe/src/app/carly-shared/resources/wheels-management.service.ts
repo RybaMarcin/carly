@@ -31,6 +31,7 @@ export class WheelsManagementService {
   }
 
   updateWheels(wheels: Wheels.PUT): Observable<Wheels.Model> {
+    debugger;
     return this.http.put<Wheels.Model>(`${this.wheelsManagementApi}`, wheels);
   }
 

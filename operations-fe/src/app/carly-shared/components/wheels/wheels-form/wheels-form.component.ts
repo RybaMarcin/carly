@@ -1,16 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {PartFormAction} from "../../../model/part-form-action.model";
 import {Wheels} from "../../../model/wheels.model";
 import {MessageService} from "../../../services/message.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {FormGroupHelperService} from "../../../services/form-group-helper.service";
 import {Router} from "@angular/router";
-import {UserManagementService} from "../../../resources/user-management.service";
-import {BreakpointService} from "../../../services/breakpoint.service";
 import {wheelsDetailsFormFields, wheelsPreviews} from "./wheels-form-fields";
-import {Breakpoints} from "../../../model/breakpoints.model";
 import {WheelsManagementService} from "../../../resources/wheels-management.service";
-import {PartFormComponent} from "../../parts/part-form/part-form.component";
+import {ValueLabel} from "../../../model/value-label";
 
 @Component({
   selector: 'wheels-form',
@@ -27,12 +24,7 @@ export class WheelsFormComponent implements OnInit {
   @Input() isRequest = false;
   @Input() edit = false;
   @Input() submitEvent: EventEmitter<Wheels.Model> = new EventEmitter();
-
-  @ViewChild(PartFormComponent) partFormComponent: PartFormComponent;
-
-  active = true;
-
-  generalForm: FormGroup;
+  @Input() details = false;
 
   wheelsDetailsForm: FormGroup;
   wheelsDetailsFormControls = this.fgService.addControlToModel(wheelsDetailsFormFields)
@@ -43,121 +35,38 @@ export class WheelsFormComponent implements OnInit {
       return controlModel;
     });
 
-  gridColumns = 4;
+  wheelsPreviews: Array<ValueLabel>;
 
   constructor(
     private messageService: MessageService,
-    private formBuilder: FormBuilder,
     private fgService: FormGroupHelperService,
     private router: Router,
-    private userService: UserManagementService,
-    private breakpointService: BreakpointService,
     private wheelsManagementService: WheelsManagementService
   ) {
   }
 
   ngOnInit() {
 
-    this.wheelsDetailsForm = this.formBuilder.group(
-      this.fgService.getControlsFromModel(this.wheelsDetailsFormControls)
-    );
-
-
-    this.generalForm = this.formBuilder.group({
-        wheelsDetailsForm: this.wheelsDetailsForm
-    });
-
-
-    this.wheelsDetailsForm.get('preview').setValue('wheel_1.png');
-
-    if(this.wheels) {
-      this.setFormValue(this.wheels);
-    }
-
-
-    if(this.isDisabled) {
-      this.wheelsDetailsForm.disable();
-    }
-
-    if(this.formAction === PartFormAction.EDIT) {
-      this.wheelsDetailsForm.disable();
-    }
-
-
-
-    const setGridColumn = (breakpoint: string) => {
-      switch(breakpoint) {
-        case Breakpoints.XXS:
-          this.gridColumns = 1;
-          break;
-        case Breakpoints.XS || Breakpoints.SM:
-          this.gridColumns = 2;
-          break;
-        default:
-          this.gridColumns = 4;
-      }
-    };
-
-    setGridColumn(this.breakpointService.getBreakpoint(window.innerWidth));
-    this.breakpointService.size.subscribe(setGridColumn);
-
-    //Method below only for debug form controls
-    this.wheelsDetailsForm.valueChanges.subscribe(() => {
-      console.log(500, this.wheelsDetailsForm.controls);
-      console.log(510, this.findInvalidControls());
-    })
+    this.wheelsPreviews = wheelsPreviews;
 
   }
 
 
-  setFormValue(wheels: Wheels.Model) {
+  onSubmit($event) {
 
-    this.wheelsDetailsFormControls
-      .forEach(control => this.wheelsDetailsForm
-        .get(control.inputName)
-        .setValue(wheels[control.inputName]));
-
-  }
-
-
-  ngOnChanges(changes) {
-    const { isDisabled, wheel } = changes;
-    if(this.wheelsDetailsForm) {
-      if(isDisabled) {
-        this.updateFormAvalibility(isDisabled.currentValue);
-      }
-      if(wheel) {
-        this.setFormValue(wheel.currentValue);
-      }
-    }
-  }
-
-  updateFormAvalibility(isDisabled: boolean) {
-    if(isDisabled) {
-      this.wheelsDetailsForm.disable();
-    } else {
-      this.wheelsDetailsForm.enable();
-    }
-  }
-
-
-  onSubmit() {
-    if (this.wheelsDetailsForm.invalid) {
-      return;
-    }
-    const wheels = this.wheelsDetailsForm.value;
-
-    this.createOrUpdateWheels();
-
-  }
-
-
-  createOrUpdateWheels() {
-    let partAction;
+    this.wheelsDetailsForm = $event;
 
     const wheels: Wheels.Model = {
       ...this.wheelsDetailsForm.value
     };
+
+    this.createOrUpdateWheels(wheels);
+
+  }
+
+
+  createOrUpdateWheels(wheels: Wheels.Model) {
+    let partAction;
 
     if(this.formAction !== PartFormAction.EDIT) {
 
@@ -181,38 +90,6 @@ export class WheelsFormComponent implements OnInit {
     return {
       ...wheels
     }
-  }
-
-
-  goBack() {
-
-    // this.userService.isUserHasRole$(Roles.CARLY_OPERATOR)
-    //   .subscribe(hasRole => {
-    //     if(hasRole) {
-    //       this.router.navigate(['/parts/wheels']);
-    //     }
-    //     this.router.navigate(['/']);
-    //   });
-
-    this.router.navigate(['/parts/wheels'])
-
-  }
-
-
-  //Method to debug form controls.
-  public findInvalidControls() {
-    const invalid = [];
-    const controls = this.wheelsDetailsForm.controls;
-    for(const name in controls) {
-      if(controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
-    return invalid;
-  }
-
-  getWheelsPreview(): string {
-    return this.wheelsDetailsForm.get('preview').value;
   }
 
   enableEdit() {

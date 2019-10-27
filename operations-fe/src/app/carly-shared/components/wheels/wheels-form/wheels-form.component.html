@@ -5,48 +5,35 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
-      <h2 *ngIf="!edit">Add new wheels</h2>
 
-      <h2 *ngIf="edit" class="align-space-between">
-        {{wheels.name}}
-        <div>
-          <button mat-stroked-button color="accent" (click)="enableEdit()">
-            edit
-          </button>
-        </div>
-      </h2>
+      <!--For adding new part-->
+
+      <div *ngIf="!details">
+        <h2>Add new tires</h2>
+
+        <part-form
+          [partFormDetailsControls]="wheelsDetailsFormControls"
+          [partGroup]="'wheels'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="wheelsPreviews"></part-form>
+      </div>
 
 
-      <form [formGroup]="generalForm" *ngIf="generalForm">
+      <!--For editing part-->
 
-        <div class="flex-container">
+      <div *ngIf="details">
+        <h2>{{wheels.name}}</h2>
 
-          <div class="flex-container-content">
+        <part-form
+          [part]="wheels"
+          [partFormDetailsControls]="wheelsDetailsFormControls"
+          [partGroup]="'wheels'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="wheelsPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
 
-            <form-group
-              *ngIf="wheelsDetailsForm"
-              [fg]="generalForm"
-              [name]="'wheelsDetailsForm'"
-              [controls]="wheelsDetailsFormControls"
-              [gridColumns]="gridColumns"></form-group>
-
-          </div>
-
-          <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
-
-          <div class="flex-container-content">
-            <img src="../../../assets/wheels/{{getWheelsPreview()}}" class="image-preview">
-          </div>
-
-        </div>
-
-        <div class="align-space-between" *ngIf="!isRequest">
-          <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-          <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-        </div>
-      </form>
-      <p>General form: {{ wheelsDetailsForm.value | json }}</p>
-      <p>Is form valid: {{ wheelsDetailsForm.valid }}</p>
     </section>
   </mat-sidenav-content>
 

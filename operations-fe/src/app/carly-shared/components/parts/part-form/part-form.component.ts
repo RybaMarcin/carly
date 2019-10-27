@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormGroupHelperService} from "../../../services/form-group-helper.service";
 import {FormGroupHelper} from "../../../model/form-group-helper.model";
@@ -23,6 +23,7 @@ export class PartFormComponent implements OnInit {
   @Input() partPreviews: Array<ValueLabel>;
   @Input() isDisabled: boolean;
   @Input() editable = false;
+  @Input() details = false;
   @Output() partCurrentForm = new EventEmitter();
 
 
@@ -125,13 +126,15 @@ export class PartFormComponent implements OnInit {
     this.router.navigate(['/parts/' + this.partGroup]);
   }
 
-  editMode() {
-    if(this.editable) {
-      this.partDetailsForm.enable();
-    } else {
+  changeMode() {
+    if(this.isDisabled == false) {
+      this.isDisabled = true;
+      this.setFormValue(this.part);
       this.partDetailsForm.disable();
+    } else {
+      this.isDisabled = false;
+      this.partDetailsForm.enable();
     }
   }
-
 
 }

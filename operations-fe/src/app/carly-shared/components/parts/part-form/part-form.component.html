@@ -1,5 +1,10 @@
 <form [formGroup]="generalForm" *ngIf="generalForm">
 
+  <div *ngIf="details">
+    <mat-slide-toggle (change)="changeMode()">Edit</mat-slide-toggle>
+  </div>
+
+
   <div class="flex-container">
 
     <div class="flex-container-content">
