@@ -36,6 +36,7 @@ import {PaintingComponent} from "../carly-shared/components/painting/painting.co
 import {PaintingAddComponent} from "../carly-shared/components/painting/painting-add/painting-add.component";
 import {WheelsEditComponent} from "../carly-shared/components/wheels/wheels-edit/wheels-edit.component";
 import {SideMenuComponent} from "../carly-shared/components/side-menu/side-menu.component";
+import {TiresEditComponent} from "../carly-shared/components/tires/tires-edit/tires-edit.component";
 
 export const ROUTES: Routes = [
   {
@@ -124,7 +125,8 @@ export const ROUTES: Routes = [
             path: 'tires',
             children: [
               {path: '', component: TiresComponent},
-              {path: 'add', component: TiresAddComponent}
+              {path: 'add', component: TiresAddComponent},
+              {path: 'detail/:id', component: TiresEditComponent}
             ]
           },
           {

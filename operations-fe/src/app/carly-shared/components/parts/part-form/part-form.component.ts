@@ -22,6 +22,7 @@ export class PartFormComponent implements OnInit {
   @Input() partGroup: string;
   @Input() partPreviews: Array<ValueLabel>;
   @Input() isDisabled: boolean;
+  @Input() editable = false;
   @Output() partCurrentForm = new EventEmitter();
 
 
@@ -123,5 +124,14 @@ export class PartFormComponent implements OnInit {
   goBack() {
     this.router.navigate(['/parts/' + this.partGroup]);
   }
+
+  editMode() {
+    if(this.editable) {
+      this.partDetailsForm.enable();
+    } else {
+      this.partDetailsForm.disable();
+    }
+  }
+
 
 }

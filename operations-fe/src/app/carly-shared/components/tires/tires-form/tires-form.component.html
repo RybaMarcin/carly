@@ -6,13 +6,33 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
-      <h2>Add new tires</h2>
 
-      <part-form
-        [partFormDetailsControls]="tiresDetailsFormControls"
-        [partGroup]="'tires'"
-        (partCurrentForm)="onSubmit($event)"
-        [partPreviews]="tirePreviews"></part-form>
+      <!--For adding new part-->
+
+      <div *ngIf="!details">
+        <h2>Add new tires</h2>
+
+        <part-form
+          [partFormDetailsControls]="tiresDetailsFormControls"
+          [partGroup]="'tires'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="tirePreviews"></part-form>
+      </div>
+
+
+      <!--For editing part-->
+
+      <div *ngIf="details">
+        <h2>{{tires.name}}</h2>
+
+        <part-form
+          [part]="tires"
+          [partFormDetailsControls]="tiresDetailsFormControls"
+          [partGroup]="'tires'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="tirePreviews"></part-form>
+      </div>
+
 
     </section>
   </mat-sidenav-content>

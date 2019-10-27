@@ -22,12 +22,20 @@ public class TiresMapper implements MapperService<TiresRest, Tires> {
 
     @Override
     public TiresRest mapFromDomainObject(Tires domain, TiresRest rest) {
-        return null;
+        rest.setId(domain.getId());
+        rest.setName(domain.getName());
+        rest.setPreview(domain.getPreview());
+        rest.setPrice(domain.getPrice());
+        return rest;
     }
 
     @Override
     public Tires mapToDomainObject(Tires domain, TiresRest rest) {
-        return null;
+        domain.setId(rest.getId());
+        domain.setName(rest.getName());
+        domain.setPreview(rest.getPreview());
+        domain.setPrice(rest.getPrice());
+        return domain;
     }
 
 }

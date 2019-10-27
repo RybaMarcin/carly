@@ -21,6 +21,7 @@ export class TiresFormComponent implements OnInit {
   @Input() tires: Tires.Model;
   @Input() formAction: PartFormAction;
   @Input() submitEvent: EventEmitter<Tires.Model> = new EventEmitter();
+  @Input() details = false;
 
   tiresDetailsForm: FormGroup;
   tiresDetailsFormControls = this.fgService.addControlToModel(tiresDetailsFormFields)
@@ -44,6 +45,10 @@ export class TiresFormComponent implements OnInit {
   ngOnInit() {
 
     this.tirePreviews = tirePreviews;
+
+    if(this.tires) {
+      console.log(600, this.tires);
+    }
 
   }
 

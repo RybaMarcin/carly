@@ -1,3 +1,5 @@
+import {Page} from "./paginated.model";
+
 export namespace Tires {
 
   export interface Model {
@@ -5,7 +7,7 @@ export namespace Tires {
     price: number;
   }
 
-  export type PaginatedModel = Model;
+  export type PaginatedModel = Page<Model>;
 
   export type POST = Model;
 

@@ -1,3 +1,9 @@
-<p>
-  tires-edit works!
-</p>
+<section>
+
+  <tires-form
+    *ngIf="tires"
+    [tires]="tires"
+    [formAction]="formAction"
+    [details]="true"></tires-form>
+
+</section>
