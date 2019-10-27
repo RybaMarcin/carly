@@ -5,42 +5,34 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
-      <h2>Add new breaks</h2>
 
-      <!--    <mat-divider class="divider-large divider-blank"></mat-divider>-->
+      <!--For adding new part-->
 
-      <form [formGroup]="generalForm" *ngIf="generalForm">
+      <div *ngIf="!details">
+        <h2>Add new breaks</h2>
 
-        <div class="flex-container">
+        <part-form
+          [partFormDetailsControls]="breaksDetailsFormControls"
+          [partGroup]="'breaks'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="breaksPreviews"></part-form>
+      </div>
 
-          <div class="flex-container-content">
 
-            <form-group
-              *ngIf="breaksDetailsForm"
-              [fg]="generalForm"
-              [name]="'breaksDetailsForm'"
-              [controls]="breaksDetailsFormControls"
-              [gridColumns]="gridColumns"></form-group>
+      <!--For editing part-->
 
-          </div>
+      <div *ngIf="details">
+        <h2>{{breaks.name}}</h2>
 
-          <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-          <div class="flex-container-content">
-            <img src="../../../assets/breaks/{{getBreaksPreview()}}" class="image-preview">
-          </div>
-
-        </div>
-
-        <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
-
-        <div class="align-space-between" *ngIf="!isRequest">
-          <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-          <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-        </div>
-      </form>
-<!--      <p>General form: {{ breaksDetailsForm.value | json }}</p>-->
-<!--      <p>Is form valid: {{ breaksDetailsForm.valid }}</p>-->
+        <part-form
+          [part]="breaks"
+          [partFormDetailsControls]="breaksDetailsFormControls"
+          [partGroup]="'breaks'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="breaksPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
     </section>
 
   </mat-sidenav-content>
