@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {WindowsManagementService} from "../../../resources/windows-management.service";
 import {windowsDetailsFormFields, windowsPreviews} from "./windows-form-fields";
 import {ValueLabel} from "../../../model/value-label";
+import {Wheels} from "../../../model/wheels.model";
 
 @Component({
   selector: 'windows-form',
@@ -18,8 +19,13 @@ import {ValueLabel} from "../../../model/value-label";
 })
 export class WindowsFormComponent implements OnInit {
 
+  @Input() isDisabled = false;
   @Input() formAction: PartFormAction;
+  @Input() windows: Windows.Model;
+  @Input() isRequest = false;
+  @Input() edit = false;
   @Input() submitEvent: EventEmitter<Windows.Model> = new EventEmitter();
+  @Input() details = false;
 
 
   windowsDetailsForm: FormGroup;

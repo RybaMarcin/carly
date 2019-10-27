@@ -18,6 +18,10 @@ export class WindowsManagementService {
     return this.http.get<Windows.PaginatedModel>(`${this.windowsManagementApi}`, {params});
   }
 
+  findWindowsById(id: string): Observable<Windows.Model> {
+    return this.http.get<Windows.Model>(`${this.windowsManagementApi}/${id}`);
+  }
+
   createWindows(windows: Windows.POST): Observable<Windows.Model> {
     return this.http.post<Windows.POST>(`${this.windowsManagementApi}`, windows);
   }
