@@ -33,4 +33,21 @@ export class CarlyMatcher {
     }
   }
 
+  static carlyCustomerMatcher(
+    segments: UrlSegment[],
+    group: UrlSegmentGroup,
+    route: Route
+  ) {
+    const user = JSON.parse(window.sessionStorage.getItem('carly-app.userContext'));
+
+    const isUserTypeMatch = user? user.role === Roles.CARLY_CUSTOMER : false;
+    if(isUserTypeMatch) {
+      return {consumed: []};
+    } else {
+      return null;
+    }
+  }
+
+
+
 }

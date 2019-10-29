@@ -9,6 +9,8 @@ import {FormGroupHelperService} from "../carly-shared/services/form-group-helper
 import {User} from "../carly-shared/model/user.model";
 import {RegistrationComponent} from "../registration/registration.component";
 import {ResetPasswordComponent} from "../reset-password/reset-password.component";
+import {LocalStorageService} from "angular-2-local-storage";
+import {UserManagementService} from "../carly-shared/resources/user-management.service";
 
 @Component({
   selector: 'login',
@@ -18,9 +20,6 @@ import {ResetPasswordComponent} from "../reset-password/reset-password.component
 export class LoginComponent implements OnInit {
 
 
-
-  email = "";
-  password = "";
   invalidLogin = false;
 
   login: Login;
@@ -38,7 +37,9 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog,
     private resetDialog: MatDialog,
     private formBuilder: FormBuilder,
-    private fgService: FormGroupHelperService
+    private fgService: FormGroupHelperService,
+    private storageService: LocalStorageService,
+    private userService: UserManagementService
   ) {
   }
 
@@ -54,17 +55,15 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogin() {
-    // console.log(400, this.email);
-    // console.log(410, this.password);
 
     const login: User = {
-      // email: this.email,
-      // password: this.password
+
       ...this.loginDetailsForm.value
     };
 
-    this.loginService.authenticate(login).subscribe(data => {
-        console.log(data);
+    this.loginService.authenticate(login).subscribe(userContext => {
+        console.log(userContext);
+        this.userService.cacheUserContext(userContext);
       },
       error => {
         console.log(error)

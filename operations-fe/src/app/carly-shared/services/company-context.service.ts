@@ -30,7 +30,7 @@ export class CompanyContextService {
 
   private findCompanyByIdAndRole(companyId: string, role: Roles): Observable<Company.Model> {
 
-    console.log("Looking for bank by id: " + companyId + " and role " + role);
+    console.log("Looking for company by id: " + companyId + " and role " + role);
 
     if(!companyId) {
       return of(null);

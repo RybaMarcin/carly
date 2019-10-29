@@ -1,0 +1,15 @@
+@import "../../../../colors.scss";
+
+:host {
+  a {
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 20px;
+  }
+
+  a:hover, a.active {
+    background-color: $bodyBg;
+  }
+}

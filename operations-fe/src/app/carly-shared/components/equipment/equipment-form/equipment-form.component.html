@@ -1,50 +1,38 @@
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <a [routerLink]="['/parts/engines']">ENGINE</a>
-    <a [routerLink]="['/parts/wheels']">WHEELS</a>
-    <a [routerLink]="['/parts/breaks']">BREAKS</a>
-    <a [routerLink]="['/parts/equipment']">EQUIPMENT</a>
+    <!--Nav-bar links-->
+    <side-nav-bar></side-nav-bar>
   </mat-sidenav>
   <mat-sidenav-content>
     <section>
 
-      <h2>Add new equipment</h2>
+      <!--For adding new part-->
 
-      <!--    <mat-divider class="divider-large divider-blank"></mat-divider>-->
+      <div *ngIf="!details">
+        <h2>Add new equipment</h2>
 
-      <form [formGroup]="generalForm" *ngIf="generalForm">
+        <part-form
+          [partFormDetailsControls]="equipmentDetailsFormControl"
+          [partGroup]="'equipment'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="equipmentPreviews"></part-form>
+      </div>
 
-        <div class="flex-container">
 
-          <div class="flex-container-content">
+      <!--For editing part-->
 
-            <form-group
-              *ngIf="equipmentDetailsForm"
-              [fg]="generalForm"
-              [name]="'equipmentDetailsForm'"
-              [controls]="equipmentDetailsFormControl"
-              [gridColumns]="gridColumns"></form-group>
+      <div *ngIf="details">
+        <h2>{{equipment.name}}</h2>
 
-          </div>
-
-          <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-          <div class="flex-container-content">
-            <!--todo: Add assets for equipment-->
-            <img src="../../../assets/equipment/equipment.png" class="image-preview">
-          </div>
-
-        </div>
-
-        <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
-
-        <div class="align-space-between" *ngIf="!isRequest">
-          <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-          <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-        </div>
-      </form>
-      <p>General form: {{ equipmentDetailsForm.value | json }}</p>
-      <p>Is form valid: {{ equipmentDetailsForm.valid }}</p>
+        <part-form
+          [part]="equipment"
+          [partFormDetailsControls]="equipmentDetailsFormControl"
+          [partGroup]="'equipment'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="equipmentPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
     </section>
   </mat-sidenav-content>
 

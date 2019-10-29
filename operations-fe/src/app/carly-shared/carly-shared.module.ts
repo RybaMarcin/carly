@@ -84,6 +84,7 @@ import { TiresStepComponent } from './components/tires/tires-step/tires-step.com
 import { WindowsStepComponent } from './components/windows/windows-step/windows-step.component';
 import { EquipmentStepComponent } from './components/equipment/equipment-step/equipment-step.component';
 import { SideNavBarComponent } from './components/side-nav-bar/side-nav-bar.component';
+import { EquipmentEditComponent } from './components/equipment/equipment-edit/equipment-edit.component';
 
 @NgModule({
   imports: [
@@ -163,6 +164,7 @@ import { SideNavBarComponent } from './components/side-nav-bar/side-nav-bar.comp
     WindowsStepComponent,
     EquipmentStepComponent,
     SideNavBarComponent,
+    EquipmentEditComponent,
   ],
   providers: [
     BreakpointService,

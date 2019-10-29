@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import static java.lang.String.format;
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
@@ -83,7 +84,7 @@ public class UserService implements UserDetailsService {
 
     private User registrationNewUserAccount(UserRest userRest) {
         if (emailExists(userRest.getEmail())) {
-            throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
+            throw new EntityAlreadyExistsException(format("Account with %s email already exists!", userRest.getEmail()));
         }
         User user = userMapper.simplifyDomainObject(userRest);
         user.setCode(UUID.randomUUID().toString().substring(6));
@@ -129,13 +130,17 @@ public class UserService implements UserDetailsService {
 
     public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {
         User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new LoginOrPasswordException(NOT_FOUND));
-        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        //todo: Line commented out just for testing.
+
+        //        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        boolean matches = true;
         if (matches) {
             LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
             if (loggedUser.isEnabled()) {
                 CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
                 return carlyUserBuilder
                         .withId(loggedUser.getId())
+                        .withCompanyId(loggedUser.getCompanyId())
                         .withEmail(loggedUser.getEmail())
                         .withName(loggedUser.getName())
                         .withRole(provideCurrentRole(loggedUser.getRoles()))

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {Equipment} from "../../../model/equipment.model";
 import {PartFormAction} from "../../../model/part-form-action.model";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {FormGroupHelperService} from "../../../services/form-group-helper.service";
 import {MessageService} from "../../../services/message.service";
 import {EquipmentManagementService} from "../../../resources/equipment-management.service";
 import {Router} from "@angular/router";
-import {equipmentFormFields} from "./equipment-form-fields";
-import {BreakpointService} from "../../../services/breakpoint.service";
+import {equipmentFormFields, equipmentPreviews} from "./equipment-form-fields";
+import {ValueLabel} from "../../../model/value-label";
 
 @Component({
   selector: 'equipment-form',
@@ -23,72 +23,49 @@ export class EquipmentFormComponent implements OnInit {
   @Input() formAction: PartFormAction;
   @Input() isRequest = false;
   @Input() submitEvent: EventEmitter<Equipment.Model> = new EventEmitter();
+  @Input() details = false;
 
-
-  generalForm: FormGroup;
 
   equipmentDetailsForm: FormGroup;
-  equipmentDetailsFormControl = this.fgService.addControlToModel(equipmentFormFields);
+  equipmentDetailsFormControl = this.fgService.addControlToModel(equipmentFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'preview') {
+        controlModel.selectOptions = equipmentPreviews;
+      }
+      return controlModel;
+    });
 
-  gridColumns = 4;
-
+  equipmentPreviews: Array<ValueLabel>;
 
   constructor(
-    private formBuilder: FormBuilder,
     private fgService: FormGroupHelperService,
     private messageService: MessageService,
     private equipmentService: EquipmentManagementService,
     private router: Router,
-    private breakpointService: BreakpointService
   ) {
   }
 
   ngOnInit() {
 
-    this.equipmentDetailsForm = this.formBuilder.group(
-      this.fgService.getControlsFromModel(this.equipmentDetailsFormControl)
-    );
-
-    this.generalForm = this.formBuilder.group({
-      equipmentDetailsForm: this.equipmentDetailsForm
-    });
-
-    if(this.isDisabled) {
-      this.generalForm.disable();
-    }
-
-    if(this.equipment) {
-      this.setFormValue(this.equipment);
-    }
+    this.equipmentPreviews = equipmentPreviews;
 
   }
 
 
-  setFormValue(equipment: Equipment.Model) {
+  onSubmit($event) {
 
-    this.equipmentDetailsFormControl
-      .forEach(control => this.equipmentDetailsForm
-        .get(control.inputName)
-        .setValue(equipment[control.inputName]));
-
-  }
-
-
-
-  onSubmit() {
-    if(this.generalForm.invalid) {
-      return;
-    }
-    this.createOrUpdateEquipment();
-  }
-
-
-  createOrUpdateEquipment() {
-    let action;
+    this.equipmentDetailsForm = $event;
 
     const equipment: Equipment.Model = {
-      ...this.generalForm.value
+      ...this.equipmentDetailsForm.value
     };
+
+    this.createOrUpdateEquipment(equipment);
+  }
+
+
+  createOrUpdateEquipment(equipment: Equipment.Model) {
+    let action;
 
 
     if(this.formAction !== PartFormAction.EDIT) {
@@ -115,23 +92,6 @@ export class EquipmentFormComponent implements OnInit {
       ...equipment
     };
   }
-
-  goBack() {
-    this.router.navigate(['/parts/equipment']);
-  }
-
-
-  public findInvalidControls() {
-    const invalid = [];
-    const controls = this.equipmentDetailsForm.controls;
-    for(const name in controls) {
-      if(controls[name].invalid){
-        invalid.push(name);
-      }
-    }
-    return invalid;
-  }
-
 
 
 }

@@ -3,7 +3,7 @@ import {Validators} from "@angular/forms";
 
 export const loginFormFields: FormGroupHelper.Model[] = [
   {
-    inputName: 'login',
+    inputName: 'email',
     label: 'Email',
     validators: [Validators.required, Validators.pattern('')],
     type: 'text',

@@ -1,7 +1,7 @@
 export namespace Registration {
 
   export interface Model {
-    name?: string;
+    firstName?: string;
     lastName?: string;
     email: string;
     password: string;
@@ -12,8 +12,8 @@ export namespace Registration {
   export type POST = Model;
 
   export enum Gender {
-    MALE = 'Male',
-    FEMALE = 'Female'
+    MALE = 'MALE',
+    FEMALE = 'FEMALE'
   }
 
 }

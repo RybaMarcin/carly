@@ -1,6 +1,7 @@
 import {FormGroupHelper} from "../../../model/form-group-helper.model";
 import {Validators} from "@angular/forms";
 import {Equipment} from "../../../model/equipment.model";
+import {ValueLabel} from "../../../model/value-label";
 
 export const equipmentFormFields: FormGroupHelper.Model[] = [
   {
@@ -36,5 +37,13 @@ export const equipmentFormFields: FormGroupHelper.Model[] = [
     type: 'number',
     cols: 4,
     rows: 1
+  }
+];
+
+
+export const equipmentPreviews: Array<ValueLabel> = [
+  {
+    value: 'equipment.png',
+    label: 'Preview 1'
   }
 ];

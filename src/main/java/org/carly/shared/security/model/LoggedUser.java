@@ -9,13 +9,15 @@ import java.util.stream.Collectors;
 
 public class LoggedUser implements UserDetails {
     private String id;
+    private String companyId;
     private String email;
     private String name;
     private List<CarlyGrantedAuthority> authorities;
     private boolean userEnable;
 
-    public LoggedUser(String id, String email, String name, List<CarlyGrantedAuthority> authorities, boolean userEnable) {
+    public LoggedUser(String id, String companyId, String email, String name, List<CarlyGrantedAuthority> authorities, boolean userEnable) {
         this.id = id;
+        this.companyId = companyId;
         this.email = email;
         this.name = name;
         this.authorities = authorities;
@@ -29,6 +31,8 @@ public class LoggedUser implements UserDetails {
     public String getName() {
         return name;
     }
+
+    public String getCompanyId() { return companyId; }
 
     public String getEmail() {
         return email;

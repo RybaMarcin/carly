@@ -4,7 +4,7 @@ import {Registration} from "../../carly-shared/model/registration.model";
 
 export const registrationDetailsFormFields: FormGroupHelper.Model[] = [
   {
-    inputName: 'name',
+    inputName: 'firstName',
     label: 'Name',
     validators: [Validators.required],
     type: 'text',

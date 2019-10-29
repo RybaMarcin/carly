@@ -21,7 +21,6 @@ public class User {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private List<Car> cars;
     private Gender gender;
     private String password;
     private LocalDate createdAt;
