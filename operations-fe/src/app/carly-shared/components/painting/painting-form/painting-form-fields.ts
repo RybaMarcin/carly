@@ -4,10 +4,18 @@ import {ValueLabel} from "../../../model/value-label";
 
 export const paintingDetailsFormFields: FormGroupHelper.Model[] = [
   {
-    inputName: '',
-    label: '',
+    inputName: 'name',
+    label: 'Name',
     validators: [Validators.required],
-    type: '',
+    type: 'text',
+    cols: 4,
+    rows: 1
+  },
+  {
+    inputName: 'preview',
+    label: 'Preview',
+    validators: [Validators.required],
+    type: 'select',
     cols: 4,
     rows: 1,
     selectOptions: []
@@ -17,7 +25,11 @@ export const paintingDetailsFormFields: FormGroupHelper.Model[] = [
 
 export const paintingPreviews: Array<ValueLabel> = [
   {
-    label: '',
-    value: ''
+    value: 'painting_1.png',
+    label: 'Preview 1'
+  },
+  {
+    value: 'painting_2.png',
+    label: 'Preview 2'
   }
 ];

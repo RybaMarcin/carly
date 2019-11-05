@@ -3,50 +3,50 @@ import {Validators} from "@angular/forms";
 
 export const customerDetailsFormFields: FormGroupHelper.Model[] = [
   {
-    inputName: '',
-    label: '',
+    inputName: 'firstName',
+    label: 'First name',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   },
   {
-    inputName: '',
-    label: '',
+    inputName: 'lastName',
+    label: 'Last name',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   },
   {
-    inputName: '',
-    label: '',
+    inputName: 'phoneNumber',
+    label: 'Phone number',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   },
   {
-    inputName: '',
-    label: '',
+    inputName: 'email',
+    label: 'E-mail',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   },
   {
-    inputName: '',
-    label: '',
+    inputName: 'gender',
+    label: 'Gender',
     validators: [Validators.required],
     type: '',
-    cols: 1,
+    cols: 4,
     rows: 1
   },
   {
-    inputName: '',
-    label: '',
+    inputName: 'createAt',
+    label: 'Create at',
     validators: [Validators.required],
-    type: '',
+    type: 'date',
     cols: 1,
     rows: 1
   }
@@ -58,7 +58,7 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
     label: 'Street',
     validators: [Validators.required],
     type: 'text',
-    cols: 1,
+    cols: 4,
     rows: 1
   },
   {
@@ -66,7 +66,7 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
     label: 'Number',
     validators: [Validators.required],
     type: 'number',
-    cols: 1,
+    cols: 4,
     rows: 1
   },
   {
@@ -74,7 +74,7 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
     label: 'Flat',
     validators: [Validators.required],
     type: 'text',
-    cols: 1,
+    cols: 4,
     rows: 1
   },
   {
@@ -82,23 +82,23 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
     label: 'Town',
     validators: [Validators.required],
     type: 'text',
-    cols: 1,
+    cols: 4,
     rows: 1
   },
   {
     inputName: 'zipCode',
     label: 'Zip code',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   },
   {
     inputName: 'country',
     label: 'Country',
     validators: [Validators.required],
-    type: '',
-    cols: 1,
+    type: 'text',
+    cols: 4,
     rows: 1
   }
 ];

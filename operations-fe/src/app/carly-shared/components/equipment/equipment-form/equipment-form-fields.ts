@@ -37,6 +37,15 @@ export const equipmentFormFields: FormGroupHelper.Model[] = [
     type: 'number',
     cols: 4,
     rows: 1
+  },
+  {
+    inputName: 'preview',
+    label: 'Preview',
+    validators: [Validators.required],
+    type: 'select',
+    cols: 4,
+    rows: 1,
+    selectOptions: []
   }
 ];
 
