@@ -11,6 +11,10 @@ In order to lunch this app in develop mode you need to install:
 * [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [ANGULAR](https://angular.io/)
 
+### Run the App locally
+
+ npm start -- --port 4201
+
 ## Build With
 
 * [Spring](https://spring.io/)
