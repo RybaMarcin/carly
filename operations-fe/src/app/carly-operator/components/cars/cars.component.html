@@ -1,23 +1,20 @@
-<mat-sidenav-container>
-<!--  <mat-sidenav mode="side" opened>-->
-<!--    <a [routerLink]="['/parts/engines']">ENGINE</a>-->
-<!--    <a [routerLink]="['/parts/wheels']">WHEELS</a>-->
-<!--    <a [routerLink]="['/parts/breaks']">BREAKS</a>-->
-<!--  </mat-sidenav>-->
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
     <section>
 
-      <h2 class="align-space-between">
-        Cars
-        <div>
-          <button mat-flat-button color="accent">
-            clear all
+      <div class="card-header">
+        <h1>Cars</h1>
+
+        <div class="controls">
+          <button mat-stroked-button color="primary">
+            Clear all
           </button>
-          <button mat-stroked-button color="accent" [routerLink]="['add']">
-            add car
+          <button mat-flat-button color="" class="col-primary" [routerLink]="['add']">
+            Add new car
           </button>
         </div>
-      </h2>
+      </div>
+
 
 
       <div class="filter-container">
@@ -62,6 +59,5 @@
         No records found...
       </div>
     </section>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>

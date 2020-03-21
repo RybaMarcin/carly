@@ -1,41 +1,41 @@
 <mat-horizontal-stepper linear #stepper>
-<!--  <mat-step [stepControl]="generalForm">-->
-<!--    <form [formGroup]="generalForm">-->
-<!--      <ng-template matStepLabel>Basic car details</ng-template>-->
-<!--          <div class="flex-container">-->
+  <mat-step [stepControl]="generalForm">
+    <form [formGroup]="generalForm">
+      <ng-template matStepLabel>Basic car details</ng-template>
+          <div class="flex-container">
 
-<!--            <div class="flex-container-content">-->
+            <div class="flex-container-content">
 
-<!--              <form-group-->
-<!--                *ngIf="carDetailsForm"-->
-<!--                [fg]="generalForm"-->
-<!--                [name]="'carDetailsForm'"-->
-<!--                [controls]="carDetailsFormControls"-->
-<!--                [gridColumns]="gridColumns"></form-group>-->
+              <form-group
+                *ngIf="carDetailsForm"
+                [fg]="generalForm"
+                [name]="'carDetailsForm'"
+                [controls]="carDetailsFormControls"
+                [gridColumns]="gridColumns"></form-group>
 
-<!--            </div>-->
+            </div>
 
-<!--            <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
+            <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
 
-<!--            <div class="flex-container-content">-->
+            <div class="flex-container-content">
 
-<!--              &lt;!&ndash;todo: change styling of that img&ndash;&gt;-->
-<!--              <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">-->
+              <!--todo: change styling of that img-->
+              <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">
 
-<!--            </div>-->
+            </div>
 
-<!--          </div>-->
-<!--          <div>-->
-<!--            <button mat-button matStepperNext>Next</button>-->
-<!--          </div>-->
-<!--    </form>-->
-<!--  </mat-step>-->
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+    </form>
+  </mat-step>
   <mat-step>
     <ng-template matStepLabel>Engine</ng-template>
 
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
@@ -43,9 +43,9 @@
 
     <wheels-step></wheels-step>
 
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
@@ -53,37 +53,37 @@
 
     <breaks-step></breaks-step>
 
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Tires</ng-template>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Windows</ng-template>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Equipment</ng-template>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent">Save</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

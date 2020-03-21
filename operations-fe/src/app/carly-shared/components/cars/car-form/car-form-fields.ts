@@ -62,29 +62,10 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     inputName: 'transmission',
     label: 'Transmission',
     validators: [Validators.required],
-    type: 'number',
-    rows: 1,
-    cols: 4,
-    selectOptions: [...Object.values(Transmission).map(value => ({label: value, value}))]
-  },
-  {
-    inputName: 'bodyPainting',
-    label: 'Body painting',
-    validators: [Validators.required],
-    type: 'number',
-    rows: 1,
-    cols: 4,
-    selectOptions: []
-  },
-  {
-    inputName: 'equipment',
-    label: 'Equipment',
-    validators: [Validators.required],
     type: 'select',
     rows: 1,
     cols: 4,
-    selectOptions: [],
-    selectMultiple: true
+    selectOptions: [...Object.values(Transmission).map(value => ({label: value, value}))]
   },
 ];
 
@@ -121,13 +102,5 @@ export const carTypes: Array<ValueLabel> = [
   {
     value: '',
     label: 'Coupe'
-  },
-  {
-    value: '',
-    label: 'Small car'
-  },
-  {
-    value: '',
-    label: 'City car'
   }
 ];
