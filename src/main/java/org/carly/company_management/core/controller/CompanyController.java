@@ -1,5 +1,6 @@
 package org.carly.company_management.core.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.company_management.api.model.CompanyRest;
 import org.carly.company_management.api.model.CompanySearchCriteriaRest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/company")
+@Slf4j
 public class CompanyController {
 
     private final CompanyFindService companyFindService;
@@ -21,13 +23,13 @@ public class CompanyController {
         this.companySaveService = companySaveService;
     }
 
-    @GetMapping
+    @GetMapping("/company")
     public Page<CompanyRest> findCompanies(CompanySearchCriteriaRest searchCriteria,
                                            Pageable pageable) {
         return companyFindService.findCompanies(searchCriteria, pageable);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public CompanyRest findCompanyById(@PathVariable("id") ObjectId id) {
         return companyFindService.findCompanyById(id);
     }
