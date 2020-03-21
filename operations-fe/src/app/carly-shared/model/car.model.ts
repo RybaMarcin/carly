@@ -8,6 +8,7 @@ import {CarBody} from "./car-body.model";
 import {Engine} from "./engine.model";
 import {Brand} from "./brand.model";
 import {Page} from "./paginated.model";
+import {CarModel} from "./car-model.model";
 
 export namespace Car {
 
@@ -18,7 +19,7 @@ export namespace Car {
 
   export interface Model extends PreModel {
     // brand: Brand;
-    model: Model;
+    model: CarModel.Model;
     maxSpeed: number;
     accelerate: number;
     price: number;

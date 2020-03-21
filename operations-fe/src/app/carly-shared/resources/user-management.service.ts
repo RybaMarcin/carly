@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
 import {Roles} from "../model/roles.model";
 import {HttpClient} from "@angular/common/http";
 import {Customer} from "../model/customer.model";
+import {CustomerContextService} from "../services/customer-context.service";
 
 declare const BASE_API_URL;
 
@@ -25,11 +26,13 @@ export class UserManagementService {
     protected http: HttpClient,
     private storageService: LocalStorageService,
     private operationsService: OperationsService,
-    private companyContextService: CompanyContextService
+    private companyContextService: CompanyContextService,
+    private customerContextService: CustomerContextService
   ) {
   }
 
   private getUser(): Promise<User> {
+    console.log("User");
     return new Promise<User>((resolve, reject) => this.user ? resolve(this.user) : reject(this.user));
   }
 
@@ -57,7 +60,13 @@ export class UserManagementService {
     this.storageService.set(USER_CONTEXT, user);
 
     if(user.role === Roles.CARLY_COMPANY) {
-      this.companyContextService.setCompanyContext(this.user.companyId, this.user.role);
+      console.log(600, user.role);
+      this.companyContextService.setCompanyContext(user.companyId, user.role);
+    }
+
+    if(user.role === Roles.CARLY_CUSTOMER) {
+      console.log(700, user.role);
+      this.customerContextService.setCustomerContext(user.id);
     }
 
   }
@@ -68,6 +77,7 @@ export class UserManagementService {
   // }
 
   getUserContext(): Promise<User> {
+    console.log("User info");
     if (this.user) {
       return this.getUser();
     }

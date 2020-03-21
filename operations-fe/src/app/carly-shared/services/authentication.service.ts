@@ -20,7 +20,6 @@ export class AuthenticationService {
   }
 
   authenticate(login: User): Observable<User> {
-    debugger;
     return this.http.post<User>(`${this.carlyApi}/user/login`, login);
   }
 

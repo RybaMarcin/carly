@@ -20,13 +20,24 @@ export class CompanyContextService {
     return this.storageService.get(COMPANY_CONTEXT);
   }
 
-  setCompanyContext(companyId: string, role: Roles): Observable<boolean> {
-    let companyObservable = this.findCompanyByIdAndRole(companyId, role);
-    console.log("Setting company context");
-    companyObservable.pipe(map(company => console.log(company)));
-    return companyObservable
-      .pipe(map(company => this.storageService.set(COMPANY_CONTEXT, company)));
+  // setCompanyContext(companyId: string, role: Roles): Observable<boolean> {
+  //   let companyObservable = this.findCompanyByIdAndRole(companyId, role);
+  //   console.log("Setting company context");
+  //   companyObservable.pipe(map(company => console.log(company)));
+  //   return companyObservable
+  //     .pipe(map(company => this.storageService.set(COMPANY_CONTEXT, company)));
+  // }
+
+  setCompanyContext(companyId: string, role: Roles) {
+
+    this.companyService.findCompanyById(companyId).subscribe(company => {
+      console.log(610, company);
+      console.log("Setting company context: " + company);
+      this.storageService.set(COMPANY_CONTEXT, company);
+    });
+
   }
+
 
   private findCompanyByIdAndRole(companyId: string, role: Roles): Observable<Company.Model> {
 
@@ -36,21 +47,22 @@ export class CompanyContextService {
       return of(null);
     }
 
-    switch(role) {
-      case Roles.CARLY_COMPANY:
-        return this.companyService.findCompanyById(companyId)
-          .pipe(mergeMap(company => {
-            if(!company) {
-              return this.companyService.findPendingCompanyById(companyId);
-            }
-            return of(company);
-          }));
-      default:
-        return of(null);
-    }
+    // switch(role) {
+    //   case Roles.CARLY_COMPANY:
+    //     return this.companyService.findCompanyById(companyId)
+    //       .pipe(mergeMap(company => {
+    //         if(!company) {
+    //           return this.companyService.findPendingCompanyById(companyId);
+    //         }
+    //         return of(company);
+    //       }));
+    //   default:
+    //     return of(null);
+    // }
 
-
-
+    this.companyService.findCompanyById(companyId).subscribe(company => {
+      console.log(610, company);
+    })
 
   }
 

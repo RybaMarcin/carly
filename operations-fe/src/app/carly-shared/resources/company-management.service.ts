@@ -7,14 +7,16 @@ import ChangeDecision = ReviewChanges.ChangeDecision;
 
 declare const BASE_API_URL;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CompanyManagementService {
 
   constructor(protected http: HttpClient) {
   }
 
   // companyManagementApi: string = `${BASE_API_URL}/company`;
-  private companyManagementApi = "api/company";
+  companyManagementApi: string = "api/company";
 
   findCompanies(params: HttpParams): Observable<Company.PaginatedModel> {
     return this.http.get<Company.PaginatedModel>(`${this.companyManagementApi}`, {params});
