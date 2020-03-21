@@ -3,13 +3,10 @@ package org.carly.company_management.core.model;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.carly.vehicle_management.core.model.Address;
-import org.carly.vehicle_management.core.model.Car;
 import org.carly.vehicle_management.core.model.ChangeRequestStatus;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.util.List;
 
 @Data
 @Document(collection = "company")
@@ -20,7 +17,8 @@ public class Company {
 
     //todo: Fields commented temporarily.
 
-    @Value(ID)
+    @Id
+    @Field(ID)
     private ObjectId id;
 
     @Field(NAME)
