@@ -4,8 +4,6 @@
   padding: 10px 25px;
   width: 100%;
   height: 100%;
-  border: 3px solid yellow;
-
 }
 
 .home-article {
@@ -52,23 +50,6 @@ h3 {
   line-height: 1.5;
 }
 
-.btn-login {
-  color: $white;
-  background-color: $mainColor;
-  border: none;
-  font-size: 1.3rem;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  width: 40%;
-  margin: auto;
-
-  &:hover {
-    cursor: pointer;
-    background-color: $mainColorHover;
-  }
-
-}
-
 
 .image-preview {
   width: 75%;
@@ -77,6 +58,147 @@ h3 {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+  }
+
+}
+
+.container {
+  justify-content: space-between;
+}
+
+
+.sing-in {
+  display: flex;
+  width: 450px;
+  height: 600px;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  h1 {
+    margin-bottom: 2em;
+    text-align: center;
+    font-size: 2.2em;
+  }
+
+
+  .form-top {
+    margin-bottom: 1.6em;
+    width: 100%;
+
+    > div {
+      margin-top: 0.4em;
+    }
+
+    input[type="text"] {
+      background: linear-gradient(to bottom right, $bodyBgLighten, $bodyBgDarken);
+    }
+
+  }
+
+
+  .controls {
+
+    margin-bottom: 3em;
+
+    button {
+      margin-right: 3em;
+    }
+
+  }
+
+  .sign-up {
+    text-align: center;
+
+    h4 {
+      margin: 0;
+    }
+
+    .sign-up--link {
+      font-weight: bold;
+      color: $col-primary;
+    }
+
+  }
+
+  .terms {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 240px;
+
+    i {
+      font-size: 0.8em;
+      color: $col-primary;
+    }
+
+  }
+
+
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1.4em;
+}
+
+
+.slider-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.6em;
+  border-radius: 1em;
+  background-color: #fff;
+  box-shadow: -10px 10px 20px 0 rgba(0, 0, 0, 0.3);
+  margin-bottom: 2em;
+  max-width: 440px;
+  min-height: 600px;
+
+  .image-preview {
+    width: 350px;
+    height: auto;
+    margin-bottom: 2em;
+  }
+
+  h2 {
+    font-size: 2em;
+    color: $black;
+    margin-bottom: 0.6em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    color: $col-text;
+    margin-bottom: 1.4em;
+    text-align: center;
+  }
+
+}
+
+
+.slide-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slide-dots {
+  position: inherit;
+  margin-top: 2em;
+  margin-bottom: 0;
+
+  li {
+
+    background-color: $bodyBg;
+
+    &.active {
+      background-color: $col-primary;
+    }
+
   }
 
 }

@@ -1,15 +1,11 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!--Nav-bar links-->
-    <side-nav-bar></side-nav-bar>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
     <section>
 
       <!--For adding new part-->
 
       <div *ngIf="!details">
-        <h2>Add new equipment</h2>
+        <h1>Add new equipment</h1>
 
         <part-form
           [partFormDetailsControls]="equipmentDetailsFormControl"
@@ -22,7 +18,7 @@
       <!--For editing part-->
 
       <div *ngIf="details">
-        <h2>{{equipment.name}}</h2>
+        <h1>{{equipment.name}}</h1>
 
         <part-form
           [part]="equipment"
@@ -34,6 +30,5 @@
           [details]="details"></part-form>
       </div>
     </section>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>

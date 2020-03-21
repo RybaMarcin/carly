@@ -85,6 +85,12 @@ import { WindowsStepComponent } from './components/windows/windows-step/windows-
 import { EquipmentStepComponent } from './components/equipment/equipment-step/equipment-step.component';
 import { SideNavBarComponent } from './components/side-nav-bar/side-nav-bar.component';
 import { EquipmentEditComponent } from './components/equipment/equipment-edit/equipment-edit.component';
+import { PartsAddComponent } from './components/parts/parts-add/parts-add.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ModelsComponent } from './components/models/models.component';
+import { ModelsAddComponent } from './components/models/models-add/models-add.component';
+import { ModelsFormComponent } from './components/models/models-form/models-form.component';
 
 @NgModule({
   imports: [
@@ -165,6 +171,12 @@ import { EquipmentEditComponent } from './components/equipment/equipment-edit/eq
     EquipmentStepComponent,
     SideNavBarComponent,
     EquipmentEditComponent,
+    PartsAddComponent,
+    NavBarComponent,
+    OrdersComponent,
+    ModelsComponent,
+    ModelsAddComponent,
+    ModelsFormComponent,
   ],
   providers: [
     BreakpointService,

@@ -1,15 +1,11 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!--Nav-bar links-->
-    <side-nav-bar></side-nav-bar>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
     <section>
 
       <!--For adding new part-->
 
       <div *ngIf="!details">
-        <h2>Add new breaks</h2>
+        <h1>Add new breaks</h1>
 
         <part-form
           [partFormDetailsControls]="breaksDetailsFormControls"
@@ -22,7 +18,7 @@
       <!--For editing part-->
 
       <div *ngIf="details">
-        <h2>{{breaks.name}}</h2>
+        <h1>{{breaks.name}}</h1>
 
         <part-form
           [part]="breaks"
@@ -34,7 +30,5 @@
           [details]="details"></part-form>
       </div>
     </section>
-
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>

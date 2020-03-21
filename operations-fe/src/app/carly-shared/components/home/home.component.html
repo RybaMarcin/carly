@@ -1,26 +1,61 @@
-<div class="flex-container">
+<div class="wrapper">
 
-  <div class="flex-container-content home-article">
-    <h2>{{getHomePageInformation().title}}</h2>
+  <div class="container">
 
-    <h3>{{getHomePageInformation().information}}</h3>
+    <div class="sing-in">
 
-    <button (click)="openLoginPage()" class="btn-login">Start today!</button>
+      <h1>Sing in</h1>
 
-  </div>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email">
+      </mat-form-field>
 
-<!--  <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>-->
+      <mat-form-field>
+        <input matInput type="text" placeholder="Password">
+      </mat-form-field>
 
-  <div class="flex-container-content home-article align-space-center">
+      <div class="controls">
+        <button mat-flat-button color="accent" (click)="openLoginPage()">Sign in</button>
+        <a href="#">Forgot password?</a>
+      </div>
 
-    <img src="../../assets/home/{{getHomePageInformation().image}}" class="image-preview">
+      <div class="sign-up">
+        <h4>Don't have an account? <a href="" class="sign-up--link">Sign up</a></h4>
+      </div>
+
+
+      <div class="terms">
+        <a href="" class="sign-up--link">Terms & Conditions</a>
+        <i class="fas fa-circle"></i>
+        <a href="">Privacy Policy</a>
+      </div>
+
+    </div>
+
+    <div class="slider">
+
+      <div class="slider-card">
+        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let slide of homeInformation; let i = index" [class.active]="i == 0">
+              <div class="slide-caption">
+                <img src="../../assets/home/{{slide.image}}" class="image-preview">
+                <h2>{{slide.title}}</h2>
+
+                <h3>{{slide.information}}</h3>
+
+                <button mat-flat-button color="accent" (click)="openLoginPage()">Get more</button>
+              </div>
+            </div>
+          </div>
+          <ol class="carousel-indicators slide-dots">
+            <li data-target="#homeCarousel" *ngFor="let slide of homeInformation; let i = index" [class.active]="i == 0" [attr.data-slide-to]="i"></li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
 </div>
-
-<div class="btn-carousel">
-  <button mat-stroked-button type="button" (click)="previous()"><i class="fas fa-angle-left"></i></button>
-  <button mat-stroked-button type="button" (click)="next()"><i class="fas fa-angle-right"></i></button>
-</div>
-

@@ -1,22 +1,20 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!--Nav-bar links-->
-    <side-nav-bar></side-nav-bar>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
     <section>
 
-      <h2 class="align-space-between">
-        Tires
-        <div>
-          <button mat-flat-button color="accent">
-            clear all
+      <div class="card-header">
+        <h1>Tires</h1>
+        <div class="controls">
+          <button mat-stroked-button color="primary">
+            Clear all
           </button>
-          <button mat-stroked-button color="accent" [routerLink]="['/parts/tires/add']">
-            add wheels
+          <button mat-flat-button color="accent" [routerLink]="['/parts/tires/add']">
+            Add tires
           </button>
         </div>
-      </h2>
+      </div>
+
+      <nav-bar></nav-bar>
 
       <div class="filter-container">
         <div class="filter-bar-container">
@@ -82,6 +80,5 @@
 
 
     </section>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>

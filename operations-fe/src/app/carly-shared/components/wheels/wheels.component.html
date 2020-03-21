@@ -1,23 +1,20 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!--Nav-bar links-->
-    <side-nav-bar></side-nav-bar>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
     <section>
 
-      <h2 class="align-space-between">
-        Wheels
-        <div>
-          <button mat-flat-button color="accent" (click)="clearFilters()">
-            clear all
+      <div class="card-header">
+        <h1>Wheels</h1>
+        <div class="controls">
+          <button mat-stroked-button color="primary" (click)="clearFilters()">
+            Clear all
           </button>
-          <button mat-stroked-button color="accent" [routerLink]="['/parts/wheels/add']">
-            add wheels
+          <button mat-flat-button color="accent" [routerLink]="['/parts/wheels/add']">
+            Add wheels
           </button>
         </div>
-      </h2>
+      </div>
 
+      <nav-bar></nav-bar>
 
       <div class="filter-container">
         <div class="filter-bar-container">
@@ -81,6 +78,5 @@
         No records found...
       </div>
     </section>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>
