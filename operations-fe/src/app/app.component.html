@@ -1,40 +1,18 @@
-<!--<header>-->
-<!--  <mat-toolbar class="toolbar-header" color="primary">-->
-<!--      <div>-->
-<!--        <img src="/assets/carly_logo.png" alt="Carly">-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <ul>-->
-<!--          <li><a [routerLink]="['/dashboard']">home</a></li>-->
-<!--          <li><a [routerLink]="['/companies']">companies</a></li>-->
-<!--          <li><a [routerLink]="['/cars']">cars</a></li>-->
-<!--          <li><a [routerLink]="['/parts']">parts</a></li>-->
-<!--          <li><a [routerLink]="['/customers']">customers</a></li>-->
-<!--          <li><a [routerLink]="['/matching']">matchings</a></li>-->
-<!--          <li><a [routerLink]="['/details']">company data</a></li>-->
-<!--          <li><button (click)="openLoginDialog()" class="btn-login"><i class="fas fa-user"></i></button></li>-->
-<!--          <li><a [routerLink]="['/logout']"><i class="fas fa-sign-out-alt"></i></a></li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--  </mat-toolbar>-->
-<!--</header>-->
-
 <header>
   <div class="toolbar">
-    <div>
+    <div class="logo">
       <img src="/assets/carly_logo.png" alt="Carly">
     </div>
-    <div>
+    <div class="main-menu">
       <a [routerLink]="['/home']">home</a>
       <a [routerLink]="['/companies']">companies</a>
       <a [routerLink]="['/cars']">cars</a>
+      <a [routerLink]="['/models']">models</a>
       <a [routerLink]="['/parts']">parts</a>
+      <a [routerLink]="['/orders']">orders</a>
       <a [routerLink]="['/customers']">customers</a>
-<!--      <a [routerLink]="['/details']">company data</a>-->
-      <button (click)="openLoginDialog()" class="btn-login"><i class="fas fa-user"></i></button>
-      <button class="btn-login"><i class="fas fa-bell"></i></button>
-     <a [routerLink]="['/logout']"><i class="fas fa-sign-out-alt"></i></a>
-     <a [routerLink]="['/logout']"><i class="fas fa-bars"></i></a>
+      <!-- todo: Change this name placeholder when login will be ready -->
+      <button (click)="openLoginDialog()"><i class="fas fa-user"></i>Damian</button>
     </div>
   </div>
 </header>
@@ -43,13 +21,3 @@
 <section class="app-content">
   <router-outlet></router-outlet>
 </section>
-
-<!--<footer>-->
-<!--  <div class="toolbar-footer">-->
-<!--    <a href="#">Contact us</a>-->
-<!--    <a href="#">FAQ</a>-->
-<!--    <a href="#">About</a>-->
-<!--    <a href="#">Legal information</a>-->
-<!--    <a href="#">Site security</a>-->
-<!--  </div>-->
-<!--</footer>-->

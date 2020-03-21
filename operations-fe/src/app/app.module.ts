@@ -21,9 +21,9 @@ import { ResetPasswordConfirmationComponent } from './reset-password/reset-passw
 import { RegistrationCompanyFormComponent } from './registration/registration-company-form/registration-company-form.component';
 import { RegistrationCompanyConfirmationComponent } from './registration/registration-company-confirmation/registration-company-confirmation.component';
 
-// const userContextFactory = (userService: UserManagementService) => {
-//   return () => userService.getUserContext();
-// };
+const userContextFactory = (userService: UserManagementService) => {
+  return () => userService.getUserContext();
+};
 
 @NgModule({
   imports: [
@@ -53,12 +53,12 @@ import { RegistrationCompanyConfirmationComponent } from './registration/registr
     RegistrationCompanyConfirmationComponent
   ],
   providers: [
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: userContextFactory,
-    //   deps: [UserManagementService],
-    //   multi: true
-    // }
+    {
+      provide: APP_INITIALIZER,
+      useFactory: userContextFactory,
+      deps: [UserManagementService],
+      multi: true
+    }
   ],
   exports: [
     FormsModule,

@@ -1,4 +1,6 @@
 @import '../colors.scss';
+@import "../theme/atoms/_variables.scss";
+
 
 :host {
   height: inherit;
@@ -12,135 +14,59 @@
   }
 
 
-  //.toolbar {
-  //  &-header {
-  //
-  //    justify-content: space-between;
-  //    background-color: $black;
-  //    height: 100px;
-  //
-  //    li {
-  //      display: inline;
-  //
-  //      a {
-  //        color: $white;
-  //        text-decoration: none;
-  //        font-size: 1.2rem;
-  //        border: 1px solid blue;
-  //        margin-right: 50px;
-  //        text-align: center;
-  //
-  //        &:hover {
-  //          background-color: $bodyBg;
-  //        }
-  //
-  //      }
-  //    }
-  //
-  //    img {
-  //      max-height: 100%;
-  //      width: 150px;
-  //      border: 1px solid green;
-  //    }
-  //
-  //    button {
-  //      background-color: transparent;
-  //      border: none;
-  //      color: $white;
-  //      text-decoration: none;
-  //      font-size: 1.2rem;
-  //      margin-right: 50px;
-  //      text-align: center;
-  //
-  //      &:hover {
-  //        cursor: pointer;
-  //        background-color: $bodyBg;
-  //      }
-  //
-  //    }
-  //
-  //
-  //  }
-  //
-  //  &-footer {
-  //    background-color: $footerBg;
-  //    justify-content: space-between;
-  //
-  //    a {
-  //      color: $white;
-  //      text-decoration: none;
-  //      font-size: 1.2rem;
-  //      border: 1px solid blue;
-  //      padding: 25px 25px;
-  //    }
-  //
-  //  }
-  //
-  //}
-
 
   .toolbar {
     display: flex;
     justify-content: space-between;
-    background-color: $black;
+    height: 80px;
+    position: relative;
 
-    img {
-      padding-top: 30px;
-      padding-left: 25px;
-      width:150px;
+    > div {
+      height: 80px;
     }
 
-    a {
-      background-color: $black;
-      color: $white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      //border: 1px solid blue;
-      padding: 40px 20px;
-      text-align: center;
+    .logo {
 
-      &:hover {
-        background-color: $menu;
+      img {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        width: 150px;
+        max-height: 100%;
       }
 
     }
 
-    button {
-      background-color: $black;
-      border: none;
-      color: $white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      padding: 40px 20px;
-      text-align: center;
-
-      &:hover {
-        cursor: pointer;
-        background-color: $bodyBg;
-      }
-    }
-
-    &-footer {
+    .main-menu {
       display: flex;
-      background-color: $footerBg;
-      justify-content: space-between;
+      align-items: center;
 
-
-      a {
+      > a {
         color: $white;
+        font-size: 1em;
+        cursor: pointer;
+        margin-right: 60px;
+        box-sizing: border-box;
         text-decoration: none;
-        font-size: 1.2rem;
-        padding: 10px 10px;
+        text-transform: uppercase;
+        text-align: center;
 
         &:hover {
-          cursor: pointer;
-          background-color: $bodyBg;
+          border-bottom: 1px solid $white;
         }
 
       }
 
-    }
 
+      button {
+        margin-right: 60px;
+        i {
+          color: $white;
+        }
+      }
+
+
+    }
   }
 
 

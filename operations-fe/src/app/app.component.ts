@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   user: User;
   company: any;
 
-  CarlyOperator: User["role"] = Roles.CARLY_OPERATOR;
+  CarlyOperator: User["role"] = Roles.CARLY_OPERATIONS;
   CarlyCompany: User["role"] = Roles.CARLY_COMPANY;
 
   notificationIsActive: boolean = false;
