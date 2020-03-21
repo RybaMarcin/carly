@@ -38,9 +38,10 @@ $typography: mat-typography-config(
 
 @include mat-core($typography);
 
-$carly-app-primary: mat-palette($mat-grey, 900);
-$carly-app-accent: mat-palette($mat-grey, 300);
-$carly-app-theme: mat-dark-theme($carly-app-primary, $carly-app-accent);
+$carly-app-primary: mat-palette($mat-grey, 800);
+$carly-app-accent: mat-palette($mat-orange, 300);
+$carly-app-warn: mat-palette($mat-red, 800);
+$carly-app-theme: mat-light-theme($carly-app-primary, $carly-app-accent, $carly-app-warn);
 
 @include angular-material-theme($carly-app-theme);
 

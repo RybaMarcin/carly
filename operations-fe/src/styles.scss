@@ -3,12 +3,22 @@
 @import "./theme/theme.scss";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
+/* ATOMS */
+@import "./theme/atoms/_controls.scss";
+@import "./theme/atoms/_variables.scss";
+@import "./theme/atoms/_grid.scss";
+//@import "./theme/atoms/_forms.scss";
+
+/* MOLECULES */
+@import "./theme/molecules/_card.scss";
+
 html, body {
 
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: $bodyBg;
+  background: linear-gradient(to bottom right, $bodyBgLighten, $bodyBgDarken);
+  overflow-x: hidden;
 
 
   header, section {
@@ -23,7 +33,7 @@ html, body {
 
 
   // Override materials
-  /deep/ {
+  // todo: Add deep to override material-ui
     .mat-list .mat-list-item {
       font-size: 1rem;
     }
@@ -47,12 +57,22 @@ html, body {
     }
 
     mat-step-icon {
-      background-color: $mainColor !important;
+      background-color: $col-primary !important;
     }
 
+    .mat-tab-nav-bar {
+      margin-bottom: 2.6em;
+    }
+
+    .mat-stepper-horizontal {
+      display: inherit;
+    }
+
+  .mat-slide-toggle {
+    margin-bottom: 2em;
   }
 
-  // Styles for all components - global styles
+    // Styles for all components - global styles
   .close-button {
     position: absolute;
     top: -10px;
