@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
         user.setCode(UUID.randomUUID().toString().substring(6));
         user.setPassword(passwordEncoder.encode(userRest.getPassword()));
         user.setCreatedAt(timeService.getLocalDate());
-        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name())));
+        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CARLY_CUSTOMER.name())));
         user.setEnabled(false);
         return userRepository.save(user);
     }
@@ -159,6 +159,7 @@ public class UserService implements UserDetailsService {
     private LoggedUser initLogin(User user) {
         LoggedUserBuilder loginUser = new LoggedUserBuilder()
                 .withId(user.getId().toHexString())
+                .withCompanyId(user.getCompanyId() == null ? null : user.getCompanyId().toHexString())
                 .withEmail(user.getEmail())
                 .withName(user.getFirstName())
                 .withAuthorities(user.getRole())

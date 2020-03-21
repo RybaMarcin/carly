@@ -16,6 +16,7 @@ import java.util.List;
 public class User {
     private ObjectId id;
     private List<CarlyGrantedAuthority> role;
+    private ObjectId companyId;
     private String code;
     private String firstName;
     private String lastName;
