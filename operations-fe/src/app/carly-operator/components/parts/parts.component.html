@@ -1,64 +1,40 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <a [routerLink]="['/parts/engines']">ENGINE</a>
-    <a [routerLink]="['/parts/wheels']">WHEELS</a>
-    <a [routerLink]="['/parts/breaks']">BREAKS</a>
-    <a [routerLink]="['/parts/tires']">TIRES</a>
-    <a [routerLink]="['/parts/windows']">WINDOWS</a>
-    <a [routerLink]="['/parts/painting']">PAINTING</a>
-    <a [routerLink]="['/parts/equipment']">EQUIPMENT</a>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <section>
+<div class="wrapper">
+  <div class="card">
 
-      <h2>Parts</h2>
+      <section>
 
+        <div class="card-header">
+          <h1>Parts</h1>
 
-      <div class="flex-container">
+          <div class="controls">
 
-        <div class="article">
+            <button mat-stroked-button color="primary">
+              Clear all
+            </button>
 
-          <i class="fas fa-tools"></i>
+            <button mat-flat-button color="primary">
+              Add new part
+            </button>
 
-          <h2>Create</h2>
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent turpis lacus, efficitur vel gravida quis, lacinia sed dolor.
-            In vitae laoreet tellus. Duis et tincidunt risus, in lacinia nisi.
-          </p>
+          </div>
         </div>
 
-        <div class="article">
 
-          <i class="fas fa-list"></i>
+        <div class="flex-container">
+          <nav mat-tab-nav-bar>
+            <a mat-tab-link
+               *ngFor="let link of navLinks"
+               [routerLink]="link.path"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+              {{link.label}}
+            </a>
+          </nav>
 
-          <h2>Organize</h2>
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent turpis lacus, efficitur vel gravida quis, lacinia sed dolor.
-            In vitae laoreet tellus. Duis et tincidunt risus, in lacinia nisi.
-          </p>
+          <router-outlet></router-outlet>
         </div>
 
-        <div class="article">
 
-          <i class="far fa-edit"></i>
-
-          <h2>Customize</h2>
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent turpis lacus, efficitur vel gravida quis, lacinia sed dolor.
-            In vitae laoreet tellus. Duis et tincidunt risus, in lacinia nisi.
-          </p>
-        </div>
-
-      </div>
-
-
-    </section>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+      </section>
+  </div>
+</div>

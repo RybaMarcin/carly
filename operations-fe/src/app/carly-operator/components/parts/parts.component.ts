@@ -9,6 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartsComponent implements OnInit {
 
+  navLinks = [
+    {path: '/parts/engines', label: 'Engine'},
+    {path: '/parts/wheels', label: 'Wheels'},
+    {path: '/parts/breaks', label: 'Breaks'},
+    {path: '/parts/tires', label: 'Tires'},
+    {path: '/parts/windows', label: 'Windows'},
+    {path: '/parts/painting', label: 'Painting'},
+    {path: '/parts/equipment', label: 'Equipment'},
+  ];
+
   constructor() { }
 
   ngOnInit() {

@@ -29,8 +29,8 @@
   <!--      <mat-divider class="divider-large divider-blank"></mat-divider>-->
 
   <div class="align-space-between">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+    <button mat-flat-button type="button" color="" class="col-danger" (click)="goBack()">Cancel</button>
+    <button mat-flat-button type="submit" color="" class="col-primary" (click)="onSubmit()">Save</button>
   </div>
 </form>
 <p>General form: {{ partDetailsForm.value | json }}</p>
