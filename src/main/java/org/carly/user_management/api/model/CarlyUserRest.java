@@ -8,6 +8,7 @@ import org.carly.shared.security.model.UserRole;
 @Getter
 public class CarlyUserRest {
     private String id;
+    private String companyId;
     private String name;
     private String email;
     private UserRole role;

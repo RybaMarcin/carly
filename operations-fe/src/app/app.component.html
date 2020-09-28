@@ -1,31 +1,23 @@
 <header>
-  <mat-toolbar class="toolbar-header" color="primary">
-      <div>
-        <img src="/assets/carly_logo.png" alt="Carly">
-      </div>
-      <div>
-        <a [routerLink]="['/dashboard']">dashboard</a>
-        <a [routerLink]="['/companies']">companies</a>
-        <a [routerLink]="['/cars']">cars</a>
-        <a [routerLink]="['/parts']">parts</a>
-        <a [routerLink]="['/customers']">customers</a>
-        <a [routerLink]="['/matching']">matchings</a>
-        <a [routerLink]="['/details']">company data</a>
-        <a [routerLink]="['/logout']">logout</a>
-      </div>
-  </mat-toolbar>
+  <div class="toolbar">
+    <div class="logo">
+      <img src="/assets/carly_logo.png" alt="Carly">
+    </div>
+    <div class="main-menu">
+      <a [routerLink]="['/home']">home</a>
+      <a [routerLink]="['/companies']">companies</a>
+      <a [routerLink]="['/cars']">cars</a>
+      <a [routerLink]="['/models']">models</a>
+      <a [routerLink]="['/parts']">parts</a>
+      <a [routerLink]="['/orders']">orders</a>
+      <a [routerLink]="['/customers']">customers</a>
+      <!-- todo: Change this name placeholder when login will be ready -->
+      <button (click)="openLoginDialog()"><i class="fas fa-user"></i>Damian</button>
+    </div>
+  </div>
 </header>
+
 
 <section class="app-content">
   <router-outlet></router-outlet>
 </section>
-
-<footer>
-  <mat-toolbar class="toolbar-footer">
-    <a href="#">Contact us</a>
-    <a href="#">FAQ</a>
-    <a href="#">About</a>
-    <a href="#">Legal information</a>
-    <a href="#">Site security</a>
-  </mat-toolbar>
-</footer>

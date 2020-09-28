@@ -35,13 +35,13 @@ export class WheelsComponent implements OnInit {
 
   public datasource: WheelsDatasource;
   public displayedColumns: Array<string> = [
-    'name'
+    'name',
   ];
 
   public columnsToFilter: Array<FilterMask> = [
     {
-      label: '',
-      value: ''
+      label: 'Name',
+      value: 'nameToSearch'
     }
   ];
 
@@ -57,7 +57,7 @@ export class WheelsComponent implements OnInit {
     this.datasource = new WheelsDatasource(this.wheelsService, this.paginator, this.messageService);
 
     // todo: Uncomment below when backend will be finished.
-    // merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadWheels());
+    merge(this.sort.sortChange, this.wheelsFilterForm.value).subscribe(() => this.loadWheels());
   }
 
   loadWheels() {

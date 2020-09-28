@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <div class="card">
+    <section>
+
+      <!--For adding new part-->
+
+      <div *ngIf="!details">
+        <h1>Add new painting</h1>
+
+        <part-form
+          [partFormDetailsControls]="paintingDetailsFormControls"
+          [partGroup]="'painting'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="paintingPreviews"></part-form>
+      </div>
+
+
+      <!--For editing part-->
+
+      <div *ngIf="details">
+        <h1>{{painting.name}}</h1>
+
+        <part-form
+          [part]="painting"
+          [partFormDetailsControls]="paintingDetailsFormControls"
+          [partGroup]="'painting'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="paintingPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
+
+    </section>
+  </div>
+</div>

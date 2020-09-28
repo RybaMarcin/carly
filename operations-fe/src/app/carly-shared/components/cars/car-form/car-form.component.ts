@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, ViewChild} from '@angular/core';
 import {CarFormAction} from "../../../model/car-form-action.enum";
 import {Car} from "../../../model/car.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -14,13 +14,21 @@ import {Wheels} from "../../../model/wheels.model";
 import {Breaks} from "../../../model/breaks.model";
 import {Tires} from "../../../model/tires.model";
 import {Breakpoints} from "../../../model/breakpoints.model";
-import {carDetailsFormFields} from "./car-form-fields";
+import {carDetailsFormFields, carTypes} from "./car-form-fields";
 import {CarManagementService} from "../../../resources/car-management.service";
+import {Equipment} from "../../../model/equipment.model";
+import {WheelsStepComponent} from "../../wheels/wheels-step/wheels-step.component";
+import {wheelsDetailsFormFields, wheelsPreviews} from "../../wheels/wheels-form/wheels-form-fields";
+import {FormGroupHelper} from "../../../model/form-group-helper.model";
+import {PartStepComponent} from "../../parts/part-step/part-step.component";
+import {EngineStepComponent} from "../../engine/engine-step/engine-step.component";
+import {BreaksStepComponent} from "../../breaks/breaks-step/breaks-step.component";
 
 @Component({
   selector: 'car-form',
   templateUrl: './car-form.component.html',
-  styleUrls: ['./car-form.component.scss', '../../../styles/form-actions.scss']
+  styleUrls: ['./car-form.component.scss',
+    '../../../styles/form-actions.scss']
 })
 export class CarFormComponent implements OnInit {
 
@@ -30,32 +38,32 @@ export class CarFormComponent implements OnInit {
   @Input() isRequest = false;
   @Input() submitEvent: EventEmitter<boolean> = new EventEmitter();
 
+  @ViewChild(EngineStepComponent) engineStepComponent: EngineStepComponent;
+  @ViewChild(WheelsStepComponent) wheelsStepComponent: WheelsStepComponent;
+  @ViewChild(BreaksStepComponent) breaksStepComponent: BreaksStepComponent;
+
   generalForm: FormGroup;
 
   carDetailsForm: FormGroup;
-  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields);
+  carDetailsFormControls = this.fgService.addControlToModel(carDetailsFormFields)
+    .map(controlModel => {
+      if(controlModel.inputName === 'carBody') {
+        controlModel.selectOptions = carTypes;
+      }
+      return controlModel;
+    });
 
 
   gridColumns = 1;
 
-  //Parts
-  engine: Engine.Model;
-  allEngines: Engine.Model[];
 
-  wheels: Wheels.Model;
-  allWheels: Wheels.Model[];
-
-  breaks: Breaks.Model;
-  allBreaks: Breaks.Model[];
-
-  tires: Tires.Model;
   ngOnInit() {
-
-    this.getAllPartsForCar();
 
     this.carDetailsForm = this.formBuilder.group(
       this.fgService.getControlsFromModel(this.carDetailsFormControls)
     );
+
+    this.carDetailsForm.get('carBody').setValue('body_1.png');
 
     this.generalForm = this.formBuilder.group({
       carDetailsForm: this.carDetailsForm
@@ -86,52 +94,47 @@ export class CarFormComponent implements OnInit {
   }
 
 
-
-
-  allTires: Tires.Model[];
-
   constructor(
       private formBuilder: FormBuilder,
       private messageService: MessageService,
       private router: Router,
       private breakpointService: BreakpointService,
       private fgService: FormGroupHelperService,
-      private engineService: EngineManagementService,
-      private wheelsService: WheelsManagementService,
-      private breaksService: BreaksManagementService,
       private carService: CarManagementService
   ) {
   }
 
 
-  getAllPartsForCar() {
-    this.wheelsService.getAllWheels().subscribe(data => {
-      this.allWheels = data;
-    },
-      error => console.log(error)
-    );
-
-  }
 
 
-
-  setFormValue() {
-
+  setFormValue(car: Car.Model) {
+    this.carDetailsFormControls
+      .forEach(control => this.carDetailsForm
+        .get(control.inputName)
+        .setValue(car[control.inputName]));
   }
 
 
   onSubmit() {
 
-  }
-
-
-  createOrUpdateCar() {
-
-    let carAction;
+    if(this.carDetailsForm.invalid) {
+      return;
+    }
 
     const car: Car.Model = {
       ...this.carDetailsForm.value
     };
+
+    car.wheels = this.wheelsStepComponent.wheels;
+
+    this.createOrUpdateCar(car);
+
+  }
+
+
+  createOrUpdateCar(car: Car.Model) {
+
+    let carAction;
 
 
     if(this.formAction !== CarFormAction.EDIT) {
@@ -166,6 +169,10 @@ export class CarFormComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  getCarBodyPreview(): string {
+    return this.carDetailsForm.get('carBody').value;
   }
 
 

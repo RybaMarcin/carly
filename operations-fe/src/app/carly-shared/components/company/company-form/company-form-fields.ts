@@ -35,7 +35,7 @@ export const companyDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1,
+      cols: 4,
     },
     {
       inputName: 'brand',
@@ -43,7 +43,7 @@ export const companyDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1,
+      cols: 4,
     },
     {
       inputName: 'number',
@@ -51,15 +51,21 @@ export const companyDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1,
+      cols: 4,
     },
     {
       inputName: 'email',
       label: 'Email address',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern('')],
       type: 'text',
       rows: 1,
-      cols: 1,
+      cols: 4,
+      errors: [
+        {
+          message: 'Please enter valid e-mail.',
+          validator: 'pattern'
+        }
+      ]
     },
     {
       inputName: 'phoneNumber',
@@ -67,7 +73,7 @@ export const companyDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1,
+      cols: 4,
     }
 ];
 
@@ -78,7 +84,7 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1
+      cols: 4
     },
     {
       inputName: 'country',
@@ -86,23 +92,23 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1
+      cols: 4
     },
     {
-      inputName: 'firstLine',
-      label: 'First line',
+      inputName: 'street',
+      label: 'Street',
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1
+      cols: 4
     },
     {
-      inputName: 'secondLine',
-      label: 'Second line',
+      inputName: 'number',
+      label: 'Number',
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1
+      cols: 4
     },
     {
       inputName: 'zipCode',
@@ -110,6 +116,6 @@ export const addressDetailsFormFields: FormGroupHelper.Model[] = [
       validators: [Validators.required],
       type: 'text',
       rows: 1,
-      cols: 1
+      cols: 4
     },
 ];

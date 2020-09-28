@@ -1,0 +1,23 @@
+.application-content {
+  padding: 10px 25px;
+}
+
+.btn-carousel {
+
+  .btn-previous {
+    margin-right: 25px;
+  }
+
+}
+
+.controls {
+
+  button {
+
+    &:not(:last-child) {
+      margin-right: 1em;
+    }
+
+  }
+
+}

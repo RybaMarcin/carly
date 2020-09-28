@@ -1,3 +1,13 @@
-<p>
-  detail-menu works!
-</p>
+<nav class="tab-nav-bar" mat-tab-nav-bar>
+  <ng-container *ngFor="let link of navLinks">
+    <a mat-tab-link
+       *userCanAccess="link.allowed"
+       [routerLink]="[link.path]"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </ng-container>
+</nav>
+
+<router-outlet></router-outlet>

@@ -47,10 +47,10 @@ public class CarMapper implements MapperService<CarRest, Car> {
         carRest.setWheels(new WheelsRest());
         carRest.getWheels().setId(domain.getWheels().getId());
 
-        carRest.getWheels().setBrand(new BrandRest());
-        carRest.getWheels().getBrand().setId(domain.getWheels().getBrand().getId());
-        carRest.getWheels().getBrand().setName(domain.getWheels().getBrand().getName());
-        carRest.getWheels().getBrand().setRating(domain.getWheels().getBrand().getRating());
+//        carRest.getWheels().setBrand(new BrandRest());
+//        carRest.getWheels().getBrand().setId(domain.getWheels().getBrand().getId());
+//        carRest.getWheels().getBrand().setName(domain.getWheels().getBrand().getName());
+//        carRest.getWheels().getBrand().setRating(domain.getWheels().getBrand().getRating());
 
         carRest.setBody(new BodyRest());
         carRest.getBody().setId(domain.getBody().getId());
@@ -76,7 +76,6 @@ public class CarMapper implements MapperService<CarRest, Car> {
         car.setBrand(new Brand());
         car.getBrand().setId(rest.getBrand().getId());
         car.getBrand().setName(rest.getName());
-        car.getBrand().setRating(rest.getBrand().getRating());
 
         car.setModel(new Model());
         car.getModel().setId(rest.getModel().getId());
@@ -93,10 +92,10 @@ public class CarMapper implements MapperService<CarRest, Car> {
 
         car.setWheels(new Wheels());
         car.getWheels().setId(rest.getWheels().getId());
-        car.getWheels().setBrand(new Brand());
-        car.getWheels().getBrand().setId(rest.getWheels().getBrand().getId());
-        car.getWheels().getBrand().setName(rest.getWheels().getBrand().getName());
-        car.getWheels().getBrand().setRating(rest.getWheels().getBrand().getRating());
+//        car.getWheels().setBrand(new Brand());
+//        car.getWheels().getBrand().setId(rest.getWheels().getBrand().getId());
+//        car.getWheels().getBrand().setName(rest.getWheels().getBrand().getName());
+//        car.getWheels().getBrand().setRating(rest.getWheels().getBrand().getRating());
         car.getWheels().setName(rest.getWheels().getName());
         car.getWheels().setDiameter(rest.getWheels().getDiameter());
 

@@ -1,33 +1,34 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<div class="wrapper">
+  <div class="card">
+    <section>
 
-  <div class="flex-container">
+      <!--For adding new part-->
 
-    <div class="flex-container-content">
+      <div *ngIf="!details">
+        <h1>Add new breaks</h1>
 
-      <form-group
-        *ngIf="breaksDetailsForm"
-        [fg]="generalForm"
-        [name]="'breaksDetailsForm'"
-        [controls]="breaksDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
-
-    </div>
-
-    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-    <div class="flex-container-content">
-
-      <div class="image-preview">
-        <img src="" alt="">
+        <part-form
+          [partFormDetailsControls]="breaksDetailsFormControls"
+          [partGroup]="'breaks'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="breaksPreviews"></part-form>
       </div>
 
-    </div>
 
+      <!--For editing part-->
+
+      <div *ngIf="details">
+        <h1>{{breaks.name}}</h1>
+
+        <part-form
+          [part]="breaks"
+          [partFormDetailsControls]="breaksDetailsFormControls"
+          [partGroup]="'breaks'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="breaksPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
+    </section>
   </div>
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
-</form>
-<p>General form: {{ breaksDetailsForm.value | json }}</p>
-<p>Is form valid: {{ breaksDetailsForm.valid }}</p>
+</div>

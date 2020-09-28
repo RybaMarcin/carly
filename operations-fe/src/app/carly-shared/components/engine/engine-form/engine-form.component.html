@@ -1,32 +1,35 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<div class="wrapper">
+  <div class="card">
+    <section>
 
-  <div class="flex-container">
+      <!--For adding new part-->
 
-    <div class="flex-container-content">
-      <form-group
-        *ngIf="engineDetailsForm"
-        [fg]="generalForm"
-        [name]="'engineDetailsForm'"
-        [controls]="engineDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
-    </div>
+      <div *ngIf="!details">
+        <h1>Add new engine</h1>
 
-    <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
+        <part-form
+          [partFormDetailsControls]="engineDetailsFormControls"
+          [partGroup]="'engines'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="enginePreviews"></part-form>
+      </div>
 
-    <div class="flex-container-content">
 
-      <p>IMPLEMENT ME!!!</p>
+      <!--For editing part-->
 
-    </div>
+      <div *ngIf="details">
+        <h1>{{engine.name}}</h1>
 
+        <part-form
+          [part]="engine"
+          [partFormDetailsControls]="engineDetailsFormControls"
+          [partGroup]="'engines'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="enginePreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
+      </div>
+
+    </section>
   </div>
-
-
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
-
-</form>
-<p>General form: {{ generalForm.value | json }}</p>
-<p>Is form valid: {{ generalForm.valid }}</p>
+</div>

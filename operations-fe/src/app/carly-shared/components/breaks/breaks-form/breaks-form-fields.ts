@@ -1,6 +1,7 @@
 import {FormGroupHelper} from "../../../model/form-group-helper.model";
 import {Validators} from "@angular/forms";
 import {Breaks} from "../../../model/breaks.model";
+import {ValueLabel} from "../../../model/value-label";
 
 export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
   {
@@ -21,10 +22,19 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
     selectOptions: []
   },
   {
-    inputName: 'type',
-    label: 'Type',
+    inputName: 'preview',
+    label: 'Preview',
     validators: [Validators.required],
-    type: '',
+    type: 'select',
+    cols: 4,
+    rows: 1,
+    selectOptions: []
+  },
+  {
+    inputName: 'breaksType',
+    label: 'Breaks type',
+    validators: [Validators.required],
+    type: 'select',
     cols: 4,
     rows: 1,
     selectOptions: [...Object.values(Breaks.BreaksType).map(value => ({label: value, value}))]
@@ -36,5 +46,21 @@ export const breaksDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'number',
     cols: 4,
     rows: 1
+  }
+];
+
+
+export const breaksPreviews: Array<ValueLabel> = [
+  {
+    value: 'breaks_1.png',
+    label: 'Preview 1'
+  },
+  {
+    value: 'breaks_2.png',
+    label: 'Preview 2'
+  },
+  {
+    value: 'breaks_3.png',
+    label: 'Preview 3'
   }
 ];

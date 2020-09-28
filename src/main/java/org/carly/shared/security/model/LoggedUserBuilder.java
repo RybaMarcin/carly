@@ -4,6 +4,7 @@ import java.util.List;
 
 public class LoggedUserBuilder {
     private String id;
+    private String companyId;
     private String email;
     private String name;
     private List<CarlyGrantedAuthority> authorities;
@@ -11,6 +12,11 @@ public class LoggedUserBuilder {
 
     public LoggedUserBuilder withId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public LoggedUserBuilder withCompanyId(String companyId) {
+        this.companyId = companyId;
         return this;
     }
 
@@ -34,7 +40,7 @@ public class LoggedUserBuilder {
     }
 
     public LoggedUser build() {
-        return new LoggedUser(id, email, name, authorities, enable);
+        return new LoggedUser(id, companyId, email, name, authorities, enable);
     }
 
 }

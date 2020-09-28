@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../model/user.model";
 import {LocalStorageService} from 'angular-2-local-storage';
 import {OperationsService} from "./operations.service";
 import {CompanyContextService} from "../services/company-context.service";
 import {from, Observable} from "rxjs";
-import {map, mergeMap} from "rxjs/operators";
-import {environment} from "../../../environments/environment";
-import jwt_decode from 'jwt-decode';
+import {map} from "rxjs/operators";
 import {Roles} from "../model/roles.model";
-import {CARLY_JWT_TOKEN} from "../model/carly-jwt-token.model";
+import {HttpClient} from "@angular/common/http";
+import {Customer} from "../model/customer.model";
+import {CustomerContextService} from "../services/customer-context.service";
 
-declare const JWT_TOKEN;
-declare const SUBSCRIPTION_KEY;
 declare const BASE_API_URL;
 
 const USER_CONTEXT = "userContext";
@@ -23,106 +21,65 @@ export class UserManagementService {
 
   userManagementApi = `${BASE_API_URL}/user-management`;
   user: User;
-  invalidJwtTokenMessage = 'Invalid JWT token';
 
   constructor(
+    protected http: HttpClient,
     private storageService: LocalStorageService,
     private operationsService: OperationsService,
-    private companyContextService: CompanyContextService
+    private companyContextService: CompanyContextService,
+    private customerContextService: CustomerContextService
   ) {
   }
 
   private getUser(): Promise<User> {
+    console.log("User");
     return new Promise<User>((resolve, reject) => this.user ? resolve(this.user) : reject(this.user));
   }
 
-  private cacheUserContext(forceCompanyContextId?: String): Observable<User> {
-    return from(this.fetchUser(forceCompanyContextId))
-      .pipe(
-        map(userContext => {
-          console.log("User Context: ");
-          console.log(userContext);
-         this.user = userContext;
-          this.storageService.set(USER_CONTEXT, userContext);
-          return userContext;
-        }),
-        mergeMap(user => this.companyContextService.setCompanyContext(user.companyId, user.role)
-          .pipe(map(isCompanyContextStored => user))
-        )
-      );
+  // private cacheUserContext(): Promise<any> {
+  //   return this.fetchUser()
+  //     .then(userContext => {
+  //        this.user = userContext;
+  //         this.storageService.set(USER_CONTEXT, userContext);
+  //
+  //         this.companyContextService.setCompanyContext(this.user.companyId, this.user.role);
+  //
+  //         return userContext;
+  //       })
+  //     .catch(err => {
+  //       throw err;
+  //     })
+  // }
+  //
+  // private fetchUser(): Promise<User> {
+  //   return fetch()
+  // }
+
+
+  cacheUserContext(user: User) {
+    this.storageService.set(USER_CONTEXT, user);
+
+    if(user.role === Roles.CARLY_COMPANY) {
+      console.log(600, user.role);
+      this.companyContextService.setCompanyContext(user.companyId, user.role);
+    }
+
+    if(user.role === Roles.CARLY_CUSTOMER) {
+      console.log(700, user.role);
+      this.customerContextService.setCustomerContext(user.id);
+    }
+
   }
 
-  private fetchUser(forceCompanyContextId?: String): Promise<User> {
-    console.log("Fetching user, force context id " + forceCompanyContextId);
-    const carlyJwtToken = JWT_TOKEN || environment.carlyRole;
 
-    if(!carlyJwtToken) {
-      console.log(carlyJwtToken);
-      throw new Error(this.invalidJwtTokenMessage);
-    }
-
-    const userContext = jwt_decode(carlyJwtToken);
-    if (userContext) {
-      const foundAuthority = userContext.authorities.find(authority => {
-        switch (authority) {
-          case Roles.CARLY_OPERATOR:
-          case Roles.CARLY_COMPANY:
-            return true;
-          default:
-            return false;
-        }
-      });
-
-      if (!foundAuthority) {
-        this.operationsService.logout().subscribe(uri => window.location.href = uri);
-      }
-    } else {
-      throw new Error(this.invalidJwtTokenMessage);
-    }
-
-    const headers = {
-      'Ocp-Apim-Trace': 'true',
-      'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY || environment.subscriptionKey
-    }
-
-    headers['Authorization'] = `Carly-Bearer ${carlyJwtToken}`;
-
-    const companyContext = this.companyContextService.getCompanyContext();
-
-    console.log("Company context service returns");
-    console.log(companyContext);
-    console.log(userContext);
-
-    if (forceCompanyContextId) {
-      headers['company-context-id'] = forceCompanyContextId;
-    } else if (companyContext) {
-      headers['company-context-id'] = companyContext.id;
-    }
-
-    return fetch(`${this.userManagementApi}/users/current`, {headers})
-      .then(res => {
-        this.storageService.set(CARLY_JWT_TOKEN, res.headers.get(CARLY_JWT_TOKEN));
-        if(res.status === 401) {
-          throw new Error('Status code 401. Authentication error!');
-        }
-        return res;
-      })
-      .then(res => res.json())
-      .catch(err => {
-        this.operationsService.logout().subscribe(uri => window.location.href = uri);
-        throw err;
-      });
-  }
-
-  setCompanyIdInUserContext(forceCompanyContextId: String): Observable<any> {
-    return this.cacheUserContext(forceCompanyContextId);
-  }
+  // setCompanyIdInUserContext(): Observable<any> {
+  //   return from(this.cacheUserContext());
+  // }
 
   getUserContext(): Promise<User> {
+    console.log("User info");
     if (this.user) {
       return this.getUser();
-    } else {
-      return this.cacheUserContext().toPromise();
     }
   }
 
@@ -133,5 +90,16 @@ export class UserManagementService {
   isUserHasRole$(role: Roles): Observable<boolean> {
     return this.getUserContext$().pipe(map(user => user.role === role));
   }
+
+  //User
+
+  createCustomer(customer: Customer.POST): Observable<Customer.Model> {
+    return this.http.post<Customer.POST>(`${this.userManagementApi}`, customer);
+  }
+
+  updateCustomer(customer: Customer.PUT): Observable<Customer.Model> {
+    return this.http.put<Customer.PUT>(`${this.userManagementApi}`, customer);
+  }
+
 
 }

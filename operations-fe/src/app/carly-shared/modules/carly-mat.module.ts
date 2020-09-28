@@ -35,6 +35,7 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
+import {MatStepperModule} from "@angular/material/stepper";
 
 /**
  * Material components module
@@ -68,6 +69,7 @@ import {
     MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,

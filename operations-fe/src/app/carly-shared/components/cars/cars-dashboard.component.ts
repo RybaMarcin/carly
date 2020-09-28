@@ -27,7 +27,7 @@ export class CarsDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filterBar') filterBar: FilterBarComponent;
   companyId: string;
-  CarlyOperator: User['role'] = Roles.CARLY_OPERATOR;
+  CarlyOperator: User['role'] = Roles.CARLY_OPERATIONS;
   CarlyCompany: User['role'] = Roles.CARLY_COMPANY;
 
   minStartDate: Moment;

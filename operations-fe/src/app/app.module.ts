@@ -13,10 +13,17 @@ import {LocalStorageModule} from "angular-2-local-storage";
 import {AppRoutingModule} from "./app.routing";
 import {UserManagementService} from "./carly-shared/resources/user-management.service";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { RegistrationConfirmationComponent } from './registration/registration-confirmation/registration-confirmation.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordConfirmationComponent } from './reset-password/reset-password-confirmation/reset-password-confirmation.component';
+import { RegistrationCompanyFormComponent } from './registration/registration-company-form/registration-company-form.component';
+import { RegistrationCompanyConfirmationComponent } from './registration/registration-company-confirmation/registration-company-confirmation.component';
 
-// const userContextFactory = (userService: UserManagementService) => {
-//   return () => userService.getUserContext();
-// };
+const userContextFactory = (userService: UserManagementService) => {
+  return () => userService.getUserContext();
+};
 
 @NgModule({
   imports: [
@@ -36,15 +43,22 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     LogoutComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent,
+    RegistrationFormComponent,
+    RegistrationConfirmationComponent,
+    ResetPasswordComponent,
+    ResetPasswordConfirmationComponent,
+    RegistrationCompanyFormComponent,
+    RegistrationCompanyConfirmationComponent
   ],
   providers: [
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: userContextFactory,
-    //   deps: [UserManagementService],
-    //   multi: true
-    // }
+    {
+      provide: APP_INITIALIZER,
+      useFactory: userContextFactory,
+      deps: [UserManagementService],
+      multi: true
+    }
   ],
   exports: [
     FormsModule,

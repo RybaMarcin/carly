@@ -7,14 +7,16 @@ import ChangeDecision = ReviewChanges.ChangeDecision;
 
 declare const BASE_API_URL;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CompanyManagementService {
 
   constructor(protected http: HttpClient) {
   }
 
-  companyManagementApi: string = `${BASE_API_URL}/company`;
-
+  // companyManagementApi: string = `${BASE_API_URL}/company`;
+  companyManagementApi: string = "api/company";
 
   findCompanies(params: HttpParams): Observable<Company.PaginatedModel> {
     return this.http.get<Company.PaginatedModel>(`${this.companyManagementApi}`, {params});
@@ -30,7 +32,7 @@ export class CompanyManagementService {
 
   createCompany(company: Company.POST): Observable<Company.Model> {
     debugger;
-    return this.http.post<Company.Model>(`${this.companyManagementApi}`, company);
+    return this.http.post<Company.Model>(`${this.companyManagementApi}/create`, company);
   }
 
   createPendingCompany(decision: ChangeDecision): Observable<ChangeDecision> {

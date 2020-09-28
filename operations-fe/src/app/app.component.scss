@@ -1,4 +1,6 @@
 @import '../colors.scss';
+@import "../theme/atoms/_variables.scss";
+
 
 :host {
   height: inherit;
@@ -8,50 +10,68 @@
 
   .app-content {
     flex: 1;
-    padding: 10px 25px;
+    //padding: 10px 25px;
   }
+
 
 
   .toolbar {
-    &-header {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    position: relative;
 
-      justify-content: space-between;
-      background-color: $black;
-      height: 100px;
+    > div {
+      height: 80px;
+    }
 
-      a {
-        color: $white;
-        text-decoration: none;
-        font-size: 1.2rem;
-        border: 1px solid blue;
-        margin-right: 50px;
-        text-align: center;
-      }
+    .logo {
 
       img {
-        max-height: 100%;
+        position: absolute;
+        top: 25px;
+        left: 25px;
         width: 150px;
-        border: 1px solid green;
+        max-height: 100%;
       }
-
 
     }
 
-    &-footer {
-      background-color: $footerBg;
-      justify-content: space-between;
-      background-color: $footerBg;
+    .main-menu {
+      display: flex;
+      align-items: center;
 
-      a {
+      > a {
         color: $white;
+        font-size: 1em;
+        cursor: pointer;
+        margin-right: 60px;
+        box-sizing: border-box;
         text-decoration: none;
-        font-size: 1.2rem;
-        border: 1px solid blue;
+        text-transform: uppercase;
+        text-align: center;
+
+        &:hover {
+          border-bottom: 1px solid $white;
+        }
+
       }
 
-    }
 
+      button {
+        margin-right: 60px;
+        i {
+          color: $white;
+        }
+      }
+
+
+    }
   }
 
 
+}
+
+.application-content {
+  padding: 10px 25px;
 }

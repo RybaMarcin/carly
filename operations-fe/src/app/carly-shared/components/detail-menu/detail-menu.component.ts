@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavLink} from "./nav-links";
+import {NavLink} from "../../model/nav-links";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

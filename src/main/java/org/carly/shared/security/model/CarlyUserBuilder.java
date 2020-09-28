@@ -4,12 +4,18 @@ import org.carly.user_management.api.model.CarlyUserRest;
 
 public class CarlyUserBuilder {
     private String id;
+    private String companyId;
     private String name;
     private String email;
     private UserRole role;
 
     public CarlyUserBuilder withId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public CarlyUserBuilder withCompanyId(String companyId) {
+        this.companyId = companyId;
         return this;
     }
 
@@ -29,6 +35,6 @@ public class CarlyUserBuilder {
     }
 
     public CarlyUserRest build() {
-        return new CarlyUserRest(id, name, email, role);
+        return new CarlyUserRest(id, companyId, name, email, role);
     }
 }

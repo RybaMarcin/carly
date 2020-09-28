@@ -2,7 +2,7 @@
 
 mat-sidenav-container {
   border: 1px solid blue;
-  margin: -10px -25px;
+  //margin: -10px -25px;
   height: 100%;
 }
 
@@ -15,7 +15,7 @@ mat-sidenav {
   height: 100%;
   float: left;
   width: 200px;
-  background: $sidebarMenu;
+  background: $menu;
 
   a {
     text-decoration: none;

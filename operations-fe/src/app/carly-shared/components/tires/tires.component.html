@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="card">
+    <section>
+
+      <div class="card-header">
+        <h1>Tires</h1>
+        <div class="controls">
+          <button mat-stroked-button color="primary">
+            Clear all
+          </button>
+          <button mat-flat-button color="accent" [routerLink]="['/parts/tires/add']">
+            Add tires
+          </button>
+        </div>
+      </div>
+
+      <nav-bar></nav-bar>
+
+      <div class="filter-container">
+        <div class="filter-bar-container">
+          <filter-bar #filterBar [columnsToFilter]="columnsToFilter" (modelUpdateEvent)="loadWheels()"></filter-bar>
+        </div>
+        <div class="dates-container">
+          <form-group
+            [fg]="generalForm"
+            [name]="'tiresFilterForm'"
+            [controls]="tiresFilterFormControls"
+            [gridColumns]="2"></form-group>
+        </div>
+      </div>
+
+      <div class="full-width" *ngIf="datasource.loading">
+        Searching, please wait...
+      </div>
+
+      <div *ngIf="datasource.loading">
+        <mat-progress-bar mode="indeterminate" class="full-width"></mat-progress-bar>
+      </div>
+
+      <table mat-table #table [dataSource]="datasource"
+             [hidden]="datasource.max === 0" class="full-width"
+             matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns">
+        </mat-row>
+
+        <ng-container cdkColumnDef="name">
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *cdkCellDef="let col">
+            <mat-card class="table-card">
+              <mat-card-header class="table-card-header">
+                <mat-card-title><a [routerLink]="['detail', col.id]">{{col.name}}</a></mat-card-title>
+              </mat-card-header>
+            </mat-card>
+          </mat-cell>
+        </ng-container>
+
+
+
+        <!--todo: Finish implementation-->
+
+      </table>
+
+      <div class="full-width">
+        <mat-paginator #paginator
+                       class="paginator"
+                       [length]="datasource.max"
+                       [pageIndex]="0"
+                       [pageSize]="20"
+                       [pageSizeOptions]="[20, 50, 100]"
+                       [hidden]="datasource.dataToDisplay.length == 0">
+        </mat-paginator>
+      </div>
+
+      <div class="warning-no-records" *ngIf="datasource.dataToDisplay.length == 0">
+        No records found...
+      </div>
+
+
+    </section>
+  </div>
+</div>

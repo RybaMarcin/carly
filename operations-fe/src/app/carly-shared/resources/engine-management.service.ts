@@ -13,7 +13,8 @@ export class EngineManagementService {
   constructor(protected http: HttpClient) {
   }
 
-  engineManagementApi: string = `${BASE_API_URL}`;
+  // engineManagementApi: string = `${BASE_API_URL}`;
+  engineManagementApi: string = "api/engines";
 
 
   //ENGINE
@@ -31,6 +32,7 @@ export class EngineManagementService {
   }
 
   createEngine(engine: Engine.POST): Observable<Engine.Model> {
+    debugger;
     return this.http.post<Engine.Model>(`${this.engineManagementApi}`, engine);
   }
 
@@ -39,7 +41,7 @@ export class EngineManagementService {
   }
 
   getAllEngines(): Observable<Engine.Model[]> {
-    return this.http.get<Engine.Model[]>(`${this.engineManagementApi}/all-engines`);
+    return this.http.get<Engine.Model[]>(`${this.engineManagementApi}/all`);
   }
 
 }

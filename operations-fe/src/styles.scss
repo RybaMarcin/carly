@@ -1,27 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./colors.scss";
 @import "./theme/theme.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+/* ATOMS */
+@import "./theme/atoms/_controls.scss";
+@import "./theme/atoms/_variables.scss";
+@import "./theme/atoms/_grid.scss";
+//@import "./theme/atoms/_forms.scss";
+
+/* MOLECULES */
+@import "./theme/molecules/_card.scss";
 
 html, body {
 
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: $bodyBg;
+  background: linear-gradient(to bottom right, $bodyBgLighten, $bodyBgDarken);
+  overflow-x: hidden;
+
+
+  header, section {
+    padding: 0;
+    margin: 0;
+  }
+
+  section {
+    height: 100%;
+    width: 100%;
+  }
+
 
   // Override materials
-  /deep/ {
+  // todo: Add deep to override material-ui
     .mat-list .mat-list-item {
       font-size: 1rem;
     }
+
+    mat-dialog-container {
+      background-color: $bodyBg !important;
+    }
+
+    mat-divider {
+      background-color: $dark !important;
+    }
+
 
     mat-dialog-container > * {
       display: block;
       position: relative;
     }
+
+    mat-horizontal-stepper {
+      background-color: $bodyBg !important;
+    }
+
+    mat-step-icon {
+      background-color: $col-primary !important;
+    }
+
+    .mat-tab-nav-bar {
+      margin-bottom: 2.6em;
+    }
+
+    .mat-stepper-horizontal {
+      display: inherit;
+    }
+
+  .mat-slide-toggle {
+    margin-bottom: 2em;
   }
 
-  // Styles for all components - global styles
+    // Styles for all components - global styles
   .close-button {
     position: absolute;
     top: -10px;
@@ -125,8 +176,9 @@ html, body {
 
   .image-preview {
     width: 100%;
-    height: 100%;
-    display: flex;
+    //height: 100%;
+    //display: flex;
+    //align-items: center;
 
     > img {
       max-width: 100%;
@@ -137,18 +189,23 @@ html, body {
   }
 
   .flex-container {
+    height: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-content: stretch;
+    //align-items: center;
+    //justify-content: center;
+    //justify-content: space-between;
+    //align-content: stretch;
+
+    &-content {
+      flex: 50%;
+    }
+
   }
 
-  .flex-container-content {
-    flex: 50%;
-    //border: 1px solid mediumpurple;
-  }
 
   .vertical-divider {
     margin: 30px;
+    color: $black;
   }
 
 }

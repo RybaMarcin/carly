@@ -10,7 +10,7 @@ export class CarlyMatcher {
   ) {
     const user = JSON.parse(window.sessionStorage.getItem('carly-app.userContext'));
 
-    const isUserTypeMatch = user? user.role === Roles.CARLY_OPERATOR : false;
+    const isUserTypeMatch = user? user.role === Roles.CARLY_OPERATIONS : false;
     if(isUserTypeMatch) {
       return {consumed: []};
     } else {
@@ -32,5 +32,22 @@ export class CarlyMatcher {
       return null;
     }
   }
+
+  static carlyCustomerMatcher(
+    segments: UrlSegment[],
+    group: UrlSegmentGroup,
+    route: Route
+  ) {
+    const user = JSON.parse(window.sessionStorage.getItem('carly-app.userContext'));
+
+    const isUserTypeMatch = user? user.role === Roles.CARLY_CUSTOMER : false;
+    if(isUserTypeMatch) {
+      return {consumed: []};
+    } else {
+      return null;
+    }
+  }
+
+
 
 }

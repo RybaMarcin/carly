@@ -1,6 +1,8 @@
 import {Address} from "./address.model";
 import {Page} from "./paginated.model";
 
+export const CUSTOMER_CONTEXT = 'customerContext';
+
 export namespace Customer {
 
   export interface PreModel {
@@ -20,6 +22,10 @@ export namespace Customer {
   }
 
   export type PATCH = Model;
+
+  export type POST = Model;
+
+  export type PUT = Model;
 
   export type PaginatedModel = Page<Model>;
 

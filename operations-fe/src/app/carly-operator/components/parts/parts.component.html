@@ -1,16 +1,40 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <a [routerLink]="['/parts/engines']">ENGINE</a>
-    <a [routerLink]="['/parts/wheels']">WHEELS</a>
-    <a [routerLink]="['/parts/breaks']">BREAKS</a>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <section>
+<div class="wrapper">
+  <div class="card">
 
-      <h2>Parts</h2>
+      <section>
+
+        <div class="card-header">
+          <h1>Parts</h1>
+
+          <div class="controls">
+
+            <button mat-stroked-button color="primary">
+              Clear all
+            </button>
+
+            <button mat-flat-button color="primary">
+              Add new part
+            </button>
+
+          </div>
+        </div>
 
 
-    </section>
-  </mat-sidenav-content>
+        <div class="flex-container">
+          <nav mat-tab-nav-bar>
+            <a mat-tab-link
+               *ngFor="let link of navLinks"
+               [routerLink]="link.path"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+              {{link.label}}
+            </a>
+          </nav>
 
-</mat-sidenav-container>
+          <router-outlet></router-outlet>
+        </div>
+
+
+      </section>
+  </div>
+</div>

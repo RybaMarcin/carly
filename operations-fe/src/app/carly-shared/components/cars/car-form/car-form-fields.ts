@@ -2,6 +2,7 @@ import {FormGroupHelper} from "../../../model/form-group-helper.model";
 import {Validators} from "@angular/forms";
 import {Transmission} from "../../../model/transmission.enum";
 import {Equipment} from "../../../model/equipment.model";
+import {ValueLabel} from "../../../model/value-label";
 
 export const carDetailsFormFields: FormGroupHelper.Model[] = [
   {
@@ -12,9 +13,18 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     rows: 1,
     cols: 4
   },
+  // {
+  //   inputName: 'brand',
+  //   label: 'Brand',
+  //   validators: [Validators.required],
+  //   type: 'select',
+  //   rows: 1,
+  //   cols: 4,
+  //   selectOptions: []
+  // },
   {
-    inputName: 'brand',
-    label: 'Brand',
+    inputName: 'model',
+    label: 'Model',
     validators: [Validators.required],
     type: 'select',
     rows: 1,
@@ -22,8 +32,8 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     selectOptions: []
   },
   {
-    inputName: 'model',
-    label: 'Model',
+    inputName: 'carBody',
+    label: 'Car body',
     validators: [Validators.required],
     type: 'select',
     rows: 1,
@@ -35,15 +45,6 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     label: 'Max speed',
     validators: [Validators.required],
     type: 'number',
-    rows: 1,
-    cols: 4,
-    selectOptions: []
-  },
-  {
-    inputName: 'carBody',
-    label: 'Car body',
-    validators: [Validators.required],
-    type: 'select',
     rows: 1,
     cols: 4,
     selectOptions: []
@@ -61,28 +62,45 @@ export const carDetailsFormFields: FormGroupHelper.Model[] = [
     inputName: 'transmission',
     label: 'Transmission',
     validators: [Validators.required],
-    type: 'number',
+    type: 'select',
     rows: 1,
     cols: 4,
     selectOptions: [...Object.values(Transmission).map(value => ({label: value, value}))]
   },
+];
+
+
+export const carTypes: Array<ValueLabel> = [
   {
-    inputName: 'bodyPainting',
-    label: 'Body painting',
-    validators: [Validators.required],
-    type: 'number',
-    rows: 1,
-    cols: 4,
-    selectOptions: []
+    value: 'body_1.png',
+    label: 'Kombi'
   },
   {
-    inputName: 'equipment',
-    label: 'Equipment',
-    validators: [Validators.required],
-    type: 'number',
-    rows: 1,
-    cols: 4,
-    selectOptions: [],
-    selectMultiple: true
+    value: 'body_2.png',
+    label: 'Sedan'
   },
+  {
+    value: 'body_3.png',
+    label: 'Hatchback'
+  },
+  {
+    value: '',
+    label: 'Compact'
+  },
+  {
+    value: '',
+    label: 'SUV'
+  },
+  {
+    value: '',
+    label: 'Minivan'
+  },
+  {
+    value: '',
+    label: 'Cabriolet'
+  },
+  {
+    value: '',
+    label: 'Coupe'
+  }
 ];

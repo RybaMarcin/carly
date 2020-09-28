@@ -1,8 +1,8 @@
 package org.carly.shared.security.model;
 
 public enum UserRole {
-    CUSTOMER,
-    COMPANY,
-    OPERATIONS,
+    CARLY_CUSTOMER,
+    CARLY_COMPANY,
+    CARLY_OPERATIONS,
     CHANGE_PASSWORD_PRIVILEGE;
 }

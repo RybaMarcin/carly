@@ -27,7 +27,7 @@ export class CompanyContextGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.userService.isUserHasRole$(Roles.CARLY_OPERATOR)
+    return this.userService.isUserHasRole$(Roles.CARLY_OPERATIONS)
       .pipe(
         map(isCarlyOperator => {
           if (isCarlyOperator || this.companyContextService.getCompanyContext()) {

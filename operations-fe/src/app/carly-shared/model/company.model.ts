@@ -12,11 +12,14 @@ export namespace Company {
   }
 
   export interface Model extends PreModel {
+    brand: string;
+    number: string;
+    email: string;
+    phoneNumber: string;
     yearOfEstablishment: number;
-    logoId: number;
+    // logoId: number;
     address: Address;
-    cars: Array<string>;
-    createdDate: Date | string;
+    // createdDate: Date | string;
   }
 
   export interface Context {

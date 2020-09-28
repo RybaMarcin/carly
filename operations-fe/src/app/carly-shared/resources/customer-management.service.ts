@@ -23,6 +23,10 @@ export class CustomerManagementService {
     return this.http.get<Customer.PaginatedModel>(`${this.customerManagementApi}`, {params});
   }
 
+  findCustomerById(customerId: string): Observable<Customer.Model> {
+    return this.http.get<Customer.Model>(`${this.customerManagementApi}/${customerId}`);
+  }
+
   findCustomersByCarId(carId: string): Observable<Customer.Model> {
     return this.http.get<Customer.Model>(`${this.customerManagementApi}/${carId}`);
   }

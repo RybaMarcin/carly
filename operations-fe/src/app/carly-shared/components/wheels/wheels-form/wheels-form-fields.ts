@@ -11,7 +11,10 @@ export const wheelsDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'select',
     cols: 4,
     rows: 1,
-    selectOptions: []
+    selectOptions: [
+      {value: 'Brand one', label: 'Brand one'},
+      {value: 'Brand two', label: 'Brand two'}
+    ]
   },
   {
     inputName: 'name',
@@ -28,20 +31,7 @@ export const wheelsDetailsFormFields: FormGroupHelper.Model[] = [
     type: 'select',
     cols: 4,
     rows: 1,
-    selectOptions: [
-      {
-        value: 'wheel_1.png',
-        label: 'Preview 1'
-      },
-      {
-        value: 'wheel_2.png',
-        label: 'Preview 2'
-      },
-      {
-        value: 'wheel_3.png',
-        label: 'Preview 3'
-      }
-    ]
+    selectOptions: []
   },
   {
     inputName: 'diameter',
@@ -78,6 +68,18 @@ export const wheelsPreviews: Array<ValueLabel> = [
   {
     value: 'wheel_2.png',
     label: 'Preview 2'
+  },
+  {
+    value: 'wheel_3.png',
+    label: 'Preview 3'
+  },
+  {
+    value: 'wheel_4.png',
+    label: 'Preview 4'
+  },
+  {
+    value: 'wheel_5.png',
+    label: 'Preview 5'
   }
 ];
 

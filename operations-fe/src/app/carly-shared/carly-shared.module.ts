@@ -39,7 +39,6 @@ import {DateISO8601Pipe, DateTimeISO8601Pipe} from "./services/date.pipe";
 import {FileSizeModule} from "ngx-filesize";
 import {AuthInterceptor} from "./services/auth-interceptor";
 import {PartsDashboardComponent} from "./components/parts/parts-dashboard.component";
-import {CustomersDashboardComponent} from "./components/customers/customers-dashboard.component";
 import {CompanyContextGuard} from "./services/guards/company-context.guard";
 import {CompanyManagementService} from "./resources/company-management.service";
 import { AuthenticationGuard } from './services/guards/authentication.guard';
@@ -58,6 +57,40 @@ import { BreaksAddComponent } from './components/breaks/breaks-add/breaks-add.co
 import { BreaksEditComponent } from './components/breaks/breaks-edit/breaks-edit.component';
 import { BreaksFormComponent } from './components/breaks/breaks-form/breaks-form.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { HomeComponent } from './components/home/home.component';
+import { EquipmentComponent } from './components/equipment/equipment.component';
+import { EquipmentAddComponent } from './components/equipment/equipment-add/equipment-add.component';
+import { EquipmentFormComponent } from './components/equipment/equipment-form/equipment-form.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { WindowsComponent } from './components/windows/windows.component';
+import { WindowsAddComponent } from './components/windows/windows-add/windows-add.component';
+import { WindowsEditComponent } from './components/windows/windows-edit/windows-edit.component';
+import { WindowsFormComponent } from './components/windows/windows-form/windows-form.component';
+import { PaintingComponent } from './components/painting/painting.component';
+import { PaintingAddComponent } from './components/painting/painting-add/painting-add.component';
+import { PaintingEditComponent } from './components/painting/painting-edit/painting-edit.component';
+import { PaintingFormComponent } from './components/painting/painting-form/painting-form.component';
+import { TiresComponent } from './components/tires/tires.component';
+import { TiresAddComponent } from './components/tires/tires-add/tires-add.component';
+import { TiresEditComponent } from './components/tires/tires-edit/tires-edit.component';
+import { TiresFormComponent } from './components/tires/tires-form/tires-form.component';
+import { WheelsStepComponent } from './components/wheels/wheels-step/wheels-step.component';
+import { EngineStepComponent } from './components/engine/engine-step/engine-step.component';
+import { BreaksStepComponent } from './components/breaks/breaks-step/breaks-step.component';
+import { PartStepComponent } from './components/parts/part-step/part-step.component';
+import { PartFormComponent } from './components/parts/part-form/part-form.component';
+import { TiresStepComponent } from './components/tires/tires-step/tires-step.component';
+import { WindowsStepComponent } from './components/windows/windows-step/windows-step.component';
+import { EquipmentStepComponent } from './components/equipment/equipment-step/equipment-step.component';
+import { SideNavBarComponent } from './components/side-nav-bar/side-nav-bar.component';
+import { EquipmentEditComponent } from './components/equipment/equipment-edit/equipment-edit.component';
+import { PartsAddComponent } from './components/parts/parts-add/parts-add.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ModelsComponent } from './components/models/models.component';
+import { ModelsAddComponent } from './components/models/models-add/models-add.component';
+import { ModelsFormComponent } from './components/models/models-form/models-form.component';
 
 @NgModule({
   imports: [
@@ -91,7 +124,6 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     SecureUriPipe,
     PartsDashboardComponent,
     PartsComponent,
-    CustomersDashboardComponent,
     CompanyContextComponent,
     UserCanAccessDirective,
     FormGroupComponent,
@@ -111,6 +143,40 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     BreaksEditComponent,
     BreaksFormComponent,
     SideMenuComponent,
+    CustomersComponent,
+    HomeComponent,
+    EquipmentComponent,
+    EquipmentAddComponent,
+    EquipmentFormComponent,
+    NotificationsComponent,
+    WindowsComponent,
+    WindowsAddComponent,
+    WindowsEditComponent,
+    WindowsFormComponent,
+    PaintingComponent,
+    PaintingAddComponent,
+    PaintingEditComponent,
+    PaintingFormComponent,
+    TiresComponent,
+    TiresAddComponent,
+    TiresEditComponent,
+    TiresFormComponent,
+    WheelsStepComponent,
+    EngineStepComponent,
+    BreaksStepComponent,
+    PartStepComponent,
+    PartFormComponent,
+    TiresStepComponent,
+    WindowsStepComponent,
+    EquipmentStepComponent,
+    SideNavBarComponent,
+    EquipmentEditComponent,
+    PartsAddComponent,
+    NavBarComponent,
+    OrdersComponent,
+    ModelsComponent,
+    ModelsAddComponent,
+    ModelsFormComponent,
   ],
   providers: [
     BreakpointService,

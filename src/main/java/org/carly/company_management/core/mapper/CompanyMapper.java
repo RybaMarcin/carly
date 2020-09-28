@@ -14,16 +14,19 @@ public class CompanyMapper implements MapperService<CompanyRest, Company> {
 
     private CarMapper carMapper;
 
+    //todo: Fields in mapper commented temporarily.
+
     @Override
     public CompanyRest mapFromDomainObject(Company domain, CompanyRest rest) {
         if (domain.getId() != null) {
             rest.setId(rest.getId());
         }
         rest.setAddress(domain.getAddress());
-        rest.setCars(domain.getCars().stream().map(e -> carMapper.simplifyRestObject(e)).collect(Collectors.toList()));
-        rest.setLogoId(domain.getLogoId());
+        rest.setBrand(domain.getBrand());
+//        rest.setCars(domain.getCars().stream().map(e -> carMapper.simplifyRestObject(e)).collect(Collectors.toList()));
+//        rest.setLogoId(domain.getLogoId());
         rest.setName(domain.getName());
-        rest.setYearOfEstablishment(domain.getYearOfEstablishment());
+//        rest.setYearOfEstablishment(domain.getYearOfEstablishment());
         return rest;
     }
 
@@ -33,9 +36,10 @@ public class CompanyMapper implements MapperService<CompanyRest, Company> {
             domain.setId(rest.getId());
         }
         domain.setAddress(domain.getAddress());
-        domain.setCars(rest.getCars().stream().map(e -> carMapper.simplifyDomainObject(e)).collect(Collectors.toList()));
+//        domain.setCars(rest.getCars().stream().map(e -> carMapper.simplifyDomainObject(e)).collect(Collectors.toList()));
         domain.setName(rest.getName());
-        domain.setYearOfEstablishment(rest.getYearOfEstablishment());
+        domain.setBrand(rest.getBrand());
+//        domain.setYearOfEstablishment(rest.getYearOfEstablishment());
         return domain;
     }
 

@@ -1,47 +1,35 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <a [routerLink]="['/parts/engines']">ENGINE</a>
-    <a [routerLink]="['/parts/wheels']">WHEELS</a>
-    <a [routerLink]="['/parts/breaks']">BREAKS</a>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="wrapper">
+  <div class="card">
+    <section>
 
-    <h2>Add new wheels</h2>
+      <!--For adding new part-->
 
-    <mat-divider class="divider-large divider-blank"></mat-divider>
+      <div *ngIf="!details">
+        <h1>Add new wheels</h1>
 
-    <form [formGroup]="generalForm" *ngIf="generalForm">
-
-      <div class="flex-container">
-
-        <div class="flex-container-content">
-
-          <form-group
-            *ngIf="wheelsDetailsForm"
-            [fg]="generalForm"
-            [name]="'wheelsDetailsForm'"
-            [controls]="wheelsDetailsFormControls"
-            [gridColumns]="gridColumns"></form-group>
-
-        </div>
-
-        <mat-divider class="divider-bigger vertical-divider" [vertical]="true"></mat-divider>
-
-        <div class="flex-container-content">
-          <img src="../../../assets/wheels/{{getWheelsPreview()}}" class="image-preview">
-        </div>
-
+        <part-form
+          [partFormDetailsControls]="wheelsDetailsFormControls"
+          [partGroup]="'wheels'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="wheelsPreviews"></part-form>
       </div>
 
-      <mat-divider class="divider-large divider-blank"></mat-divider>
 
-      <div class="align-space-between" *ngIf="!isRequest">
-        <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-        <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
+      <!--For editing part-->
+
+      <div *ngIf="details">
+        <h1>{{wheels.name}}</h1>
+
+        <part-form
+          [part]="wheels"
+          [partFormDetailsControls]="wheelsDetailsFormControls"
+          [partGroup]="'wheels'"
+          (partCurrentForm)="onSubmit($event)"
+          [partPreviews]="wheelsPreviews"
+          [isDisabled]="true"
+          [details]="details"></part-form>
       </div>
-    </form>
-    <p>General form: {{ wheelsDetailsForm.value | json }}</p>
-    <p>Is form valid: {{ wheelsDetailsForm.valid }}</p>
-  </mat-sidenav-content>
 
-</mat-sidenav-container>
+    </section>
+  </div>
+</div>

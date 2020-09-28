@@ -1,43 +1,89 @@
-<form [formGroup]="generalForm" *ngIf="generalForm">
+<mat-horizontal-stepper linear #stepper>
+  <mat-step [stepControl]="generalForm">
+    <form [formGroup]="generalForm">
+      <ng-template matStepLabel>Basic car details</ng-template>
+          <div class="flex-container">
 
-  <mat-divider class="divider-large"></mat-divider>
+            <div class="flex-container-content">
 
-  <h3>Basic car info:</h3>
+              <form-group
+                *ngIf="carDetailsForm"
+                [fg]="generalForm"
+                [name]="'carDetailsForm'"
+                [controls]="carDetailsFormControls"
+                [gridColumns]="gridColumns"></form-group>
 
-  <div class="flex-container">
+            </div>
 
-    <div class="flex-container-content">
+            <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
 
-      <form-group
-        *ngIf="carDetailsForm"
-        [fg]="generalForm"
-        [name]="'carDetailsForm'"
-        [controls]="carDetailsFormControls"
-        [gridColumns]="gridColumns"></form-group>
+            <div class="flex-container-content">
 
+              <!--todo: change styling of that img-->
+              <img src="../../../assets/body/{{getCarBodyPreview()}}" class="image-preview">
+
+            </div>
+
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Engine</ng-template>
+
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Wheels</ng-template>
 
-    <mat-divider class="divider-large vertical-divider" [vertical]="true"></mat-divider>
+    <wheels-step></wheels-step>
 
-    <div class="flex-container-content">
-
-      <p>Preview of car body</p>
-
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
     </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Breaks</ng-template>
 
-  </div>
+    <breaks-step></breaks-step>
 
-  <mat-divider class="divider-large"></mat-divider>
-
-  <h3>Wheels:</h3>
-
-  <mat-divider class="divider-large divider-blank"></mat-divider>
-
-  <div class="align-space-between" *ngIf="!isRequest">
-    <button mat-stroked-button type="button" color="primary" (click)="goBack()">Cancel</button>
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()">Save</button>
-  </div>
-
-</form>
-<p>General form: {{ carDetailsForm.value | json }}</p>
-<p>Is form valid: {{ carDetailsForm.valid }}</p>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Tires</ng-template>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Windows</ng-template>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Equipment</ng-template>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent"  matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div class="controls">
+      <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+      <button mat-flat-button color="accent">Save</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

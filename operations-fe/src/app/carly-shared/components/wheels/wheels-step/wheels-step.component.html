@@ -1,0 +1,7 @@
+<part-step
+  *ngIf="allWheels"
+  [allParts]="allWheels"
+  [partStepDetailsControls]="wheelsStepDetailsControls"
+  [partGroup]="'wheels'"
+  (currentPart)="getCurrentWheels($event)"></part-step>
+

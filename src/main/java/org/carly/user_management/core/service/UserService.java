@@ -38,6 +38,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.carly.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
+import static java.lang.String.format;
 import static org.carly.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
@@ -52,6 +53,7 @@ public class UserService implements UserDetailsService {
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final LoggedUserProvider loggedUserProvider;
 
     public UserService(UserRepository userRepository,
                        TokenService tokenService,
@@ -69,6 +71,7 @@ public class UserService implements UserDetailsService {
         this.eventPublisher = eventPublisher;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
+        this.loggedUserProvider = loggedUserProvider;
     }
 
     @Transactional
@@ -80,14 +83,13 @@ public class UserService implements UserDetailsService {
 
     private User registrationNewUserAccount(UserRest userRest) {
         if (emailExists(userRest.getEmail())) {
-            throw new EntityAlreadyExistsException("Account with that email already exists!" + userRest.getEmail());
+            throw new EntityAlreadyExistsException(format("Account with %s email already exists!", userRest.getEmail()));
         }
         User user = userMapper.simplifyDomainObject(userRest);
         user.setCode(UUID.randomUUID().toString().substring(0, 6));
         user.setPassword(passwordEncoder.encode(userRest.getPassword()));
         user.setCreatedAt(timeService.getLocalDate());
-        user.setRole(new ArrayList<>());
-        user.getRole().add(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name()));
+        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CARLY_CUSTOMER.name())));
         user.setEnabled(false);
         return userRepository.save(user);
     }
@@ -127,13 +129,17 @@ public class UserService implements UserDetailsService {
 
     public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {
         User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new LoginOrPasswordException(NOT_FOUND));
-        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        //todo: Line commented out just for testing.
+
+        //        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        boolean matches = true;
         if (matches) {
             LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
             if (loggedUser.isEnabled()) {
                 CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
                 return carlyUserBuilder
                         .withId(loggedUser.getId())
+                        .withCompanyId(loggedUser.getCompanyId())
                         .withEmail(loggedUser.getEmail())
                         .withName(loggedUser.getName())
                         .withRole(provideCurrentRole(loggedUser.getRoles()))
@@ -152,6 +158,7 @@ public class UserService implements UserDetailsService {
     private LoggedUser initLogin(User user) {
         LoggedUserBuilder loginUser = new LoggedUserBuilder()
                 .withId(user.getId().toHexString())
+                .withCompanyId(user.getCompanyId() == null ? null : user.getCompanyId().toHexString())
                 .withEmail(user.getEmail())
                 .withName(user.getFirstName())
                 .withAuthorities(user.getRole())

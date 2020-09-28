@@ -27,7 +27,7 @@ export class FileManagementService {
         fd.append('file', file);
         fd.append('accessLevel', fileAccess);
 
-        if(user.role === Roles.CARLY_OPERATOR && fileOwnerToAssignType) {
+        if(user.role === Roles.CARLY_OPERATIONS && fileOwnerToAssignType) {
           fd.append('userType', fileOwnerToAssignType);
           if (fileOwnerToAssignId) {
             fd.append('userId', fileOwnerToAssignId);

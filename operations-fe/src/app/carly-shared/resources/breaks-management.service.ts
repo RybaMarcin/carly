@@ -13,7 +13,8 @@ export class BreaksManagementService {
   constructor(protected http: HttpClient) {
   }
 
-  breaksManagementApi: string = `${BASE_API_URL}`;
+  // breaksManagementApi: string = `${BASE_API_URL}`;
+  breaksManagementApi: string = "api/breaks";
 
   //BREAKS
 
@@ -33,6 +34,9 @@ export class BreaksManagementService {
     return this.http.put<Breaks.Model>(`${this.breaksManagementApi}`, breaks);
   }
 
+  getAllBreaks(): Observable<Breaks.Model[]> {
+    return this.http.get<Breaks.Model[]>(`${this.breaksManagementApi}/all`);
+  }
 
 
 
