@@ -1,5 +1,5 @@
 # Carly
-[![BUILD STATUS](https://travis-ci.com/RybaMarcin/carly.svg?token=d6EjrzLxCzqEWporBxDp&branch=master)](https://travis-ci.com/RybaMarcin/carly)
+[![BUILD STATUS](https://travis-ci.com/mryba/carly.svg?token=d6EjrzLxCzqEWporBxDp&branch=master)](https://travis-ci.com/github/mryba/carly)
 
 ## Getting Started
 ### Prerequisites
@@ -11,6 +11,10 @@ In order to lunch this app in develop mode you need to install:
 * [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [ANGULAR](https://angular.io/)
 
+### Run the App locally
+
+ npm start -- --port 4201
+
 ## Build With
 
 * [Spring](https://spring.io/)
@@ -20,7 +24,7 @@ In order to lunch this app in develop mode you need to install:
 
 ## Authors
 [Szwajcii](https://github.com/Szwajcii) &&
-[RybsonM](https://github.com/RybaMarcin)
+[mryba](https://github.com/mryba)
 who participated in this project.
 
 ## License
