@@ -10,7 +10,6 @@ import org.carly.vehicle_management.core.model.Car;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.carly.shared.utils.builder.Builder.anObject;
@@ -33,7 +32,7 @@ public class Users {
 
     private static List<CarlyGrantedAuthority> roleList() {
         List<CarlyGrantedAuthority> roles = new ArrayList<>();
-        roles.add(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name()));
+        roles.add(CarlyGrantedAuthority.of(UserRole.CARLY_CUSTOMER.name()));
         roles.add(CarlyGrantedAuthority.of(UserRole.CHANGE_PASSWORD_PRIVILEGE.name()));
         return roles;
     }

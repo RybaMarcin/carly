@@ -37,9 +37,9 @@ import {PaintingAddComponent} from "../carly-shared/components/painting/painting
 import {WheelsEditComponent} from "../carly-shared/components/wheels/wheels-edit/wheels-edit.component";
 import {SideMenuComponent} from "../carly-shared/components/side-menu/side-menu.component";
 import {TiresEditComponent} from "../carly-shared/components/tires/tires-edit/tires-edit.component";
-import {OrdersComponent} from "../carly-shared/components/orders/orders.component";
-import {ModelsComponent} from "../carly-shared/components/models/models.component";
-import {ModelsAddComponent} from "../carly-shared/components/models/models-add/models-add.component";
+// import {OrdersComponent} from "../carly-shared/components/orders/orders.component";
+// import {ModelsComponent} from "../carly-shared/components/models/models.component";
+// import {ModelsAddComponent} from "../carly-shared/components/models/models-add/models-add.component";
 
 export const ROUTES: Routes = [
   {
@@ -155,19 +155,19 @@ export const ROUTES: Routes = [
           }
         ]
       },
-      {
-        path: 'models',
-        children: [
-          {path: '', component: ModelsComponent},
-          {path: 'add', component: ModelsAddComponent}
-        ]
-      },
-      {
-        path: 'orders',
-        children: [
-          {path: '', component: OrdersComponent}
-        ]
-      },
+      // {
+      //   path: 'models',
+      //   children: [
+      //     {path: '', component: ModelsComponent},
+      //     {path: 'add', component: ModelsAddComponent}
+      //   ]
+      // },
+      // {
+      //   path: 'orders',
+      //   children: [
+      //     {path: '', component: OrdersComponent}
+      //   ]
+      // },
       {
         path: 'customers',
         children: [

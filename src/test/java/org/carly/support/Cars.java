@@ -1,6 +1,7 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
+import org.carly.parts_management.core.model.*;
 import org.carly.vehicle_management.core.model.*;
 
 import java.math.BigDecimal;

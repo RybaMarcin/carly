@@ -148,7 +148,7 @@ class UserServiceTest {
         CarlyUserRest login = userService.login(userRest);
         //then
         assertThat(login).isNotNull();
-        assertThat(login.getRole()).isEqualTo(UserRole.CUSTOMER);
+        assertThat(login.getRole()).isEqualTo(UserRole.CARLY_CUSTOMER);
         assertThat(login.getId()).isEqualTo(user.getId().toHexString());
     }
 

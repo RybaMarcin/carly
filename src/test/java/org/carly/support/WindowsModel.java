@@ -1,7 +1,7 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.vehicle_management.core.model.Windows;
+import org.carly.parts_management.core.model.Windows;
 
 import static org.carly.shared.utils.builder.Builder.anObject;
 

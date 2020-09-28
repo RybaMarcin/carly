@@ -13,7 +13,7 @@ public class LoggedUsers {
     public static final String LOGGED_USER_EMAIL_1 = "johns.mail@killme.com";
     public static final String LOGGED_USER_NAME_1 = "John";
     public static final List<CarlyGrantedAuthority> LOGGED_USER_AUTHORITIES_1 =
-            List.of(new CarlyGrantedAuthority(UserRole.CUSTOMER), new CarlyGrantedAuthority(UserRole.CHANGE_PASSWORD_PRIVILEGE));
+            List.of(new CarlyGrantedAuthority(UserRole.CARLY_CUSTOMER), new CarlyGrantedAuthority(UserRole.CHANGE_PASSWORD_PRIVILEGE));
     public static final boolean LOGGED_USER_ENABLE_1 = true;
 
     public static LoggedUser aLoggedUser1() {

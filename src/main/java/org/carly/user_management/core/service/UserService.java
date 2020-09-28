@@ -62,7 +62,8 @@ public class UserService implements UserDetailsService {
                        TimeService timeService,
                        ApplicationEventPublisher eventPublisher,
                        PasswordEncoder passwordEncoder,
-                       MailService mailService){
+                       MailService mailService,
+                       LoggedUserProvider loggedUserProvider){
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;

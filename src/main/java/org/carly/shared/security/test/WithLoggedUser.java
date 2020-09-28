@@ -16,5 +16,5 @@ public @interface WithLoggedUser {
 
     String email() default "";
 
-    UserRole role() default UserRole.CUSTOMER;
+    UserRole role() default UserRole.CARLY_CUSTOMER;
 }
