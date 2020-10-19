@@ -1,18 +1,18 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.shared.security.model.CarlyGrantedAuthority;
-import org.carly.shared.security.model.UserRole;
-import org.carly.user_management.api.model.UserRest;
-import org.carly.user_management.core.model.Gender;
-import org.carly.user_management.core.model.User;
-import org.carly.vehicle_management.core.model.Car;
+import org.carly.core.shared.security.model.CarlyGrantedAuthority;
+import org.carly.core.shared.security.model.UserRole;
+import org.carly.core.usermanagement.model.UserRest;
+import org.carly.core.usermanagement.model.Gender;
+import org.carly.core.usermanagement.model.User;
+import org.carly.core.vehiclemanagement.model.Car;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 import static org.carly.support.AddressesModel.aAddress1;
 import static org.carly.support.Cars.aCar1;
 

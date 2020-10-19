@@ -1,12 +1,12 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.parts_management.core.model.Wheels;
-import org.carly.vehicle_management.core.model.Brand;
+import org.carly.core.partsmanagement.model.Wheels;
+import org.carly.core.vehiclemanagement.model.Brand;
 
 import java.math.BigDecimal;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 import static org.carly.support.Brands.aBrand2;
 
 public class WheelsModel {

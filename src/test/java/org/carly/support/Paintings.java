@@ -1,10 +1,10 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.parts_management.core.model.PaintType;
-import org.carly.parts_management.core.model.Painting;
+import org.carly.core.partsmanagement.model.PaintType;
+import org.carly.core.partsmanagement.model.Painting;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 
 public class Paintings {
 

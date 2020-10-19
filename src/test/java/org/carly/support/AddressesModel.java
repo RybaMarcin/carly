@@ -1,9 +1,9 @@
 package org.carly.support;
 
-import org.carly.user_management.api.model.AddressRest;
-import org.carly.user_management.core.model.Address;
+import org.carly.core.usermanagement.model.AddressRest;
+import org.carly.core.usermanagement.model.Address;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 
 public class AddressesModel {
 

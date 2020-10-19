@@ -1,9 +1,9 @@
 package org.carly.support;
 
-import org.carly.shared.security.model.CarlyGrantedAuthority;
-import org.carly.shared.security.model.LoggedUser;
-import org.carly.shared.security.model.LoggedUserBuilder;
-import org.carly.shared.security.model.UserRole;
+import org.carly.core.shared.security.model.CarlyGrantedAuthority;
+import org.carly.core.shared.security.model.LoggedUser;
+import org.carly.core.shared.security.model.LoggedUserBuilder;
+import org.carly.core.shared.security.model.UserRole;
 
 import java.util.List;
 

@@ -1,13 +1,13 @@
 //package org.carly.user_management.api;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.carly.shared.security.config.LoggedUserProvider;
-//import org.carly.shared.utils.DataLoader;
-//import org.carly.user_management.api.controller.UserController;
-//import org.carly.user_management.api.model.UserRest;
-//import org.carly.user_management.core.model.User;
-//import org.carly.user_management.core.repository.UserRepository;
-//import org.carly.user_management.core.service.UserService;
+//import org.carly.core.shared.security.config.LoggedUserProvider;
+//import org.carly.core.shared.utils.DataLoader;
+//import org.carly.api.endpoint.UserController;
+//import org.carly.core.usermanagement.model.UserRest;
+//import org.carly.core.usermanagement.model.User;
+//import org.carly.core.usermanagement.repository.UserRepository;
+//import org.carly.core.usermanagement.service.UserService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;

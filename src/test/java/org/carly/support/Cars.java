@@ -1,14 +1,16 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.parts_management.core.model.*;
-import org.carly.vehicle_management.core.model.*;
+import org.carly.core.partsmanagement.model.*;
+import org.carly.core.vehiclemanagement.model.Brand;
+import org.carly.core.vehiclemanagement.model.Car;
+import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 import static org.carly.support.Bodies.aBody1;
 import static org.carly.support.Brands.aBrand1;
 import static org.carly.support.Equipments.aEquipment1;

@@ -1,6 +1,6 @@
 package org.carly.support;
 
-import org.carly.user_management.api.model.LoginRest;
+import org.carly.core.usermanagement.model.LoginRest;
 
 import static org.carly.support.Users.EMAIL_1;
 
