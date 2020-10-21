@@ -1,7 +1,7 @@
 //package org.carly.user_management.api;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.carly.core.shared.security.config.LoggedUserProvider;
+//import org.carly.core.config.LoggedUserProvider;
 //import org.carly.core.shared.utils.DataLoader;
 //import org.carly.api.endpoint.UserController;
 //import org.carly.core.usermanagement.model.UserRest;

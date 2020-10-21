@@ -4,20 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.shared.config.EntityAlreadyExistsException;
 import org.carly.core.shared.config.EntityNotFoundException;
-import org.carly.core.shared.security.config.LoggedUserProvider;
+import org.carly.core.config.LoggedUserProvider;
 import org.carly.core.shared.security.exceptions.LoginOrPasswordException;
 import org.carly.core.shared.security.model.*;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
-import org.carly.core.usermanagement.model.AddressRest;
-import org.carly.core.usermanagement.model.CarlyUserRest;
-import org.carly.core.usermanagement.model.LoginRest;
-import org.carly.core.usermanagement.model.UserRest;
 import org.carly.core.usermanagement.mapper.UserMapper;
-import org.carly.core.usermanagement.model.Address;
-import org.carly.core.usermanagement.model.OnRegistrationCompleteEvent;
-import org.carly.core.usermanagement.model.User;
-import org.carly.core.usermanagement.model.VerificationToken;
+import org.carly.core.usermanagement.model.*;
 import org.carly.core.usermanagement.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -35,10 +28,13 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
-import static org.carly.core.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
 import static java.lang.String.format;
+import static org.carly.core.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j

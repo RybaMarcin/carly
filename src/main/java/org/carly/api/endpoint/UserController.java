@@ -2,7 +2,7 @@ package org.carly.api.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.core.shared.security.config.LoggedUserProvider;
+import org.carly.core.config.LoggedUserProvider;
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.usermanagement.model.AddressRest;
