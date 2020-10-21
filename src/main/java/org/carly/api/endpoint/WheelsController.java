@@ -35,8 +35,8 @@ public class WheelsController {
     }
 
     @GetMapping("/{id}")
-    public WheelsRest findWheelsById(@PathVariable("id") ObjectId id) {
-        return wheelsFindService.findPartById(id);
+    public WheelsRest findWheelsById(@PathVariable("id") String id) {
+        return wheelsFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")

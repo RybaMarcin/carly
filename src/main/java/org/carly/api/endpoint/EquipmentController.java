@@ -33,10 +33,10 @@ public class EquipmentController {
         return equipmentFindService.findEquipment(searchCriteria, pageable);
     }
 
-    @GetMapping("/{id}")
-    public EquipmentRest findEquipmentById(@PathVariable("id") ObjectId id) {
-        return equipmentFindService.findPartById(id);
-    }
+//    @GetMapping("/{id}")
+//    public EquipmentRest findEquipmentById(@PathVariable("id") String id) {
+//        return equipmentFindService.findPartById(id);
+//    }
 
     @GetMapping("/all")
     public Collection<EquipmentRest> findAllEquipment() {

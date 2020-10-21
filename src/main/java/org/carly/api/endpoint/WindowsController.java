@@ -34,8 +34,8 @@ public class WindowsController {
     }
 
     @GetMapping("/{id}")
-    public WindowsRest findWindowsById(@PathVariable("id") ObjectId id) {
-        return windowsFindService.findPartById(id);
+    public WindowsRest findWindowsById(@PathVariable("id") String id) {
+        return windowsFindService.findPartById(new ObjectId(id));
     }
 
 

@@ -45,12 +45,16 @@ public class EquipmentFindService implements PartFindService {
     }
 
     @Override
-    public EquipmentRest findPartById(ObjectId id) {
-        Equipment equipment = equipmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        log.info("Equipment with id: {} was found!", id);
-        return equipmentMapper.simplifyRestObject(equipment);
+    public Object findPartById(ObjectId id) {
+        return null;
     }
+
+//    public EquipmentRest findPartById(String id) {
+//        Equipment equipment = equipmentRepository.findById(ObjectId(id))
+//                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+//        log.info("Equipment with id: {} was found!", id);
+//        return equipmentMapper.simplifyRestObject(equipment);
+//    }
 
     public Page<EquipmentRest> findEquipment(EquipmentSearchCriteriaRest searchCriteria, Pageable pageable) {
         return equipmentMongoRepository.findWithFilters(searchCriteria, pageable)

@@ -34,8 +34,8 @@ public class TiresController {
     }
 
     @GetMapping("/{id}")
-    public TiresRest findTiresById(@PathVariable("id") ObjectId id) {
-        return tiresFindService.findPartById(id);
+    public TiresRest findTiresById(@PathVariable("id") String  id) {
+        return tiresFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")

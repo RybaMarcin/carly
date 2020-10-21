@@ -35,8 +35,8 @@ public class BreaksController {
 
 
     @GetMapping("/{id}")
-    public BreaksRest findBreaksById(@PathVariable("id") ObjectId id) {
-        return breaksFindService.findPartById(id);
+    public BreaksRest findBreaksById(@PathVariable("id") String id) {
+        return breaksFindService.findPartById(new ObjectId(id));
     }
 
 

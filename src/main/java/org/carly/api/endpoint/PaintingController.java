@@ -34,8 +34,8 @@ public class PaintingController {
     }
 
     @GetMapping("/{id}")
-    public PaintingRest findPaintingById(@PathVariable("id") ObjectId id) {
-        return paintingFindService.findPartById(id);
+    public PaintingRest findPaintingById(@PathVariable("id") String id) {
+        return paintingFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")

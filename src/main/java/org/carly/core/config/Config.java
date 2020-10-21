@@ -23,7 +23,6 @@ import static java.util.Collections.singletonList;
 @EnableCaching
 public class Config {
 
-
     @Bean
     public Docket swaggerApi() {
         return new Docket(DocumentationType.SWAGGER_2)

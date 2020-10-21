@@ -23,8 +23,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderRest findOrderById(@PathVariable("id") ObjectId orderId) {
-        return orderFindService.findOrderById(orderId);
+    public OrderRest findOrderById(@PathVariable("id") String orderId) {
+        return orderFindService.findOrderById(new ObjectId(orderId));
     }
 
     @PostMapping("/save")
@@ -38,13 +38,13 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteOrder(@PathVariable("id") ObjectId orderId){
-       return orderSaveService.deleteOrder(orderId);
+    public ResponseEntity deleteOrder(@PathVariable("id") String orderId) {
+        return orderSaveService.deleteOrder(new ObjectId(orderId));
     }
 
     @GetMapping("/findAllOrdersByCustomerId/{id}")
-    public Page<OrderRest> findAllOrdersByCustomer(@PathVariable("id") ObjectId customerId,
-                                                   Pageable pageable){
-       return orderFindService.findByCustomerId(customerId, pageable);
+    public Page<OrderRest> findAllOrdersByCustomer(@PathVariable("id") String customerId,
+                                                   Pageable pageable) {
+        return orderFindService.findByCustomerId(new ObjectId(customerId), pageable);
     }
 }

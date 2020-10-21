@@ -1,25 +1,26 @@
 package org.carly.api.endpoint;
 
+import com.auth0.jwt.JWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.config.LoggedUserProvider;
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.utils.mail_service.MailService;
-import org.carly.core.usermanagement.model.AddressRest;
-import org.carly.core.usermanagement.model.CarlyUserRest;
-import org.carly.core.usermanagement.model.LoginRest;
-import org.carly.core.usermanagement.model.UserRest;
-import org.carly.core.usermanagement.model.Password;
-import org.carly.core.usermanagement.model.User;
+import org.carly.core.usermanagement.model.*;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -38,6 +39,19 @@ public class UserController {
         this.loggedUserProvider = loggedUserProvider;
     }
 
+    @GetMapping("/hello")
+    public String hi(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        return "hi";
+    }
+
+    @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
+    @GetMapping("/hello2")
+    public String hi2(HttpServletRequest request) {
+        Principal userPrincipal = request.getUserPrincipal();
+        return "hix";
+    }
+
     @PostMapping("/registration")
     public User registerUserAccount(@Valid @RequestBody UserRest userRest,
                                     BindingResult result,
@@ -54,9 +68,9 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('CUSTOMER')")
     @PostMapping("/addAddress/{id}")
-    public ResponseEntity addAddressToUserAccount(@PathVariable("id") ObjectId userId,
+    public ResponseEntity addAddressToUserAccount(@PathVariable("id") String userId,
                                                   @RequestBody AddressRest addressRest) {
-        return userService.addAddress(userId, addressRest);
+        return userService.addAddress(new ObjectId(userId), addressRest);
     }
 
     @PreAuthorize("hasAnyAuthority('CUSTOMER','OPERATIONS')")
@@ -81,10 +95,4 @@ public class UserController {
         LoggedUser loggedUser = loggedUserProvider.provideCurrent();
         return userService.saveNewPassword(loggedUser, password.getNewPassword());
     }
-
-    @GetMapping("/login")
-    public CarlyUserRest login(@Valid @RequestBody LoginRest userRest) {
-        return userService.login(userRest);
-    }
-
 }

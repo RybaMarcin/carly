@@ -1,5 +1,7 @@
 package org.carly.core.usermanagement.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.shared.config.EntityAlreadyExistsException;
@@ -12,6 +14,7 @@ import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.mapper.UserMapper;
 import org.carly.core.usermanagement.model.*;
 import org.carly.core.usermanagement.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -27,11 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 import static java.lang.String.format;
 import static org.carly.core.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
@@ -50,6 +51,8 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final LoggedUserProvider loggedUserProvider;
+    private long expire;
+    private String secret;
 
     public UserService(UserRepository userRepository,
                        TokenService tokenService,
@@ -59,7 +62,9 @@ public class UserService implements UserDetailsService {
                        ApplicationEventPublisher eventPublisher,
                        PasswordEncoder passwordEncoder,
                        MailService mailService,
-                       LoggedUserProvider loggedUserProvider){
+                       LoggedUserProvider loggedUserProvider,
+                       @Value("${jwt.expirationTime}") long expire,
+                       @Value("${jwt.secret}") String secret) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;
@@ -69,6 +74,8 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
         this.loggedUserProvider = loggedUserProvider;
+        this.expire = expire;
+        this.secret = secret;
     }
 
     @Transactional
@@ -124,26 +131,30 @@ public class UserService implements UserDetailsService {
         return messageSource.getMessage("auth.message.complete", null, locale);
     }
 
-    public CarlyUserRest login(LoginRest userRest) throws LoginOrPasswordException {
+    public void login(LoginRest userRest, HttpServletResponse response) throws LoginOrPasswordException {
         User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new LoginOrPasswordException(NOT_FOUND));
-        //todo: Line commented out just for testing.
 
-        //        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
-        boolean matches = true;
-        if (matches) {
-            LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
-            if (loggedUser.isEnabled()) {
-                CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
-                return carlyUserBuilder
-                        .withId(loggedUser.getId())
-                        .withCompanyId(loggedUser.getCompanyId())
-                        .withEmail(loggedUser.getEmail())
-                        .withName(loggedUser.getName())
-                        .withRole(provideCurrentRole(loggedUser.getRoles()))
-                        .build();
-            }
+        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
+        boolean equals = userRest.getPassword().equals(user.getPassword());
+        if (equals) {
+//            LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
+//            if (loggedUser.isEnabled()) {
+//                CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
+//                return carlyUserBuilder
+//                        .withId(loggedUser.getId())
+//                        .withCompanyId(loggedUser.getCompanyId())
+//                        .withEmail(loggedUser.getEmail())
+//                        .withName(loggedUser.getName())
+//                        .withRole(provideCurrentRole(loggedUser.getRoles()))
+//                        .build();
+            String token = JWT.create()
+                    .withSubject(user.getEmail())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + expire))
+                    .sign(Algorithm.HMAC256(secret));
+            response.addHeader("Authorization", "Bearer " + token);
+        } else {
+            throw new LoginOrPasswordException("Password or Email was incorrect");
         }
-        throw new LoginOrPasswordException("Password or Email was incorrect");
     }
 
     @Override

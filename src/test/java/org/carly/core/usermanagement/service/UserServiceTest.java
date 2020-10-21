@@ -141,7 +141,7 @@ class UserServiceTest {
         when(userRepository.findByEmail(userRest.getEmail())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(userRest.getPassword(), user.getPassword())).thenReturn(true);
         //when
-        CarlyUserRest login = userService.login(userRest);
+        CarlyUserRest login = null;
         //then
         assertThat(login).isNotNull();
         assertThat(login.getRole()).isEqualTo(UserRole.CARLY_CUSTOMER);
@@ -158,7 +158,7 @@ class UserServiceTest {
         doThrow(new LoginOrPasswordException("Password or Email was incorrect"))
                 .when(passwordEncoder).matches(anyString(), any());
         //when
-        Executable executable = () -> userService.login(userRest);
+        Executable executable = () -> userService.login(userRest, null);
         assertThrows(LoginOrPasswordException.class, executable);
     }
 

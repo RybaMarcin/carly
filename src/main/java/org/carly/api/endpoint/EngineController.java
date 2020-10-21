@@ -37,8 +37,8 @@ public class EngineController {
 
 
     @GetMapping("/{id}")
-    public EngineRest findEngineById(@PathVariable("id") ObjectId id) {
-        return engineFindService.findPartById(id);
+    public EngineRest findEngineById(@PathVariable("id") String id) {
+        return engineFindService.findPartById(new ObjectId(id));
     }
 
 

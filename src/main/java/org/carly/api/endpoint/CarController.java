@@ -34,8 +34,8 @@ public class CarController {
     }
 
     @GetMapping("/cars/{id}")
-    public Car findCarById(@PathVariable("id") ObjectId id) {
-        return carFindService.findVehicleById(id);
+    public Car findCarById(@PathVariable("id") String id) {
+        return carFindService.findVehicleById(new ObjectId(id));
     }
 
     @GetMapping("/cars/all")
@@ -44,8 +44,8 @@ public class CarController {
     }
 
     @GetMapping("/cars/pending/{id}")
-    public CarRest findPendingCar(@PathVariable("id") ObjectId id) {
-        return carFindService.findPendingVehicleById(id);
+    public CarRest findPendingCar(@PathVariable("id") String id) {
+        return carFindService.findPendingVehicleById(new ObjectId(id));
     }
 
     @PostMapping("/create-car")
