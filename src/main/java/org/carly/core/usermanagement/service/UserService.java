@@ -1,7 +1,6 @@
 package org.carly.core.usermanagement.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.shared.config.EntityAlreadyExistsException;
@@ -40,7 +39,7 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
 @Service("userDetailsService")
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final TokenService tokenService;
@@ -147,31 +146,8 @@ public class UserService implements UserDetailsService {
 //                        .withName(loggedUser.getName())
 //                        .withRole(provideCurrentRole(loggedUser.getRoles()))
 //                        .build();
-            String token = JWT.create()
-                    .withSubject(user.getEmail())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + expire))
-                    .sign(Algorithm.HMAC256(secret));
-            response.addHeader("Authorization", "Bearer " + token);
-        } else {
-            throw new LoginOrPasswordException("Password or Email was incorrect");
+
         }
-    }
-
-    @Override
-    public LoggedUser loadUserByUsername(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        return initLogin(user);
-    }
-
-    private LoggedUser initLogin(User user) {
-        LoggedUserBuilder loginUser = new LoggedUserBuilder()
-                .withId(user.getId().toHexString())
-                .withCompanyId(user.getCompanyId() == null ? null : user.getCompanyId().toHexString())
-                .withEmail(user.getEmail())
-                .withName(user.getFirstName())
-                .withAuthorities(user.getRole())
-                .withEnabled(user.isEnabled());
-        return loginUser.build();
     }
 
     private static UserRole provideCurrentRole(List<UserRole> roles) {

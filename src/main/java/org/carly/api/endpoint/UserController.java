@@ -1,18 +1,17 @@
 package org.carly.api.endpoint;
 
-import com.auth0.jwt.JWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.config.LoggedUserProvider;
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.utils.mail_service.MailService;
-import org.carly.core.usermanagement.model.*;
+import org.carly.core.usermanagement.model.AddressRest;
+import org.carly.core.usermanagement.model.Password;
+import org.carly.core.usermanagement.model.User;
+import org.carly.core.usermanagement.model.UserRest;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -20,7 +19,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Map;
 
 @Slf4j
 @RestController
