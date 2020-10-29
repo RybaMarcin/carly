@@ -201,7 +201,7 @@ class UserServiceTest {
         when(userRepository.findById(loggedUser.getId()))
                 .thenReturn(Optional.of(user));
         //when
-        ResponseEntity response = userService.saveNewPassword(loggedUser, newPassword);
+        ResponseEntity response = userService.saveNewPassword(newPassword);
         verify(userRepository).save(userArgumentCaptor.capture());
         verify(passwordEncoder).encode(passwordArgumentCaptor.capture());
         //then

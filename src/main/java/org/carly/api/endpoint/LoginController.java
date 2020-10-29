@@ -1,6 +1,5 @@
 package org.carly.api.endpoint;
 
-import lombok.extern.slf4j.Slf4j;
 import org.carly.api.rest.auth.request.LoginRequest;
 import org.carly.api.rest.auth.request.SignupRequest;
 import org.carly.core.usermanagement.service.UserService;
@@ -10,7 +9,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 public class LoginController {

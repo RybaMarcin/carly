@@ -19,5 +19,4 @@ public class EquipmentSearchCriteriaRest extends PartSearchCriteriaRest {
     public static EquipmentSearchCriteriaRest ofNull() {
         return new EquipmentSearchCriteriaRest();
     }
-
 }

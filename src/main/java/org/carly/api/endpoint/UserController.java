@@ -1,10 +1,7 @@
 package org.carly.api.endpoint;
 
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.security.model.LoggedUser;
-import org.carly.core.security.service.LoggedUserProvider;
-import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.usermanagement.model.AddressRest;
 import org.carly.core.usermanagement.model.Password;
 import org.carly.core.usermanagement.service.UserService;
@@ -16,21 +13,14 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
-    private final MailService mailService;
-    private final LoggedUserProvider loggedUserProvider;
 
-    public UserController(UserService userService,
-                          MailService mailService,
-                          LoggedUserProvider loggedUserProvider) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.mailService = mailService;
-        this.loggedUserProvider = loggedUserProvider;
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
@@ -59,7 +49,6 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('CHANGE_PASSWORD_PRIVILEGE', 'CARLY_OPERATIONS')")
     @GetMapping("/savePassword")
     public ResponseEntity saveNewPassword(@Valid @RequestBody Password password) {
-        LoggedUser loggedUser = loggedUserProvider.provideUserDetail();
-        return userService.saveNewPassword(loggedUser, password.getNewPassword());
+        return userService.saveNewPassword(password.getNewPassword());
     }
 }

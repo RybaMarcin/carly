@@ -1,6 +1,5 @@
 package org.carly.api.endpoint;
 
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.partsmanagement.TiresRest;
 import org.carly.api.rest.partsmanagement.criteria.TiresSearchCriteriaRest;
@@ -8,18 +7,17 @@ import org.carly.core.partsmanagement.service.TiresFindService;
 import org.carly.core.partsmanagement.service.TiresSaveService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/tires")
-@Slf4j
 public class TiresController {
 
     private final TiresFindService tiresFindService;
     private final TiresSaveService tiresSaveService;
-
 
     public TiresController(TiresFindService tiresFindService,
                            TiresSaveService tiresSaveService) {
@@ -28,31 +26,34 @@ public class TiresController {
     }
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<TiresRest> findTires(TiresSearchCriteriaRest searchCriteria,
                                      Pageable pageable) {
         return tiresFindService.findTires(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
-    public TiresRest findTiresById(@PathVariable("id") String  id) {
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    public TiresRest findTiresById(@PathVariable("id") String id) {
         return tiresFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Collection<TiresRest> findAllTires() {
         return tiresFindService.findAll();
     }
 
     @PostMapping()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
     public TiresRest createTires(@RequestBody TiresRest tires) {
         return tiresSaveService.createPart(tires);
     }
 
     @PutMapping()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
     public TiresRest updateTires(@RequestBody TiresRest tires) {
         return tiresSaveService.updatePart(tires);
     }
-
-
 
 }

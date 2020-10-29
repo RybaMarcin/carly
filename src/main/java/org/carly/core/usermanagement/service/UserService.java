@@ -173,8 +173,8 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build().toString();
     }
 
-    public ResponseEntity saveNewPassword(LoggedUser loggedUser, String password) {
-        User user = userRepository.findById(loggedUser.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+    public ResponseEntity saveNewPassword(String password) {
+        User user = userRepository.findById(loggedUserProvider.provideUserDetail().getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (user.getRoles().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
             user.setPassword(passwordEncoder.encode(password));
             user.getRoles().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);
