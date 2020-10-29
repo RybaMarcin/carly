@@ -1,7 +1,7 @@
 package org.carly.core.shared.utils.mail_service;
 
 import org.bson.types.ObjectId;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

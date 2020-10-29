@@ -2,7 +2,7 @@ package org.carly.api.rest.auth.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.carly.core.shared.security.validation.PasswordMatcher;
+import org.carly.core.security.validation.PasswordMatcher;
 
 import javax.validation.constraints.*;
 

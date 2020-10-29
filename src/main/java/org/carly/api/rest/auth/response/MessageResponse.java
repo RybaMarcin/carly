@@ -1,4 +1,4 @@
-package org.carly.api.rest.auth;
+package org.carly.api.rest.auth.response;
 
 public class MessageResponse {
 	private String message;

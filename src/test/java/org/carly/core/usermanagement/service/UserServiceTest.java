@@ -1,23 +1,20 @@
 package org.carly.core.usermanagement.service;
 
 import org.bson.types.ObjectId;
-import org.carly.core.shared.security.exceptions.LoginOrPasswordException;
-import org.carly.core.shared.security.model.CarlyGrantedAuthority;
-import org.carly.core.shared.security.model.LoggedUser;
-import org.carly.core.shared.security.model.UserRole;
+import org.carly.api.rest.auth.request.LoginRequest;
+import org.carly.core.security.model.CarlyGrantedAuthority;
+import org.carly.core.security.model.LoggedUser;
+import org.carly.core.security.model.UserRole;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
+import org.carly.core.usermanagement.mapper.UserMapper;
 import org.carly.core.usermanagement.model.AddressRest;
 import org.carly.core.usermanagement.model.CarlyUserRest;
-import org.carly.api.rest.auth.request.LoginRequest;
-import org.carly.core.usermanagement.model.UserRest;
-import org.carly.core.usermanagement.mapper.UserMapper;
 import org.carly.core.usermanagement.model.User;
 import org.carly.core.usermanagement.model.VerificationToken;
 import org.carly.core.usermanagement.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -40,9 +37,7 @@ import static org.carly.support.AddressesModel.aAddressRest1;
 import static org.carly.support.LoggedUsers.aLoggedUser1;
 import static org.carly.support.LoginRests.aLoginRest1;
 import static org.carly.support.Users.*;
-import static org.carly.support.Users.aUserWithAddress1;
 import static org.carly.support.VerificationTokens.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -203,7 +198,7 @@ class UserServiceTest {
         User user = aUser1();
         String newPassword = "5da0715c1c9d440000f105fd";
         //and
-        when(userRepository.findById(new ObjectId(loggedUser.getId())))
+        when(userRepository.findById(loggedUser.getId()))
                 .thenReturn(Optional.of(user));
         //when
         ResponseEntity response = userService.saveNewPassword(loggedUser, newPassword);

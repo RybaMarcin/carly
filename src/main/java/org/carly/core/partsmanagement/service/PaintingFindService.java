@@ -8,7 +8,7 @@ import org.carly.core.partsmanagement.mapper.PaintingMapper;
 import org.carly.core.partsmanagement.model.Painting;
 import org.carly.core.partsmanagement.repository.PaintingMongoRepository;
 import org.carly.core.partsmanagement.repository.PaintingRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

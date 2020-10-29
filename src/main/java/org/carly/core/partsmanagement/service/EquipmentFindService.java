@@ -8,7 +8,6 @@ import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentMongoRepository;
 import org.carly.core.partsmanagement.repository.EquipmentRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j

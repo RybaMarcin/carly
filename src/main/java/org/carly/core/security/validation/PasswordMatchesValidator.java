@@ -1,4 +1,4 @@
-package org.carly.core.shared.security.validation;
+package org.carly.core.security.validation;
 
 import org.carly.api.rest.auth.request.SignupRequest;
 

@@ -7,7 +7,7 @@ import org.carly.api.rest.partsmanagement.criteria.EngineSearchCriteriaRest;
 import org.carly.core.partsmanagement.mapper.EngineMapper;
 import org.carly.core.partsmanagement.repository.EngineMongoRepository;
 import org.carly.core.partsmanagement.repository.EngineRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.carly.core.partsmanagement.model.Engine;
 import org.springframework.data.domain.Page;

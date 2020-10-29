@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.partsmanagement.criteria.WheelsSearchCriteriaRest;
 import org.carly.core.partsmanagement.repository.WheelsMongoRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.carly.api.rest.partsmanagement.WheelsRest;
 import org.carly.core.partsmanagement.mapper.WheelsMapper;

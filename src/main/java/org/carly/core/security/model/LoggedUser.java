@@ -1,4 +1,4 @@
-package org.carly.core.security;
+package org.carly.core.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserDetailsImpl implements UserDetails {
+public class LoggedUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private final ObjectId id;
@@ -27,9 +27,9 @@ public class UserDetailsImpl implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(ObjectId id, ObjectId companyId, String firstName,
-                           String lastName, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
+    public LoggedUser(ObjectId id, ObjectId companyId, String firstName,
+                      String lastName, String email, String password,
+                      Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
         this.id = id;
         this.companyId = companyId;
         this.firstName = firstName;
@@ -40,12 +40,12 @@ public class UserDetailsImpl implements UserDetails {
         this.enabled = enabled;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static LoggedUser build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getUserRole().name()))
                 .collect(Collectors.toList());
 
-        return new UserDetailsImpl(
+        return new LoggedUser(
                 user.getId(),
                 user.getCompanyId(),
                 user.getFirstName(),
@@ -121,7 +121,20 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
+        LoggedUser user = (LoggedUser) o;
         return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public String toString() {
+        return "LoggedUser{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                '}';
     }
 }

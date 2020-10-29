@@ -1,4 +1,4 @@
-package org.carly.core.security;
+package org.carly.core.security.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import static java.util.Collections.singletonList;
 @Configuration
 @EnableSwagger2
 @EnableCaching
-public class Config {
+public class SwaggerConfig {
 
     @Bean
     public Docket swaggerApi() {

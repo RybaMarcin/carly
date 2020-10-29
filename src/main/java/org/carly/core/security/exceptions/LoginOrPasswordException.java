@@ -1,4 +1,4 @@
-package org.carly.core.shared.security.exceptions;
+package org.carly.core.security.exceptions;
 
 import java.util.UUID;
 

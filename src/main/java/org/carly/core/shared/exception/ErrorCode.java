@@ -1,4 +1,4 @@
-package org.carly.core.shared.config;
+package org.carly.core.shared.exception;
 
 public enum ErrorCode {
 

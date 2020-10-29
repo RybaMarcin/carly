@@ -6,7 +6,7 @@ import org.carly.core.ordermanagement.mapper.OrderMapper;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.ordermanagement.repository.OrderMongoRepository;
 import org.carly.core.ordermanagement.repository.OrderRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package org.carly.core.usermanagement.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.carly.core.shared.security.model.UserRole;
+import org.carly.core.security.model.UserRole;
 
 @AllArgsConstructor
 @Getter

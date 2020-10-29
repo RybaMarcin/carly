@@ -1,8 +1,8 @@
-package org.carly.core.shared.config;
+package org.carly.core.shared.exception;
 
 import java.util.UUID;
 
-import static org.carly.core.shared.config.ErrorCode.NOT_FOUND;
+import static org.carly.core.shared.exception.ErrorCode.NOT_FOUND;
 
 public class EntityNotFoundException extends RuntimeException {
 

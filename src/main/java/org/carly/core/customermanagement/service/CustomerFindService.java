@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.CustomerRest;
 import org.carly.core.customermanagement.repository.CustomerRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.repository.CarRepository;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.core.shared.security.model.CarlyGrantedAuthority;
-import org.carly.core.shared.security.model.UserRole;
+import org.carly.core.security.model.CarlyGrantedAuthority;
+import org.carly.core.security.model.UserRole;
 import org.carly.core.usermanagement.model.UserRest;
 import org.carly.core.usermanagement.model.Gender;
 import org.carly.core.usermanagement.model.User;

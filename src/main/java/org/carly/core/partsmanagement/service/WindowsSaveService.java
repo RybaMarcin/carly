@@ -6,7 +6,7 @@ import org.carly.api.rest.partsmanagement.WindowsRest;
 import org.carly.core.partsmanagement.mapper.WindowsMapper;
 import org.carly.core.partsmanagement.model.Windows;
 import org.carly.core.partsmanagement.repository.WindowsRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,7 @@ import org.carly.api.rest.partsmanagement.TiresRest;
 import org.carly.core.partsmanagement.mapper.TiresMapper;
 import org.carly.core.partsmanagement.model.Tires;
 import org.carly.core.partsmanagement.repository.TiresRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;
 import org.springframework.stereotype.Service;
 

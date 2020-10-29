@@ -2,7 +2,7 @@ package org.carly.core.vehiclemanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.vehicle_services.VehicleFindService;
 import org.carly.api.rest.CarRest;
 import org.carly.api.rest.CarSearchCriteriaRest;

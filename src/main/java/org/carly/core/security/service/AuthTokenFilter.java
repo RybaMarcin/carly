@@ -1,4 +1,4 @@
-package org.carly.core.security;
+package org.carly.core.security.service;
 
 import org.carly.core.usermanagement.service.LoginService;
 import org.slf4j.Logger;
@@ -32,9 +32,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		try {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-				String username = jwtUtils.getUserNameFromJwtToken(jwt);
+				String email = jwtUtils.getUserNameFromJwtToken(jwt);
 
-				UserDetails userDetails = loginService.loadUserByUsername(username);
+				UserDetails userDetails = loginService.loadUserByUsername(email);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -54,7 +54,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
 			return headerAuth.substring(7, headerAuth.length());
 		}
-
 		return null;
 	}
 }

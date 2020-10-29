@@ -8,7 +8,7 @@ import org.carly.core.partsmanagement.mapper.WindowsMapper;
 import org.carly.core.partsmanagement.model.Windows;
 import org.carly.core.partsmanagement.repository.WindowsMongoRepository;
 import org.carly.core.partsmanagement.repository.WindowsRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

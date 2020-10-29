@@ -1,4 +1,4 @@
-package org.carly.core.shared.security.validation;
+package org.carly.core.security.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

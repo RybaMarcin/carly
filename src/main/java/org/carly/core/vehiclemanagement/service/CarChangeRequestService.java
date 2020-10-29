@@ -1,8 +1,8 @@
 package org.carly.core.vehiclemanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.carly.core.shared.config.EntityAlreadyExistsException;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityAlreadyExistsException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.utils.time.TimeService;
 import org.carly.api.rest.CarChangeRequestRest;
 import org.carly.core.vehiclemanagement.model.Car;

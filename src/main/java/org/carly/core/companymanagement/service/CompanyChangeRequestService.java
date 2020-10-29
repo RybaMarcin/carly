@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyChangeRequest;
 import org.carly.core.companymanagement.repository.CompanyChangeRequestRepository;
-import org.carly.core.shared.config.EntityAlreadyExistsException;
+import org.carly.core.shared.exception.EntityAlreadyExistsException;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;
 import org.springframework.stereotype.Service;
 

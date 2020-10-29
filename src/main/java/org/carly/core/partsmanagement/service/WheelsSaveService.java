@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.partsmanagement.WheelsRest;
 import org.carly.core.partsmanagement.mapper.WheelsMapper;
 import org.carly.core.partsmanagement.repository.WheelsRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;
 import org.carly.core.partsmanagement.model.Wheels;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import org.carly.api.rest.OrderRest;
 import org.carly.core.ordermanagement.mapper.OrderMapper;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.ordermanagement.repository.OrderRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.utils.time.TimeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

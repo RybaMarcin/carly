@@ -8,7 +8,7 @@ import org.carly.core.companymanagement.mapper.CompanyMapper;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.repository.CompanyMongoRepository;
 import org.carly.core.companymanagement.repository.CompanyRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

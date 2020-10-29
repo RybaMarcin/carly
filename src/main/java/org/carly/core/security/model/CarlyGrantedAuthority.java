@@ -1,4 +1,4 @@
-package org.carly.core.shared.security.model;
+package org.carly.core.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

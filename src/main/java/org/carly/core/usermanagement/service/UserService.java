@@ -3,16 +3,14 @@ package org.carly.core.usermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.auth.JwtResponse;
-import org.carly.api.rest.auth.MessageResponse;
 import org.carly.api.rest.auth.request.LoginRequest;
 import org.carly.api.rest.auth.request.SignupRequest;
-import org.carly.core.security.JwtUtils;
-import org.carly.core.security.LoggedUserProvider;
-import org.carly.core.security.UserDetailsImpl;
-import org.carly.core.shared.config.EntityNotFoundException;
-import org.carly.core.shared.security.model.CarlyGrantedAuthority;
-import org.carly.core.shared.security.model.LoggedUser;
+import org.carly.api.rest.auth.response.MessageResponse;
+import org.carly.core.security.model.CarlyGrantedAuthority;
+import org.carly.core.security.model.LoggedUser;
+import org.carly.core.security.service.JwtUtils;
+import org.carly.core.security.service.LoggedUserProvider;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.mapper.UserMapper;
@@ -25,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,9 +34,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
-import static org.carly.core.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
+import static org.carly.core.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Slf4j
@@ -91,21 +87,12 @@ public class UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        LoggedUser userDetails = (LoggedUser) authentication.getPrincipal();
         if (Boolean.FALSE.equals(userDetails.getEnabled())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Account is not active"));
         }
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId().toHexString(),
-                userDetails.getEmail(),
-                userDetails.getCompanyId() != null ? userDetails.getCompanyId().toHexString() : "",
-                userDetails.getFirstName(),
-                userDetails.getLastName(),
-                roles));
+        return ResponseEntity.ok(jwt);
     }
 
     public ResponseEntity<?> register(SignupRequest signUpRequest, WebRequest webRequest) {
@@ -187,7 +174,7 @@ public class UserService {
     }
 
     public ResponseEntity saveNewPassword(LoggedUser loggedUser, String password) {
-        User user = userRepository.findById(new ObjectId(loggedUser.getId())).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        User user = userRepository.findById(loggedUser.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (user.getRoles().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
             user.setPassword(passwordEncoder.encode(password));
             user.getRoles().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);

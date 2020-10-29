@@ -7,7 +7,7 @@ import org.carly.api.rest.partsmanagement.criteria.BreaksSearchCriteriaRest;
 import org.carly.core.partsmanagement.mapper.BreaksMapper;
 import org.carly.core.partsmanagement.repository.BreaksMongoRepository;
 import org.carly.core.partsmanagement.repository.BreaksRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.carly.core.partsmanagement.model.Breaks;
 import org.springframework.data.domain.Page;

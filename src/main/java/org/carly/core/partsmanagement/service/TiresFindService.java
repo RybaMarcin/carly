@@ -8,7 +8,7 @@ import org.carly.core.partsmanagement.mapper.TiresMapper;
 import org.carly.core.partsmanagement.model.Tires;
 import org.carly.core.partsmanagement.repository.TiresMongoRepository;
 import org.carly.core.partsmanagement.repository.TiresRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

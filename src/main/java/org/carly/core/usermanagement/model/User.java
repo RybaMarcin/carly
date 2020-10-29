@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.carly.core.shared.security.model.CarlyGrantedAuthority;
+import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.springframework.data.mongodb.core.mapping.Document;
 

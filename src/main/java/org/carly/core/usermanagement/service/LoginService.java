@@ -1,9 +1,7 @@
 package org.carly.core.usermanagement.service;
 
-import org.carly.core.security.UserDetailsImpl;
-import org.carly.core.shared.config.EntityNotFoundException;
-import org.carly.core.shared.security.model.LoggedUser;
-import org.carly.core.shared.security.model.LoggedUserBuilder;
+import org.carly.core.security.model.LoggedUser;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.usermanagement.model.User;
 import org.carly.core.usermanagement.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,17 +24,6 @@ public class LoginService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        return UserDetailsImpl.build(user);
-    }
-
-    private LoggedUser initLogin(User user) {
-        LoggedUserBuilder loginUser = new LoggedUserBuilder()
-                .withId(user.getId().toHexString())
-                .withCompanyId(user.getCompanyId() == null ? null : user.getCompanyId().toHexString())
-                .withEmail(user.getEmail())
-                .withName(user.getFirstName())
-                .withAuthorities(user.getRoles())
-                .withEnabled(user.isEnabled());
-        return loginUser.build();
+        return LoggedUser.build(user);
     }
 }

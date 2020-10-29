@@ -2,7 +2,7 @@ package org.carly.core.shared.utils.mail_service;
 
 import lombok.extern.slf4j.Slf4j;
 //import org.carly.core.config.LoggedUserProvider;
-import org.carly.core.security.LoggedUserProvider;
+import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.usermanagement.model.OnRegistrationCompleteEvent;
 import org.carly.core.usermanagement.model.User;
 import org.carly.core.usermanagement.service.TokenService;
@@ -134,7 +134,7 @@ public class MailService {
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-        email.setFrom(loggedUserProvider.provideCurrent().getEmail());
+        email.setFrom(loggedUserProvider.provideUserDetail().getEmail());
         return email;
     }
 }

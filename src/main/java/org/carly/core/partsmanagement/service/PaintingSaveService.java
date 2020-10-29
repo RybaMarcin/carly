@@ -6,7 +6,7 @@ import org.carly.api.rest.partsmanagement.PaintingRest;
 import org.carly.core.partsmanagement.mapper.PaintingMapper;
 import org.carly.core.partsmanagement.model.Painting;
 import org.carly.core.partsmanagement.repository.PaintingRepository;
-import org.carly.core.shared.config.EntityNotFoundException;
+import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;
 import org.springframework.stereotype.Service;
 
