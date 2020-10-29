@@ -1,6 +1,6 @@
 package org.carly.core.usermanagement.service;
 
-import org.carly.core.config.UserDetailsImpl;
+import org.carly.core.security.UserDetailsImpl;
 import org.carly.core.shared.config.EntityNotFoundException;
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.security.model.LoggedUserBuilder;
@@ -35,7 +35,7 @@ public class LoginService implements UserDetailsService {
                 .withCompanyId(user.getCompanyId() == null ? null : user.getCompanyId().toHexString())
                 .withEmail(user.getEmail())
                 .withName(user.getFirstName())
-                .withAuthorities(user.getRole())
+                .withAuthorities(user.getRoles())
                 .withEnabled(user.isEnabled());
         return loginUser.build();
     }

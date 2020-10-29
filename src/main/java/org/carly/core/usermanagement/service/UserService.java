@@ -3,37 +3,42 @@ package org.carly.core.usermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.core.shared.config.EntityAlreadyExistsException;
+import org.carly.api.rest.auth.JwtResponse;
+import org.carly.api.rest.auth.MessageResponse;
+import org.carly.api.rest.auth.request.LoginRequest;
+import org.carly.api.rest.auth.request.SignupRequest;
+import org.carly.core.security.JwtUtils;
+import org.carly.core.security.LoggedUserProvider;
+import org.carly.core.security.UserDetailsImpl;
 import org.carly.core.shared.config.EntityNotFoundException;
-import org.carly.core.config.LoggedUserProvider;
-import org.carly.core.shared.security.exceptions.LoginOrPasswordException;
-import org.carly.core.shared.security.model.*;
+import org.carly.core.shared.security.model.CarlyGrantedAuthority;
+import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.mapper.UserMapper;
 import org.carly.core.usermanagement.model.*;
 import org.carly.core.usermanagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
-import static java.lang.String.format;
 import static org.carly.core.shared.security.model.UserRole.CHANGE_PASSWORD_PRIVILEGE;
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
@@ -50,8 +55,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final LoggedUserProvider loggedUserProvider;
-    private long expire;
-    private String secret;
+
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder encoder;
+    private final JwtUtils jwtUtils;
 
     public UserService(UserRepository userRepository,
                        TokenService tokenService,
@@ -61,9 +68,7 @@ public class UserService {
                        ApplicationEventPublisher eventPublisher,
                        PasswordEncoder passwordEncoder,
                        MailService mailService,
-                       LoggedUserProvider loggedUserProvider,
-                       @Value("${jwt.expirationTime}") long expire,
-                       @Value("${jwt.secret}") String secret) {
+                       LoggedUserProvider loggedUserProvider, AuthenticationManager authenticationManager, PasswordEncoder encoder, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;
@@ -73,31 +78,58 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
         this.loggedUserProvider = loggedUserProvider;
-        this.expire = expire;
-        this.secret = secret;
+        this.authenticationManager = authenticationManager;
+        this.encoder = encoder;
+        this.jwtUtils = jwtUtils;
     }
 
-    @Transactional
-    public User createUser(UserRest userRest, WebRequest request) {
-        User registered = registrationNewUserAccount(userRest);
-        publishRegistrationUser(registered, request);
-        return registered;
-    }
 
-    private User registrationNewUserAccount(UserRest userRest) {
-        if (emailExists(userRest.getEmail())) {
-            throw new EntityAlreadyExistsException(format("Account with %s email already exists!", userRest.getEmail()));
+    public ResponseEntity<?> login(LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        if (Boolean.FALSE.equals(userDetails.getEnabled())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Account is not active"));
         }
-        User user = userMapper.simplifyDomainObject(userRest);
-        user.setCode(UUID.randomUUID().toString().substring(0, 6));
-        user.setPassword(passwordEncoder.encode(userRest.getPassword()));
-        user.setCreatedAt(timeService.getLocalDate());
-        user.setRole(List.of(CarlyGrantedAuthority.of(UserRole.CARLY_CUSTOMER.name())));
-        user.setEnabled(false);
-        return userRepository.save(user);
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId().toHexString(),
+                userDetails.getEmail(),
+                userDetails.getCompanyId() != null ? userDetails.getCompanyId().toHexString() : "",
+                userDetails.getFirstName(),
+                userDetails.getLastName(),
+                roles));
     }
 
-    private void publishRegistrationUser(User user, WebRequest request) {
+    public ResponseEntity<?> register(SignupRequest signUpRequest, WebRequest webRequest) {
+        if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+        User user = new User(
+                signUpRequest.getFirstName(),
+                signUpRequest.getLastName(),
+                signUpRequest.getEmail(),
+                signUpRequest.getPhone(),
+                Gender.valueOf(signUpRequest.getGender()),
+                encoder.encode(signUpRequest.getPassword()));
+
+        user.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_CUSTOMER")));
+        userRepository.save(user);
+        publishRegistrationUser(user, webRequest);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    public void publishRegistrationUser(User user, WebRequest request) {
         OnRegistrationCompleteEvent onRegistrationCompleteEvent;
         try {
             String appUrl = request.getContextPath();
@@ -106,10 +138,6 @@ public class UserService {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-    }
-
-    private boolean emailExists(String email) {
-        return userRepository.findByEmail(email).isPresent();
     }
 
     public String confirmRegistration(WebRequest request, String token) {
@@ -128,30 +156,6 @@ public class UserService {
         userRepository.save(user);
         tokenService.removeToken(verificationToken);
         return messageSource.getMessage("auth.message.complete", null, locale);
-    }
-
-    public void login(LoginRest userRest, HttpServletResponse response) throws LoginOrPasswordException {
-        User user = userRepository.findByEmail(userRest.getEmail()).orElseThrow(() -> new LoginOrPasswordException(NOT_FOUND));
-
-        boolean matches = passwordEncoder.matches(userRest.getPassword(), user.getPassword());
-        boolean equals = userRest.getPassword().equals(user.getPassword());
-        if (equals) {
-//            LoggedUser loggedUser = loadUserByUsername(userRest.getEmail());
-//            if (loggedUser.isEnabled()) {
-//                CarlyUserBuilder carlyUserBuilder = new CarlyUserBuilder();
-//                return carlyUserBuilder
-//                        .withId(loggedUser.getId())
-//                        .withCompanyId(loggedUser.getCompanyId())
-//                        .withEmail(loggedUser.getEmail())
-//                        .withName(loggedUser.getName())
-//                        .withRole(provideCurrentRole(loggedUser.getRoles()))
-//                        .build();
-
-        }
-    }
-
-    private static UserRole provideCurrentRole(List<UserRole> roles) {
-        return roles.iterator().next();
     }
 
     public ResponseEntity<String> resetUserPassword(HttpServletRequest request, String email) {
@@ -184,16 +188,16 @@ public class UserService {
 
     public ResponseEntity saveNewPassword(LoggedUser loggedUser, String password) {
         User user = userRepository.findById(new ObjectId(loggedUser.getId())).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        if (user.getRole().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
+        if (user.getRoles().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
             user.setPassword(passwordEncoder.encode(password));
-            user.getRole().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);
+            user.getRoles().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);
             userRepository.save(user);
             return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
-    public ResponseEntity addAddress(ObjectId userId, AddressRest newAddress) {
+    public ResponseEntity<AddressRest> addAddress(ObjectId userId, AddressRest newAddress) {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (user.getAddress() != null) {
             Address oldAddress = user.getAddress();

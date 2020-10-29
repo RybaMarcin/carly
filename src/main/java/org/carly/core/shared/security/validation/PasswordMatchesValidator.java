@@ -1,6 +1,6 @@
 package org.carly.core.shared.security.validation;
 
-import org.carly.core.usermanagement.model.UserRest;
+import org.carly.api.rest.auth.request.SignupRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -9,11 +9,12 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public void initialize(PasswordMatcher constraint) {
+        //init
     }
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        UserRest user = (UserRest) obj;
-        return user.getPassword().equals(user.getMatchingPassword());
+        SignupRequest user = (SignupRequest) obj;
+        return user.getPassword().equals(user.getRePassword());
     }
 }

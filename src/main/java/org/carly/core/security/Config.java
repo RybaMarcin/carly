@@ -1,4 +1,4 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

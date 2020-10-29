@@ -1,4 +1,4 @@
-package org.carly.core.usermanagement.model;
+package org.carly.api.rest.auth.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @AllArgsConstructor
-public class LoginRest {
+public class LoginRequest {
     @NotEmpty
     private String email;
     @NotEmpty

@@ -1,8 +1,6 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.carly.core.usermanagement.service.LoginService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -33,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
+//        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -44,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginService);
+        auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
     }
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)

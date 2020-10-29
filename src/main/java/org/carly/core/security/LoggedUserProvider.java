@@ -1,4 +1,4 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.security.exceptions.LoggedUserNotFoundException;

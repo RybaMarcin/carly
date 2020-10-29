@@ -1,4 +1,4 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
 import org.carly.core.usermanagement.service.LoginService;
 import org.slf4j.Logger;

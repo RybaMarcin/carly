@@ -2,7 +2,7 @@ package org.carly.core.shared.utils.mail_service;
 
 import lombok.extern.slf4j.Slf4j;
 //import org.carly.core.config.LoggedUserProvider;
-import org.carly.core.config.LoggedUserProvider;
+import org.carly.core.security.LoggedUserProvider;
 import org.carly.core.usermanagement.model.OnRegistrationCompleteEvent;
 import org.carly.core.usermanagement.model.User;
 import org.carly.core.usermanagement.service.TokenService;
@@ -30,7 +30,7 @@ public class MailService {
 
     private static final String EMAIL_VERIFICATION_TEMPLATE = "verification";
     public static final String RESET_PASSWORD_TEMPLATE = "resetpassword";
-    private static final String VERIFICATION_URL = "http://localhost:8080/user/registrationConfirmation?token=";
+    private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/registrationConfirmation?token=";
 
     private final JavaMailSender mailSender;
     private final TokenService tokenService;

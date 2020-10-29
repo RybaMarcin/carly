@@ -1,4 +1,4 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

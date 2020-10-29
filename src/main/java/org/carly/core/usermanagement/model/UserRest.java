@@ -3,12 +3,10 @@ package org.carly.core.usermanagement.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.carly.core.shared.security.validation.PasswordMatcher;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatcher
 @Getter
 @Setter
 public class UserRest {
@@ -20,12 +18,7 @@ public class UserRest {
     @NotEmpty
     private String phoneNumber;
     @NotEmpty
-//    @ValidEmail
     private String email;
     @NotNull
     private String gender;
-    @NotEmpty
-    private String password;
-    @NotEmpty
-    private String matchingPassword;
 }

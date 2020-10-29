@@ -2,7 +2,7 @@ package org.carly.api.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.core.config.LoggedUserProvider;
+import org.carly.core.security.LoggedUserProvider;
 import org.carly.core.shared.security.model.LoggedUser;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.usermanagement.model.AddressRest;
@@ -37,36 +37,9 @@ public class UserController {
         this.loggedUserProvider = loggedUserProvider;
     }
 
-    @GetMapping("/hello")
-    public String hi(HttpServletRequest request) {
-        Principal principal = request.getUserPrincipal();
-        return "hi";
-    }
-
-    @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
-    @GetMapping("/hello2")
-    public String hi2(HttpServletRequest request) {
-        Principal userPrincipal = request.getUserPrincipal();
-        return "hix";
-    }
-
-    @PostMapping("/registration")
-    public User registerUserAccount(@Valid @RequestBody UserRest userRest,
-                                    BindingResult result,
-                                    WebRequest request) {
-        return userService.createUser(userRest, request);
-    }
-
-    @GetMapping("/registrationConfirmation")
-    public String confirmRegistration(WebRequest request,
-                                      @RequestParam("token") String token) {
-        String response = userService.confirmRegistration(request, token);
-        return ResponseEntity.ok(response).getBody();
-    }
-
     @PreAuthorize("hasAnyAuthority('CUSTOMER')")
     @PostMapping("/addAddress/{id}")
-    public ResponseEntity addAddressToUserAccount(@PathVariable("id") String userId,
+    public ResponseEntity<AddressRest> addAddressToUserAccount(@PathVariable("id") String userId,
                                                   @RequestBody AddressRest addressRest) {
         return userService.addAddress(new ObjectId(userId), addressRest);
     }

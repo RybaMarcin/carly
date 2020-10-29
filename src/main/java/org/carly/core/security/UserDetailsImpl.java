@@ -1,4 +1,4 @@
-package org.carly.core.config;
+package org.carly.core.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
@@ -15,20 +15,21 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private ObjectId id;
-    private ObjectId companyId;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private final ObjectId id;
+    private final ObjectId companyId;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final Boolean enabled;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(ObjectId id, ObjectId companyId, String firstName,
                            String lastName, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+                           Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
         this.id = id;
         this.companyId = companyId;
         this.firstName = firstName;
@@ -36,10 +37,11 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.enabled = enabled;
     }
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRole().stream()
+        List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getUserRole().name()))
                 .collect(Collectors.toList());
 
@@ -50,7 +52,8 @@ public class UserDetailsImpl implements UserDetails {
                 user.getLastName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities);
+                authorities,
+                user.isEnabled());
     }
 
     @Override
@@ -76,6 +79,10 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
     @Override

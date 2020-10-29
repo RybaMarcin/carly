@@ -40,7 +40,7 @@ public class Users {
     public static User aUser1() {
         return anObject(User.class)
                 .with(u -> u.setId(USER_ID_1))
-                .with(u -> u.setRole(ROLES_1))
+                .with(u -> u.setRoles(ROLES_1))
                 .with(u -> u.setCode(CODE_1))
                 .with(u -> u.setFirstName(FIRST_NAME_1))
                 .with(u -> u.setLastName(LAST_NAME_1))
@@ -67,7 +67,7 @@ public class Users {
     public static User aUserWithAddress1() {
         return anObject(User.class)
                 .with(u -> u.setId(USER_ID_1))
-                .with(u -> u.setRole(ROLES_1))
+                .with(u -> u.setRoles(ROLES_1))
                 .with(u -> u.setCode(CODE_1))
                 .with(u -> u.setFirstName(FIRST_NAME_1))
                 .with(u -> u.setLastName(LAST_NAME_1))
