@@ -3,6 +3,7 @@ package org.carly.api.endpoint;
 import org.carly.api.rest.request.LoginRequest;
 import org.carly.api.rest.request.SignupRequest;
 import org.carly.core.usermanagement.service.UserService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -27,6 +28,11 @@ public class LoginController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
         return userService.register(signUpRequest, webRequest);
+    }
+
+    @GetMapping("/refreshToken")
+    public ResponseEntity<String> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
+        return userService.refreshToken(bearerToken);
     }
 
     @GetMapping("/registrationConfirmation")

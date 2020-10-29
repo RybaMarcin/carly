@@ -21,6 +21,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -208,5 +209,18 @@ public class UserService {
             userRepository.save(user);
             return ResponseEntity.ok().body(newAddress);
         }
+    }
+
+    public ResponseEntity<String> refreshToken(String bearerToken) {
+        String token = jwtUtils.resolveToken(bearerToken).stream().findFirst().orElse(null);
+        if (token == null || token.isEmpty()) {
+            throw new AuthenticationServiceException("Invalid token");
+        }
+        String newToken = jwtUtils.refreshToken(token);
+        if (newToken == null) {
+            return ResponseEntity.badRequest().body("Cannot refresh token");
+        }
+        log.info("Token refreshed! {}", newToken);
+        return ResponseEntity.ok(newToken);
     }
 }

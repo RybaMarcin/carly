@@ -8,8 +8,8 @@
 
 In order to lunch this app in develop mode you need to install:
 * [Maven 3.5.0](https://maven.apache.org)
-* [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [ANGULAR](https://angular.io/)
+* [Java 11](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Angular](https://angular.io/)
 
 ### Run the App locally
 
@@ -23,8 +23,8 @@ In order to lunch this app in develop mode you need to install:
 * [Maven](https://maven.apache.org)
 
 ## Authors
-[Szwajcii](https://github.com/Szwajcii) &&
-[RybsonM](https://github.com/RybaMarcin)
+[mryba](https://github.com/mryba) &&
+[Szwajcii](https://github.com/Szwajcii)
 who participated in this project.
 
 ## License

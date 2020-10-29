@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,6 +42,43 @@ public class JwtUtils {
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+            return headerAuth.substring(7, headerAuth.length());
+        }
+        return null;
+    }
+
+    public Optional<String> resolveToken(String bearerToken) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer")) {
+            return Optional.of(bearerToken.substring(7, bearerToken.length()));
+        }
+        return Optional.empty();
+    }
+
+    public String refreshToken(String token) {
+        validateJwtToken(token);
+        Claims claims = getClaims(token).getBody();
+        if (claims != null) {
+            claims.setIssuedAt(new Date());
+            claims.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs));
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                    .compact();
+        }
+        return null;
+    }
+
+    public Jws<Claims> getClaims(String token) {
+        if (token == null || token.isEmpty()) {
+            return null;
+        }
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
     }
 
     public boolean validateJwtToken(String authToken) {
