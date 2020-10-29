@@ -1,4 +1,4 @@
-package org.carly.api.rest.auth.request;
+package org.carly.api.rest.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,9 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CarChangeRequestRest;
-import org.carly.api.rest.CarRest;
-import org.carly.api.rest.CarSearchCriteriaRest;
+import org.carly.api.rest.request.CarChangeRequestRest;
+import org.carly.api.rest.response.CarResponse;
+import org.carly.api.rest.request.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.service.CarFindService;
 import org.carly.core.vehiclemanagement.service.CarSaveService;
@@ -28,7 +28,7 @@ public class CarController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Page<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Pageable pageable){
+    public Page<CarResponse> findCars(CarSearchCriteriaRequest searchCriteria, Pageable pageable){
         return carFindService.findCars(searchCriteria, pageable);
     }
 
@@ -40,31 +40,31 @@ public class CarController {
 
     @GetMapping("/cars/all")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Collection<CarRest> findAllCars() {
+    public Collection<CarResponse> findAllCars() {
         return carFindService.findAll();
     }
 
     @GetMapping("/cars/pending/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CarRest findPendingCar(@PathVariable("id") String id) {
+    public CarResponse findPendingCar(@PathVariable("id") String id) {
         return carFindService.findPendingVehicleById(new ObjectId(id));
     }
 
     @PostMapping("/create-car")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CarRest createCar(CarRest car) {
+    public CarResponse createCar(CarResponse car) {
         return carSaveService.createVehicle(car);
     }
 
     @PostMapping("/cars/pending")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CarRest savePendingCar(CarChangeRequestRest changeDecision) {
+    public CarResponse savePendingCar(CarChangeRequestRest changeDecision) {
         return carSaveService.updatePendingVehicle(changeDecision);
     }
 
     @PutMapping("/cars")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CarRest updateCar(CarRest car) {
+    public CarResponse updateCar(CarResponse car) {
         return carSaveService.updateVehicle(car);
     }
 }

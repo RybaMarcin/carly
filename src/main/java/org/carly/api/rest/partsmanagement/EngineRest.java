@@ -15,7 +15,7 @@ public class EngineRest {
     private ObjectId id;
 
     private String name;
-    private BrandRest brand;
+    private BrandRequest brand;
     private BigDecimal horsePower;
     private BigDecimal weight;
     private BigDecimal capacity;

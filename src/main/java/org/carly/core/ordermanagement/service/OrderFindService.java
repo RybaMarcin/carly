@@ -1,7 +1,7 @@
 package org.carly.core.ordermanagement.service;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.OrderRest;
+import org.carly.api.rest.response.OrderResponse;
 import org.carly.core.ordermanagement.mapper.OrderMapper;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.ordermanagement.repository.OrderMongoRepository;
@@ -28,12 +28,12 @@ public class OrderFindService {
         this.orderMapper = orderMapper;
     }
 
-    public OrderRest findOrderById(ObjectId orderId) {
+    public OrderResponse findOrderById(ObjectId orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         return orderMapper.simplifyRestObject(order);
     }
 
-    public Page<OrderRest> findByCustomerId(ObjectId customerId, Pageable pageable) {
+    public Page<OrderResponse> findByCustomerId(ObjectId customerId, Pageable pageable) {
         Page<Order> allCustomerOrders = orderMongoRepository.findAllOrdersByCustomerId(customerId, pageable);
         return allCustomerOrders.map(orderMapper::simplifyRestObject);
     }

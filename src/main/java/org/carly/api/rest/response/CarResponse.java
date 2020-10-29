@@ -1,4 +1,4 @@
-package org.carly.api.rest;
+package org.carly.api.rest.response;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -9,12 +9,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class CarRest {
+public class CarResponse {
     private ObjectId id;
     private String name;
     private String code;
     private String vinNumber;
-    private BrandRest brand;
+    private BrandResponse brand;
     private ModelRest model;
     private double maxSpeed;
     private double accelerate;
@@ -24,7 +24,7 @@ public class CarRest {
     private TiresRest tires;
     private WheelsRest wheels;
     private WindowsRest windows;
-    private BodyRest body;
+    private BodyResponse body;
     private double weight;
     private int numberOfDoors;
     private PaintingRest bodyPainting;

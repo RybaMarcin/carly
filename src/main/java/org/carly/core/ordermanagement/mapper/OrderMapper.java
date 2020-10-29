@@ -1,7 +1,7 @@
 package org.carly.core.ordermanagement.mapper;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.OrderRest;
+import org.carly.api.rest.response.OrderResponse;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.shared.utils.time.TimeService;
@@ -9,7 +9,7 @@ import org.carly.core.vehiclemanagement.model.Status;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderMapper implements MapperService<OrderRest, Order> {
+public class OrderMapper implements MapperService<OrderResponse, Order> {
 
     private final TimeService timeService;
 
@@ -18,7 +18,7 @@ public class OrderMapper implements MapperService<OrderRest, Order> {
     }
 
     @Override
-    public OrderRest mapFromDomainObject(Order domain, OrderRest rest) {
+    public OrderResponse mapFromDomainObject(Order domain, OrderResponse rest) {
         rest.setId(domain.getId());
         rest.setCreateAt(domain.getCreateAt());
         rest.setStatus(domain.getStatus().getType());
@@ -28,7 +28,7 @@ public class OrderMapper implements MapperService<OrderRest, Order> {
     }
 
     @Override
-    public Order mapToDomainObject(Order domain, OrderRest rest) {
+    public Order mapToDomainObject(Order domain, OrderResponse rest) {
         domain.setId(rest.getId() == null ? new ObjectId() : rest.getId());
         domain.setCreateAt(domain.getCreateAt() != null ? timeService.getLocalDate() : rest.getCreateAt());
         domain.setStatus(Status.of(rest.getStatus()));
@@ -38,13 +38,13 @@ public class OrderMapper implements MapperService<OrderRest, Order> {
     }
 
     @Override
-    public OrderRest simplifyRestObject(Order domain) {
-        OrderRest orderRest = new OrderRest();
-        return mapFromDomainObject(domain, orderRest);
+    public OrderResponse simplifyRestObject(Order domain) {
+        OrderResponse orderResponse = new OrderResponse();
+        return mapFromDomainObject(domain, orderResponse);
     }
 
     @Override
-    public Order simplifyDomainObject(OrderRest rest) {
+    public Order simplifyDomainObject(OrderResponse rest) {
         Order order = new Order();
         return mapToDomainObject(order, rest);
     }

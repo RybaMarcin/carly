@@ -1,7 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CustomerRest;
+import org.carly.api.rest.response.CustomerResponse;
 import org.carly.core.customermanagement.service.CustomerFindService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class CustomerController {
 
     @GetMapping("/customer-by-id/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public CustomerRest findCustomer(@PathVariable("id")String  carId) {
+    public CustomerResponse findCustomer(@PathVariable("id")String  carId) {
         return customerFindService.findCustomerByCarId(new ObjectId(carId));
     }
 }

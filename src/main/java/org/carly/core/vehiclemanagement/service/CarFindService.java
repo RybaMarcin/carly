@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.vehicle_services.VehicleFindService;
-import org.carly.api.rest.CarRest;
-import org.carly.api.rest.CarSearchCriteriaRest;
+import org.carly.api.rest.response.CarResponse;
+import org.carly.api.rest.request.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.mapper.CarMapper;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;
@@ -38,7 +38,7 @@ public class CarFindService implements VehicleFindService {
     }
 
     @Override
-    public Collection<CarRest> findAll() {
+    public Collection<CarResponse> findAll() {
         List<Car> carList = carRepository.findAll();
         log.info("Car list contains: {}", carList.size());
         return carList.stream().map(carMapper::simplifyRestObject).collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class CarFindService implements VehicleFindService {
     }
 
     @Override
-    public CarRest findPendingVehicleById(ObjectId id) {
+    public CarResponse findPendingVehicleById(ObjectId id) {
         Car car = carRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (car.getRequestStatus() != ChangeRequestStatus.PENDING) {
             log.warn("Car with id: {}, was found but state is not pending!", id);
@@ -66,7 +66,7 @@ public class CarFindService implements VehicleFindService {
         return carMapper.simplifyRestObject(car);
     }
 
-    public Page<CarRest> findCars(CarSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<CarResponse> findCars(CarSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return carMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(carMapper::simplifyRestObject);
     }

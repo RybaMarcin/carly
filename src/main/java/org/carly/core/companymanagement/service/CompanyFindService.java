@@ -2,8 +2,8 @@ package org.carly.core.companymanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CompanyRest;
-import org.carly.api.rest.CompanySearchCriteriaRest;
+import org.carly.api.rest.response.CompanyResponse;
+import org.carly.api.rest.request.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.mapper.CompanyMapper;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.repository.CompanyMongoRepository;
@@ -32,7 +32,7 @@ public class CompanyFindService {
         this.companyMongoRepository = companyMongoRepository;
     }
 
-    public CompanyRest findCompanyById(ObjectId id) {
+    public CompanyResponse findCompanyById(ObjectId id) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Company with id: {} was found!", id);
@@ -40,7 +40,7 @@ public class CompanyFindService {
     }
 
     //todo
-    public CompanyRest findPendingCompany(ObjectId id) {
+    public CompanyResponse findPendingCompany(ObjectId id) {
         Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (company != null && company.getRequestStatus() == ChangeRequestStatus.PENDING) {
             log.info("Company with id {} was found! {}", id, company);
@@ -50,7 +50,7 @@ public class CompanyFindService {
         throw new EntityNotFoundException(NOT_FOUND);
     }
 
-    public Page<CompanyRest> findCompanies(CompanySearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
         return companyMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(companyMapper::simplifyRestObject);
     }

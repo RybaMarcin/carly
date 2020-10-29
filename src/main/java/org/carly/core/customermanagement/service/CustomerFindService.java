@@ -2,7 +2,7 @@ package org.carly.core.customermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CustomerRest;
+import org.carly.api.rest.response.CustomerResponse;
 import org.carly.core.customermanagement.repository.CustomerRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.vehiclemanagement.model.Car;
@@ -24,7 +24,7 @@ public class CustomerFindService {
     }
 
     //todo
-    public CustomerRest findCustomerByCarId(ObjectId carId) {
+    public CustomerResponse findCustomerByCarId(ObjectId carId) {
         Car car = carRepository.findById(carId).orElseThrow();
         customerRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         return null;

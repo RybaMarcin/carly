@@ -1,4 +1,4 @@
-package org.carly.api.rest;
+package org.carly.api.rest.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,13 +9,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanySearchCriteriaRest {
+public class CompanySearchCriteriaRequest {
 
     private List<String> nameToSearch;
 
-
-    public static CompanySearchCriteriaRest ofNull() {
-        return new CompanySearchCriteriaRest();
+    public static CompanySearchCriteriaRequest ofNull() {
+        return new CompanySearchCriteriaRequest();
     }
-
 }

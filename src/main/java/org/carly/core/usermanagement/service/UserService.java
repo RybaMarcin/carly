@@ -3,9 +3,9 @@ package org.carly.core.usermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.auth.request.LoginRequest;
-import org.carly.api.rest.auth.request.SignupRequest;
-import org.carly.api.rest.auth.response.MessageResponse;
+import org.carly.api.rest.request.LoginRequest;
+import org.carly.api.rest.request.SignupRequest;
+import org.carly.api.rest.response.MessageResponse;
 import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.security.model.LoggedUser;
 import org.carly.core.security.service.JwtUtils;

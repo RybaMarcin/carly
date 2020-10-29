@@ -2,7 +2,7 @@ package org.carly.core.ordermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.OrderRest;
+import org.carly.api.rest.response.OrderResponse;
 import org.carly.core.ordermanagement.mapper.OrderMapper;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.ordermanagement.repository.OrderRepository;
@@ -29,14 +29,14 @@ public class OrderSaveService {
         this.timeService = timeService;
     }
 
-    public ObjectId save(OrderRest orderRest) {
-        Order order = orderMapper.simplifyDomainObject(orderRest);
+    public ObjectId save(OrderResponse orderResponse) {
+        Order order = orderMapper.simplifyDomainObject(orderResponse);
         return orderRepository.save(order).getId();
     }
 
-    public ResponseEntity updateOrder(OrderRest orderRest) {
-        Order oldOrder = orderRepository.findById(orderRest.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        Order newOrder = orderMapper.mapToDomainObject(oldOrder, orderRest);
+    public ResponseEntity updateOrder(OrderResponse orderResponse) {
+        Order oldOrder = orderRepository.findById(orderResponse.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        Order newOrder = orderMapper.mapToDomainObject(oldOrder, orderResponse);
         newOrder.setCreateAt(oldOrder.getCreateAt());
         newOrder.setModifiedAt(timeService.getLocalDate());
         orderRepository.save(newOrder);

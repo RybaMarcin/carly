@@ -1,6 +1,6 @@
 package org.carly.support;
 
-import org.carly.api.rest.auth.request.LoginRequest;
+import org.carly.api.rest.request.LoginRequest;
 
 import static org.carly.support.Users.EMAIL_1;
 

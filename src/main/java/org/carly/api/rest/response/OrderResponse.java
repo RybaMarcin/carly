@@ -1,4 +1,4 @@
-package org.carly.api.rest;
+package org.carly.api.rest.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class OrderRest {
+public class OrderResponse {
     private ObjectId id;
     private LocalDate createAt;
     private String status;

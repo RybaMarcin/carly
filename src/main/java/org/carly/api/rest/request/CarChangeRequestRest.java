@@ -1,4 +1,4 @@
-package org.carly.api.rest;
+package org.carly.api.rest.request;
 
 import lombok.Data;
 import org.bson.types.ObjectId;

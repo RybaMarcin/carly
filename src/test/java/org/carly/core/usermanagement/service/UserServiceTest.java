@@ -1,7 +1,7 @@
 package org.carly.core.usermanagement.service;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.auth.request.LoginRequest;
+import org.carly.api.rest.request.LoginRequest;
 import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.security.model.LoggedUser;
 import org.carly.core.security.model.UserRole;

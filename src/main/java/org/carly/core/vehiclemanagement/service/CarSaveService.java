@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.vehicle_services.VehicleSaveService;
-import org.carly.api.rest.CarChangeRequestRest;
-import org.carly.api.rest.CarRest;
+import org.carly.api.rest.request.CarChangeRequestRest;
+import org.carly.api.rest.response.CarResponse;
 import org.carly.core.vehiclemanagement.mapper.CarMapper;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.model.CarChangeRequest;
@@ -17,7 +17,7 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class CarSaveService implements VehicleSaveService<CarRest> {
+public class CarSaveService implements VehicleSaveService<CarResponse> {
 
     private final CarMapper carMapper;
     private final CarRepository carRepository;
@@ -33,14 +33,14 @@ public class CarSaveService implements VehicleSaveService<CarRest> {
     }
 
     @Override
-    public CarRest createVehicle(CarRest carRest) {
-        Car car = carMapper.simplifyDomainObject(carRest);
+    public CarResponse createVehicle(CarResponse carResponse) {
+        Car car = carMapper.simplifyDomainObject(carResponse);
         Car carChangeRequest = carChangeRequestService.saveCarChangeRequest(car);
         return carMapper.simplifyRestObject(carChangeRequest);
     }
 
     @Override
-    public CarRest updateVehicle(CarRest newCar) {
+    public CarResponse updateVehicle(CarResponse newCar) {
         Car carToUpdate = carRepository.findById(newCar.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         Car updatedCar = carMapper.mapToDomainObject(carToUpdate, newCar);
         return carMapper.simplifyRestObject(updatedCar);
@@ -53,7 +53,7 @@ public class CarSaveService implements VehicleSaveService<CarRest> {
         log.info("Car with id: {} was successful deleted", car.getId());
     }
 
-    public CarRest updatePendingVehicle(CarChangeRequestRest carChangeRequestRest) {
+    public CarResponse updatePendingVehicle(CarChangeRequestRest carChangeRequestRest) {
         CarChangeRequest carChangeRequest = carChangeRequestService.updatePendingCar(carChangeRequestRest);
         Car car = carChangeRequest.getCar();
         if (carChangeRequest.getStatus() == ChangeRequestStatus.ACCEPTED) {

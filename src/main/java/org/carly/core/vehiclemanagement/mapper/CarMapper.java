@@ -1,6 +1,8 @@
 package org.carly.core.vehiclemanagement.mapper;
 
-import org.carly.api.rest.CarRest;
+import org.carly.api.rest.response.BodyResponse;
+import org.carly.api.rest.response.BrandResponse;
+import org.carly.api.rest.response.CarResponse;
 import org.carly.api.rest.partsmanagement.*;
 import org.carly.core.partsmanagement.model.*;
 import org.carly.core.shared.utils.MapperService;
@@ -12,67 +14,67 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CarMapper implements MapperService<CarRest, Car> {
+public class CarMapper implements MapperService<CarResponse, Car> {
 
     @Override
-    public Car simplifyDomainObject(CarRest rest) {
+    public Car simplifyDomainObject(CarResponse rest) {
         Car car = new Car();
         return mapToDomainObject(car, rest);
     }
 
     @Override
-    public CarRest simplifyRestObject(Car domain) {
-        CarRest rest = new CarRest();
+    public CarResponse simplifyRestObject(Car domain) {
+        CarResponse rest = new CarResponse();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public CarRest mapFromDomainObject(Car domain, CarRest carRest) {
-        carRest.setName(domain.getName());
-        carRest.setCode(domain.getCode());
-        carRest.setVinNumber(domain.getVinNumber());
-        carRest.setBrand(new BrandRest());
-        carRest.getBrand().setId(domain.getBrand().getId());
-        carRest.getBrand().setName(domain.getBrand().getName());
-        carRest.getBrand().setRating(domain.getBrand().getRating());
+    public CarResponse mapFromDomainObject(Car domain, CarResponse carResponse) {
+        carResponse.setName(domain.getName());
+        carResponse.setCode(domain.getCode());
+        carResponse.setVinNumber(domain.getVinNumber());
+        carResponse.setBrand(new BrandResponse());
+        carResponse.getBrand().setId(domain.getBrand().getId());
+        carResponse.getBrand().setName(domain.getBrand().getName());
+        carResponse.getBrand().setRating(domain.getBrand().getRating());
 
-        carRest.setModel(new ModelRest());
-        carRest.getModel().setId(domain.getModel().getId());
-        carRest.getModel().setName(domain.getModel().getName());
+        carResponse.setModel(new ModelRest());
+        carResponse.getModel().setId(domain.getModel().getId());
+        carResponse.getModel().setName(domain.getModel().getName());
 
-        carRest.setMaxSpeed(domain.getMaxSpeed());
-        carRest.setPrice(domain.getPrice());
-        carRest.setYearOfProduction(domain.getYearOfProduction());
-        carRest.setTransmission(domain.getTransmission().getType());
-        carRest.setTires(new TiresRest());
-        carRest.getTires().setId(domain.getTires().getId());
+        carResponse.setMaxSpeed(domain.getMaxSpeed());
+        carResponse.setPrice(domain.getPrice());
+        carResponse.setYearOfProduction(domain.getYearOfProduction());
+        carResponse.setTransmission(domain.getTransmission().getType());
+        carResponse.setTires(new TiresRest());
+        carResponse.getTires().setId(domain.getTires().getId());
 
-        carRest.setWheels(new WheelsRest());
-        carRest.getWheels().setId(domain.getWheels().getId());
+        carResponse.setWheels(new WheelsRest());
+        carResponse.getWheels().setId(domain.getWheels().getId());
 
 //        carRest.getWheels().setBrand(new BrandRest());
 //        carRest.getWheels().getBrand().setId(domain.getWheels().getBrand().getId());
 //        carRest.getWheels().getBrand().setName(domain.getWheels().getBrand().getName());
 //        carRest.getWheels().getBrand().setRating(domain.getWheels().getBrand().getRating());
 
-        carRest.setBody(new BodyRest());
-        carRest.getBody().setId(domain.getBody().getId());
-        carRest.getBody().setName(domain.getBody().getName());
+        carResponse.setBody(new BodyResponse());
+        carResponse.getBody().setId(domain.getBody().getId());
+        carResponse.getBody().setName(domain.getBody().getName());
 
-        carRest.setWeight(domain.getWeight());
-        carRest.setNumberOfDoors(domain.getNumberOfDoors());
+        carResponse.setWeight(domain.getWeight());
+        carResponse.setNumberOfDoors(domain.getNumberOfDoors());
 
-        carRest.setBodyPainting(new PaintingRest());
-        carRest.getBodyPainting().setId(domain.getBodyPainting().getId());
-        carRest.getBodyPainting().setName(domain.getBodyPainting().getName());
-        carRest.getBodyPainting().setType(domain.getBodyPainting().getType().getType());
-        carRest.setEquipment(mapEquipmentToRest(domain.getEquipment()));
+        carResponse.setBodyPainting(new PaintingRest());
+        carResponse.getBodyPainting().setId(domain.getBodyPainting().getId());
+        carResponse.getBodyPainting().setName(domain.getBodyPainting().getName());
+        carResponse.getBodyPainting().setType(domain.getBodyPainting().getType().getType());
+        carResponse.setEquipment(mapEquipmentToRest(domain.getEquipment()));
 
-        return carRest;
+        return carResponse;
     }
 
     @Override
-    public Car mapToDomainObject(Car car, CarRest rest) {
+    public Car mapToDomainObject(Car car, CarResponse rest) {
         car.setVinNumber(rest.getVinNumber());
         car.setName(rest.getName());
         car.setCode(rest.getCode());
@@ -143,7 +145,7 @@ public class CarMapper implements MapperService<CarRest, Car> {
             EquipmentRest rest = new EquipmentRest();
             rest.setId(domain.getId());
             rest.setName(domain.getName());
-            rest.setBrand(new BrandRest());
+            rest.setBrand(new BrandRequest());
             rest.getBrand().setId(rest.getBrand().getId());
             rest.getBrand().setName(rest.getBrand().getName());
             rest.getBrand().setRating(rest.getBrand().getRating());

@@ -1,8 +1,8 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CompanyRest;
-import org.carly.api.rest.CompanySearchCriteriaRest;
+import org.carly.api.rest.response.CompanyResponse;
+import org.carly.api.rest.request.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.service.CompanyFindService;
 import org.carly.core.companymanagement.service.CompanySaveService;
 import org.springframework.data.domain.Page;
@@ -24,26 +24,26 @@ public class CompanyController {
 
     @GetMapping("/company")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Page<CompanyRest> findCompanies(CompanySearchCriteriaRest searchCriteria,
-                                           Pageable pageable) {
+    public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria,
+                                               Pageable pageable) {
         return companyFindService.findCompanies(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public CompanyRest findCompanyById(@PathVariable("id") String id) {
+    public CompanyResponse findCompanyById(@PathVariable("id") String id) {
         return companyFindService.findCompanyById(new ObjectId(id));
     }
 
     @GetMapping("/pending/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CompanyRest findPendingCompanyById(@PathVariable("id") String id) {
+    public CompanyResponse findPendingCompanyById(@PathVariable("id") String id) {
         return companyFindService.findPendingCompany(new ObjectId(id));
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public ObjectId createCompany(@RequestBody CompanyRest companyRest) {
-        return companySaveService.saveCompany(companyRest);
+    public ObjectId createCompany(@RequestBody CompanyResponse companyResponse) {
+        return companySaveService.saveCompany(companyResponse);
     }
 }

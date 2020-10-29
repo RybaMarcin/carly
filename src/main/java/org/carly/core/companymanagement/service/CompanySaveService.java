@@ -2,7 +2,7 @@ package org.carly.core.companymanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.CompanyRest;
+import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.mapper.CompanyMapper;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyChangeRequest;
@@ -24,8 +24,8 @@ public class CompanySaveService {
         this.companyChangeRequest = companyChangeRequest;
     }
 
-    public ObjectId saveCompany(CompanyRest companyRest) {
-        Company company = companyMapper.simplifyDomainObject(companyRest);
+    public ObjectId saveCompany(CompanyResponse companyResponse) {
+        Company company = companyMapper.simplifyDomainObject(companyResponse);
         CompanyChangeRequest companyRequest = this.companyChangeRequest.saveCompanyChangeRequest(company);
         return companyRequest.getId();
     }

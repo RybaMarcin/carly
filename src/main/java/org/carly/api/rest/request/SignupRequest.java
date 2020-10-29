@@ -1,8 +1,9 @@
-package org.carly.api.rest.auth.request;
+package org.carly.api.rest.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.carly.core.security.validation.PasswordMatcher;
+import org.carly.core.security.validation.*;
+
 
 import javax.validation.constraints.*;
 

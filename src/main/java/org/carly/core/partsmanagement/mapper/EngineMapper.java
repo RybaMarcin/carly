@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.partsmanagement.BrandRest;
+import org.carly.api.rest.partsmanagement.BrandRequest;
 import org.carly.api.rest.partsmanagement.EngineRest;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Brand;
@@ -29,7 +29,7 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         rest.setId(domain.getId());
         rest.setName(domain.getName());
         rest.setPrice(domain.getPrice());
-        rest.setBrand(new BrandRest());
+        rest.setBrand(new BrandRequest());
         rest.getBrand().setId(domain.getBrand().getId());
         rest.getBrand().setName(domain.getBrand().getName());
         rest.setHorsePower(domain.getHorsePower());

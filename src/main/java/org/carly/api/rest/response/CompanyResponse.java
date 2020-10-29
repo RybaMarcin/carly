@@ -1,4 +1,4 @@
-package org.carly.api.rest;
+package org.carly.api.rest.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -7,7 +7,7 @@ import org.carly.core.vehiclemanagement.model.Address;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CompanyRest {
+public class CompanyResponse {
     private ObjectId id;
     private String name;
     private String brand;

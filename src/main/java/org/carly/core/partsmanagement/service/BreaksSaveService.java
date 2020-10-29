@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.partsmanagement.BreaksRest;
 import org.carly.core.partsmanagement.mapper.BreaksMapper;
+import org.carly.core.partsmanagement.model.Breaks;
 import org.carly.core.partsmanagement.repository.BreaksRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;
-import org.carly.core.partsmanagement.model.Breaks;
 import org.springframework.stereotype.Service;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;

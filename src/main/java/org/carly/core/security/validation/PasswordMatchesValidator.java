@@ -1,6 +1,6 @@
 package org.carly.core.security.validation;
 
-import org.carly.api.rest.auth.request.SignupRequest;
+import org.carly.api.rest.request.SignupRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

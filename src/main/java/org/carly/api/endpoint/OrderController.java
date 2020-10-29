@@ -1,7 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.OrderRest;
+import org.carly.api.rest.response.OrderResponse;
 import org.carly.core.ordermanagement.service.OrderFindService;
 import org.carly.core.ordermanagement.service.OrderSaveService;
 import org.springframework.data.domain.Page;
@@ -25,20 +25,20 @@ public class OrderController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public OrderRest findOrderById(@PathVariable("id") String orderId) {
+    public OrderResponse findOrderById(@PathVariable("id") String orderId) {
         return orderFindService.findOrderById(new ObjectId(orderId));
     }
 
     @PostMapping("/save")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public ObjectId saveOrder(@RequestBody OrderRest orderRest) {
-        return orderSaveService.save(orderRest);
+    public ObjectId saveOrder(@RequestBody OrderResponse orderResponse) {
+        return orderSaveService.save(orderResponse);
     }
 
     @PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public ResponseEntity updateOrder(@RequestBody OrderRest orderRest) {
-        return orderSaveService.updateOrder(orderRest);
+    public ResponseEntity updateOrder(@RequestBody OrderResponse orderResponse) {
+        return orderSaveService.updateOrder(orderResponse);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -49,8 +49,8 @@ public class OrderController {
 
     @GetMapping("/findAllOrdersByCustomerId/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Page<OrderRest> findAllOrdersByCustomer(@PathVariable("id") String customerId,
-                                                   Pageable pageable) {
+    public Page<OrderResponse> findAllOrdersByCustomer(@PathVariable("id") String customerId,
+                                                       Pageable pageable) {
         return orderFindService.findByCustomerId(new ObjectId(customerId), pageable);
     }
 }

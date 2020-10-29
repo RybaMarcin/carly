@@ -1,6 +1,6 @@
 package org.carly.core.vehiclemanagement.repository;
 
-import org.carly.api.rest.CarSearchCriteriaRest;
+import org.carly.api.rest.request.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,7 +24,7 @@ public class CarMongoRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Car> findWithFilters(CarSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Car> findWithFilters(CarSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,

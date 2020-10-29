@@ -1,6 +1,6 @@
 package org.carly.core.companymanagement.repository;
 
-import org.carly.api.rest.CompanySearchCriteriaRest;
+import org.carly.api.rest.request.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.model.Company;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,7 +24,7 @@ public class CompanyMongoRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Company> findWithFilters(CompanySearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Company> findWithFilters(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
 
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,

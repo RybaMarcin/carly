@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Setter
 public class EquipmentRest {
     private ObjectId id;
-    private BrandRest brand;
+    private BrandRequest brand;
     private String name;
     private BigDecimal price;
 }

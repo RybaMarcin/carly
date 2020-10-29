@@ -1,7 +1,7 @@
 package org.carly.api.endpoint;
 
-import org.carly.api.rest.auth.request.LoginRequest;
-import org.carly.api.rest.auth.request.SignupRequest;
+import org.carly.api.rest.request.LoginRequest;
+import org.carly.api.rest.request.SignupRequest;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

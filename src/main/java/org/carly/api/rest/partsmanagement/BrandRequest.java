@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BrandRest {
+public class BrandRequest {
     private ObjectId id;
     private String name;
     private double rating;

@@ -1,13 +1,13 @@
 package org.carly.core.companymanagement.mapper;
 
-import org.carly.api.rest.CompanyRest;
+import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.mapper.CarMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CompanyMapper implements MapperService<CompanyRest, Company> {
+public class CompanyMapper implements MapperService<CompanyResponse, Company> {
 
 
     private CarMapper carMapper;
@@ -15,7 +15,7 @@ public class CompanyMapper implements MapperService<CompanyRest, Company> {
     //todo: Fields in mapper commented temporarily.
 
     @Override
-    public CompanyRest mapFromDomainObject(Company domain, CompanyRest rest) {
+    public CompanyResponse mapFromDomainObject(Company domain, CompanyResponse rest) {
         if (domain.getId() != null) {
             rest.setId(rest.getId());
         }
@@ -29,7 +29,7 @@ public class CompanyMapper implements MapperService<CompanyRest, Company> {
     }
 
     @Override
-    public Company mapToDomainObject(Company domain, CompanyRest rest) {
+    public Company mapToDomainObject(Company domain, CompanyResponse rest) {
         if (rest.getId() != null) {
             domain.setId(rest.getId());
         }
@@ -42,13 +42,13 @@ public class CompanyMapper implements MapperService<CompanyRest, Company> {
     }
 
     @Override
-    public CompanyRest simplifyRestObject(Company domain) {
-        CompanyRest rest = new CompanyRest();
+    public CompanyResponse simplifyRestObject(Company domain) {
+        CompanyResponse rest = new CompanyResponse();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Company simplifyDomainObject(CompanyRest rest) {
+    public Company simplifyDomainObject(CompanyResponse rest) {
         Company domain = new Company();
         return mapToDomainObject(domain, rest);
     }
