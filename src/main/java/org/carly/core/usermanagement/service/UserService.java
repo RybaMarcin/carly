@@ -20,6 +20,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,6 +44,9 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 @Slf4j
 @Service("userDetailsService")
 public class UserService {
+
+    @Resource(name = "tokenBlackListService")
+    private TokenBlackListService blackListService;
 
     private final UserRepository userRepository;
     private final TokenService tokenService;
@@ -80,6 +85,10 @@ public class UserService {
         this.jwtUtils = jwtUtils;
     }
 
+    @Scheduled(cron = "0 0/5 * * * *")
+    public void clearBlackList() {
+        blackListService.clearBlackList();
+    }
 
     public ResponseEntity<?> login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
