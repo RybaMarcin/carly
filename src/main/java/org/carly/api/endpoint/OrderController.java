@@ -47,7 +47,7 @@ public class OrderController {
         return orderSaveService.deleteOrder(new ObjectId(orderId));
     }
 
-    @GetMapping("/findAllOrdersByCustomerId/{id}")
+    @GetMapping("/find-all-orders-by-customer-id/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<OrderResponse> findAllOrdersByCustomer(@PathVariable("id") String customerId,
                                                        Pageable pageable) {

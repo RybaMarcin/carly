@@ -30,7 +30,7 @@ public class MailService {
 
     private static final String EMAIL_VERIFICATION_TEMPLATE = "verification";
     public static final String RESET_PASSWORD_TEMPLATE = "resetpassword";
-    private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/registrationConfirmation?token=";
+    private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/registration-confirmation?token=";
 
     private final JavaMailSender mailSender;
     private final TokenService tokenService;
@@ -80,7 +80,11 @@ public class MailService {
 
         final String text = VERIFICATION_URL + token;
         ctx.setVariable("registration", text);
-        ctx.setVariable("userName", user.getCustomer().getFirstName() != null ? user.getCustomer().getFirstName() : user.getCompany().getName());
+        if (user.getCustomer() != null) {
+            ctx.setVariable("userName", user.getCustomer().getFirstName());
+        } else if (user.getCompany() != null) {
+            ctx.setVariable("name", user.getCompany().getName());
+        }
 
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message; // true = multipart

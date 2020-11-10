@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Customer extends User {
+public class Customer {
     private String firstName;
     private String lastName;
     private List<Car> cars;

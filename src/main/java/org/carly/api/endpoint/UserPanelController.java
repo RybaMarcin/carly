@@ -14,30 +14,30 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
-public class PasswordController {
+public class UserPanelController {
 
     private final UserService userService;
 
-    public PasswordController(UserService userService) {
+    public UserPanelController(UserService userService) {
         this.userService = userService;
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
-    @PostMapping("/addAddress/{id}")
+    @PostMapping("/add-address/{id}")
     public ResponseEntity<AddressRequest> addAddressToUserAccount(@PathVariable("id") String userId,
                                                                   @RequestBody AddressRequest addressRequest) {
         return userService.addAddress(new ObjectId(userId), addressRequest);
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER','CARLY_OPERATIONS')")
-    @PostMapping("/resetPassword")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(HttpServletRequest request,
                                                 @RequestParam("email") String email) {
         return userService.resetUserPassword(request, email);
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER', 'CARLY_OPERATIONS')")
-    @GetMapping("/changePassword")
+    @GetMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestParam("id") String id,
                                                  @RequestParam("token") String token,
                                                  WebRequest request) {
@@ -46,7 +46,7 @@ public class PasswordController {
     }
 
     @PreAuthorize("hasAnyAuthority('CHANGE_PASSWORD_PRIVILEGE', 'CARLY_OPERATIONS')")
-    @GetMapping("/savePassword")
+    @GetMapping("/save-password")
     public ResponseEntity saveNewPassword(@Valid @RequestBody Password password) {
         return userService.saveNewPassword(password.getNewPassword());
     }

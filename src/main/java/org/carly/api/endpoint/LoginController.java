@@ -31,7 +31,7 @@ public class LoginController {
         return userService.login(loginRequest);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup-customer")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
         return userService.register(signUpRequest, webRequest);
     }
@@ -41,12 +41,12 @@ public class LoginController {
         return userService.registerCompany(signupCompanyRequest, webRequest);
     }
 
-    @GetMapping("/refreshToken")
+    @GetMapping("/refresh-token")
     public ResponseEntity<String> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
         return userService.refreshToken(bearerToken);
     }
 
-    @GetMapping("/registrationConfirmation")
+    @GetMapping("/registration-confirmation")
     public String confirmRegistration(WebRequest request,
                                       @RequestParam("token") String token) {
         String response = userService.confirmRegistration(request, token);

@@ -30,7 +30,7 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getEmail()))
-                .claim("id", userPrincipal.getId())
+                .claim("id", userPrincipal.getId().toHexString())
                 .claim("roles", userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))

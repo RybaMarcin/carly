@@ -5,15 +5,16 @@ import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.shared.model.Address;
 import org.carly.core.shared.utils.MapperService;
+import org.carly.core.usermanagement.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CompanyMapper implements MapperService<CompanyResponse, Company> {
+public class CompanyMapper implements MapperService<CompanyResponse, User> {
 
     @Override
-    public CompanyResponse mapFromDomainObject(Company domain, CompanyResponse rest) {
+    public CompanyResponse mapFromDomainObject(User domain, CompanyResponse rest) {
 
-        rest.setCompanyName(domain.getName());
+        rest.setCompanyName(domain.getCompany().getName());
         rest.setEmail(domain.getEmail());
         rest.setPhone(domain.getPhoneNumber());
         AddressResponse addressResponse = new AddressResponse(
@@ -26,8 +27,8 @@ public class CompanyMapper implements MapperService<CompanyResponse, Company> {
     }
 
     @Override
-    public Company mapToDomainObject(Company domain, CompanyResponse rest) {
-        domain.setName(rest.getCompanyName());
+    public User mapToDomainObject(User domain, CompanyResponse rest) {
+        domain.getCompany().setName(rest.getCompanyName());
         domain.setEmail(rest.getEmail());
         domain.setPhoneNumber(rest.getPhone());
         Address address = new Address(
@@ -39,13 +40,13 @@ public class CompanyMapper implements MapperService<CompanyResponse, Company> {
     }
 
     @Override
-    public CompanyResponse simplifyRestObject(Company domain) {
+    public CompanyResponse simplifyRestObject(User domain) {
         CompanyResponse rest = new CompanyResponse();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Company simplifyDomainObject(CompanyResponse rest) {
+    public User simplifyDomainObject(CompanyResponse rest) {
         Company domain = new Company();
         return mapToDomainObject(domain, rest);
     }
