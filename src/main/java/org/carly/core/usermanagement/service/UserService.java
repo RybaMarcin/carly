@@ -3,19 +3,27 @@ package org.carly.core.usermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.carly.api.rest.request.AddressRequest;
 import org.carly.api.rest.request.LoginRequest;
+import org.carly.api.rest.request.SignupCompanyRequest;
 import org.carly.api.rest.request.SignupRequest;
-import org.carly.api.rest.response.CarlyJwtResponse;
+import org.carly.api.rest.response.JwtTokenResponse;
 import org.carly.api.rest.response.MessageResponse;
+import org.carly.core.companymanagement.model.Company;
+import org.carly.core.customermanagement.model.Customer;
 import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.security.model.LoggedUser;
 import org.carly.core.security.service.JwtUtils;
 import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.shared.exception.EntityNotFoundException;
+import org.carly.core.shared.model.Address;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.mapper.UserMapper;
-import org.carly.core.usermanagement.model.*;
+import org.carly.core.usermanagement.model.Gender;
+import org.carly.core.usermanagement.model.OnRegistrationCompleteEvent;
+import org.carly.core.usermanagement.model.User;
+import org.carly.core.usermanagement.model.VerificationToken;
 import org.carly.core.usermanagement.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -71,7 +79,10 @@ public class UserService {
                        ApplicationEventPublisher eventPublisher,
                        PasswordEncoder passwordEncoder,
                        MailService mailService,
-                       LoggedUserProvider loggedUserProvider, AuthenticationManager authenticationManager, PasswordEncoder encoder, JwtUtils jwtUtils) {
+                       LoggedUserProvider loggedUserProvider,
+                       AuthenticationManager authenticationManager,
+                       PasswordEncoder encoder,
+                       JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.messageSource = messageSource;
@@ -103,26 +114,65 @@ public class UserService {
             return ResponseEntity.badRequest().body(new MessageResponse("Account is not active"));
         }
 
-        return ResponseEntity.ok(new CarlyJwtResponse(jwt));
+        return ResponseEntity.ok(new JwtTokenResponse(jwt));
     }
 
-    public ResponseEntity<?> register(SignupRequest signUpRequest, WebRequest webRequest, boolean isCompanyUser) {
+    public ResponseEntity<?> register(SignupRequest signUpRequest, WebRequest webRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
+        User user = new User(
+                new Customer
+                        (
+                                signUpRequest.getFirstName(),
+                                signUpRequest.getLastName(),
+                                Gender.valueOf(signUpRequest.getGender())
+                        ),
+                signUpRequest.getEmail(),
+                signUpRequest.getPhone(),
+                encoder.encode(signUpRequest.getPassword()));
 
-        User user;
-        if (isCompanyUser) {
-            user = createCompanyUser(signUpRequest);
-        } else {
-            user = createCustomerUser(signUpRequest);
-        }
+        user.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_CUSTOMER")));
+        user.setEnabled(Boolean.FALSE);
         userRepository.save(user);
         publishRegistrationUser(user, webRequest);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+
+    public ResponseEntity<?> registerCompany(SignupCompanyRequest signupCompanyRequest, WebRequest webRequest) {
+        if (Boolean.TRUE.equals(userRepository.existsByEmail(signupCompanyRequest.getEmail()))) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+        Address address = null;
+        if (signupCompanyRequest.getAddressRequest() != null) {
+            address = new Address(
+                    signupCompanyRequest.getAddressRequest().getStreet(),
+                    signupCompanyRequest.getAddressRequest().getNumber(),
+                    signupCompanyRequest.getAddressRequest().getFlat(),
+                    signupCompanyRequest.getAddressRequest().getTown(),
+                    signupCompanyRequest.getAddressRequest().getZipCode(),
+                    signupCompanyRequest.getAddressRequest().getCountry());
+        }
+        User company = new User
+                (
+                        new Company(signupCompanyRequest.getCompanyName()),
+                        signupCompanyRequest.getEmail(),
+                        signupCompanyRequest.getPhone(),
+                        encoder.encode(signupCompanyRequest.getPassword())
+                );
+        company.setAddress(address);
+        company.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_COMPANY")));
+        company.setEnabled(Boolean.FALSE);
+        userRepository.save(company);
+        publishRegistrationUser(company, webRequest);
+
+        return ResponseEntity.ok(new MessageResponse("Company registered successfully"));
     }
 
     public void publishRegistrationUser(User user, WebRequest request) {
@@ -193,7 +243,7 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
-    public ResponseEntity<AddressRest> addAddress(ObjectId userId, AddressRest newAddress) {
+    public ResponseEntity<AddressRequest> addAddress(ObjectId userId, AddressRequest newAddress) {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (user.getAddress() != null) {
             Address oldAddress = user.getAddress();
@@ -219,7 +269,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> refreshToken(String bearerToken) {
+    public ResponseEntity<String> refreshToken(String bearerToken) {
         String token = jwtUtils.resolveToken(bearerToken).stream().findFirst().orElse(null);
         if (token == null || token.isEmpty()) {
             throw new AuthenticationServiceException("Invalid token");
@@ -229,31 +279,6 @@ public class UserService {
             return ResponseEntity.badRequest().body("Cannot refresh token");
         }
         log.info("Token refreshed! {}", newToken);
-        return ResponseEntity.ok(new CarlyJwtResponse(newToken));
-    }
-
-    private User createCustomerUser(SignupRequest signUpRequest) {
-        User customerUser = new User(
-                signUpRequest.getFirstName(),
-                signUpRequest.getLastName(),
-                signUpRequest.getEmail(),
-                signUpRequest.getPhone(),
-                Gender.valueOf(signUpRequest.getGender()),
-                encoder.encode(signUpRequest.getPassword()));
-
-        customerUser.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_CUSTOMER")));
-        return  customerUser;
-    }
-
-    private User createCompanyUser(SignupRequest signUpRequest) {
-        User companyUser = new User(
-                signUpRequest.getCompanyName(),
-                signUpRequest.getPhone(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getAddress());
-
-        companyUser.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_COMPANY")));
-        return companyUser;
+        return ResponseEntity.ok(newToken);
     }
 }

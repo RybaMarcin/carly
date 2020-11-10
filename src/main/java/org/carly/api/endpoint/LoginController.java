@@ -1,8 +1,8 @@
 package org.carly.api.endpoint;
 
 import org.carly.api.rest.request.LoginRequest;
+import org.carly.api.rest.request.SignupCompanyRequest;
 import org.carly.api.rest.request.SignupRequest;
-import org.carly.api.rest.response.MessageResponse;
 import org.carly.core.usermanagement.service.TokenBlackListService;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.HttpHeaders;
@@ -32,17 +32,17 @@ public class LoginController {
     }
 
     @PostMapping("/signup-customer")
-    public ResponseEntity<?> registerCustomer(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
-        return userService.register(signUpRequest, webRequest, false);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
+        return userService.register(signUpRequest, webRequest);
     }
 
     @PostMapping("/signup-company")
-    public ResponseEntity<?> registerCompany(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
-        return userService.register(signUpRequest, webRequest, true);
+    public ResponseEntity<?> registerCompany(@Valid @RequestBody SignupCompanyRequest signupCompanyRequest, WebRequest webRequest) {
+        return userService.registerCompany(signupCompanyRequest, webRequest);
     }
 
     @GetMapping("/refresh-token")
-    public ResponseEntity<?> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
+    public ResponseEntity<String> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
         return userService.refreshToken(bearerToken);
     }
 
@@ -56,6 +56,6 @@ public class LoginController {
     @GetMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
         blackListService.addTokenToBlackList(bearerToken);
-        return ResponseEntity.ok(new MessageResponse("Logout successfully!"));
+        return ResponseEntity.ok().build();
     }
 }

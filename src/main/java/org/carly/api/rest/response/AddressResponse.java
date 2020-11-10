@@ -1,11 +1,15 @@
-package org.carly.core.usermanagement.model;
+package org.carly.api.rest.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressRest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class AddressResponse {
     private String street;
     private String number;
     private String flat;

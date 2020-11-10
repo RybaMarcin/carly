@@ -16,9 +16,9 @@ public class LoggedUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private final ObjectId id;
-    private final ObjectId companyId;
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
+    private String name;
     private final String email;
     private final Boolean enabled;
 
@@ -27,13 +27,22 @@ public class LoggedUser implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public LoggedUser(ObjectId id, ObjectId companyId, String firstName,
+    public LoggedUser(ObjectId id, String firstName,
                       String lastName, String email, String password,
                       Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
         this.id = id;
-        this.companyId = companyId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+        this.enabled = enabled;
+    }
+
+    public LoggedUser(ObjectId id, String name, String email, String password,
+                      Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
+        this.id = id;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
@@ -45,15 +54,26 @@ public class LoggedUser implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getUserRole().name()))
                 .collect(Collectors.toList());
 
-        return new LoggedUser(
-                user.getId(),
-                user.getCompanyId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPassword(),
-                authorities,
-                user.isEnabled());
+        if (user.getCustomer() != null) {
+
+            return new LoggedUser(
+                    user.getId(),
+                    user.getCustomer().getFirstName(),
+                    user.getCustomer().getLastName(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    authorities,
+                    user.getEnabled());
+        } else  {
+            return new LoggedUser(
+                    user.getId(),
+                    user.getCompany().getName(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    authorities,
+                    user.getEnabled());
+        }
+
     }
 
     @Override
@@ -69,8 +89,8 @@ public class LoggedUser implements UserDetails {
         return email;
     }
 
-    public ObjectId getCompanyId() {
-        return companyId;
+    public String getName() {
+        return name;
     }
 
     public String getFirstName() {
@@ -129,7 +149,7 @@ public class LoggedUser implements UserDetails {
     public String toString() {
         return "LoggedUser{" +
                 "id=" + id +
-                ", companyId=" + companyId +
+                ", name=" + name +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

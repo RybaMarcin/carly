@@ -30,10 +30,8 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getEmail()))
-                .claim("firstName", userPrincipal.getFirstName())
-                .claim("lastName", userPrincipal.getLastName())
+                .claim("id", userPrincipal.getId().toHexString())
                 .claim("roles", userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .claim("companyId", userPrincipal.getCompanyId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

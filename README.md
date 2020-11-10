@@ -1,5 +1,5 @@
 # Carly
-[![BUILD STATUS](https://travis-ci.com/RybaMarcin/carly.svg?token=d6EjrzLxCzqEWporBxDp&branch=master)](https://travis-ci.com/RybaMarcin/carly)
+[![BUILD STATUS](https://travis-ci.com/mryba/carly.svg?token=d6EjrzLxCzqEWporBxDp&branch=master)](https://travis-ci.com/mryba/carly)
 
 ## Getting Started
 ### Prerequisites

@@ -23,10 +23,4 @@ public class CustomerFindService {
         this.carRepository = carRepository;
     }
 
-    //todo
-    public CustomerResponse findCustomerByCarId(ObjectId carId) {
-        Car car = carRepository.findById(carId).orElseThrow();
-        customerRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        return null;
-    }
 }
