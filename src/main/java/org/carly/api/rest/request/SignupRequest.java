@@ -3,6 +3,7 @@ package org.carly.api.rest.request;
 import lombok.Getter;
 import lombok.Setter;
 import org.carly.core.security.validation.*;
+import org.carly.core.usermanagement.model.Address;
 
 
 import javax.validation.constraints.*;
@@ -11,11 +12,12 @@ import javax.validation.constraints.*;
 @Getter
 @Setter
 public class SignupRequest {
-    @NotBlank
+    @Size(min = 3, max = 30)
+    private String companyName;
+
     @Size(min = 3, max = 20)
     private String firstName;
 
-    @NotBlank
     @Size(min = 3, max = 20)
     private String lastName;
 
@@ -28,7 +30,6 @@ public class SignupRequest {
     @Size(max = 20)
     private String phone;
 
-    @NotNull
     private String gender;
 
     @NotBlank
@@ -38,5 +39,7 @@ public class SignupRequest {
     @NotEmpty
     @Size(min = 6, max = 40)
     private String rePassword;
+
+    private Address address;
 
 }
