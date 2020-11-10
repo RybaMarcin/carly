@@ -1,7 +1,6 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.core.security.model.LoggedUser;
 import org.carly.core.usermanagement.model.AddressRest;
 import org.carly.core.usermanagement.model.Password;
 import org.carly.core.usermanagement.service.UserService;
