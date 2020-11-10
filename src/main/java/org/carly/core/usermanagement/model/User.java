@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.carly.core.companymanagement.model.Company;
+import org.carly.core.customermanagement.model.Customer;
 import org.carly.core.security.model.CarlyGrantedAuthority;
-import org.carly.core.vehiclemanagement.model.Car;
+import org.carly.core.shared.model.Address;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -18,26 +20,27 @@ import java.util.List;
 public class User {
     private ObjectId id;
     private List<CarlyGrantedAuthority> roles;
-    private ObjectId companyId;
-    private String code;
-    private String firstName;
-    private String lastName;
+    private Company company;
+    private Customer customer;
     private String phoneNumber;
     private String email;
     private Address address;
     private List<Address> addressHistory;
-    private List<Car> cars;
-    private Gender gender;
     private String password;
     private LocalDate createdAt;
-    private boolean enabled;
+    private Boolean enabled;
 
-    public User(String firstName, String lastName, String email, String phone, Gender gender, String password){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(Customer customer, String email, String phone, String password){
+        this.customer = customer;
         this.email = email;
         this.phoneNumber = phone;
-        this.gender = gender;
+        this.password = password;
+    }
+
+    public User(Company company, String email, String phoneNumber, String password) {
+        this.company = company;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 }

@@ -1,8 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.core.security.model.LoggedUser;
-import org.carly.core.usermanagement.model.AddressRest;
+import org.carly.api.rest.request.AddressRequest;
 import org.carly.core.usermanagement.model.Password;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +14,19 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class PasswordController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public PasswordController(UserService userService) {
         this.userService = userService;
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
     @PostMapping("/addAddress/{id}")
-    public ResponseEntity<AddressRest> addAddressToUserAccount(@PathVariable("id") String userId,
-                                                               @RequestBody AddressRest addressRest) {
-        return userService.addAddress(new ObjectId(userId), addressRest);
+    public ResponseEntity<AddressRequest> addAddressToUserAccount(@PathVariable("id") String userId,
+                                                                  @RequestBody AddressRequest addressRequest) {
+        return userService.addAddress(new ObjectId(userId), addressRequest);
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER','CARLY_OPERATIONS')")

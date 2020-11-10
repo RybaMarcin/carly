@@ -8,7 +8,7 @@ import org.carly.core.security.model.UserRole;
 import org.carly.core.shared.utils.mail_service.MailService;
 import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.mapper.UserMapper;
-import org.carly.core.usermanagement.model.AddressRest;
+import org.carly.api.rest.request.AddressRequest;
 import org.carly.core.usermanagement.model.CarlyUserRest;
 import org.carly.core.usermanagement.model.User;
 import org.carly.core.usermanagement.model.VerificationToken;
@@ -62,7 +62,7 @@ class UserServiceTest {
     @Captor
     ArgumentCaptor<String> passwordArgumentCaptor;
     @Captor
-    ArgumentCaptor<AddressRest> addressArgumentCaptor;
+    ArgumentCaptor<AddressRequest> addressArgumentCaptor;
     @InjectMocks
     UserService userService;
 
@@ -216,14 +216,14 @@ class UserServiceTest {
     void shouldAddAddressForUserForTheFirstTime() {
         //given
         ObjectId userId = USER_ID_1;
-        AddressRest addressRest = aAddressRest1();
+        AddressRequest addressRequest = aAddressRest1();
         LocalDate createdAt = LocalDate.of(2019, 2, 12);
         //and
         when(userRepository.findById(userId)).thenReturn(Optional.of(aUser1()));
-        when(userMapper.mapAddressToDomain(addressRest)).thenReturn(aAddress1());
+        when(userMapper.mapAddressToDomain(addressRequest)).thenReturn(aAddress1());
         when(timeService.getLocalDate()).thenReturn(createdAt);
         //when
-        ResponseEntity response = userService.addAddress(userId, addressRest);
+        ResponseEntity response = userService.addAddress(userId, addressRequest);
         verify(userRepository).save(userArgumentCaptor.capture());
         //then
         verify(userMapper).mapAddressToDomain(addressArgumentCaptor.capture());
@@ -236,15 +236,15 @@ class UserServiceTest {
     void shouldAddNewAddressToUser() {
         //given
         ObjectId userId = USER_ID_1;
-        AddressRest addressRest = aAddressRest1();
+        AddressRequest addressRequest = aAddressRest1();
         User user = aUserWithAddress1();
         LocalDate createdAt = LocalDate.of(2019, 10, 22);
         //and
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(timeService.getLocalDate()).thenReturn(createdAt);
-        when(userMapper.mapAddressToDomain(addressRest)).thenReturn(aAddress1());
+        when(userMapper.mapAddressToDomain(addressRequest)).thenReturn(aAddress1());
         //when
-        ResponseEntity response = userService.addAddress(userId, addressRest);
+        ResponseEntity response = userService.addAddress(userId, addressRequest);
         verify(userRepository).save(userArgumentCaptor.capture());
         //then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

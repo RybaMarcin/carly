@@ -1,7 +1,7 @@
 package org.carly.support;
 
-import org.carly.core.usermanagement.model.AddressRest;
-import org.carly.core.usermanagement.model.Address;
+import org.carly.api.rest.request.AddressRequest;
+import org.carly.core.shared.model.Address;
 
 import static org.carly.core.shared.utils.builder.Builder.anObject;
 
@@ -25,8 +25,8 @@ public class AddressesModel {
                 .build();
     }
 
-    public static AddressRest aAddressRest1() {
-        return anObject(AddressRest.class)
+    public static AddressRequest aAddressRest1() {
+        return anObject(AddressRequest.class)
                 .with(e -> e.setStreet(STREET_1))
                 .with(e -> e.setNumber(NUMBER_1))
                 .with(e -> e.setFlat(FLAT_1))

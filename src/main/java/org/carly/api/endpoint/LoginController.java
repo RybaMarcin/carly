@@ -1,6 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.carly.api.rest.request.LoginRequest;
+import org.carly.api.rest.request.SignupCompanyRequest;
 import org.carly.api.rest.request.SignupRequest;
 import org.carly.core.usermanagement.service.TokenBlackListService;
 import org.carly.core.usermanagement.service.UserService;
@@ -33,6 +34,11 @@ public class LoginController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, WebRequest webRequest) {
         return userService.register(signUpRequest, webRequest);
+    }
+
+    @PostMapping("/signup-company")
+    public ResponseEntity<?> registerCompany(@Valid @RequestBody SignupCompanyRequest signupCompanyRequest, WebRequest webRequest) {
+        return userService.registerCompany(signupCompanyRequest, webRequest);
     }
 
     @GetMapping("/refreshToken")

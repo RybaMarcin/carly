@@ -4,7 +4,6 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.response.CompanyResponse;
 import org.carly.api.rest.request.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.service.CompanyFindService;
-import org.carly.core.companymanagement.service.CompanySaveService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyFindService companyFindService;
-    private final CompanySaveService companySaveService;
 
-    public CompanyController(CompanyFindService companyFindService, CompanySaveService companySaveService) {
+    public CompanyController(CompanyFindService companyFindService) {
         this.companyFindService = companyFindService;
-        this.companySaveService = companySaveService;
     }
 
     @GetMapping("/company")
@@ -33,17 +30,5 @@ public class CompanyController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public CompanyResponse findCompanyById(@PathVariable("id") String id) {
         return companyFindService.findCompanyById(new ObjectId(id));
-    }
-
-    @GetMapping("/pending/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public CompanyResponse findPendingCompanyById(@PathVariable("id") String id) {
-        return companyFindService.findPendingCompany(new ObjectId(id));
-    }
-
-    @PostMapping("/create")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public ObjectId createCompany(@RequestBody CompanyResponse companyResponse) {
-        return companySaveService.saveCompany(companyResponse);
     }
 }

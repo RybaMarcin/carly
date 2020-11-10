@@ -39,16 +39,6 @@ public class CompanyFindService {
         return companyMapper.simplifyRestObject(company);
     }
 
-    //todo
-    public CompanyResponse findPendingCompany(ObjectId id) {
-        Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        if (company != null && company.getRequestStatus() == ChangeRequestStatus.PENDING) {
-            log.info("Company with id {} was found! {}", id, company);
-            return companyMapper.simplifyRestObject(company);
-        }
-        log.error("Company with id: {}, not found!", id);
-        throw new EntityNotFoundException(NOT_FOUND);
-    }
 
     public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
         return companyMongoRepository.findWithFilters(searchCriteria, pageable)

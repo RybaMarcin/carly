@@ -2,6 +2,7 @@ package org.carly.core.vehiclemanagement.model;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.carly.core.customermanagement.model.Customer;
 
 import java.time.LocalDate;
 

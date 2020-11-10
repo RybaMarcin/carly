@@ -80,7 +80,7 @@ public class MailService {
 
         final String text = VERIFICATION_URL + token;
         ctx.setVariable("registration", text);
-        ctx.setVariable("userName", user.getFirstName());
+        ctx.setVariable("userName", user.getCustomer().getFirstName() != null ? user.getCustomer().getFirstName() : user.getCompany().getName());
 
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message; // true = multipart

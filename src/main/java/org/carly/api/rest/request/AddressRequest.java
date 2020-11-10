@@ -1,9 +1,11 @@
-package org.carly.core.vehiclemanagement.model;
+package org.carly.api.rest.request;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class Address {
+@Getter
+@Setter
+public class AddressRequest {
     private String street;
     private String number;
     private String flat;

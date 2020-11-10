@@ -1,10 +1,11 @@
 package org.carly.core.usermanagement.mapper;
 
 import org.bson.types.ObjectId;
+import org.carly.core.customermanagement.model.Customer;
 import org.carly.core.shared.utils.MapperService;
-import org.carly.core.usermanagement.model.AddressRest;
+import org.carly.api.rest.request.AddressRequest;
 import org.carly.core.usermanagement.model.UserRest;
-import org.carly.core.usermanagement.model.Address;
+import org.carly.core.shared.model.Address;
 import org.carly.core.usermanagement.model.Gender;
 import org.carly.core.usermanagement.model.User;
 import org.springframework.stereotype.Component;
@@ -14,10 +15,10 @@ public class UserMapper implements MapperService<UserRest, User> {
 
     @Override
     public UserRest mapFromDomainObject(User domain, UserRest rest) {
-        rest.setFirstName(domain.getFirstName());
-        rest.setLastName(domain.getLastName());
+        rest.setFirstName(domain.getCustomer().getFirstName());
+        rest.setLastName(domain.getCustomer().getLastName());
         rest.setPhoneNumber(domain.getPhoneNumber());
-        rest.setGender(domain.getGender().name());
+        rest.setGender(domain.getCustomer().getGender().name());
         rest.setEmail(domain.getEmail());
         return rest;
     }
@@ -25,11 +26,13 @@ public class UserMapper implements MapperService<UserRest, User> {
     @Override
     public User mapToDomainObject(User domain, UserRest rest) {
         domain.setId(rest.getId() != null ? rest.getId() : new ObjectId());
-        domain.setFirstName(rest.getFirstName());
-        domain.setLastName(rest.getLastName());
+        Customer customer = new Customer();
+        domain.setCustomer(customer);
+        domain.getCustomer().setFirstName(rest.getFirstName());
+        domain.getCustomer().setLastName(rest.getLastName());
         domain.setPhoneNumber(rest.getPhoneNumber());
         domain.setEmail(rest.getEmail());
-        domain.setGender(Gender.valueOf(rest.getGender()));
+        domain.getCustomer().setGender(Gender.valueOf(rest.getGender()));
         return domain;
     }
 
@@ -45,7 +48,7 @@ public class UserMapper implements MapperService<UserRest, User> {
         return mapToDomainObject(domain, rest);
     }
 
-    public Address mapAddressToDomain(AddressRest rest) {
+    public Address mapAddressToDomain(AddressRequest rest) {
         Address domain = new Address();
         domain.setStreet(rest.getStreet());
         domain.setNumber(rest.getNumber());
