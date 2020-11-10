@@ -20,6 +20,7 @@ public class User {
     private List<CarlyGrantedAuthority> roles;
     private ObjectId companyId;
     private String code;
+    private String companyName;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -40,4 +41,13 @@ public class User {
         this.gender = gender;
         this.password = password;
     }
+
+    public User(String companyName, String phone, String email, String password, Address address) {
+        this.companyName = companyName;
+        this.phoneNumber = phone;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+
 }
