@@ -3,6 +3,8 @@ package org.carly.api.endpoint;
 import org.carly.api.rest.request.LoginRequest;
 import org.carly.api.rest.request.SignupCompanyRequest;
 import org.carly.api.rest.request.SignupRequest;
+import org.carly.api.rest.response.JwtTokenResponse;
+import org.carly.api.rest.response.MessageResponse;
 import org.carly.core.usermanagement.service.TokenBlackListService;
 import org.carly.core.usermanagement.service.UserService;
 import org.springframework.http.HttpHeaders;
@@ -42,7 +44,7 @@ public class LoginController {
     }
 
     @GetMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
+    public ResponseEntity<JwtTokenResponse> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
         return userService.refreshToken(bearerToken);
     }
 
@@ -56,6 +58,6 @@ public class LoginController {
     @GetMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
         blackListService.addTokenToBlackList(bearerToken);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new MessageResponse("Logout successfully!"));
     }
 }

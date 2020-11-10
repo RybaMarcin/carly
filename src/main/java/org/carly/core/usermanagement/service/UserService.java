@@ -269,16 +269,16 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<String> refreshToken(String bearerToken) {
+    public ResponseEntity<JwtTokenResponse> refreshToken(String bearerToken) {
         String token = jwtUtils.resolveToken(bearerToken).stream().findFirst().orElse(null);
         if (token == null || token.isEmpty()) {
             throw new AuthenticationServiceException("Invalid token");
         }
         String newToken = jwtUtils.refreshToken(token);
         if (newToken == null) {
-            return ResponseEntity.badRequest().body("Cannot refresh token");
+            return ResponseEntity.badRequest().body(new JwtTokenResponse("Cannot refresh token"));
         }
         log.info("Token refreshed! {}", newToken);
-        return ResponseEntity.ok(newToken);
+        return ResponseEntity.ok(new JwtTokenResponse(token));
     }
 }

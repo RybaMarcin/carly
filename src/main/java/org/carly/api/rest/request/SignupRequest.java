@@ -3,7 +3,7 @@ package org.carly.api.rest.request;
 import lombok.Getter;
 import lombok.Setter;
 import org.carly.core.security.validation.*;
-import org.carly.core.usermanagement.model.Address;
+import org.carly.core.shared.model.Address;
 
 
 import javax.validation.constraints.*;
