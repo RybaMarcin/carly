@@ -24,21 +24,21 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER')")
-    @PostMapping("/addAddress/{id}")
+    @PostMapping("/add-address/{id}")
     public ResponseEntity<AddressRest> addAddressToUserAccount(@PathVariable("id") String userId,
                                                                @RequestBody AddressRest addressRest) {
         return userService.addAddress(new ObjectId(userId), addressRest);
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER','CARLY_OPERATIONS')")
-    @PostMapping("/resetPassword")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(HttpServletRequest request,
                                                 @RequestParam("email") String email) {
         return userService.resetUserPassword(request, email);
     }
 
     @PreAuthorize("hasAnyAuthority('CARLY_CUSTOMER', 'CARLY_OPERATIONS')")
-    @GetMapping("/changePassword")
+    @GetMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestParam("id") String id,
                                                  @RequestParam("token") String token,
                                                  WebRequest request) {
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('CHANGE_PASSWORD_PRIVILEGE', 'CARLY_OPERATIONS')")
-    @GetMapping("/savePassword")
+    @GetMapping("/save-password")
     public ResponseEntity saveNewPassword(@Valid @RequestBody Password password) {
         return userService.saveNewPassword(password.getNewPassword());
     }
