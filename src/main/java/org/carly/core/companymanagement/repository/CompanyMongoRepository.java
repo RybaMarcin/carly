@@ -27,11 +27,8 @@ public class CompanyMongoRepository {
     }
 
     public Page<Company> findWithFilters(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
-
-
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(CompanyFilter.COMPANY_NAME.getFilter(), searchCriteria.getNamesToSearch()));
-
 
         Query query = new Query();
         query.addCriteria(criteria);
