@@ -1,7 +1,7 @@
 package org.carly.support;
 
-import org.carly.user_management.core.model.User;
-import org.carly.user_management.core.model.VerificationToken;
+import org.carly.core.usermanagement.model.User;
+import org.carly.core.usermanagement.model.VerificationToken;
 
 import java.time.LocalDateTime;
 

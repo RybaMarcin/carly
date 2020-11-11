@@ -1,12 +1,12 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.vehicle_management.core.model.Brand;
-import org.carly.vehicle_management.core.model.Equipment;
+import org.carly.core.partsmanagement.model.Equipment;
+import org.carly.core.vehiclemanagement.model.Brand;
 
 import java.math.BigDecimal;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 import static org.carly.support.Brands.aBrand3;
 import static org.carly.support.Brands.aBrand4;
 

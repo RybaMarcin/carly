@@ -1,19 +1,18 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.shared.security.model.CarlyGrantedAuthority;
-import org.carly.shared.security.model.UserRole;
-import org.carly.user_management.api.model.UserRest;
-import org.carly.user_management.core.model.Gender;
-import org.carly.user_management.core.model.User;
-import org.carly.vehicle_management.core.model.Car;
+import org.carly.core.security.model.CarlyGrantedAuthority;
+import org.carly.core.security.model.UserRole;
+import org.carly.core.usermanagement.model.UserRest;
+import org.carly.core.usermanagement.model.Gender;
+import org.carly.core.usermanagement.model.User;
+import org.carly.core.vehiclemanagement.model.Car;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 import static org.carly.support.AddressesModel.aAddress1;
 import static org.carly.support.Cars.aCar1;
 
@@ -33,7 +32,7 @@ public class Users {
 
     private static List<CarlyGrantedAuthority> roleList() {
         List<CarlyGrantedAuthority> roles = new ArrayList<>();
-        roles.add(CarlyGrantedAuthority.of(UserRole.CUSTOMER.name()));
+        roles.add(CarlyGrantedAuthority.of(UserRole.CARLY_CUSTOMER.name()));
         roles.add(CarlyGrantedAuthority.of(UserRole.CHANGE_PASSWORD_PRIVILEGE.name()));
         return roles;
     }
@@ -41,14 +40,13 @@ public class Users {
     public static User aUser1() {
         return anObject(User.class)
                 .with(u -> u.setId(USER_ID_1))
-                .with(u -> u.setRole(ROLES_1))
-                .with(u -> u.setCode(CODE_1))
-                .with(u -> u.setFirstName(FIRST_NAME_1))
-                .with(u -> u.setLastName(LAST_NAME_1))
+                .with(u -> u.setRoles(ROLES_1))
+//                .with(u -> u.getCustomer().setFirstName(FIRST_NAME_1))
+//                .with(u -> u.getCustomer().setLastName(LAST_NAME_1))
                 .with(u -> u.setPhoneNumber(PHONE_NUMBER_1))
                 .with(u -> u.setEmail(EMAIL_1))
-                .with(u -> u.setCars(CARS_1))
-                .with(u -> u.setGender(GENDER_1))
+//                .with(u -> u.getCustomer().setCars(CARS_1))
+//                .with(u -> u.getCustomer().setGender(GENDER_1))
                 .with(u -> u.setCreatedAt(CREATED_AT_1))
                 .with(u -> u.setEnabled(ENABLED_1))
                 .build();
@@ -68,14 +66,13 @@ public class Users {
     public static User aUserWithAddress1() {
         return anObject(User.class)
                 .with(u -> u.setId(USER_ID_1))
-                .with(u -> u.setRole(ROLES_1))
-                .with(u -> u.setCode(CODE_1))
-                .with(u -> u.setFirstName(FIRST_NAME_1))
-                .with(u -> u.setLastName(LAST_NAME_1))
+                .with(u -> u.setRoles(ROLES_1))
+//                .with(u -> u.getCustomer().setFirstName(FIRST_NAME_1))
+//                .with(u -> u.getCustomer().setLastName(LAST_NAME_1))
                 .with(u -> u.setPhoneNumber(PHONE_NUMBER_1))
                 .with(u -> u.setEmail(EMAIL_1))
-                .with(u -> u.setCars(CARS_1))
-                .with(u -> u.setGender(GENDER_1))
+//                .with(u -> u.getCustomer().setCars(CARS_1))
+//                .with(u -> u.getCustomer().setGender(GENDER_1))
                 .with(u -> u.setCreatedAt(CREATED_AT_1))
                 .with(u -> u.setAddress(aAddress1()))
                 .with(u -> u.setEnabled(ENABLED_1))

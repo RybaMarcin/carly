@@ -1,9 +1,9 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.vehicle_management.core.model.Body;
+import org.carly.core.partsmanagement.model.Body;
 
-import static org.carly.shared.utils.builder.Builder.anObject;
+import static org.carly.core.shared.utils.builder.Builder.anObject;
 
 public class Bodies {
 
