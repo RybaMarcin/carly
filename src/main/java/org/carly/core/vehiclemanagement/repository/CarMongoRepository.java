@@ -25,11 +25,8 @@ public class CarMongoRepository {
     }
 
     public Page<Car> findWithFilters(CarSearchCriteriaRequest searchCriteria, Pageable pageable) {
-
-
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Car.NAME, searchCriteria.getNameToSearch()));
-
 
         Query query = new Query();
         query.addCriteria(criteria);
@@ -39,5 +36,4 @@ public class CarMongoRepository {
 
         return new PageImpl<>(cars, pageable, count);
     }
-
 }

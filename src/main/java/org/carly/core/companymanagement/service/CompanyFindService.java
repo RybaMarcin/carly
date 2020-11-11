@@ -40,7 +40,7 @@ public class CompanyFindService {
                     .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
             log.info("Company with id: {} was found!", id);
             if (company.getRoles().contains(CarlyGrantedAuthority.of("CARLY_CUSTOMER"))) {
-                throw new CompanyException("Entity is not Company");
+                throw new CompanyException(company.getId() + " - entity is not Company");
             }
 
             CompanyResponse companyResponse = companyMapper.simplifyRestObject(company);
