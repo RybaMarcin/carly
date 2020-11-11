@@ -2,7 +2,7 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.EquipmentRest;
+import org.carly.api.rest.request.EquipmentRest;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentRepository;

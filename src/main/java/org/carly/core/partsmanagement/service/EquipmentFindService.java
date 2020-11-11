@@ -2,8 +2,8 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.EquipmentRest;
-import org.carly.api.rest.partsmanagement.criteria.EquipmentSearchCriteriaRest;
+import org.carly.api.rest.request.EquipmentRest;
+import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentMongoRepository;
@@ -53,7 +53,7 @@ public class EquipmentFindService implements PartFindService {
 //        return equipmentMapper.simplifyRestObject(equipment);
 //    }
 
-    public Page<EquipmentRest> findEquipment(EquipmentSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<EquipmentRest> findEquipment(EquipmentSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return equipmentMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(equipmentMapper::simplifyRestObject);
     }

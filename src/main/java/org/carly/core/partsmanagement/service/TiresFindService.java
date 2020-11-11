@@ -2,8 +2,8 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.TiresRest;
-import org.carly.api.rest.partsmanagement.criteria.TiresSearchCriteriaRest;
+import org.carly.api.rest.request.TiresRequest;
+import org.carly.api.rest.criteria.TiresSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.TiresMapper;
 import org.carly.core.partsmanagement.model.Tires;
 import org.carly.core.partsmanagement.repository.TiresMongoRepository;
@@ -39,14 +39,14 @@ public class TiresFindService implements PartFindService {
     }
 
     @Override
-    public Collection<TiresRest> findAll() {
+    public Collection<TiresRequest> findAll() {
         List<Tires> tiresList = tiresRepository.findAll();
         log.info("Tires list contains: {}", tiresList.size());
         return tiresList.stream().map(tiresMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     @Override
-    public TiresRest findPartById(ObjectId id) {
+    public TiresRequest findPartById(ObjectId id) {
         Tires tires = tiresRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Tires with id: {} was found!", id);
@@ -54,8 +54,8 @@ public class TiresFindService implements PartFindService {
 
     }
 
-    public Page<TiresRest> findTires(TiresSearchCriteriaRest searchCriteria,
-                                     Pageable pageable) {
+    public Page<TiresRequest> findTires(TiresSearchCriteriaRequest searchCriteria,
+                                        Pageable pageable) {
         return tiresMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(tiresMapper::simplifyRestObject);
     }

@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.BreaksSearchCriteriaRest;
+import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Breaks;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,7 +26,7 @@ public class BreaksMongoRepository {
     }
 
 
-    public Page<Breaks> findWithFilters(BreaksSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Breaks> findWithFilters(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Breaks.NAME, searchCriteria.getNameToSearch()));

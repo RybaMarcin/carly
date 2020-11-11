@@ -1,31 +1,29 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.partsmanagement.BrandRequest;
-import org.carly.api.rest.partsmanagement.EngineRest;
+import org.carly.api.rest.request.EngineRequest;
+import org.carly.api.rest.request.BrandRequest;
+import org.carly.core.partsmanagement.model.Engine;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Brand;
-import org.carly.core.partsmanagement.model.Engine;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EngineMapper implements MapperService<EngineRest, Engine> {
-
+public class EngineRequestMapper implements MapperService<EngineRequest, Engine> {
 
     @Override
-    public EngineRest simplifyRestObject(Engine domain) {
-        EngineRest rest = new EngineRest();
+    public EngineRequest simplifyRestObject(Engine domain) {
+        EngineRequest rest = new EngineRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Engine simplifyDomainObject(EngineRest rest) {
+    public Engine simplifyDomainObject(EngineRequest rest) {
         Engine domain = new Engine();
         return mapToDomainObject(domain, rest);
     }
 
-
     @Override
-    public EngineRest mapFromDomainObject(Engine domain, EngineRest rest) {
+    public EngineRequest mapFromDomainObject(Engine domain, EngineRequest rest) {
         rest.setId(domain.getId());
         rest.setName(domain.getName());
         rest.setPrice(domain.getPrice());
@@ -40,7 +38,7 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
     }
 
     @Override
-    public Engine mapToDomainObject(Engine domain, EngineRest rest) {
+    public Engine mapToDomainObject(Engine domain, EngineRequest rest) {
         domain.setId(rest.getId());
         domain.setName(rest.getName());
         domain.setPrice(rest.getPrice());
@@ -53,6 +51,4 @@ public class EngineMapper implements MapperService<EngineRest, Engine> {
         domain.setNumberOfCylinders(rest.getNumberOfCylinders());
         return domain;
     }
-
-
 }

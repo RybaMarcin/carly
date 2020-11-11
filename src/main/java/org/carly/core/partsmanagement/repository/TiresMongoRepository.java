@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.TiresSearchCriteriaRest;
+import org.carly.api.rest.criteria.TiresSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Tires;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,8 +25,8 @@ public class TiresMongoRepository {
     }
 
 
-    public Page<Tires> findWithFilters(TiresSearchCriteriaRest searchCriteria,
-                                           Pageable pageable) {
+    public Page<Tires> findWithFilters(TiresSearchCriteriaRequest searchCriteria,
+                                       Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Tires.NAME, searchCriteria.getNameToSearch()));

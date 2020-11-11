@@ -2,7 +2,7 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.TiresRest;
+import org.carly.api.rest.request.TiresRequest;
 import org.carly.core.partsmanagement.mapper.TiresMapper;
 import org.carly.core.partsmanagement.model.Tires;
 import org.carly.core.partsmanagement.repository.TiresRepository;
@@ -14,7 +14,7 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class TiresSaveService implements PartSaveService<TiresRest> {
+public class TiresSaveService implements PartSaveService<TiresRequest> {
 
     private final TiresMapper tiresMapper;
     private final TiresRepository tiresRepository;
@@ -26,7 +26,7 @@ public class TiresSaveService implements PartSaveService<TiresRest> {
     }
 
     @Override
-    public TiresRest createPart(TiresRest part) {
+    public TiresRequest createPart(TiresRequest part) {
         Tires tires = tiresMapper.simplifyDomainObject(part);
         tiresRepository.save(tires);
         log.info("Tires with id: {} successfully created!", part.getId());
@@ -34,7 +34,7 @@ public class TiresSaveService implements PartSaveService<TiresRest> {
     }
 
     @Override
-    public TiresRest updatePart(TiresRest part) {
+    public TiresRequest updatePart(TiresRequest part) {
         Tires tiresToUpdate = tiresRepository.findById(part.getId())
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         Tires updatedTires = tiresMapper.mapToDomainObject(tiresToUpdate, part);

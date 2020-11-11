@@ -3,7 +3,7 @@ package org.carly.api.endpoint;
 import io.swagger.annotations.ApiOperation;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.response.CompanyResponse;
-import org.carly.api.rest.request.CompanySearchCriteriaRequest;
+import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.service.CompanyFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

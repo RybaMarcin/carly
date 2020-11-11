@@ -2,7 +2,7 @@ package org.carly.api.rest.response;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.*;
+import org.carly.api.rest.request.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,18 +15,18 @@ public class CarResponse {
     private String code;
     private String vinNumber;
     private BrandResponse brand;
-    private ModelRest model;
+    private ModelRequest model;
     private double maxSpeed;
     private double accelerate;
     private BigDecimal price;
     private LocalDate yearOfProduction;
     private String transmission;
-    private TiresRest tires;
-    private WheelsRest wheels;
-    private WindowsRest windows;
+    private TiresRequest tires;
+    private WheelsRequest wheels;
+    private WindowsRequest windows;
     private BodyResponse body;
     private double weight;
     private int numberOfDoors;
-    private PaintingRest bodyPainting;
+    private PaintingRequest bodyPainting;
     private List<EquipmentRest> equipment;
 }

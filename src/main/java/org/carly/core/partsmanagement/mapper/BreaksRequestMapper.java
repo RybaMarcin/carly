@@ -1,30 +1,27 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.partsmanagement.BreaksRest;
-import org.carly.core.shared.utils.MapperService;
+import org.carly.api.rest.request.BreaksRequest;
 import org.carly.core.partsmanagement.model.Breaks;
+import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BreaksMapper implements MapperService<BreaksRest, Breaks> {
-
-
-    //todo: Add missing fields to mapper when models will be ready.
+public class BreaksRequestMapper implements MapperService<BreaksRequest, Breaks> {
 
     @Override
-    public BreaksRest simplifyRestObject(Breaks domain) {
-        BreaksRest rest = new BreaksRest();
+    public BreaksRequest simplifyRestObject(Breaks domain) {
+        BreaksRequest rest = new BreaksRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Breaks simplifyDomainObject(BreaksRest rest) {
+    public Breaks simplifyDomainObject(BreaksRequest rest) {
         Breaks domain = new Breaks();
         return mapToDomainObject(domain, rest);
     }
 
     @Override
-    public BreaksRest mapFromDomainObject(Breaks domain, BreaksRest rest) {
+    public BreaksRequest mapFromDomainObject(Breaks domain, BreaksRequest rest) {
         rest.setId(domain.getId());
 //        rest.setBreaksType(domain.getBreaksType());
         rest.setName(domain.getName());
@@ -34,7 +31,7 @@ public class BreaksMapper implements MapperService<BreaksRest, Breaks> {
     }
 
     @Override
-    public Breaks mapToDomainObject(Breaks domain, BreaksRest rest) {
+    public Breaks mapToDomainObject(Breaks domain, BreaksRequest rest) {
         domain.setId(rest.getId());
 //        domain.setBreaksType(rest.getBreaksType());
         domain.setName(rest.getName());
@@ -42,5 +39,4 @@ public class BreaksMapper implements MapperService<BreaksRest, Breaks> {
         domain.setPrice(rest.getPrice());
         return domain;
     }
-
 }

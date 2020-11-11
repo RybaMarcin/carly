@@ -1,22 +1,22 @@
-package org.carly.api.rest.partsmanagement;
+package org.carly.api.rest.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.BrandRequest;
-import org.carly.core.partsmanagement.model.BreaksType;
 
 import java.math.BigDecimal;
 
-@Data
-public class BreaksRest {
+@Getter
+@Setter
+public class WheelsResponse {
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
     private String name;
-    private BrandRequest brand;
-    private String preview;
-    private BreaksType breaksType;
+    private BigDecimal diameter;
+    private BigDecimal weight;
     private BigDecimal price;
+    private String preview;
 }

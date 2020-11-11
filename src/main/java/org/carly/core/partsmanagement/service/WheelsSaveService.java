@@ -2,50 +2,52 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.WheelsRest;
-import org.carly.core.partsmanagement.mapper.WheelsMapper;
+import org.carly.api.rest.request.WheelsRequest;
+import org.carly.api.rest.response.WheelsResponse;
+import org.carly.core.partsmanagement.mapper.WheelsRequestMapper;
+import org.carly.core.partsmanagement.mapper.WheelsResponseMapper;
+import org.carly.core.partsmanagement.model.Wheels;
 import org.carly.core.partsmanagement.repository.WheelsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
-import org.carly.core.shared.service.part_services.PartSaveService;
-import org.carly.core.partsmanagement.model.Wheels;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class WheelsSaveService implements PartSaveService<WheelsRest> {
+public class WheelsSaveService {
 
-    private final WheelsMapper wheelsMapper;
+    private final WheelsRequestMapper wheelsRequestMapper;
+    private final WheelsResponseMapper wheelsResponseMapper;
     private final WheelsRepository wheelsRepository;
 
-
-    public WheelsSaveService(WheelsMapper wheelsMapper,
+    public WheelsSaveService(WheelsRequestMapper wheelsRequestMapper,
+                             WheelsResponseMapper wheelsResponseMapper,
                              WheelsRepository wheelsRepository) {
-        this.wheelsMapper = wheelsMapper;
+        this.wheelsRequestMapper = wheelsRequestMapper;
+        this.wheelsResponseMapper = wheelsResponseMapper;
         this.wheelsRepository = wheelsRepository;
     }
 
-
-    @Override
-    public WheelsRest createPart(WheelsRest part) {
-        Wheels wheels = wheelsMapper.simplifyDomainObject(part);
+    public ResponseEntity<WheelsResponse> createPart(WheelsRequest part) {
+        Wheels wheels = wheelsRequestMapper.simplifyDomainObject(part);
         wheelsRepository.save(wheels);
         log.info("Wheels with id: {} successfully created!", part.getId());
-        return part;
+        WheelsResponse response = wheelsResponseMapper.simplifyRestObject(wheels);
+        return ResponseEntity.ok(response);
     }
 
-    @Override
-    public WheelsRest updatePart(WheelsRest part) {
+    public ResponseEntity<WheelsResponse> updatePart(WheelsRequest part) {
         Wheels wheelsToUpdate = wheelsRepository.findById(part.getId())
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        Wheels updatedWheels = wheelsMapper.mapToDomainObject(wheelsToUpdate, part);
+        Wheels updatedWheels = wheelsRequestMapper.mapToDomainObject(wheelsToUpdate, part);
         wheelsRepository.save(updatedWheels);
         log.info("Wheels with id: {} successfully updated!", part.getId());
-        return part;
+        WheelsResponse response = wheelsResponseMapper.simplifyRestObject(wheelsToUpdate);
+        return ResponseEntity.ok(response);
     }
 
-    @Override
     public void deletePart(ObjectId id) {
         Wheels wheels = wheelsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));

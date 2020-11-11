@@ -1,6 +1,6 @@
 package org.carly.core.vehiclemanagement.repository;
 
-import org.carly.api.rest.request.CarSearchCriteriaRequest;
+import org.carly.api.rest.criteria.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

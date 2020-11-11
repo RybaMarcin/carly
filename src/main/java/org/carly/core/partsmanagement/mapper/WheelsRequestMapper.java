@@ -1,27 +1,27 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.core.shared.utils.MapperService;
-import org.carly.api.rest.partsmanagement.WheelsRest;
+import org.carly.api.rest.request.WheelsRequest;
 import org.carly.core.partsmanagement.model.Wheels;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
+public class WheelsRequestMapper implements MapperService<WheelsRequest, Wheels> {
 
     @Override
-    public WheelsRest simplifyRestObject(Wheels domain) {
-        WheelsRest rest = new WheelsRest();
+    public WheelsRequest simplifyRestObject(Wheels domain) {
+        WheelsRequest rest = new WheelsRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Wheels simplifyDomainObject(WheelsRest rest) {
+    public Wheels simplifyDomainObject(WheelsRequest rest) {
         Wheels domain = new Wheels();
         return mapToDomainObject(domain, rest);
     }
 
     @Override
-    public WheelsRest mapFromDomainObject(Wheels domain, WheelsRest rest) {
+    public WheelsRequest mapFromDomainObject(Wheels domain, WheelsRequest rest) {
         rest.setId(domain.getId());
         rest.setName(domain.getName());
 //        rest.setBrand(new BrandRest());
@@ -34,7 +34,7 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
     }
 
     @Override
-    public Wheels mapToDomainObject(Wheels domain, WheelsRest rest) {
+    public Wheels mapToDomainObject(Wheels domain, WheelsRequest rest) {
         domain.setId(rest.getId());
         domain.setName(rest.getName());
 //        domain.setBrand(new Brand());
@@ -45,6 +45,4 @@ public class WheelsMapper implements MapperService<WheelsRest, Wheels> {
         domain.setPreview(rest.getPreview());
         return domain;
     }
-
-
 }

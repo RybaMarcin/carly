@@ -1,8 +1,8 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.TiresRest;
-import org.carly.api.rest.partsmanagement.criteria.TiresSearchCriteriaRest;
+import org.carly.api.rest.request.TiresRequest;
+import org.carly.api.rest.criteria.TiresSearchCriteriaRequest;
 import org.carly.core.partsmanagement.service.TiresFindService;
 import org.carly.core.partsmanagement.service.TiresSaveService;
 import org.springframework.data.domain.Page;
@@ -27,32 +27,32 @@ public class TiresController {
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Page<TiresRest> findTires(TiresSearchCriteriaRest searchCriteria,
-                                     Pageable pageable) {
+    public Page<TiresRequest> findTires(TiresSearchCriteriaRequest searchCriteria,
+                                        Pageable pageable) {
         return tiresFindService.findTires(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public TiresRest findTiresById(@PathVariable("id") String id) {
+    public TiresRequest findTiresById(@PathVariable("id") String id) {
         return tiresFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Collection<TiresRest> findAllTires() {
+    public Collection<TiresRequest> findAllTires() {
         return tiresFindService.findAll();
     }
 
     @PostMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public TiresRest createTires(@RequestBody TiresRest tires) {
+    public TiresRequest createTires(@RequestBody TiresRequest tires) {
         return tiresSaveService.createPart(tires);
     }
 
     @PutMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public TiresRest updateTires(@RequestBody TiresRest tires) {
+    public TiresRequest updateTires(@RequestBody TiresRequest tires) {
         return tiresSaveService.updatePart(tires);
     }
 

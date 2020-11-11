@@ -1,9 +1,8 @@
 package org.carly.core.companymanagement.repository;
 
-import org.carly.api.rest.request.CompanySearchCriteriaRequest;
+import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyFilter;
-import org.carly.core.usermanagement.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

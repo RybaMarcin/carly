@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.EngineSearchCriteriaRest;
+import org.carly.api.rest.criteria.EngineSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Engine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,7 +26,7 @@ public class EngineMongoRepository {
     }
 
 
-    public Page<Engine> findWithFilters(EngineSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Engine> findWithFilters(EngineSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Engine.NAME, searchCriteria.getNameToSearch()));

@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.WheelsSearchCriteriaRest;
+import org.carly.api.rest.criteria.WheelsSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Wheels;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,7 +29,7 @@ public class WheelsMongoRepository {
     }
 
 
-    public Page<Wheels> findWithFilters(WheelsSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Wheels> findWithFilters(WheelsSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,

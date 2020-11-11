@@ -2,8 +2,8 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.PaintingRest;
-import org.carly.api.rest.partsmanagement.criteria.PaintingSearchCriteriaRest;
+import org.carly.api.rest.request.PaintingRequest;
+import org.carly.api.rest.criteria.PaintingSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.PaintingMapper;
 import org.carly.core.partsmanagement.model.Painting;
 import org.carly.core.partsmanagement.repository.PaintingMongoRepository;
@@ -38,21 +38,21 @@ public class PaintingFindService implements PartFindService {
     }
 
     @Override
-    public Collection<PaintingRest> findAll() {
+    public Collection<PaintingRequest> findAll() {
         List<Painting> paintingList = paintingRepository.findAll();
         log.info("Painting list contains: {}", paintingList.size());
         return paintingList.stream().map(paintingMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     @Override
-    public PaintingRest findPartById(ObjectId id) {
+    public PaintingRequest findPartById(ObjectId id) {
         Painting painting = paintingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Painting with id: {} was found!", id);
         return paintingMapper.simplifyRestObject(painting);
     }
 
-    public Page<PaintingRest> findPaintings(PaintingSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<PaintingRequest> findPaintings(PaintingSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return paintingMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(paintingMapper::simplifyRestObject);
     }

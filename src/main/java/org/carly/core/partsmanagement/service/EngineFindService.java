@@ -2,16 +2,16 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.EngineRest;
-import org.carly.api.rest.partsmanagement.criteria.EngineSearchCriteriaRest;
-import org.carly.core.partsmanagement.mapper.EngineMapper;
+import org.carly.api.rest.criteria.EngineSearchCriteriaRequest;
+import org.carly.api.rest.response.EngineResponse;
+import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
+import org.carly.core.partsmanagement.model.Engine;
 import org.carly.core.partsmanagement.repository.EngineMongoRepository;
 import org.carly.core.partsmanagement.repository.EngineRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
-import org.carly.core.shared.service.part_services.PartFindService;
-import org.carly.core.partsmanagement.model.Engine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -22,41 +22,35 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class EngineFindService implements PartFindService {
+public class EngineFindService  {
 
-
-    private final EngineMapper engineMapper;
+    private final EngineResponseMapper engineResponseMapper;
     private final EngineRepository engineRepository;
     private final EngineMongoRepository engineMongoRepository;
 
-
-    public EngineFindService(EngineMapper engineMapper,
+    public EngineFindService(EngineResponseMapper engineResponseMapper,
                              EngineRepository engineRepository,
                              EngineMongoRepository engineMongoRepository) {
-        this.engineMapper = engineMapper;
+        this.engineResponseMapper = engineResponseMapper;
         this.engineRepository = engineRepository;
         this.engineMongoRepository = engineMongoRepository;
     }
 
-    @Override
-    public Collection<EngineRest> findAll() {
+    public Collection<EngineResponse> findAll() {
         List<Engine> engineList = engineRepository.findAll();
         log.info("Engine list contains: {}", engineList.size());
-        return engineList.stream().map(engineMapper::simplifyRestObject).collect(Collectors.toList());
+      return    engineList.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
-    @Override
-    public EngineRest findPartById(ObjectId id) {
+    public ResponseEntity<EngineResponse> findPartById(ObjectId id) {
         Engine engine = engineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Engine with id: {} was found!", id);
-        return engineMapper.simplifyRestObject(engine);
+        return ResponseEntity.ok(engineResponseMapper.simplifyRestObject(engine));
     }
 
-
-    public Page<EngineRest> findEngines(EngineSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<EngineResponse> findEngines(EngineSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return engineMongoRepository.findWithFilters(searchCriteria, pageable)
-                .map(engineMapper::simplifyRestObject);
+                .map(engineResponseMapper::simplifyRestObject);
     }
-
 }

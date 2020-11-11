@@ -1,7 +1,7 @@
 package org.carly.api.endpoint;
 
-import org.carly.api.rest.partsmanagement.EquipmentRest;
-import org.carly.api.rest.partsmanagement.criteria.EquipmentSearchCriteriaRest;
+import org.carly.api.rest.request.EquipmentRest;
+import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
 import org.carly.core.partsmanagement.service.EquipmentFindService;
 import org.carly.core.partsmanagement.service.EquipmentSaveService;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ public class EquipmentController {
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Page<EquipmentRest> findEquipment(EquipmentSearchCriteriaRest searchCriteria,
+    public Page<EquipmentRest> findEquipment(EquipmentSearchCriteriaRequest searchCriteria,
                                              Pageable pageable) {
         return equipmentFindService.findEquipment(searchCriteria, pageable);
     }

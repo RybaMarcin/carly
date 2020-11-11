@@ -1,8 +1,8 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.PaintingRest;
-import org.carly.api.rest.partsmanagement.criteria.PaintingSearchCriteriaRest;
+import org.carly.api.rest.request.PaintingRequest;
+import org.carly.api.rest.criteria.PaintingSearchCriteriaRequest;
 import org.carly.core.partsmanagement.service.PaintingFindService;
 import org.carly.core.partsmanagement.service.PaintingSaveService;
 import org.springframework.data.domain.Page;
@@ -27,32 +27,32 @@ public class PaintingController {
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    private Page<PaintingRest> findPaintings(PaintingSearchCriteriaRest searchCriteria,
-                                             Pageable pageable) {
+    private Page<PaintingRequest> findPaintings(PaintingSearchCriteriaRequest searchCriteria,
+                                                Pageable pageable) {
         return paintingFindService.findPaintings(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public PaintingRest findPaintingById(@PathVariable("id") String id) {
+    public PaintingRequest findPaintingById(@PathVariable("id") String id) {
         return paintingFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public Collection<PaintingRest> findAllPaintings() {
+    public Collection<PaintingRequest> findAllPaintings() {
         return paintingFindService.findAll();
     }
 
     @PostMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public PaintingRest createPainting(@RequestBody PaintingRest painting) {
+    public PaintingRequest createPainting(@RequestBody PaintingRequest painting) {
         return paintingSaveService.createPart(painting);
     }
 
     @PutMapping()
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
-    public PaintingRest updatePainting(@RequestBody PaintingRest painting) {
+    public PaintingRequest updatePainting(@RequestBody PaintingRequest painting) {
         return paintingSaveService.updatePart(painting);
     }
 }

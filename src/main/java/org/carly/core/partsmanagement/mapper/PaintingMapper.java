@@ -1,32 +1,32 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.partsmanagement.PaintingRest;
+import org.carly.api.rest.request.PaintingRequest;
 import org.carly.core.partsmanagement.model.Painting;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PaintingMapper implements MapperService<PaintingRest, Painting> {
+public class PaintingMapper implements MapperService<PaintingRequest, Painting> {
 
     @Override
-    public PaintingRest simplifyRestObject(Painting domain) {
-        PaintingRest rest = new PaintingRest();
+    public PaintingRequest simplifyRestObject(Painting domain) {
+        PaintingRequest rest = new PaintingRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Painting simplifyDomainObject(PaintingRest rest) {
+    public Painting simplifyDomainObject(PaintingRequest rest) {
         Painting domain = new Painting();
         return mapToDomainObject(domain, rest);
     }
 
     @Override
-    public PaintingRest mapFromDomainObject(Painting domain, PaintingRest rest) {
+    public PaintingRequest mapFromDomainObject(Painting domain, PaintingRequest rest) {
         return null;
     }
 
     @Override
-    public Painting mapToDomainObject(Painting domain, PaintingRest rest) {
+    public Painting mapToDomainObject(Painting domain, PaintingRequest rest) {
         return null;
     }
 

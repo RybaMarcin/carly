@@ -1,27 +1,27 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.partsmanagement.TiresRest;
+import org.carly.api.rest.request.TiresRequest;
 import org.carly.core.partsmanagement.model.Tires;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TiresMapper implements MapperService<TiresRest, Tires> {
+public class TiresMapper implements MapperService<TiresRequest, Tires> {
 
     @Override
-    public TiresRest simplifyRestObject(Tires domain) {
-        TiresRest rest = new TiresRest();
+    public TiresRequest simplifyRestObject(Tires domain) {
+        TiresRequest rest = new TiresRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Tires simplifyDomainObject(TiresRest rest) {
+    public Tires simplifyDomainObject(TiresRequest rest) {
         Tires domain = new Tires();
         return mapToDomainObject(domain, rest);
     }
 
     @Override
-    public TiresRest mapFromDomainObject(Tires domain, TiresRest rest) {
+    public TiresRequest mapFromDomainObject(Tires domain, TiresRequest rest) {
         rest.setId(domain.getId());
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
@@ -30,7 +30,7 @@ public class TiresMapper implements MapperService<TiresRest, Tires> {
     }
 
     @Override
-    public Tires mapToDomainObject(Tires domain, TiresRest rest) {
+    public Tires mapToDomainObject(Tires domain, TiresRequest rest) {
         domain.setId(rest.getId());
         domain.setName(rest.getName());
         domain.setPreview(rest.getPreview());

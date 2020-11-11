@@ -2,7 +2,7 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.PaintingRest;
+import org.carly.api.rest.request.PaintingRequest;
 import org.carly.core.partsmanagement.mapper.PaintingMapper;
 import org.carly.core.partsmanagement.model.Painting;
 import org.carly.core.partsmanagement.repository.PaintingRepository;
@@ -14,7 +14,7 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class PaintingSaveService implements PartSaveService<PaintingRest> {
+public class PaintingSaveService implements PartSaveService<PaintingRequest> {
 
     private final PaintingMapper paintingMapper;
     private final PaintingRepository paintingRepository;
@@ -27,7 +27,7 @@ public class PaintingSaveService implements PartSaveService<PaintingRest> {
     }
 
     @Override
-    public PaintingRest createPart(PaintingRest part) {
+    public PaintingRequest createPart(PaintingRequest part) {
         Painting painting = paintingMapper.simplifyDomainObject(part);
         paintingRepository.save(painting);
         log.info("Painting with id: {} successfully created!", part.getId());
@@ -35,7 +35,7 @@ public class PaintingSaveService implements PartSaveService<PaintingRest> {
     }
 
     @Override
-    public PaintingRest updatePart(PaintingRest part) {
+    public PaintingRequest updatePart(PaintingRequest part) {
         Painting paintingToUpdate = paintingRepository.findById(part.getId())
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         Painting updatedPainting = paintingMapper.mapToDomainObject(paintingToUpdate, part);

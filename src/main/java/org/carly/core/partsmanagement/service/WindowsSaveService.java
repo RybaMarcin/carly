@@ -2,49 +2,50 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.WindowsRest;
-import org.carly.core.partsmanagement.mapper.WindowsMapper;
+import org.carly.api.rest.request.WindowsRequest;
+import org.carly.api.rest.response.WindowsResponse;
+import org.carly.core.partsmanagement.mapper.WindowsRequestMapper;
+import org.carly.core.partsmanagement.mapper.WindowsResponseMapper;
 import org.carly.core.partsmanagement.model.Windows;
 import org.carly.core.partsmanagement.repository.WindowsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
-import org.carly.core.shared.service.part_services.PartSaveService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class WindowsSaveService implements PartSaveService<WindowsRest> {
+public class WindowsSaveService {
 
-    private final WindowsMapper windowsMapper;
+    private final WindowsRequestMapper windowsRequestMapper;
+    private final WindowsResponseMapper windowsResponseMapper;
     private final WindowsRepository windowsRepository;
 
-    public WindowsSaveService(WindowsMapper windowsMapper,
+    public WindowsSaveService(WindowsRequestMapper windowsRequestMapper,
+                              WindowsResponseMapper windowsResponseMapper,
                               WindowsRepository windowsRepository) {
-        this.windowsMapper = windowsMapper;
+        this.windowsRequestMapper = windowsRequestMapper;
+        this.windowsResponseMapper = windowsResponseMapper;
         this.windowsRepository = windowsRepository;
     }
 
-
-    @Override
-    public WindowsRest createPart(WindowsRest part) {
-        Windows windows = windowsMapper.simplifyDomainObject(part);
+    public ResponseEntity<WindowsResponse> createPart(WindowsRequest part) {
+        Windows windows = windowsRequestMapper.simplifyDomainObject(part);
         windowsRepository.save(windows);
         log.info("Windows with id: {} successfully created!", part.getId());
-        return part;
+        return ResponseEntity.ok(windowsResponseMapper.simplifyRestObject(windows));
     }
 
-    @Override
-    public WindowsRest updatePart(WindowsRest part) {
+    public ResponseEntity<WindowsResponse> updatePart(WindowsRequest part) {
         Windows windowsToUpdate = windowsRepository.findById(part.getId())
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        Windows updatedWindows = windowsMapper.mapToDomainObject(windowsToUpdate, part);
+        Windows updatedWindows = windowsRequestMapper.mapToDomainObject(windowsToUpdate, part);
         windowsRepository.save(updatedWindows);
         log.info("Windows with id: {} successfully updated!", part.getId());
-        return part;
+        return ResponseEntity.ok(windowsResponseMapper.simplifyRestObject(windowsToUpdate));
     }
 
-    @Override
     public void deletePart(ObjectId id) {
         Windows windows = windowsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));

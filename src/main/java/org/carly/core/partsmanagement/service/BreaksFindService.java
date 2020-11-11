@@ -2,9 +2,9 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.partsmanagement.BreaksRest;
-import org.carly.api.rest.partsmanagement.criteria.BreaksSearchCriteriaRest;
-import org.carly.core.partsmanagement.mapper.BreaksMapper;
+import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
+import org.carly.api.rest.response.BreaksResponse;
+import org.carly.core.partsmanagement.mapper.BreaksResponseMapper;
 import org.carly.core.partsmanagement.repository.BreaksMongoRepository;
 import org.carly.core.partsmanagement.repository.BreaksRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
@@ -25,39 +25,39 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 public class BreaksFindService implements PartFindService {
 
 
-    private final BreaksMapper breaksMapper;
+    private final BreaksResponseMapper breaksResponseMapper;
     private final BreaksRepository breaksrepository;
     private final BreaksMongoRepository breaksMongoRepository;
 
 
-    public BreaksFindService(BreaksMapper breaksMapper,
+    public BreaksFindService(BreaksResponseMapper breaksResponseMapper,
                              BreaksRepository breaksRepository,
                              BreaksMongoRepository breaksMongoRepository) {
-        this.breaksMapper = breaksMapper;
+        this.breaksResponseMapper = breaksResponseMapper;
         this.breaksrepository = breaksRepository;
         this.breaksMongoRepository = breaksMongoRepository;
     }
 
 
     @Override
-    public Collection<BreaksRest> findAll() {
+    public Collection<BreaksResponse> findAll() {
         List<Breaks> breaksList = breaksrepository.findAll();
         log.info("Breaks list contains: {}", breaksList.size());
-        return breaksList.stream().map(breaksMapper::simplifyRestObject).collect(Collectors.toList());
+        return breaksList.stream().map(breaksResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     @Override
-    public BreaksRest findPartById(ObjectId id) {
+    public BreaksResponse findPartById(ObjectId id) {
         Breaks breaks = breaksrepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Breaks with id: {} was found!", id);
-        return breaksMapper.simplifyRestObject(breaks);
+        return breaksResponseMapper.simplifyRestObject(breaks);
     }
 
 
-    public Page<BreaksRest> findBreaks(BreaksSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<BreaksResponse> findBreaks(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return breaksMongoRepository.findWithFilters(searchCriteria, pageable)
-                .map(breaksMapper::simplifyRestObject);
+                .map(breaksResponseMapper::simplifyRestObject);
     }
 
 }

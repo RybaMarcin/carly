@@ -1,8 +1,9 @@
-package org.carly.api.rest.partsmanagement;
+package org.carly.api.rest.request;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.carly.api.rest.request.BrandRequest;
 
 import java.math.BigDecimal;
 

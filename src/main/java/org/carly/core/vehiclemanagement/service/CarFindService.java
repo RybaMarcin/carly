@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.vehicle_services.VehicleFindService;
 import org.carly.api.rest.response.CarResponse;
-import org.carly.api.rest.request.CarSearchCriteriaRequest;
+import org.carly.api.rest.criteria.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.mapper.CarMapper;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;

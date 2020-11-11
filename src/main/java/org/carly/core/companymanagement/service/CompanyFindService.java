@@ -2,7 +2,7 @@ package org.carly.core.companymanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.request.CompanySearchCriteriaRequest;
+import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
 import org.carly.api.rest.response.CompanyErrorResponse;
 import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.mapper.CompanyMapper;

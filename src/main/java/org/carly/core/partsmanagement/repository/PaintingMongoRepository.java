@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.PaintingSearchCriteriaRest;
+import org.carly.api.rest.criteria.PaintingSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Painting;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,7 +25,7 @@ public class PaintingMongoRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Painting> findWithFilters(PaintingSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Painting> findWithFilters(PaintingSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
         Criteria criteria =  criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Painting.NAME, searchCriteria.getNameToSearch()));

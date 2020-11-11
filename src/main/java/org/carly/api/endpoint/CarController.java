@@ -3,7 +3,7 @@ package org.carly.api.endpoint;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.CarChangeRequestRest;
 import org.carly.api.rest.response.CarResponse;
-import org.carly.api.rest.request.CarSearchCriteriaRequest;
+import org.carly.api.rest.criteria.CarSearchCriteriaRequest;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.service.CarFindService;
 import org.carly.core.vehiclemanagement.service.CarSaveService;

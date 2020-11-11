@@ -1,6 +1,6 @@
 package org.carly.core.partsmanagement.repository;
 
-import org.carly.api.rest.partsmanagement.criteria.WindowsSearchCriteriaRest;
+import org.carly.api.rest.criteria.WindowsSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.Windows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,7 +24,7 @@ public class WindowsMongoRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Windows> findWithFilters(WindowsSearchCriteriaRest searchCriteria, Pageable pageable) {
+    public Page<Windows> findWithFilters(WindowsSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(Windows.NAME, searchCriteria.getNameToSearch()));

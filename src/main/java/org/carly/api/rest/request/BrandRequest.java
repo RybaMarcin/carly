@@ -1,4 +1,4 @@
-package org.carly.api.rest.partsmanagement;
+package org.carly.api.rest.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

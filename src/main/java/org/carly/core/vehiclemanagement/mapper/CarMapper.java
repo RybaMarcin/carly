@@ -1,9 +1,9 @@
 package org.carly.core.vehiclemanagement.mapper;
 
+import org.carly.api.rest.request.*;
 import org.carly.api.rest.response.BodyResponse;
 import org.carly.api.rest.response.BrandResponse;
 import org.carly.api.rest.response.CarResponse;
-import org.carly.api.rest.partsmanagement.*;
 import org.carly.core.partsmanagement.model.*;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Brand;
@@ -38,7 +38,7 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         carResponse.getBrand().setName(domain.getBrand().getName());
         carResponse.getBrand().setRating(domain.getBrand().getRating());
 
-        carResponse.setModel(new ModelRest());
+        carResponse.setModel(new ModelRequest());
         carResponse.getModel().setId(domain.getModel().getId());
         carResponse.getModel().setName(domain.getModel().getName());
 
@@ -46,10 +46,10 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         carResponse.setPrice(domain.getPrice());
         carResponse.setYearOfProduction(domain.getYearOfProduction());
         carResponse.setTransmission(domain.getTransmission().getType());
-        carResponse.setTires(new TiresRest());
+        carResponse.setTires(new TiresRequest());
         carResponse.getTires().setId(domain.getTires().getId());
 
-        carResponse.setWheels(new WheelsRest());
+        carResponse.setWheels(new WheelsRequest());
         carResponse.getWheels().setId(domain.getWheels().getId());
 
 //        carRest.getWheels().setBrand(new BrandRest());
@@ -64,7 +64,7 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         carResponse.setWeight(domain.getWeight());
         carResponse.setNumberOfDoors(domain.getNumberOfDoors());
 
-        carResponse.setBodyPainting(new PaintingRest());
+        carResponse.setBodyPainting(new PaintingRequest());
         carResponse.getBodyPainting().setId(domain.getBodyPainting().getId());
         carResponse.getBodyPainting().setName(domain.getBodyPainting().getName());
         carResponse.getBodyPainting().setType(domain.getBodyPainting().getType().getType());
