@@ -34,7 +34,7 @@ public class CompanyFindService {
     }
 
     public CompanyResponse findCompanyById(ObjectId id) {
-        Company company = companyRepository.findById(id)
+        User company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Company with id: {} was found!", id);
         return companyMapper.simplifyRestObject(company);

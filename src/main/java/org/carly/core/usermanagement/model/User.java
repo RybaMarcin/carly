@@ -9,6 +9,7 @@ import org.carly.core.customermanagement.model.Customer;
 import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.shared.model.Address;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,8 +19,12 @@ import java.util.List;
 @Document(collection = "users")
 @NoArgsConstructor
 public class User {
+
+    public static final String COMPANY_FIELD_NAME = "company";
+
     private ObjectId id;
     private List<CarlyGrantedAuthority> roles;
+    @Field(COMPANY_FIELD_NAME)
     private Company company;
     private Customer customer;
     private String phoneNumber;

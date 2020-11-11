@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyRepository extends MongoRepository<Company, ObjectId> {
+public interface CompanyRepository extends MongoRepository<User, ObjectId> {
     Boolean existsByEmail(String email);
 }

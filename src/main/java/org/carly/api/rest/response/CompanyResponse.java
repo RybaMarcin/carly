@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyResponse {
-    private ObjectId id;
+    private String id;
     private String companyName;
     private String email;
     private String phone;

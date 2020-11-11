@@ -2,18 +2,17 @@ package org.carly.api.rest.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
 public class CompanySearchCriteriaRequest {
 
-    private List<String> nameToSearch;
+    private List<String> namesToSearch;
 
-    public static CompanySearchCriteriaRequest ofNull() {
-        return new CompanySearchCriteriaRequest();
+    public CompanySearchCriteriaRequest(List<String> namesToSearch) {
+        this.namesToSearch = namesToSearch;
     }
 }

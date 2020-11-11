@@ -2,6 +2,7 @@ package org.carly.core.companymanagement.repository;
 
 import org.carly.api.rest.request.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.model.Company;
+import org.carly.core.companymanagement.model.CompanyFilter;
 import org.carly.core.usermanagement.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,7 +30,7 @@ public class CompanyMongoRepository {
 
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
-                regexCriteria(Company.NAME, searchCriteria.getNameToSearch()));
+                regexCriteria(CompanyFilter.COMPANY_NAME.getFilter(), searchCriteria.getNamesToSearch()));
 
 
         Query query = new Query();

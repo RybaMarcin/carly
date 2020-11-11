@@ -1,5 +1,6 @@
 package org.carly.core.companymanagement.mapper;
 
+import org.bson.types.ObjectId;
 import org.carly.api.rest.response.AddressResponse;
 import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.model.Company;
@@ -13,21 +14,27 @@ public class CompanyMapper implements MapperService<CompanyResponse, User> {
 
     @Override
     public CompanyResponse mapFromDomainObject(User domain, CompanyResponse rest) {
-
+        if (domain.getId() != null) {
+            rest.setId(domain.getId().toHexString());
+        }
         rest.setCompanyName(domain.getCompany().getName());
         rest.setEmail(domain.getEmail());
         rest.setPhone(domain.getPhoneNumber());
-        AddressResponse addressResponse = new AddressResponse(
-                domain.getAddress().getStreet(), domain.getAddress().getNumber(), domain.getAddress().getFlat(),
-                domain.getAddress().getTown(), domain.getAddress().getTown(), domain.getAddress().getZipCode()
-        );
-
-        rest.setAddress(addressResponse);
+        if (domain.getAddress() != null) {
+            AddressResponse addressResponse = new AddressResponse(
+                    domain.getAddress().getStreet(), domain.getAddress().getNumber(), domain.getAddress().getFlat(),
+                    domain.getAddress().getTown(), domain.getAddress().getTown(), domain.getAddress().getZipCode()
+            );
+            rest.setAddress(addressResponse);
+        }
         return rest;
     }
 
     @Override
     public User mapToDomainObject(User domain, CompanyResponse rest) {
+        if (rest.getId() != null) {
+            domain.setId(new ObjectId(rest.getId()));
+        }
         domain.getCompany().setName(rest.getCompanyName());
         domain.setEmail(rest.getEmail());
         domain.setPhoneNumber(rest.getPhone());
