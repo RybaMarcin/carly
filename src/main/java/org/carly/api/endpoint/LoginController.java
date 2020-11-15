@@ -57,7 +57,7 @@ public class LoginController {
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String bearerToken) {
-        blackListService.addTokenToMap(bearerToken);
+        blackListService.addTokenToBlackListMap(bearerToken);
         return ResponseEntity.ok(new MessageResponse("Logout successfully!"));
     }
 }

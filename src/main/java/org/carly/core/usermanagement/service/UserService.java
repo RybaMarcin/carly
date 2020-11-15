@@ -99,7 +99,7 @@ public class UserService {
 
     @Scheduled(cron = "0 0/3 * * * *")
     public void clearBlackList() {
-        blackListService.clearBlackList();
+        blackListService.performDeleteOldTokensFromBlackList();
     }
 
     public ResponseEntity<?> login(LoginRequest loginRequest) {
