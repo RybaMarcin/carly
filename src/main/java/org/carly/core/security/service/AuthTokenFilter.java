@@ -1,6 +1,7 @@
 package org.carly.core.security.service;
 
 import org.carly.core.usermanagement.service.LoginService;
+import org.carly.core.usermanagement.service.TokenBlackListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	private TokenBlackListService tokenBlackListService;
+
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
 	@Override
@@ -31,7 +35,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = jwtUtils.parseJwt(request);
-			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+			if (jwt != null && jwtUtils.validateJwtToken(jwt) && !tokenBlackListService.getBlacklistMap().containsKey(jwt)) {
 				String email = jwtUtils.getUserNameFromJwtToken(jwt);
 
 				UserDetails userDetails = loginService.loadUserByUsername(email);
@@ -44,7 +48,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		} catch (Exception e) {
 			logger.error("Cannot set user authentication: {}", e);
 		}
-
 		filterChain.doFilter(request, response);
 	}
 }

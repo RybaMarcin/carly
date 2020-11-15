@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); }
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public LoggedUserProvider loggedUserProvider() {
@@ -56,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @ApplicationScope
-    public TokenBlackListService tokenBlackListService(){
+    public TokenBlackListService tokenBlackListService() {
         return new TokenBlackListService();
     }
 
@@ -84,5 +85,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
-
 }

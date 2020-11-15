@@ -1,23 +1,34 @@
 package org.carly.core.usermanagement.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @ApplicationScope
 public class TokenBlackListService {
 
-    private final List<String> blackList = new ArrayList<>();
+    private final Map<String, LocalDateTime> blacklistMap = new ConcurrentHashMap<>();
 
-    public void addTokenToBlackList(String token) {
-        String t = blackList.stream().filter(bl -> bl.equals(token)).findFirst().orElse(null);
-        if (t == null) {
-            blackList.add(token);
+    public void addTokenToMap(String requestToken) {
+        String token = requestToken.substring(7);
+        LocalDateTime now = LocalDateTime.now();
+        blacklistMap.putIfAbsent(token, now);
+    }
+
+    public void clearBlackList(){
+        LocalDateTime minusMinutes = LocalDateTime.now().minusMinutes(15);
+        for (Map.Entry<String, LocalDateTime> token : blacklistMap.entrySet()) {
+            if (token.getValue().isBefore(minusMinutes)) {
+                blacklistMap.remove(token.getKey());
+            }
         }
     }
 
-    public void clearBlackList() {
-        blackList.clear();
+    public Map<String, LocalDateTime> getBlacklistMap() {
+        return blacklistMap;
     }
 }

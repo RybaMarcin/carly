@@ -97,7 +97,7 @@ public class UserService {
         this.jwtUtils = jwtUtils;
     }
 
-    @Scheduled(cron = "0 0/5 * * * *")
+    @Scheduled(cron = "0 0/3 * * * *")
     public void clearBlackList() {
         blackListService.clearBlackList();
     }

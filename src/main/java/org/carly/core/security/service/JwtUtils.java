@@ -46,14 +46,14 @@ public class JwtUtils {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7, headerAuth.length());
+            return headerAuth.substring(7);
         }
         return null;
     }
 
     public Optional<String> resolveToken(String bearerToken) {
         if (bearerToken != null && bearerToken.startsWith("Bearer")) {
-            return Optional.of(bearerToken.substring(7, bearerToken.length()));
+            return Optional.of(bearerToken.substring(7));
         }
         return Optional.empty();
     }
