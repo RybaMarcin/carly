@@ -1,6 +1,7 @@
-package org.carly.core.partsmanagement.model;
+package org.carly.core.partsmanagement.model.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.carly.core.vehiclemanagement.model.Brand;
 import org.springframework.data.annotation.Id;
@@ -9,7 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 public abstract class Part {
 
     public static final String ID = "_id";

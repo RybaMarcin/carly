@@ -1,12 +1,15 @@
-package org.carly.core.partsmanagement.model;
+package org.carly.core.partsmanagement.model.entity;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import org.carly.core.partsmanagement.model.dictionaries.DiameterType;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.math.BigDecimal;
-
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @Document(collection = "wheels")
 public class Wheels extends Part{
 
@@ -14,9 +17,8 @@ public class Wheels extends Part{
     public static final String WEIGHT = "weight";
 
     @Field(DIAMETER)
-    private BigDecimal diameter;
+    private DiameterType diameterType;
 
     @Field(WEIGHT)
-    private BigDecimal weight;
-
+    private Double weight;
 }

@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.request.EquipmentRest;
 import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
-import org.carly.core.partsmanagement.model.Equipment;
+import org.carly.core.partsmanagement.model.entity.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentMongoRepository;
 import org.carly.core.partsmanagement.repository.EquipmentRepository;
 import org.carly.core.shared.service.part_services.PartFindService;

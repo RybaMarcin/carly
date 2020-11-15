@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.repository;
 
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
-import org.carly.core.partsmanagement.model.Breaks;
+import org.carly.core.partsmanagement.model.entity.Breaks;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.carly.core.partsmanagement.model.dictionaries.DiameterType;
 
 import java.math.BigDecimal;
 
@@ -15,7 +16,7 @@ public class WheelsResponse {
     private ObjectId id;
 
     private String name;
-    private BigDecimal diameter;
+    private String diameterType;
     private BigDecimal weight;
     private BigDecimal price;
     private String preview;

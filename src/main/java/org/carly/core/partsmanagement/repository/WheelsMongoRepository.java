@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.repository;
 
 import org.carly.api.rest.criteria.WheelsSearchCriteriaRequest;
-import org.carly.core.partsmanagement.model.Wheels;
+import org.carly.core.partsmanagement.model.entity.Wheels;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

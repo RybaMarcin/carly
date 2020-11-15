@@ -6,7 +6,7 @@ import org.carly.api.rest.request.WheelsRequest;
 import org.carly.api.rest.response.WheelsResponse;
 import org.carly.core.partsmanagement.mapper.WheelsRequestMapper;
 import org.carly.core.partsmanagement.mapper.WheelsResponseMapper;
-import org.carly.core.partsmanagement.model.Wheels;
+import org.carly.core.partsmanagement.model.entity.Wheels;
 import org.carly.core.partsmanagement.repository.WheelsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;

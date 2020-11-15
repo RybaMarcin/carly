@@ -1,7 +1,7 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.core.partsmanagement.model.*;
+import org.carly.core.partsmanagement.model.entity.*;
 import org.carly.core.vehiclemanagement.model.Brand;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;

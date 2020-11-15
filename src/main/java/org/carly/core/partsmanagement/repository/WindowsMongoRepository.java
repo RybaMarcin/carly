@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.repository;
 
 import org.carly.api.rest.criteria.WindowsSearchCriteriaRequest;
-import org.carly.core.partsmanagement.model.Windows;
+import org.carly.core.partsmanagement.model.entity.Windows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

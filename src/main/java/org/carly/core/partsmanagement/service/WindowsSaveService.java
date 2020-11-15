@@ -6,7 +6,7 @@ import org.carly.api.rest.request.WindowsRequest;
 import org.carly.api.rest.response.WindowsResponse;
 import org.carly.core.partsmanagement.mapper.WindowsRequestMapper;
 import org.carly.core.partsmanagement.mapper.WindowsResponseMapper;
-import org.carly.core.partsmanagement.model.Windows;
+import org.carly.core.partsmanagement.model.entity.Windows;
 import org.carly.core.partsmanagement.repository.WindowsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;

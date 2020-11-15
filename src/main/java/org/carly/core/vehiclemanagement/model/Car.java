@@ -2,7 +2,7 @@ package org.carly.core.vehiclemanagement.model;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.carly.core.partsmanagement.model.*;
+import org.carly.core.partsmanagement.model.entity.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 

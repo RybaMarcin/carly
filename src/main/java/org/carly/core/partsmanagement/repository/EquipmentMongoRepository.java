@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.repository;
 
 import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
-import org.carly.core.partsmanagement.model.Equipment;
+import org.carly.core.partsmanagement.model.entity.Equipment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

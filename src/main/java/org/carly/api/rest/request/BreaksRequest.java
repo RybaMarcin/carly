@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.carly.core.partsmanagement.model.BreaksType;
+import org.carly.core.partsmanagement.model.dictionaries.BreaksType;
 
 import java.math.BigDecimal;
 

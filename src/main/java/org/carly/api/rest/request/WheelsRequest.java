@@ -15,9 +15,8 @@ public class WheelsRequest {
     private ObjectId id;
 
     private String name;
-//    private BrandRest brand;
-    private BigDecimal diameter;
-    private BigDecimal weight;
+    private String diameterType;
+    private Double weight;
     private BigDecimal price;
     private String preview;
 }

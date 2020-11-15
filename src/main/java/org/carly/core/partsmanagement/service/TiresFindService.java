@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.request.TiresRequest;
 import org.carly.api.rest.criteria.TiresSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.TiresMapper;
-import org.carly.core.partsmanagement.model.Tires;
+import org.carly.core.partsmanagement.model.entity.Tires;
 import org.carly.core.partsmanagement.repository.TiresMongoRepository;
 import org.carly.core.partsmanagement.repository.TiresRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;

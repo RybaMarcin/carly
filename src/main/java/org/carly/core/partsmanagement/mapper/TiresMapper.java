@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.TiresRequest;
-import org.carly.core.partsmanagement.model.Tires;
+import org.carly.core.partsmanagement.model.entity.Tires;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 

@@ -1,12 +1,12 @@
-package org.carly.core.partsmanagement.model;
+package org.carly.core.partsmanagement.model.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Getter
+@Setter
 @Document(collection = "body")
 public class Body extends Part{
-
-
 
 }

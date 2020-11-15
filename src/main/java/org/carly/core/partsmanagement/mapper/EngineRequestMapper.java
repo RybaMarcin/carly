@@ -2,7 +2,8 @@ package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.EngineRequest;
 import org.carly.api.rest.request.BrandRequest;
-import org.carly.core.partsmanagement.model.Engine;
+import org.carly.core.partsmanagement.model.dictionaries.CylinderType;
+import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Brand;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         rest.setHorsePower(domain.getHorsePower());
         rest.setWeight(domain.getWeight());
         rest.setCapacity(domain.getCapacity());
-        rest.setNumberOfCylinders(domain.getNumberOfCylinders());
+        rest.setCylinderType(domain.getCylinderType().toString());
         return rest;
     }
 
@@ -48,7 +49,7 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         domain.setHorsePower(rest.getHorsePower());
         domain.setWeight(rest.getWeight());
         domain.setCapacity(rest.getCapacity());
-        domain.setNumberOfCylinders(rest.getNumberOfCylinders());
+        domain.setCylinderType(CylinderType.valueOf(rest.getCylinderType()));
         return domain;
     }
 }

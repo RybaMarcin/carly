@@ -4,7 +4,9 @@ import org.carly.api.rest.request.*;
 import org.carly.api.rest.response.BodyResponse;
 import org.carly.api.rest.response.BrandResponse;
 import org.carly.api.rest.response.CarResponse;
-import org.carly.core.partsmanagement.model.*;
+import org.carly.core.partsmanagement.model.dictionaries.DiameterType;
+import org.carly.core.partsmanagement.model.dictionaries.PaintType;
+import org.carly.core.partsmanagement.model.entity.*;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Brand;
 import org.carly.core.vehiclemanagement.model.Car;
@@ -102,7 +104,7 @@ public class CarMapper implements MapperService<CarResponse, Car> {
 //        car.getWheels().getBrand().setName(rest.getWheels().getBrand().getName());
 //        car.getWheels().getBrand().setRating(rest.getWheels().getBrand().getRating());
         car.getWheels().setName(rest.getWheels().getName());
-        car.getWheels().setDiameter(rest.getWheels().getDiameter());
+        car.getWheels().setDiameterType(DiameterType.valueOf(rest.getWheels().getDiameterType()));
 
         car.setWindows(new Windows());
         car.getWindows().setId(rest.getWindows().getId());

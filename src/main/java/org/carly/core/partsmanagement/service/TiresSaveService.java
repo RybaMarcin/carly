@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.TiresRequest;
 import org.carly.core.partsmanagement.mapper.TiresMapper;
-import org.carly.core.partsmanagement.model.Tires;
+import org.carly.core.partsmanagement.model.entity.Tires;
 import org.carly.core.partsmanagement.repository.TiresRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.shared.service.part_services.PartSaveService;

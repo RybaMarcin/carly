@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.WindowsSearchCriteriaRequest;
 import org.carly.api.rest.response.WindowsResponse;
 import org.carly.core.partsmanagement.mapper.WindowsResponseMapper;
-import org.carly.core.partsmanagement.model.Windows;
+import org.carly.core.partsmanagement.model.entity.Windows;
 import org.carly.core.partsmanagement.repository.WindowsMongoRepository;
 import org.carly.core.partsmanagement.repository.WindowsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;

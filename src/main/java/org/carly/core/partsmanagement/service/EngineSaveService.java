@@ -6,7 +6,7 @@ import org.carly.api.rest.request.EngineRequest;
 import org.carly.api.rest.response.EngineResponse;
 import org.carly.core.partsmanagement.mapper.EngineRequestMapper;
 import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
-import org.carly.core.partsmanagement.model.Engine;
+import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.partsmanagement.repository.EngineRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;

@@ -3,7 +3,7 @@ package org.carly.core.partsmanagement.mapper;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.BreaksRequest;
 import org.carly.api.rest.response.BreaksResponse;
-import org.carly.core.partsmanagement.model.Breaks;
+import org.carly.core.partsmanagement.model.entity.Breaks;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 

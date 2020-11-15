@@ -1,4 +1,4 @@
-package org.carly.core.partsmanagement.model;
+package org.carly.core.partsmanagement.model.dictionaries;
 
 import java.util.Map;
 import java.util.function.Function;

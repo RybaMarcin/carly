@@ -1,8 +1,8 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.core.partsmanagement.model.PaintType;
-import org.carly.core.partsmanagement.model.Painting;
+import org.carly.core.partsmanagement.model.dictionaries.PaintType;
+import org.carly.core.partsmanagement.model.entity.Painting;
 
 import static org.carly.core.shared.utils.builder.Builder.anObject;
 

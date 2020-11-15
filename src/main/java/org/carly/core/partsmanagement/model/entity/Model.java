@@ -1,4 +1,4 @@
-package org.carly.core.partsmanagement.model;
+package org.carly.core.partsmanagement.model.entity;
 
 import lombok.Data;
 import org.bson.types.ObjectId;

@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.EngineSearchCriteriaRequest;
 import org.carly.api.rest.response.EngineResponse;
 import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
-import org.carly.core.partsmanagement.model.Engine;
+import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.partsmanagement.repository.EngineMongoRepository;
 import org.carly.core.partsmanagement.repository.EngineRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;

@@ -18,10 +18,10 @@ public class EngineResponse {
 
     private String name;
     private BrandResponse brand;
-    private BigDecimal horsePower;
-    private BigDecimal weight;
-    private BigDecimal capacity;
-    private BigDecimal numberOfCylinders;
+    private Double horsePower;
+    private Double weight;
+    private Double capacity;
+    private String cylinderType;
     private BigDecimal price;
     private LocalDate createDate;
 }

@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.WheelsSearchCriteriaRequest;
 import org.carly.api.rest.response.WheelsResponse;
 import org.carly.core.partsmanagement.mapper.WheelsResponseMapper;
-import org.carly.core.partsmanagement.model.Wheels;
+import org.carly.core.partsmanagement.model.entity.Wheels;
 import org.carly.core.partsmanagement.repository.WheelsMongoRepository;
 import org.carly.core.partsmanagement.repository.WheelsRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;

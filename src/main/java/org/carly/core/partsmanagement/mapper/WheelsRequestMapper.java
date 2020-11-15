@@ -1,8 +1,9 @@
 package org.carly.core.partsmanagement.mapper;
 
+import org.carly.core.partsmanagement.model.dictionaries.DiameterType;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.api.rest.request.WheelsRequest;
-import org.carly.core.partsmanagement.model.Wheels;
+import org.carly.core.partsmanagement.model.entity.Wheels;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +29,7 @@ public class WheelsRequestMapper implements MapperService<WheelsRequest, Wheels>
 //        rest.getBrand().setId(domain.getBrand().getId());
 //        rest.getBrand().setName(domain.getBrand().getName());
 //        rest.getBrand().setRating(domain.getBrand().getRating());
-        rest.setDiameter(domain.getDiameter());
+        rest.setDiameterType(domain.getDiameterType().toString());
         rest.setPreview(domain.getPreview());
         return rest;
     }
@@ -41,7 +42,7 @@ public class WheelsRequestMapper implements MapperService<WheelsRequest, Wheels>
 //        domain.getBrand().setId(rest.getBrand().getId());
 //        domain.getBrand().setName(rest.getBrand().getName());
 //        domain.getBrand().setRating(rest.getBrand().getRating());
-        domain.setDiameter(rest.getDiameter());
+        domain.setDiameterType(DiameterType.valueOf(rest.getDiameterType()));
         domain.setPreview(rest.getPreview());
         return domain;
     }

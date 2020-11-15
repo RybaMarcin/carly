@@ -1,7 +1,7 @@
 package org.carly.support;
 
 import org.bson.types.ObjectId;
-import org.carly.core.partsmanagement.model.Body;
+import org.carly.core.partsmanagement.model.entity.Body;
 
 import static org.carly.core.shared.utils.builder.Builder.anObject;
 

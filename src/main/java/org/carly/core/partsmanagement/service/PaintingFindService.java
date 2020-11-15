@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.request.PaintingRequest;
 import org.carly.api.rest.criteria.PaintingSearchCriteriaRequest;
 import org.carly.core.partsmanagement.mapper.PaintingMapper;
-import org.carly.core.partsmanagement.model.Painting;
+import org.carly.core.partsmanagement.model.entity.Painting;
 import org.carly.core.partsmanagement.repository.PaintingMongoRepository;
 import org.carly.core.partsmanagement.repository.PaintingRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;

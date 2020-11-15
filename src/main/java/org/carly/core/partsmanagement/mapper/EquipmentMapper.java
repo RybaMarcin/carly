@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.EquipmentRest;
-import org.carly.core.partsmanagement.model.Equipment;
+import org.carly.core.partsmanagement.model.entity.Equipment;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 

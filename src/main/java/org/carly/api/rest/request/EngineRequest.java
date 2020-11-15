@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.BrandRequest;
+import org.carly.core.partsmanagement.model.dictionaries.CylinderType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,10 +20,10 @@ public class EngineRequest {
 
     private String name;
     private BrandRequest brand;
-    private BigDecimal horsePower;
-    private BigDecimal weight;
-    private BigDecimal capacity;
-    private BigDecimal numberOfCylinders;
+    private Double horsePower;
+    private Double weight;
+    private Double capacity;
+    private String cylinderType;
     private BigDecimal price;
     private LocalDate createDate;
 }

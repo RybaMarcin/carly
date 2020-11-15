@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.BreaksRequest;
-import org.carly.core.partsmanagement.model.Breaks;
+import org.carly.core.partsmanagement.model.entity.Breaks;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 
