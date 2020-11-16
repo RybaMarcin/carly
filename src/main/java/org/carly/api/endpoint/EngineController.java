@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/engines")
+@RequestMapping("/api//engines")
 public class EngineController {
 
     private final EngineFindService engineFindService;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/painting")
+@RequestMapping("/api//painting")
 public class PaintingController {
 
     private final PaintingFindService paintingFindService;

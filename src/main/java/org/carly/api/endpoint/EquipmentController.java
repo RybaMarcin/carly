@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController("/equipment")
+@RestController("/api//equipment")
 public class EquipmentController {
 
     private final EquipmentFindService equipmentFindService;

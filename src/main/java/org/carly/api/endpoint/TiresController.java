@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/tires")
+@RequestMapping("/api//tires")
 public class TiresController {
 
     private final TiresFindService tiresFindService;

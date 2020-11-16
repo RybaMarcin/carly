@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/windows")
+@RequestMapping("/api//windows")
 public class WindowsController {
 
     private final WindowsFindService windowsFindService;

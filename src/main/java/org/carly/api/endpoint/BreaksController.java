@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/breaks")
+@RequestMapping("/api//breaks")
 public class BreaksController {
 
     private final BreaksFindService breaksFindService;

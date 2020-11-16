@@ -12,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/api//company")
 public class CompanyController {
 
     private static final String FIND_COMPANIES_BY_NAME = "Find companies by names";
