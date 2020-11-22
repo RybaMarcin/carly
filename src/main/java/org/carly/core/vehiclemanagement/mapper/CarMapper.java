@@ -1,14 +1,16 @@
 package org.carly.core.vehiclemanagement.mapper;
 
+import org.bson.types.ObjectId;
 import org.carly.api.rest.request.*;
 import org.carly.api.rest.response.BodyResponse;
-import org.carly.api.rest.response.BrandResponse;
+import org.carly.api.rest.response.EquipmentResponse;
+import org.carly.api.rest.response.FactoryResponse;
 import org.carly.api.rest.response.CarResponse;
 import org.carly.core.partsmanagement.model.dictionaries.DiameterType;
 import org.carly.core.partsmanagement.model.dictionaries.PaintType;
 import org.carly.core.partsmanagement.model.entity.*;
 import org.carly.core.shared.utils.MapperService;
-import org.carly.core.vehiclemanagement.model.Brand;
+import org.carly.core.vehiclemanagement.model.Factory;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +37,10 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         carResponse.setName(domain.getName());
         carResponse.setCode(domain.getCode());
         carResponse.setVinNumber(domain.getVinNumber());
-        carResponse.setBrand(new BrandResponse());
-        carResponse.getBrand().setId(domain.getBrand().getId());
-        carResponse.getBrand().setName(domain.getBrand().getName());
-        carResponse.getBrand().setRating(domain.getBrand().getRating());
+        carResponse.setBrand(new FactoryResponse());
+        carResponse.getBrand().setCarlyFactoryId(domain.getFactory().getCarlyFactoryId().toHexString());
+        carResponse.getBrand().setName(domain.getFactory().getName());
+        carResponse.getBrand().setRating(domain.getFactory().getRating());
 
         carResponse.setModel(new ModelRequest());
         carResponse.getModel().setId(domain.getModel().getId());
@@ -80,9 +82,9 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         car.setVinNumber(rest.getVinNumber());
         car.setName(rest.getName());
         car.setCode(rest.getCode());
-        car.setBrand(new Brand());
-        car.getBrand().setId(rest.getBrand().getId());
-        car.getBrand().setName(rest.getName());
+        car.setFactory(new Factory());
+        car.getFactory().setCarlyFactoryId(new ObjectId(rest.getBrand().getCarlyFactoryId()));
+        car.getFactory().setName(rest.getName());
 
         car.setModel(new Model());
         car.getModel().setId(rest.getModel().getId());
@@ -126,31 +128,31 @@ public class CarMapper implements MapperService<CarResponse, Car> {
         return car;
     }
 
-    private List<Equipment> mapEquipmentFromRest(List<EquipmentRest> restList) {
+    private List<Equipment> mapEquipmentFromRest(List<EquipmentResponse> restList) {
         List<Equipment> equipmentList = new ArrayList<>();
-        for (EquipmentRest rest : restList) {
+        for (EquipmentResponse rest : restList) {
             Equipment domain = new Equipment();
-            domain.setId(rest.getId());
+            domain.setId(new ObjectId(rest.getId()));
             domain.setName(rest.getName());
-            domain.setBrand(new Brand());
-            domain.getBrand().setId(rest.getBrand().getId());
-            domain.getBrand().setName(rest.getBrand().getName());
-            domain.getBrand().setRating(rest.getBrand().getRating());
+            domain.setFactory(new Factory());
+            domain.getFactory().setCarlyFactoryId(new ObjectId(rest.getFactoryResponse().getCarlyFactoryId()));
+            domain.getFactory().setName(rest.getFactoryResponse().getName());
+            domain.getFactory().setRating(rest.getFactoryResponse().getRating());
             equipmentList.add(domain);
         }
         return equipmentList;
     }
 
-    private List<EquipmentRest> mapEquipmentToRest(List<Equipment> restList) {
-        List<EquipmentRest> equipmentList = new ArrayList<>();
+    private List<EquipmentResponse> mapEquipmentToRest(List<Equipment> restList) {
+        List<EquipmentResponse> equipmentList = new ArrayList<>();
         for (Equipment domain : restList) {
-            EquipmentRest rest = new EquipmentRest();
-            rest.setId(domain.getId());
+            EquipmentResponse rest = new EquipmentResponse();
+            rest.setId(domain.getId().toHexString());
             rest.setName(domain.getName());
-            rest.setBrand(new BrandRequest());
-            rest.getBrand().setId(rest.getBrand().getId());
-            rest.getBrand().setName(rest.getBrand().getName());
-            rest.getBrand().setRating(rest.getBrand().getRating());
+            rest.setFactoryResponse(new FactoryResponse());
+            rest.getFactoryResponse().setCarlyFactoryId(rest.getFactoryResponse().getCarlyFactoryId());
+            rest.getFactoryResponse().setName(rest.getFactoryResponse().getName());
+            rest.getFactoryResponse().setRating(rest.getFactoryResponse().getRating());
             equipmentList.add(rest);
         }
         return equipmentList;

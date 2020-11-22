@@ -26,7 +26,7 @@ public class CompanyController {
 
     @GetMapping("/company")
     @ApiOperation(value = FIND_COMPANIES_BY_NAME)
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria,
                                                Pageable pageable) {
         return companyFindService.findCompanies(searchCriteria, pageable);
@@ -34,8 +34,8 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = FIND_COMPANY_BY_ID)
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
-    public ResponseEntity<?> findCompanyById(@PathVariable("id") String id){
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    public ResponseEntity<?> findCompanyById(@PathVariable("id") String id) {
         return companyFindService.findCompanyById(new ObjectId(id));
     }
 }

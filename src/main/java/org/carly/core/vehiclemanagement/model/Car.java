@@ -26,7 +26,7 @@ public class Car {
     private String vinNumber;
     private ChangeRequestStatus requestStatus;
     private String code;
-    private Brand brand;
+    private Factory factory;
     private Model model;
     private double maxSpeed;
     private double accelerate;

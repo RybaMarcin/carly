@@ -2,7 +2,7 @@ package org.carly.support;
 
 import org.bson.types.ObjectId;
 import org.carly.core.partsmanagement.model.entity.*;
-import org.carly.core.vehiclemanagement.model.Brand;
+import org.carly.core.vehiclemanagement.model.Factory;
 import org.carly.core.vehiclemanagement.model.Car;
 import org.carly.core.vehiclemanagement.model.ChangeRequestStatus;
 
@@ -30,7 +30,7 @@ public class Cars {
     public static final ChangeRequestStatus CHANGE_REQUEST_STATUS_1 = ChangeRequestStatus.ACCEPTED;
     public static final String NAME_1 = "Opel";
     public static final String CODE_1 = "g776sx";
-    public static final Brand BRAND_1 = aBrand1();
+    public static final Factory FACTORY_1 = aBrand1();
     public static final Model MODEL_1 = aModel1();
     public static final double MAX_SPEED_1 = 220.0;
     public static final double ACCELERATE_1 = 7.5;
@@ -55,7 +55,7 @@ public class Cars {
                 .with(c -> c.setRequestStatus(CHANGE_REQUEST_STATUS_1))
                 .with(c -> c.setName(NAME_1))
                 .with(c -> c.setCode(CODE_1))
-                .with(c -> c.setBrand(BRAND_1))
+                .with(c -> c.setFactory(FACTORY_1))
                 .with(c -> c.setModel(MODEL_1))
                 .with(c -> c.setMaxSpeed(MAX_SPEED_1))
                 .with(c -> c.setAccelerate(ACCELERATE_1))

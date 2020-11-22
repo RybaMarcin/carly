@@ -7,6 +7,7 @@ import org.carly.core.security.validation.PasswordMatcher;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,6 +16,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class SignupCompanyRequest {
 
+    @NotEmpty
+    private String role;
     @NotBlank
     @Size(max = 40)
     private String companyName;

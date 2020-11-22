@@ -8,9 +8,12 @@ import org.carly.core.partsmanagement.mapper.WheelsRequestMapper;
 import org.carly.core.partsmanagement.mapper.WheelsResponseMapper;
 import org.carly.core.partsmanagement.model.entity.Wheels;
 import org.carly.core.partsmanagement.repository.WheelsRepository;
+import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
@@ -21,17 +24,22 @@ public class WheelsSaveService {
     private final WheelsRequestMapper wheelsRequestMapper;
     private final WheelsResponseMapper wheelsResponseMapper;
     private final WheelsRepository wheelsRepository;
+    private final LoggedUserProvider loggedUserProvider;
 
     public WheelsSaveService(WheelsRequestMapper wheelsRequestMapper,
                              WheelsResponseMapper wheelsResponseMapper,
-                             WheelsRepository wheelsRepository) {
+                             WheelsRepository wheelsRepository,
+                             LoggedUserProvider loggedUserProvider) {
         this.wheelsRequestMapper = wheelsRequestMapper;
         this.wheelsResponseMapper = wheelsResponseMapper;
         this.wheelsRepository = wheelsRepository;
+        this.loggedUserProvider = loggedUserProvider;
     }
 
     public ResponseEntity<WheelsResponse> createPart(WheelsRequest part) {
         Wheels wheels = wheelsRequestMapper.simplifyDomainObject(part);
+        wheels.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        wheels.setCreatedDate(LocalDateTime.now());
         wheelsRepository.save(wheels);
         log.info("Wheels with id: {} successfully created!", part.getId());
         WheelsResponse response = wheelsResponseMapper.simplifyRestObject(wheels);

@@ -28,31 +28,32 @@ public class EngineController {
     }
 
     @GetMapping("/engines")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<EngineResponse> findEngines(EngineSearchCriteriaRequest searchCriteria,
                                             Pageable pageable) {
         return engineFindService.findEngines(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public ResponseEntity<EngineResponse> findEngineById(@PathVariable("id") String id) {
         return engineFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
     public Collection<EngineResponse> findAllEngines() {
         return engineFindService.findAll();
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
     public ResponseEntity<EngineResponse> createEngine(@RequestBody EngineRequest engine) {
         return engineSaveService.createPart(engine);
     }
 
     @PutMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
     public ResponseEntity<EngineResponse> updateEngine(@RequestBody EngineRequest engine) {
         return engineSaveService.updatePart(engine);
     }

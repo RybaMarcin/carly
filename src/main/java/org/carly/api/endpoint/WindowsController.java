@@ -29,26 +29,26 @@ public class WindowsController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<WindowsResponse> findWindows(WindowsSearchCriteriaRequest searchCriteria,
                                              Pageable pageable) {
         return windowsFindService.findWindows(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public ResponseEntity<WindowsResponse> findWindowsById(@PathVariable("id") String id) {
         return windowsFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
     public Collection<WindowsResponse> findAllWindows() {
         return windowsFindService.findAll();
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
     public ResponseEntity<WindowsResponse> createWindows(@RequestBody WindowsRequest windows) {
         return windowsSaveService.createPart(windows);
     }

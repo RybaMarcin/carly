@@ -167,7 +167,7 @@ public class UserService {
                         encoder.encode(signupCompanyRequest.getPassword())
                 );
         company.setAddress(address);
-        company.setRoles(List.of(CarlyGrantedAuthority.of("CARLY_COMPANY")));
+        company.setRoles(List.of(CarlyGrantedAuthority.of(signupCompanyRequest.getRole())));
         company.setEnabled(Boolean.FALSE);
         userRepository.save(company);
         publishRegistrationUser(company, webRequest);

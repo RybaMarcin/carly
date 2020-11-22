@@ -29,31 +29,31 @@ public class BreaksController {
     }
 
     @GetMapping("/breaks")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<BreaksResponse> findBreaks(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return breaksFindService.findBreaks(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public BreaksResponse findBreaksById(@PathVariable("id") String id) {
         return breaksFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Collection<BreaksResponse> findAllBreaks() {
         return breaksFindService.findAll();
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
-    public ResponseEntity<BreaksResponse> createBreaks(@RequestBody BreaksRequest breaks) {
-        return breaksSaveService.createPart(breaks);
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
+    public ResponseEntity<BreaksResponse> createBreaks(@RequestBody BreaksRequest breaksRequest) {
+        return breaksSaveService.createPart(breaksRequest);
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
     public ResponseEntity<BreaksResponse> updateBreaks(@RequestBody BreaksRequest breaks) {
         return breaksSaveService.updatePart(breaks);
     }

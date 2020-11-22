@@ -25,7 +25,7 @@ public class BreaksResponseMapper implements MapperService<BreaksResponse, Break
     public BreaksResponse mapFromRestToResponse(BreaksRequest request) {
         BreaksResponse response = new BreaksResponse();
         response.setId(request.getId().toHexString());
-//        rest.setBreaksType(domain.getBreaksType());
+        response.setBreaksType(request.getBreaksType());
         response.setName(request.getName());
         response.setPreview(request.getPreview());
         response.setPrice(request.getPrice());
@@ -35,7 +35,7 @@ public class BreaksResponseMapper implements MapperService<BreaksResponse, Break
     @Override
     public BreaksResponse mapFromDomainObject(Breaks domain, BreaksResponse rest) {
         rest.setId(domain.getId().toHexString());
-//        rest.setBreaksType(domain.getBreaksType());
+        rest.setBreaksType(domain.getBreaksType());
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());
@@ -45,7 +45,7 @@ public class BreaksResponseMapper implements MapperService<BreaksResponse, Break
     @Override
     public Breaks mapToDomainObject(Breaks domain, BreaksResponse rest) {
         domain.setId(new ObjectId(rest.getId()));
-//        domain.setBreaksType(rest.getBreaksType());
+        domain.setBreaksType(rest.getBreaksType());
         domain.setName(rest.getName());
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());

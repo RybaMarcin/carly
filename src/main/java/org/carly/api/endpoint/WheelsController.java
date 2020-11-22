@@ -28,32 +28,32 @@ public class WheelsController {
     }
 
     @GetMapping("/wheels")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Page<WheelsResponse> findWheels(WheelsSearchCriteriaRequest searchCriteria,
                                            Pageable pageable) {
         return wheelsFindService.findWheels(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public ResponseEntity<WheelsResponse> findWheelsById(@PathVariable("id") String id) {
         return wheelsFindService.findPartById(new ObjectId(id));
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public Collection<WheelsResponse> findAllWheels() {
         return wheelsFindService.findAll();
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
     public ResponseEntity<WheelsResponse> createWheels(@RequestBody WheelsRequest wheels) {
         return wheelsSaveService.createPart(wheels);
     }
 
     @PutMapping()
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_COMPANY')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CARLY_FACTORY')")
     public ResponseEntity<WheelsResponse> updateWheels(@RequestBody WheelsRequest wheels) {
         return wheelsSaveService.updatePart(wheels);
     }

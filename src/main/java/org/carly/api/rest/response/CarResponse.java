@@ -14,7 +14,7 @@ public class CarResponse {
     private String name;
     private String code;
     private String vinNumber;
-    private BrandResponse brand;
+    private FactoryResponse brand;
     private ModelRequest model;
     private double maxSpeed;
     private double accelerate;
@@ -28,5 +28,5 @@ public class CarResponse {
     private double weight;
     private int numberOfDoors;
     private PaintingRequest bodyPainting;
-    private List<EquipmentRest> equipment;
+    private List<EquipmentResponse> equipment;
 }

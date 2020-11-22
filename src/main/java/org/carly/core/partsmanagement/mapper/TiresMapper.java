@@ -1,6 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.TiresRequest;
+import org.carly.api.rest.response.TiresResponse;
 import org.carly.core.partsmanagement.model.entity.Tires;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,16 @@ public class TiresMapper implements MapperService<TiresRequest, Tires> {
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());
         return domain;
+    }
+
+    public TiresResponse mapFromDomainToResponse(Tires domain) {
+        TiresResponse response = new TiresResponse();
+        response.setId(domain.getId());
+        response.setName(domain.getName());
+        response.setPreview(domain.getPreview());
+        response.setPrice(domain.getPrice());
+
+        return response;
     }
 
 }

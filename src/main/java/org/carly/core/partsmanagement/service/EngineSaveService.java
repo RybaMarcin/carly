@@ -8,9 +8,12 @@ import org.carly.core.partsmanagement.mapper.EngineRequestMapper;
 import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
 import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.partsmanagement.repository.EngineRepository;
+import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
@@ -21,17 +24,22 @@ public class EngineSaveService {
     private final EngineRequestMapper engineRequestMapper;
     private final EngineResponseMapper engineResponseMapper;
     private final EngineRepository engineRepository;
+    private final LoggedUserProvider loggedUserProvider;
 
     public EngineSaveService(EngineRequestMapper engineRequestMapper,
                              EngineResponseMapper engineResponseMapper,
-                             EngineRepository engineRepository) {
+                             EngineRepository engineRepository,
+                             LoggedUserProvider loggedUserProvider) {
         this.engineRequestMapper = engineRequestMapper;
         this.engineResponseMapper = engineResponseMapper;
         this.engineRepository = engineRepository;
+        this.loggedUserProvider = loggedUserProvider;
     }
 
     public ResponseEntity<EngineResponse> createPart(EngineRequest request) {
         Engine engine = engineRequestMapper.simplifyDomainObject(request);
+        engine.setCreatedDate(LocalDateTime.now());
+        engine.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
         engineRepository.save(engine);
         log.info("Engine with id: {} successfully created!", request.getId());
         EngineResponse response = engineResponseMapper.simplifyRestObject(engine);

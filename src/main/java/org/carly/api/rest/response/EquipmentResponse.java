@@ -2,17 +2,16 @@ package org.carly.api.rest.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.carly.core.partsmanagement.model.dictionaries.BreaksType;
+import org.bson.types.ObjectId;
+import org.carly.api.rest.response.FactoryResponse;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class BreaksResponse {
+public class EquipmentResponse {
     private String id;
+    private FactoryResponse factoryResponse;
     private String name;
-    private FactoryResponse brand;
-    private String preview;
-    private BreaksType breaksType;
     private BigDecimal price;
 }

@@ -2,49 +2,54 @@ package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.request.EquipmentRest;
+import org.carly.api.rest.request.EquipmentRequest;
+import org.carly.api.rest.response.EquipmentResponse;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.entity.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentRepository;
+import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.shared.exception.EntityNotFoundException;
-import org.carly.core.shared.service.part_services.PartSaveService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class EquipmentSaveService implements PartSaveService<EquipmentRest> {
+public class EquipmentSaveService {
 
     private final EquipmentMapper equipmentMapper;
     private final EquipmentRepository equipmentRepository;
-
+    private final LoggedUserProvider loggedUserProvider;
 
     public EquipmentSaveService(EquipmentMapper equipmentMapper,
-                                EquipmentRepository equipmentRepository) {
+                                EquipmentRepository equipmentRepository,
+                                LoggedUserProvider loggedUserProvider) {
         this.equipmentMapper = equipmentMapper;
         this.equipmentRepository = equipmentRepository;
+        this.loggedUserProvider = loggedUserProvider;
     }
 
-    @Override
-    public EquipmentRest createPart(EquipmentRest part) {
-        Equipment equipment = equipmentMapper.simplifyDomainObject(part);
+    public ResponseEntity<EquipmentResponse> createPart(EquipmentRequest equipmentRequest) {
+        Equipment equipment = equipmentMapper.simplifyDomainObject(equipmentRequest);
+        equipment.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        equipment.setCreatedDate(LocalDateTime.now());
         equipmentRepository.save(equipment);
-        log.info("Equipment with id: {} successfully created!", part.getId());
-        return part;
+        log.info("Equipment with id: {} successfully created!", equipmentRequest.getId());
+        return ResponseEntity.ok(equipmentMapper.mapFromDomainToResponse(equipment));
     }
 
-    @Override
-    public EquipmentRest updatePart(EquipmentRest part) {
+    public ResponseEntity<EquipmentResponse> updatePart(EquipmentRequest part) {
         Equipment equipmentToUpdate = equipmentRepository.findById(part.getId())
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         Equipment updatedEquipment = equipmentMapper.mapToDomainObject(equipmentToUpdate, part);
         equipmentRepository.save(updatedEquipment);
         log.info("Equipment with id: {} successfully updated!", part.getId());
-        return part;
+        return ResponseEntity.ok(equipmentMapper.mapFromDomainToResponse(equipmentToUpdate));
     }
 
-    @Override
     public void deletePart(ObjectId id) {
         Equipment equipment = equipmentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
