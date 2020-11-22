@@ -3,6 +3,7 @@ package org.carly.core.companymanagement.repository;
 import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyFilter;
+import org.carly.core.usermanagement.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class CompanyMongoRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Company> findWithFilters(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
+    public Page<User> findWithFilters(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
                 regexCriteria(CompanyFilter.COMPANY_NAME.getFilter(), searchCriteria.getNamesToSearch()));
 
@@ -33,7 +34,7 @@ public class CompanyMongoRepository {
         query.addCriteria(criteria);
 
         long count = mongoTemplate.count(query, Company.class);
-        List<Company> companies = mongoTemplate.find(query.with(pageable), Company.class);
+        List<User> companies = mongoTemplate.find(query.with(pageable), User.class);
 
         return new PageImpl<>(companies, pageable, count);
     }

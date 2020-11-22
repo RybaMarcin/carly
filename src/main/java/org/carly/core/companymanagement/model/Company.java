@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.carly.core.usermanagement.model.User;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,4 +18,5 @@ public class Company extends User {
 
     @Field(NAME)
     private String name;
+
 }

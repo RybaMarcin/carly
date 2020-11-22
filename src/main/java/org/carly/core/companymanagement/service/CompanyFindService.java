@@ -36,20 +36,30 @@ public class CompanyFindService {
 
     public ResponseEntity<?> findCompanyById(ObjectId id) {
         try {
-            User company = companyRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
-            log.info("Company with id: {} was found!", id);
-            if (company.getRoles().contains(CarlyGrantedAuthority.of("CARLY_CUSTOMER"))) {
-                throw new CompanyException(company.getId() + " - entity is not Company");
-            }
-
+            User company = getCompanyById(id);
             CompanyResponse companyResponse = companyMapper.simplifyRestObject(company);
+            if (company.getRoles().contains(CarlyGrantedAuthority.of("CARLY_COMPANY"))) {
+                companyResponse.setRole("CARLY_COMPANY");
+            } else if (company.getRoles().contains(CarlyGrantedAuthority.of("CARLY_FACTORY"))) {
+                companyResponse.setRole("CARLY_FACTORY");
+            }
             return ResponseEntity.ok(companyResponse);
         } catch (CompanyException | EntityNotFoundException e) {
-            log.error(getClass() + " - "  + e.getMessage());
+            log.error(getClass() + " - " + e.getMessage());
             return ResponseEntity.badRequest().body(new CompanyErrorResponse(e.getMessage()));
         }
     }
+
+    public User getCompanyById(ObjectId id) {
+        User company = companyRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
+        log.info("Company with id: {} was found!", id);
+        if (company.getRoles().contains(CarlyGrantedAuthority.of("CARLY_CUSTOMER"))) {
+            throw new CompanyException(company.getId() + " - entity is not Company");
+        }
+        return company;
+    }
+
 
     public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
         return companyMongoRepository.findWithFilters(searchCriteria, pageable)
