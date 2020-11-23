@@ -279,6 +279,6 @@ public class UserService {
             return ResponseEntity.badRequest().body(new JwtTokenResponse("Cannot refresh token"));
         }
         log.info("Token refreshed! {}", newToken);
-        return ResponseEntity.ok(new JwtTokenResponse(token));
+        return ResponseEntity.ok(new JwtTokenResponse(newToken));
     }
 }
