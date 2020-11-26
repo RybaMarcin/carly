@@ -5,8 +5,8 @@ import org.carly.core.usermanagement.model.User;
 
 public enum CompanyFilter {
 
-    COMPANY_NAME(CriteriaBuilder.path(User.COMPANY_FIELD_NAME, Company.NAME));
-
+    COMPANY_NAME(CriteriaBuilder.path(User.COMPANY_FIELD_NAME, Company.NAME)),
+    COMPANY_ID(CriteriaBuilder.path(User.ID));
     private final String filter;
 
     CompanyFilter(String filter) {

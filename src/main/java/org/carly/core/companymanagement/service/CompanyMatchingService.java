@@ -65,4 +65,17 @@ public class CompanyMatchingService {
         companyMatchRepository.save(companyMatch);
         return ResponseEntity.ok(companyMatchMapper.mapDomainToResponse(companyMatch));
     }
+
+    public ResponseEntity<CompanyMatchResponse> declineRequestMatching(String matchRequestId) {
+        CompanyMatch companyMatch = companyMatchRepository.findById(new ObjectId(matchRequestId))
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
+        if (companyMatch.getStatus() == CompanyMatchStatus.PENDING) {
+            companyMatch.setStatus(CompanyMatchStatus.DECLINED);
+            companyMatchRepository.save(companyMatch);
+            return ResponseEntity.ok(new CompanyMatchResponse(companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
+        }
+        return ResponseEntity.badRequest().body(new CompanyMatchResponse(companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
+    }
 }
