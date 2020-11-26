@@ -1,31 +1,31 @@
 package org.carly.core.partsmanagement.mapper;
 
-import org.carly.api.rest.request.BreaksRequest;
+import org.carly.api.rest.request.BrakeRequest;
 import org.carly.api.rest.request.FactoryRequest;
-import org.carly.core.partsmanagement.model.entity.Breaks;
+import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Factory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BreaksRequestMapper implements MapperService<BreaksRequest, Breaks> {
+public class BrakeRequestMapper implements MapperService<BrakeRequest, Brake> {
 
     @Override
-    public BreaksRequest simplifyRestObject(Breaks domain) {
-        BreaksRequest rest = new BreaksRequest();
+    public BrakeRequest simplifyRestObject(Brake domain) {
+        BrakeRequest rest = new BrakeRequest();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Breaks simplifyDomainObject(BreaksRequest rest) {
-        Breaks domain = new Breaks();
+    public Brake simplifyDomainObject(BrakeRequest rest) {
+        Brake domain = new Brake();
         return mapToDomainObject(domain, rest);
     }
 
     @Override
-    public BreaksRequest mapFromDomainObject(Breaks domain, BreaksRequest rest) {
+    public BrakeRequest mapFromDomainObject(Brake domain, BrakeRequest rest) {
         rest.setId(domain.getId());
-        rest.setBreaksType(domain.getBreaksType());
+        rest.setBrakeType(domain.getBrakeType());
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());
@@ -40,11 +40,11 @@ public class BreaksRequestMapper implements MapperService<BreaksRequest, Breaks>
     }
 
     @Override
-    public Breaks mapToDomainObject(Breaks domain, BreaksRequest rest) {
+    public Brake mapToDomainObject(Brake domain, BrakeRequest rest) {
         if (rest.getId() != null) {
             domain.setId(rest.getId());
         }
-        domain.setBreaksType(rest.getBreaksType());
+        domain.setBrakeType(rest.getBrakeType());
         domain.setName(rest.getName());
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());

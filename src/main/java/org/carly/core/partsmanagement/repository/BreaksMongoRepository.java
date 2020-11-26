@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.repository;
 
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
-import org.carly.core.partsmanagement.model.entity.Breaks;
+import org.carly.core.partsmanagement.model.entity.Brake;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,19 +26,19 @@ public class BreaksMongoRepository {
     }
 
 
-    public Page<Breaks> findWithFilters(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
+    public Page<Brake> findWithFilters(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
 
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
-                regexCriteria(Breaks.NAME, searchCriteria.getNameToSearch()));
+                regexCriteria(Brake.NAME, searchCriteria.getNameToSearch()));
 
         Query query = new Query();
         query.addCriteria(criteria);
 
 
-        long count = mongoTemplate.count(query, Breaks.class);
-        List<Breaks> breaks = mongoTemplate.find(query.with(pageable), Breaks.class);
+        long count = mongoTemplate.count(query, Brake.class);
+        List<Brake> aBrakes = mongoTemplate.find(query.with(pageable), Brake.class);
 
-        return new PageImpl<>(breaks, pageable, count);
+        return new PageImpl<>(aBrakes, pageable, count);
     }
 
 }

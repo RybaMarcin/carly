@@ -1,31 +1,31 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.bson.types.ObjectId;
-import org.carly.api.rest.request.BreaksRequest;
-import org.carly.api.rest.response.BreaksResponse;
-import org.carly.core.partsmanagement.model.entity.Breaks;
+import org.carly.api.rest.request.BrakeRequest;
+import org.carly.api.rest.response.BrakeResponse;
+import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BreaksResponseMapper implements MapperService<BreaksResponse, Breaks> {
+public class BrakeResponseMapper implements MapperService<BrakeResponse, Brake> {
 
     @Override
-    public BreaksResponse simplifyRestObject(Breaks domain) {
-        BreaksResponse rest = new BreaksResponse();
+    public BrakeResponse simplifyRestObject(Brake domain) {
+        BrakeResponse rest = new BrakeResponse();
         return mapFromDomainObject(domain, rest);
     }
 
     @Override
-    public Breaks simplifyDomainObject(BreaksResponse rest) {
-        Breaks domain = new Breaks();
+    public Brake simplifyDomainObject(BrakeResponse rest) {
+        Brake domain = new Brake();
         return mapToDomainObject(domain, rest);
     }
 
-    public BreaksResponse mapFromRestToResponse(BreaksRequest request) {
-        BreaksResponse response = new BreaksResponse();
+    public BrakeResponse mapFromRestToResponse(BrakeRequest request) {
+        BrakeResponse response = new BrakeResponse();
         response.setId(request.getId().toHexString());
-        response.setBreaksType(request.getBreaksType());
+        response.setBrakeType(request.getBrakeType());
         response.setName(request.getName());
         response.setPreview(request.getPreview());
         response.setPrice(request.getPrice());
@@ -33,9 +33,9 @@ public class BreaksResponseMapper implements MapperService<BreaksResponse, Break
     }
 
     @Override
-    public BreaksResponse mapFromDomainObject(Breaks domain, BreaksResponse rest) {
+    public BrakeResponse mapFromDomainObject(Brake domain, BrakeResponse rest) {
         rest.setId(domain.getId().toHexString());
-        rest.setBreaksType(domain.getBreaksType());
+        rest.setBrakeType(domain.getBrakeType());
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());
@@ -43,9 +43,9 @@ public class BreaksResponseMapper implements MapperService<BreaksResponse, Break
     }
 
     @Override
-    public Breaks mapToDomainObject(Breaks domain, BreaksResponse rest) {
+    public Brake mapToDomainObject(Brake domain, BrakeResponse rest) {
         domain.setId(new ObjectId(rest.getId()));
-        domain.setBreaksType(rest.getBreaksType());
+        domain.setBrakeType(rest.getBrakeType());
         domain.setName(rest.getName());
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());

@@ -5,15 +5,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum BreaksType {
+public enum BrakeType {
     HYDRAULIC("Hydraulic"),
     MECHANIC("Mechanic"),
     PNEUMATIC("Pneumatic");
 
     private String type;
-    private static Map<String, BreaksType> breaksTypes;
+    private static Map<String, BrakeType> breaksTypes;
 
-    BreaksType(String type) {
+    BrakeType(String type) {
         this.type = type;
     }
 
@@ -21,7 +21,7 @@ public enum BreaksType {
         return type;
     }
 
-    public static BreaksType of(String typeOf) {
+    public static BrakeType of(String typeOf) {
         if(breaksTypes == null) {
             initBreaksType();
         }
@@ -30,7 +30,7 @@ public enum BreaksType {
 
 
     private static void initBreaksType() {
-        breaksTypes = Stream.of(BreaksType.values()).collect(Collectors.toMap(breaksType -> breaksType.type, Function.identity()));
+        breaksTypes = Stream.of(BrakeType.values()).collect(Collectors.toMap(brakeType -> brakeType.type, Function.identity()));
     }
 
 }
