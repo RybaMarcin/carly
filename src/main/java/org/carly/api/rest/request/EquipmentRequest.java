@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 public class EquipmentRequest {
     private ObjectId id;
-    private FactoryRequest factoryRequest;
+    private BrandRequest brandRequest;
     private String name;
     private BigDecimal price;
     private EquipmentType equipmentType;

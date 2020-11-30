@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.EngineRequest;
-import org.carly.api.rest.request.FactoryRequest;
+import org.carly.api.rest.request.BrandRequest;
 import org.carly.core.partsmanagement.model.dictionaries.CylinderType;
 import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.shared.utils.MapperService;
@@ -28,7 +28,7 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         rest.setId(domain.getId());
         rest.setName(domain.getName());
         rest.setPrice(domain.getPrice());
-        rest.setFactoryRequest(new FactoryRequest(
+        rest.setBrandRequest(new BrandRequest(
                 domain.getFactory().getCarlyFactoryId(),
                 domain.getFactory().getName(),
                 domain.getFactory().getRating()
@@ -48,9 +48,9 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         domain.setName(rest.getName());
         domain.setPrice(rest.getPrice());
         domain.setFactory(new Factory(
-                rest.getFactoryRequest().getCarlyFactoryId(),
-                rest.getFactoryRequest().getName(),
-                rest.getFactoryRequest().getRating()
+                rest.getBrandRequest().getCarlyFactoryId(),
+                rest.getBrandRequest().getName(),
+                rest.getBrandRequest().getRating()
         ));
         domain.setHorsePower(rest.getHorsePower());
         domain.setWeight(rest.getWeight());

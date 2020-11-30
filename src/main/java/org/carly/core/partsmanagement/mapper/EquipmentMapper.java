@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.EquipmentRequest;
-import org.carly.api.rest.request.FactoryRequest;
+import org.carly.api.rest.request.BrandRequest;
 import org.carly.api.rest.response.EquipmentResponse;
 import org.carly.api.rest.response.FactoryResponse;
 import org.carly.core.partsmanagement.model.entity.Equipment;
@@ -27,7 +27,7 @@ public class EquipmentMapper implements MapperService<EquipmentRequest, Equipmen
     @Override
     public EquipmentRequest mapFromDomainObject(Equipment domain, EquipmentRequest request) {
         request.setId(domain.getId());
-        request.setFactoryRequest(new FactoryRequest(
+        request.setBrandRequest(new BrandRequest(
                 domain.getFactory().getCarlyFactoryId(),
                 domain.getFactory().getName(),
                 domain.getFactory().getRating()
@@ -45,9 +45,9 @@ public class EquipmentMapper implements MapperService<EquipmentRequest, Equipmen
         }
         domain.setName(request.getName());
         domain.setFactory(new Factory(
-                request.getFactoryRequest().getCarlyFactoryId(),
-                request.getFactoryRequest().getName(),
-                request.getFactoryRequest().getRating()
+                request.getBrandRequest().getCarlyFactoryId(),
+                request.getBrandRequest().getName(),
+                request.getBrandRequest().getRating()
         ));
         domain.setPrice(request.getPrice());
         domain.setType(request.getEquipmentType());

@@ -16,7 +16,7 @@ public class EngineRequest {
     private ObjectId id;
 
     private String name;
-    private FactoryRequest factoryRequest;
+    private BrandRequest brandRequest;
     private Double horsePower;
     private Double weight;
     private Double capacity;

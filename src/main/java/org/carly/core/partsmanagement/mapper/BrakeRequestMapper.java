@@ -1,7 +1,7 @@
 package org.carly.core.partsmanagement.mapper;
 
 import org.carly.api.rest.request.BrakeRequest;
-import org.carly.api.rest.request.FactoryRequest;
+import org.carly.api.rest.request.BrandRequest;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.shared.utils.MapperService;
 import org.carly.core.vehiclemanagement.model.Factory;
@@ -29,8 +29,8 @@ public class BrakeRequestMapper implements MapperService<BrakeRequest, Brake> {
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());
-        rest.setFactoryRequest(
-                new FactoryRequest(
+        rest.setBrandRequest(
+                new BrandRequest(
                         domain.getFactory().getCarlyFactoryId(),
                         domain.getFactory().getName(),
                         domain.getFactory().getRating()
@@ -49,9 +49,9 @@ public class BrakeRequestMapper implements MapperService<BrakeRequest, Brake> {
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());
         domain.setFactory(new Factory(
-                rest.getFactoryRequest().getCarlyFactoryId(),
-                rest.getFactoryRequest().getName(),
-                rest.getFactoryRequest().getRating())
+                rest.getBrandRequest().getCarlyFactoryId(),
+                rest.getBrandRequest().getName(),
+                rest.getBrandRequest().getRating())
         );
         return domain;
     }

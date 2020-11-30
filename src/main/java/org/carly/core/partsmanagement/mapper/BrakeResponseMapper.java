@@ -3,6 +3,7 @@ package org.carly.core.partsmanagement.mapper;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.BrakeRequest;
 import org.carly.api.rest.response.BrakeResponse;
+import org.carly.api.rest.response.FactoryResponse;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,9 @@ public class BrakeResponseMapper implements MapperService<BrakeResponse, Brake> 
 
     public BrakeResponse mapFromRestToResponse(BrakeRequest request) {
         BrakeResponse response = new BrakeResponse();
-        response.setId(request.getId().toHexString());
+        if (request.getId() != null) {
+            response.setId(request.getId().toHexString());
+        }
         response.setBrakeType(request.getBrakeType());
         response.setName(request.getName());
         response.setPreview(request.getPreview());
@@ -36,6 +39,11 @@ public class BrakeResponseMapper implements MapperService<BrakeResponse, Brake> 
     public BrakeResponse mapFromDomainObject(Brake domain, BrakeResponse rest) {
         rest.setId(domain.getId().toHexString());
         rest.setBrakeType(domain.getBrakeType());
+        rest.setBrand(new FactoryResponse(
+                domain.getFactory().getCarlyFactoryId().toHexString(),
+                domain.getFactory().getName(),
+                domain.getFactory().getRating()
+        ));
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());

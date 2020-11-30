@@ -1,6 +1,7 @@
 package org.carly.core.companymanagement.repository;
 
 import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
+import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyFilter;
 import org.carly.core.usermanagement.model.User;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,5 +40,4 @@ public class CompanyMongoRepository {
 
         return new PageImpl<>(companies, pageable, count);
     }
-
 }

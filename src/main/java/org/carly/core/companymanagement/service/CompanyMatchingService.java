@@ -3,7 +3,10 @@ package org.carly.core.companymanagement.service;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.CompanyFactoryMatchRequest;
 import org.carly.api.rest.request.CompanyMatchingRequest;
+import org.carly.api.rest.response.CompanyFactoriesMatched;
 import org.carly.api.rest.response.CompanyMatchResponse;
+import org.carly.api.rest.response.CompanyResponse;
+import org.carly.api.rest.response.ErrorResponse;
 import org.carly.core.companymanagement.mapper.CompanyMatchMapper;
 import org.carly.core.companymanagement.model.CompanyMatch;
 import org.carly.core.companymanagement.model.CompanyMatchStatus;
@@ -15,6 +18,9 @@ import org.carly.core.shared.utils.time.TimeService;
 import org.carly.core.usermanagement.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyMatchingService {
@@ -77,5 +83,18 @@ public class CompanyMatchingService {
             return ResponseEntity.ok(new CompanyMatchResponse(companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
         }
         return ResponseEntity.badRequest().body(new CompanyMatchResponse(companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
+    }
+
+    public List<CompanyMatch> findAllMatchedFactoriesByCompanyId(String companyId) {
+        return companyMatchRepository.findAllByCompanyIdAndStatus(new ObjectId(companyId), CompanyMatchStatus.ACCEPTED);
+    }
+
+    public ResponseEntity<?> getAllMatchedFactoriesByCompanyId(String companyId) {
+        List<CompanyMatch> matchedList = companyMatchRepository.findAllByCompanyIdAndStatus(new ObjectId(companyId), CompanyMatchStatus.ACCEPTED);
+        if (matchedList != null && !matchedList.isEmpty()) {
+            List<CompanyMatchResponse> companyMatches = matchedList.stream().map(companyMatchMapper::mapDomainToResponse).collect(Collectors.toList());
+            return ResponseEntity.ok(new CompanyFactoriesMatched(companyMatches));
+        }
+        return ResponseEntity.ok(new ErrorResponse("Cannot find any matched comapnies"));
     }
 }

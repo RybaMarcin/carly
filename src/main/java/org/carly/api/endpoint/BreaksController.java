@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api//breaks")
+@RequestMapping("/api/breaks")
 public class BreaksController {
 
     private static final String DELETE_BREAKS = "Delete breaks by id";
@@ -43,8 +43,14 @@ public class BreaksController {
         return breaksFindService.findPartById(new ObjectId(id));
     }
 
+    @GetMapping("/all-breaks-by-company-id/{companyId}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
+    public Collection<BrakeResponse> findAllBreaksByCompanyId(@PathVariable(name = "companyId") String companyId) {
+        return breaksFindService.findAllBreaksByCompanyId(companyId);
+    }
+
     @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_CUSTOMER')")
     public Collection<BrakeResponse> findAllBreaks() {
         return breaksFindService.findAll();
     }

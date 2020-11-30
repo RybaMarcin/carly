@@ -65,5 +65,4 @@ public class CompanyFindService {
         return companyMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(companyMapper::simplifyRestObject);
     }
-
 }
