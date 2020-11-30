@@ -53,4 +53,9 @@ public class EngineFindService  {
         return engineMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(engineResponseMapper::simplifyRestObject);
     }
+
+    public Collection<EngineResponse> findAllEnginesByCompanyId(String companyId) {
+        Collection<Engine> engines = engineRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
+        return engines.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
+    }
 }

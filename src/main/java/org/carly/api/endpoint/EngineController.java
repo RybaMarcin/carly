@@ -3,6 +3,7 @@ package org.carly.api.endpoint;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.EngineRequest;
 import org.carly.api.rest.criteria.EngineSearchCriteriaRequest;
+import org.carly.api.rest.response.BrakeResponse;
 import org.carly.api.rest.response.EngineResponse;
 import org.carly.core.partsmanagement.service.EngineFindService;
 import org.carly.core.partsmanagement.service.EngineSaveService;
@@ -38,6 +39,13 @@ public class EngineController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public ResponseEntity<EngineResponse> findEngineById(@PathVariable("id") String id) {
         return engineFindService.findPartById(new ObjectId(id));
+    }
+
+
+    @GetMapping("/all-engines-by-company-id/{companyId}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
+    public Collection<EngineResponse> findAllEnginesByCompanyId(@PathVariable(name = "companyId") String companyId) {
+        return engineFindService.findAllEnginesByCompanyId(companyId);
     }
 
     @GetMapping("/all")

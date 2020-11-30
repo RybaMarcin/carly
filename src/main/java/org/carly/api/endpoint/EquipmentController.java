@@ -1,6 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.carly.api.rest.request.EquipmentRequest;
+import org.carly.api.rest.response.EngineResponse;
 import org.carly.api.rest.response.EquipmentResponse;
 import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
 import org.carly.core.partsmanagement.service.EquipmentFindService;
@@ -30,6 +31,12 @@ public class EquipmentController {
     public Page<EquipmentResponse> findEquipment(EquipmentSearchCriteriaRequest searchCriteria,
                                                  Pageable pageable) {
         return equipmentFindService.findEquipment(searchCriteria, pageable);
+    }
+
+    @GetMapping("/all-equipment-by-company-id/{companyId}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
+    public Collection<EquipmentResponse> findAllEquipmentsByCompanyId(@PathVariable(name = "companyId") String companyId) {
+        return equipmentFindService.findAllEquipmentsByCompanyId(companyId);
     }
 
     @GetMapping("/all")

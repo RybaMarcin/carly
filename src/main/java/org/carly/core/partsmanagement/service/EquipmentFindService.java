@@ -1,7 +1,9 @@
 package org.carly.core.partsmanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
+import org.carly.api.rest.response.EngineResponse;
 import org.carly.api.rest.response.EquipmentResponse;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.entity.Equipment;
@@ -40,5 +42,11 @@ public class EquipmentFindService{
     public Page<EquipmentResponse> findEquipment(EquipmentSearchCriteriaRequest searchCriteria, Pageable pageable) {
         return equipmentMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(equipmentMapper::mapFromDomainToResponse);
+    }
+
+    public Collection<EquipmentResponse> findAllEquipmentsByCompanyId(String companyId) {
+        Collection<Equipment> equipments = equipmentRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
+        return equipments.stream().map(equipmentMapper::mapFromDomainToResponse).collect(Collectors.toList());
+
     }
 }
