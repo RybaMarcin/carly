@@ -8,7 +8,6 @@ import org.carly.core.partsmanagement.mapper.BrakeResponseMapper;
 import org.carly.core.partsmanagement.repository.BrakeMongoRepository;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.partsmanagement.repository.BrakeRepository;
-import org.carly.core.partsmanagement.repository.BreaksMongoRepository;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +23,9 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 @Slf4j
 public class BrakeFindService  {
 
-
     private final BrakeResponseMapper brakeResponseMapper;
     private final BrakeRepository brakesRepository;
     private final BrakeMongoRepository brakeMongoRepository;
-
 
     public BrakeFindService(BrakeResponseMapper brakeResponseMapper,
                             BrakeRepository brakeRepository,
@@ -58,7 +55,7 @@ public class BrakeFindService  {
     }
 
     public Collection<BrakeResponse> findAllBreaksByCompanyId(String companyId) {
-        Collection<Brake> brakes = breaksRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
+        Collection<Brake> brakes = brakesRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
         log.info("Find: ({}) - brakes", brakes.size());
         return brakes.stream().map(brakeResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
