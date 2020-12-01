@@ -16,12 +16,12 @@ import static org.carly.core.shared.utils.criteria.CriteriaBuilder.criteria;
 import static org.carly.core.shared.utils.criteria.CriteriaBuilder.regexCriteria;
 
 @Repository
-public class BreaksMongoRepository {
+public class BrakeMongoRepository {
 
 
     private final MongoTemplate mongoTemplate;
 
-    public BreaksMongoRepository(MongoTemplate mongoTemplate) {
+    public BrakeMongoRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 

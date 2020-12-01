@@ -58,11 +58,11 @@ public class BrakeSaveService {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseEntity<SuccessResponse> deleteBreak(String breakId) {
-        Brake aBrake = brakeRepository.findById(new ObjectId(breakId))
+    public ResponseEntity<SuccessResponse> deleteBrake(String brakeId) {
+        Brake aBrake = brakeRepository.findById(new ObjectId(brakeId))
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
         brakeRepository.delete(aBrake);
-        log.info("Breaks with id: {} successfully deleted!", aBrake.getId());
-        return ResponseEntity.ok(new SuccessResponse("Break successfully deleted: " + aBrake.getId()));
+        log.info("Brake with id: {} successfully deleted!", aBrake.getId());
+        return ResponseEntity.ok(new SuccessResponse("Brake successfully deleted: " + aBrake.getId()));
     }
 }

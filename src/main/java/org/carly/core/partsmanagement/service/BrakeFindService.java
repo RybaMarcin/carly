@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
 import org.carly.api.rest.response.BrakeResponse;
 import org.carly.core.partsmanagement.mapper.BrakeResponseMapper;
+import org.carly.core.partsmanagement.repository.BrakeMongoRepository;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.partsmanagement.repository.BrakeRepository;
 import org.carly.core.partsmanagement.repository.BreaksMongoRepository;
@@ -21,30 +22,30 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 
 @Service
 @Slf4j
-public class BreaksFindService {
+public class BrakeFindService  {
 
 
     private final BrakeResponseMapper brakeResponseMapper;
-    private final BrakeRepository breaksRepository;
-    private final BreaksMongoRepository breaksMongoRepository;
+    private final BrakeRepository brakesRepository;
+    private final BrakeMongoRepository brakeMongoRepository;
 
 
-    public BreaksFindService(BrakeResponseMapper brakeResponseMapper,
-                             BrakeRepository brakeRepository,
-                             BreaksMongoRepository breaksMongoRepository) {
+    public BrakeFindService(BrakeResponseMapper brakeResponseMapper,
+                            BrakeRepository brakeRepository,
+                            BrakeMongoRepository brakeMongoRepository) {
         this.brakeResponseMapper = brakeResponseMapper;
-        this.breaksRepository = brakeRepository;
-        this.breaksMongoRepository = breaksMongoRepository;
+        this.brakesRepository = brakeRepository;
+        this.brakeMongoRepository = brakeMongoRepository;
     }
 
     public Collection<BrakeResponse> findAll() {
-        List<Brake> brakeList = breaksRepository.findAll();
+        List<Brake> brakeList = brakesRepository.findAll();
         log.info("Breaks list contains: {}", brakeList.size());
         return brakeList.stream().map(brakeResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     public BrakeResponse findPartById(ObjectId id) {
-        Brake aBrake = breaksRepository.findById(id)
+        Brake aBrake = brakesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         log.info("Breaks with id: {} was found!", id);
         return brakeResponseMapper.simplifyRestObject(aBrake);
@@ -52,7 +53,7 @@ public class BreaksFindService {
 
 
     public Page<BrakeResponse> findBreaks(BreaksSearchCriteriaRequest searchCriteria, Pageable pageable) {
-        return breaksMongoRepository.findWithFilters(searchCriteria, pageable)
+        return brakeMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(brakeResponseMapper::simplifyRestObject);
     }
 
