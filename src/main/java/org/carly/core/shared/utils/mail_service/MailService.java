@@ -138,7 +138,7 @@ public class MailService {
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-        email.setFrom(loggedUserProvider.provideUserDetail().getEmail());
+        email.setFrom(loggedUserProvider.loggedUser().getEmail());
         return email;
     }
 }

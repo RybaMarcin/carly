@@ -29,7 +29,7 @@ public class BrakeRequestMapper implements MapperService<BrakeRequest, Brake> {
         rest.setName(domain.getName());
         rest.setPreview(domain.getPreview());
         rest.setPrice(domain.getPrice());
-        rest.setBrandRequest(
+        rest.setBrand(
                 new BrandRequest(
                         domain.getFactory().getCarlyFactoryId(),
                         domain.getFactory().getName(),
@@ -49,10 +49,11 @@ public class BrakeRequestMapper implements MapperService<BrakeRequest, Brake> {
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());
         domain.setFactory(new Factory(
-                rest.getBrandRequest().getCarlyFactoryId(),
-                rest.getBrandRequest().getName(),
-                rest.getBrandRequest().getRating())
+                rest.getBrand().getCarlyFactoryId(),
+                rest.getBrand().getName(),
+                rest.getBrand().getRating())
         );
+
         return domain;
     }
 }

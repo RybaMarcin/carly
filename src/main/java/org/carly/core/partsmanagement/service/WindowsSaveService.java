@@ -38,7 +38,7 @@ public class WindowsSaveService {
 
     public ResponseEntity<WindowsResponse> createPart(WindowsRequest part) {
         Windows windows = windowsRequestMapper.simplifyDomainObject(part);
-        windows.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        windows.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         windows.setCreatedDate(LocalDateTime.now());
         windowsRepository.save(windows);
         log.info("Windows with id: {} successfully created!", part.getId());

@@ -233,7 +233,7 @@ public class UserService {
     }
 
     public ResponseEntity saveNewPassword(String password) {
-        User user = userRepository.findById(loggedUserProvider.provideUserDetail().getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        User user = userRepository.findById(loggedUserProvider.loggedUser().getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         if (user.getRoles().contains(CarlyGrantedAuthority.of(CHANGE_PASSWORD_PRIVILEGE.name()))) {
             user.setPassword(passwordEncoder.encode(password));
             user.getRoles().removeIf(role -> role.getUserRole() == CHANGE_PASSWORD_PRIVILEGE);
@@ -278,7 +278,7 @@ public class UserService {
         if (newToken == null) {
             return ResponseEntity.badRequest().body(new JwtTokenResponse("Cannot refresh token"));
         }
-        log.info("Token refreshed! {}", newToken);
+        log.info("Token refreshed for: {} - {}", loggedUserProvider.loggedUser().getEmail(), newToken);
         return ResponseEntity.ok(new JwtTokenResponse(newToken));
     }
 }

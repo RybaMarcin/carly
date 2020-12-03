@@ -34,7 +34,7 @@ public class EquipmentSaveService {
 
     public ResponseEntity<EquipmentResponse> createPart(EquipmentRequest equipmentRequest) {
         Equipment equipment = equipmentMapper.simplifyDomainObject(equipmentRequest);
-        equipment.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        equipment.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         equipment.setCreatedDate(LocalDateTime.now());
         equipmentRepository.save(equipment);
         log.info("Equipment with id: {} successfully created!", equipmentRequest.getId());

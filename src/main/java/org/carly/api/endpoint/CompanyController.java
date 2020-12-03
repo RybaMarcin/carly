@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api//company")
+@RequestMapping("/api/company")
 public class CompanyController {
 
     private static final String FIND_COMPANIES_BY_NAME = "Find companies by names";
     private static final String FIND_COMPANY_BY_ID = "Find company by id";
-    private static final String FIND_ALL_BRANDS = "Find all brands";
 
     private final CompanyFindService companyFindService;
 

@@ -34,7 +34,7 @@ public class PaintingSaveService {
 
     public ResponseEntity<PaintingResponse> createPart(PaintingRequest part) {
         Painting painting = paintingMapper.simplifyDomainObject(part);
-        painting.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        painting.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         painting.setCreatedDate(LocalDateTime.now());
         paintingRepository.save(painting);
         log.info("Painting with id: {} successfully created!", part.getId());

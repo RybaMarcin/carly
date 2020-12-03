@@ -5,7 +5,6 @@ import org.carly.api.rest.request.CompanyFactoryMatchRequest;
 import org.carly.api.rest.request.CompanyMatchingRequest;
 import org.carly.api.rest.response.CompanyFactoriesMatched;
 import org.carly.api.rest.response.CompanyMatchResponse;
-import org.carly.api.rest.response.CompanyResponse;
 import org.carly.api.rest.response.ErrorResponse;
 import org.carly.core.companymanagement.mapper.CompanyMatchMapper;
 import org.carly.core.companymanagement.model.CompanyMatch;
@@ -54,7 +53,7 @@ public class CompanyMatchingService {
                 factory.getId(),
                 CompanyMatchStatus.PENDING,
                 timeService.getLocalDateTime(),
-                loggedUserProvider.provideUserDetail().getEmail()
+                loggedUserProvider.loggedUser().getEmail()
         );
 
         companyMatchRepository.save(companyMatch);
@@ -66,7 +65,7 @@ public class CompanyMatchingService {
         CompanyMatch companyMatch = companyMatchRepository.findById(new ObjectId(matchResponse.getCompanyMatchId()))
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
         companyMatch.setStatus(matchResponse.getStatusResponse());
-        companyMatch.setModifiedBy(loggedUserProvider.provideUserDetail().getEmail());
+        companyMatch.setModifiedBy(loggedUserProvider.loggedUser().getEmail());
         companyMatch.setModifiedDate(timeService.getLocalDateTime());
         companyMatchRepository.save(companyMatch);
         return ResponseEntity.ok(companyMatchMapper.mapDomainToResponse(companyMatch));

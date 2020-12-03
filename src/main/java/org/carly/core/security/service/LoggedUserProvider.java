@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class LoggedUserProvider {
 
-    public LoggedUser provideUserDetail() {
+    public LoggedUser loggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.isNull(authentication) || !(authentication.getPrincipal() instanceof LoggedUser)) {
             throw new LoggedUserNotFoundException();

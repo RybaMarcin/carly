@@ -1,5 +1,6 @@
 package org.carly.core.security.config;
 
+import org.carly.core.ordermanagement.service.CartKeeperService;
 import org.carly.core.security.service.AuthTokenFilter;
 import org.carly.core.security.service.LoggedUserProvider;
 import org.carly.core.usermanagement.service.LoginService;
@@ -59,6 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ApplicationScope
     public TokenBlackListService tokenBlackListService() {
         return new TokenBlackListService();
+    }
+
+    @Bean
+    @ApplicationScope
+    public CartKeeperService cartService(){
+        return new CartKeeperService();
     }
 
     @Bean

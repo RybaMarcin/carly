@@ -39,7 +39,7 @@ public class EngineSaveService {
     public ResponseEntity<EngineResponse> createPart(EngineRequest request) {
         Engine engine = engineRequestMapper.simplifyDomainObject(request);
         engine.setCreatedDate(LocalDateTime.now());
-        engine.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        engine.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         engineRepository.save(engine);
         log.info("Engine with id: {} successfully created!", request.getId());
         EngineResponse response = engineResponseMapper.simplifyRestObject(engine);

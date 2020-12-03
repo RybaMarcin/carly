@@ -34,7 +34,7 @@ public class TiresSaveService {
 
     public ResponseEntity<TiresResponse> createPart(TiresRequest part) {
         Tires tires = tiresMapper.simplifyDomainObject(part);
-        tires.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        tires.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         tires.setCreatedDate(LocalDateTime.now());
         tiresRepository.save(tires);
         log.info("Tires with id: {} successfully created!", part.getId());

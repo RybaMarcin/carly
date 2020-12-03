@@ -41,7 +41,7 @@ public class BrakeSaveService {
     public ResponseEntity<BrakeResponse> createPart(BrakeRequest request) {
         Brake aBrake = brakeRequestMapper.simplifyDomainObject(request);
         aBrake.setCreatedDate(LocalDateTime.now());
-        aBrake.setCreateBy(loggedUserProvider.provideUserDetail().getEmail());
+        aBrake.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         brakeRepository.save(aBrake);
         BrakeResponse response = brakeResponseMapper.mapFromRestToResponse(request);
         log.info("Breaks with id: {} successfully created!", request.getId());

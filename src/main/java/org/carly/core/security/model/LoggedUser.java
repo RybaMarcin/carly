@@ -157,4 +157,8 @@ public class LoggedUser implements UserDetails {
                 ", authorities=" + authorities +
                 '}';
     }
+
+    public boolean isInRole(UserRole role) {
+        return Boolean.TRUE.equals(this.authorities.stream().anyMatch(e -> e.getAuthority().equals(role.name())));
+    }
 }
