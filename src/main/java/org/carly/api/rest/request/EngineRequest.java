@@ -16,10 +16,10 @@ public class EngineRequest {
     private ObjectId id;
 
     private String name;
-    private BrandRequest brandRequest;
+    private BrandRequest brand;
     private Double horsePower;
-    private Double weight;
     private Double capacity;
     private String cylinderType;
     private BigDecimal price;
+    private String preview;
 }

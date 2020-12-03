@@ -33,9 +33,9 @@ public class EngineResponseMapper implements MapperService<EngineResponse, Engin
         response.getBrand().setCarlyFactoryId(domain.getFactory().getCarlyFactoryId().toHexString());
         response.getBrand().setName(domain.getFactory().getName());
         response.setHorsePower(domain.getHorsePower());
-        response.setWeight(domain.getWeight());
         response.setCapacity(domain.getCapacity());
         response.setCylinderType(domain.getCylinderType().toString());
+        response.setPreview(domain.getPreview());
         return response;
     }
 
@@ -48,9 +48,9 @@ public class EngineResponseMapper implements MapperService<EngineResponse, Engin
         domain.getFactory().setCarlyFactoryId(new ObjectId(response.getBrand().getCarlyFactoryId()));
         domain.getFactory().setName(response.getBrand().getName());
         domain.setHorsePower(response.getHorsePower());
-        domain.setWeight(response.getWeight());
         domain.setCapacity(response.getCapacity());
         domain.setCylinderType(CylinderType.valueOf(response.getCylinderType()));
+        domain.setPreview(response.getPreview());
         return domain;
     }
 }

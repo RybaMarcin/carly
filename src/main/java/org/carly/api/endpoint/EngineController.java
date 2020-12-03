@@ -65,4 +65,11 @@ public class EngineController {
     public ResponseEntity<EngineResponse> updateEngine(@RequestBody EngineRequest engine) {
         return engineSaveService.updatePart(engine);
     }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
+    public ResponseEntity<?> deleteEngine(@PathVariable(name = "id") String id) {
+        return engineSaveService.deletePart(id);
+    }
+
 }

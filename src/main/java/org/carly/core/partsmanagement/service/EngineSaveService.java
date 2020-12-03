@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.EngineRequest;
 import org.carly.api.rest.response.EngineResponse;
+import org.carly.api.rest.response.MessageResponse;
 import org.carly.core.partsmanagement.mapper.EngineRequestMapper;
 import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
 import org.carly.core.partsmanagement.model.entity.Engine;
@@ -57,10 +58,11 @@ public class EngineSaveService {
         return ResponseEntity.ok(response);
     }
 
-    public void deletePart(ObjectId id) {
-        Engine engine = engineRepository.findById(id)
+    public ResponseEntity<?> deletePart(String id) {
+        Engine engine = engineRepository.findById(new ObjectId(id))
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         engineRepository.delete(engine);
         log.info("Engine with id: {} successfully deleted!", id);
+        return ResponseEntity.ok(new MessageResponse("Engine successfully deleted!"));
     }
 }

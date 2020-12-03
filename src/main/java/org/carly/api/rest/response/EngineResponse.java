@@ -14,9 +14,9 @@ public class EngineResponse {
     private String name;
     private FactoryResponse brand;
     private Double horsePower;
-    private Double weight;
     private Double capacity;
     private String cylinderType;
     private BigDecimal price;
     private LocalDate createDate;
+    private String preview;
 }

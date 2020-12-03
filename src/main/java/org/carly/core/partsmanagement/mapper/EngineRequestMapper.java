@@ -28,15 +28,15 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         rest.setId(domain.getId());
         rest.setName(domain.getName());
         rest.setPrice(domain.getPrice());
-        rest.setBrandRequest(new BrandRequest(
+        rest.setBrand(new BrandRequest(
                 domain.getFactory().getCarlyFactoryId(),
                 domain.getFactory().getName(),
                 domain.getFactory().getRating()
         ));
         rest.setHorsePower(domain.getHorsePower());
-        rest.setWeight(domain.getWeight());
         rest.setCapacity(domain.getCapacity());
         rest.setCylinderType(domain.getCylinderType().toString());
+        rest.setPreview(domain.getPreview());
         return rest;
     }
 
@@ -48,14 +48,14 @@ public class EngineRequestMapper implements MapperService<EngineRequest, Engine>
         domain.setName(rest.getName());
         domain.setPrice(rest.getPrice());
         domain.setFactory(new Factory(
-                rest.getBrandRequest().getCarlyFactoryId(),
-                rest.getBrandRequest().getName(),
-                rest.getBrandRequest().getRating()
+                rest.getBrand().getCarlyFactoryId(),
+                rest.getBrand().getName(),
+                rest.getBrand().getRating()
         ));
         domain.setHorsePower(rest.getHorsePower());
-        domain.setWeight(rest.getWeight());
         domain.setCapacity(rest.getCapacity());
         domain.setCylinderType(CylinderType.valueOf(rest.getCylinderType()));
+        domain.setPreview(rest.getPreview());
         return domain;
     }
 }
