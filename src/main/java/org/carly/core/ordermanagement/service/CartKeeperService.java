@@ -17,7 +17,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
@@ -25,6 +24,7 @@ import java.util.stream.Collectors;
 public class CartKeeperService {
 
     private Map<CartOwner, CartOrder> cartOrders = new ConcurrentHashMap<>();
+    private Map<CartOwner, BigDecimal> cartOwnerTotalAmount = new ConcurrentHashMap<>();
 
     public ResponseEntity<?> addOrUpdatePartToCart(PartToCartRequest request) {
         CartOwner cartOwner = new CartOwner(new ObjectId(request.getConsumerId()));
@@ -41,7 +41,9 @@ public class CartKeeperService {
             );
             specificFactoriesPartMap.put(request.getPartType(), newSpecificParts);
             factoriesParts.add((new SpecificFactory(request.getSupplierId(), request.getSupplierName(), specificFactoriesPartMap)));
+
             CartOrder cartOrder = new CartOrder(request.getConsumerId(), request.getConsumerName(), factoriesParts);
+            cartOrder.setTotalAmount(countAmount(cartOwner, cartOrder));
             cartOrders.put(cartOwner, cartOrder);
             return ResponseEntity.ok(cartOrders);
         } else if (cartOrders.containsKey(cartOwner) && cartOrders.get(cartOwner).getFactoryParts().stream().map(SpecificFactory::getFactoryId).noneMatch(sp -> sp.equals(request.getSupplierId()))) {
@@ -66,8 +68,43 @@ public class CartKeeperService {
                     specificPart.setAmountPerItem(newAmount);
                 }
             }
+
         }
+        final int totalQuantity = countQuantity(cartOrder);
+        cartOrder.setTotalQuantity(totalQuantity);
+
+        cartOrder.setTotalAmount(countAmount(cartOwner, cartOrder));
+
         return ResponseEntity.ok(cartOrders);
+    }
+
+    private int countQuantity(CartOrder cartOrder) {
+        int totalQuantity = 0;
+        if (cartOrder != null) {
+            for (SpecificFactory factoryPart : cartOrder.getFactoryParts()) {
+                final Map<PartType, List<SpecificPart>> parts = factoryPart.getParts();
+                for (List<SpecificPart> sp : parts.values()) {
+                    totalQuantity = sp.stream().mapToInt(SpecificPart::getQuantity).sum();
+                }
+            }
+        }
+        return totalQuantity;
+    }
+
+    private BigDecimal countAmount(CartOwner cartOwner, CartOrder cartOrder) {
+        BigDecimal totalSum = BigDecimal.ZERO;
+        if (cartOwner != null) {
+            for (SpecificFactory factoryPart : cartOrder.getFactoryParts()) {
+                final Map<PartType, List<SpecificPart>> parts = factoryPart.getParts();
+                BigDecimal sum = BigDecimal.ZERO;
+                for (List<SpecificPart> sp : parts.values()) {
+                    sum = sp.stream().map(SpecificPart::getAmountPerItem).reduce(BigDecimal.ZERO, BigDecimal::add);
+                }
+                totalSum = totalSum.add(sum);
+            }
+            cartOwnerTotalAmount.put(cartOwner, totalSum);
+        }
+        return cartOwnerTotalAmount.get(cartOwner);
     }
 
     private BigDecimal countAmountOfQuantity(BigDecimal amountPerItem, int quantity) {
@@ -84,7 +121,7 @@ public class CartKeeperService {
     }
 
     public ResponseEntity<?> getAllAvailableCarts() {
-        final List<CartOrder> orders = cartOrders.values().stream().collect(Collectors.toList());
+        final List<CartOrder> orders = new ArrayList<>(cartOrders.values());
         final ConsumersCartsResponse response = new CartMapper().mapFromConsumerCartToList(orders);
         return ResponseEntity.ok(response);
     }
