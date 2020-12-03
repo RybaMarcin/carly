@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class BrakeRequest {
     private ObjectId id;
     private String name;
-    private BrandRequest brandRequest;
+    private BrandRequest brand;
     private String preview;
     private BrakeType brakeType;
     private BigDecimal price;
