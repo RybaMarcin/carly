@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CartKeeperService {
 
     private Map<CartOwner, CartOrder> cartOrders = new ConcurrentHashMap<>();
-    private Map<CartOwner, BigDecimal> cartOwnerTotalAmount = new ConcurrentHashMap<>();
+    private Map<SupplierPartModel, BigDecimal> factoriesTotalAmountHolder = new ConcurrentHashMap<>();
 
     public ResponseEntity<?> addOrUpdatePartToCart(PartToCartRequest request) {
         CartOwner cartOwner = new CartOwner(new ObjectId(request.getConsumerId()));
@@ -92,19 +92,19 @@ public class CartKeeperService {
     }
 
     private BigDecimal countAmount(CartOwner cartOwner, CartOrder cartOrder) {
-        BigDecimal totalSum = BigDecimal.ZERO;
         if (cartOwner != null) {
             for (SpecificFactory factoryPart : cartOrder.getFactoryParts()) {
                 final Map<PartType, List<SpecificPart>> parts = factoryPart.getParts();
-                BigDecimal sum = BigDecimal.ZERO;
-                for (List<SpecificPart> sp : parts.values()) {
-                    sum = sp.stream().map(SpecificPart::getAmountPerItem).reduce(BigDecimal.ZERO, BigDecimal::add);
+                for (Map.Entry<PartType, List<SpecificPart>> sp : parts.entrySet()) {
+                    BigDecimal sum = sp.getValue().stream().map(SpecificPart::getAmountPerItem).reduce(BigDecimal.ZERO, BigDecimal::add);
+                    SupplierPartModel supplierPartModel = new SupplierPartModel(sp.getKey(), factoryPart.getFactoryId());
+                    factoriesTotalAmountHolder.put(supplierPartModel, sum);
                 }
-                totalSum = totalSum.add(sum);
+
             }
-            cartOwnerTotalAmount.put(cartOwner, totalSum);
+            return factoriesTotalAmountHolder.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
         }
-        return cartOwnerTotalAmount.get(cartOwner);
+        return BigDecimal.ZERO;
     }
 
     private BigDecimal countAmountOfQuantity(BigDecimal amountPerItem, int quantity) {
