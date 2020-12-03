@@ -1,6 +1,7 @@
 package org.carly.core.ordermanagement.mapper;
 
 import org.carly.api.rest.response.cart.ConsumerCartResponse;
+import org.carly.api.rest.response.cart.ConsumersCartsResponse;
 import org.carly.api.rest.response.cart.PartResponse;
 import org.carly.api.rest.response.cart.SupplierPartsResponse;
 import org.carly.core.ordermanagement.model.cart.CartOrder;
@@ -14,6 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 public class CartMapper {
+
+    public ConsumersCartsResponse mapFromConsumerCartToList(List<CartOrder> cartOrders) {
+        List<ConsumerCartResponse> ccr = new ArrayList<>();
+        for (CartOrder cartOrder : cartOrders) {
+            ccr.add(mapFromDomainToSingleResponse(cartOrder));
+        }
+        return new ConsumersCartsResponse(ccr);
+    }
 
     public ConsumerCartResponse mapFromDomainToSingleResponse(CartOrder cartOrder) {
         ConsumerCartResponse response = new ConsumerCartResponse();

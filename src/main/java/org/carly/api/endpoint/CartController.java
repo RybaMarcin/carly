@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
 
     private static final String ADD_PART_TO_CART = "Add part to card or modify exists one";
+    private static final String FIND_ALL_CART_PARTS_BY_CONSUMER_ID = "Find all consumer cart parts by id";
+    private static final String FIND_ALL_CARTS = "Find all available carts";
     private final CartKeeperService cartKeeperService;
 
     public CartController(CartKeeperService cartKeeperService) {
@@ -26,9 +28,16 @@ public class CartController {
     }
 
     @GetMapping("/get-cart-factories/{consumerId}")
-    @ApiOperation(value = "FIND_MAIN_FACTORIES_ORDER_INFO")
+    @ApiOperation(value = FIND_ALL_CART_PARTS_BY_CONSUMER_ID)
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public ResponseEntity<?> getCartFactoriesInfo(@PathVariable(value = "consumerId") String id) {
         return cartKeeperService.getCartFactoriesInfoByConsumerId(id);
+    }
+
+    @GetMapping("/get-all-carts")
+    @ApiOperation(value = FIND_ALL_CARTS)
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR')")
+    public ResponseEntity<?> getAllAvailableCarts(){
+        return cartKeeperService.getAllAvailableCarts();
     }
 }

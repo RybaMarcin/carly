@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.PartToCartRequest;
 import org.carly.api.rest.response.cart.ConsumerCartResponse;
+import org.carly.api.rest.response.cart.ConsumersCartsResponse;
 import org.carly.core.ordermanagement.mapper.CartMapper;
 import org.carly.core.ordermanagement.model.cart.*;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
@@ -79,5 +81,11 @@ public class CartKeeperService {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.badRequest().body(id);
+    }
+
+    public ResponseEntity<?> getAllAvailableCarts() {
+        final List<CartOrder> orders = cartOrders.values().stream().collect(Collectors.toList());
+        final ConsumersCartsResponse response = new CartMapper().mapFromConsumerCartToList(orders);
+        return ResponseEntity.ok(response);
     }
 }

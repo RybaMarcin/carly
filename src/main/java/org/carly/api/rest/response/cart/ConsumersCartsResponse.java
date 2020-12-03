@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConsumersCartsResponse {
-    private List<ConsumerCartResponse> consumerCart;
+    private List<ConsumerCartResponse> consumersCarts;
 }
