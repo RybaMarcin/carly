@@ -43,7 +43,7 @@ public class BrakeSaveService {
         aBrake.setCreatedDate(LocalDateTime.now());
         aBrake.setCreateBy(loggedUserProvider.loggedUser().getEmail());
         brakeRepository.save(aBrake);
-        BrakeResponse response = brakeResponseMapper.mapFromRestToResponse(request);
+        BrakeResponse response = brakeResponseMapper.simplifyRestObject(aBrake);
         log.info("Breaks with id: {} successfully created!", request.getId());
         return ResponseEntity.ok(response);
     }
