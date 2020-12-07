@@ -35,9 +35,6 @@ public class CartKeeperService {
 
     public ResponseEntity<?> addOrUpdatePartToCart(PartToCartRequest request) {
         CartOwner cartOwner = new CartOwner(new ObjectId(request.getConsumerId()));
-        if (request.getQuantity() < 1) {
-            return null;
-        }
         BigDecimal result = countAmountOfQuantity(request.getAmount(), request.getQuantity());
         List<SpecificPart> newSpecificParts = new ArrayList<>();
         List<SpecificFactory> factoriesParts = new ArrayList<>();

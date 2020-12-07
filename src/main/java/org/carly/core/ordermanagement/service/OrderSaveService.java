@@ -2,7 +2,9 @@ package org.carly.core.ordermanagement.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.carly.api.rest.request.order.OrderRequest;
 import org.carly.api.rest.response.OrderResponse;
+import org.carly.api.rest.response.SuccessResponse;
 import org.carly.core.ordermanagement.mapper.OrderMapper;
 import org.carly.core.ordermanagement.model.Order;
 import org.carly.core.ordermanagement.repository.OrderRepository;
@@ -30,17 +32,18 @@ public class OrderSaveService {
     }
 
     public ObjectId save(OrderResponse orderResponse) {
-        Order order = orderMapper.simplifyDomainObject(orderResponse);
-        return orderRepository.save(order).getId();
+//        Order order = orderMapper.simplifyDomainObject(orderResponse);
+//        return orderRepository.save(order).getId();
+        return null;
     }
 
     public ResponseEntity updateOrder(OrderResponse orderResponse) {
-        Order oldOrder = orderRepository.findById(orderResponse.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
-        Order newOrder = orderMapper.mapToDomainObject(oldOrder, orderResponse);
-        newOrder.setCreateAt(oldOrder.getCreateAt());
-        newOrder.setModifiedAt(timeService.getLocalDate());
-        orderRepository.save(newOrder);
-        log.info("Order update successfully");
+//        Order oldOrder = orderRepository.findById(orderResponse.getId()).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+//        Order newOrder = orderMapper.mapToDomainObject(oldOrder, orderResponse);
+//        newOrder.setCreateAt(oldOrder.getCreateAt());
+//        newOrder.setModifiedAt(timeService.getLocalDate());
+//        orderRepository.save(newOrder);
+//        log.info("Order update successfully");
         return ResponseEntity.ok().build();
     }
 
@@ -49,5 +52,11 @@ public class OrderSaveService {
         orderRepository.delete(order);
         log.info("Order with id: {} - was successful deleted", orderId);
         return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<?> createSingleOrder(OrderRequest orderRequest) {
+         Order order = orderMapper.simplifyDomainObject(orderRequest);
+        orderRepository.save(order);
+        return ResponseEntity.ok().body(new SuccessResponse("Success"));
     }
 }

@@ -1,6 +1,7 @@
 package org.carly.api.endpoint;
 
 import org.bson.types.ObjectId;
+import org.carly.api.rest.request.order.OrderRequest;
 import org.carly.api.rest.response.OrderResponse;
 import org.carly.core.ordermanagement.service.OrderFindService;
 import org.carly.core.ordermanagement.service.OrderSaveService;
@@ -27,6 +28,11 @@ public class OrderController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_COMPANY', 'CARLY_CUSTOMER')")
     public OrderResponse findOrderById(@PathVariable("id") String orderId) {
         return orderFindService.findOrderById(new ObjectId(orderId));
+    }
+
+    @PostMapping("/create-single-order")
+    public ResponseEntity<?> createSingleOrder(@RequestBody OrderRequest orderRequest) {
+        return orderSaveService.createSingleOrder(orderRequest);
     }
 
     @PostMapping("/save")

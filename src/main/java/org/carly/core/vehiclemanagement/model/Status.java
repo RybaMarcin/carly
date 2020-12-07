@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum Status {
-
+    PENDING("Waiting"),
     NOT_PAID("Not pain"),
     PAID("Paid");
 
