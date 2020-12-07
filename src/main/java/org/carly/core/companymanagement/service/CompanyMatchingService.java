@@ -76,7 +76,7 @@ public class CompanyMatchingService {
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
-        if (companyMatch.getStatus() == CompanyMatchStatus.PENDING) {
+        if (companyMatch.getStatus() == CompanyMatchStatus.PENDING || companyMatch.getStatus() == CompanyMatchStatus.ACCEPTED) {
             companyMatch.setStatus(CompanyMatchStatus.DECLINED);
             companyMatchRepository.save(companyMatch);
             return ResponseEntity.ok(new CompanyMatchResponse(companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
@@ -94,6 +94,6 @@ public class CompanyMatchingService {
             List<CompanyMatchResponse> companyMatches = matchedList.stream().map(companyMatchMapper::mapDomainToResponse).collect(Collectors.toList());
             return ResponseEntity.ok(new CompanyFactoriesMatched(companyMatches));
         }
-        return ResponseEntity.ok(new ErrorResponse("Cannot find any matched comapnies"));
+        return ResponseEntity.ok(new ErrorResponse("Cannot find any matched companies"));
     }
 }

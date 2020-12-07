@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static org.carly.core.ordermanagement.model.Order.ORDER_CUSTOMER;
+import static org.carly.core.ordermanagement.model.Order.ORDER_CONSUMER_ID;
 import static org.carly.core.shared.utils.criteria.CriteriaBuilder.criteria;
 
 @Repository
@@ -26,7 +26,7 @@ public class OrderMongoRepository {
 
     public Page<Order> findAllOrdersByCustomerId(ObjectId customerId, Pageable pageable) {
         Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
-                criteria(ORDER_CUSTOMER, Criteria::is, customerId));
+                criteria(ORDER_CONSUMER_ID, Criteria::is, customerId));
 
         Query query = new Query(criteria);
         long count = mongoTemplate.count(query, Order.class);

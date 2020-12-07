@@ -54,7 +54,7 @@ public class BrakeFindService  {
                 .map(brakeResponseMapper::simplifyRestObject);
     }
 
-    public Collection<BrakeResponse> findAllBreaksByCompanyId(String companyId) {
+    public Collection<BrakeResponse> findAllBreaksByFactoryId(String companyId) {
         Collection<Brake> brakes = brakesRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
         log.info("Find: ({}) - brakes", brakes.size());
         return brakes.stream().map(brakeResponseMapper::simplifyRestObject).collect(Collectors.toList());

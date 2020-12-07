@@ -46,7 +46,7 @@ public class BrakesController {
     @GetMapping("/all-breaks-by-company-id/{companyId}")
     @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'CARLY_FACTORY')")
     public Collection<BrakeResponse> findAllBreaksByCompanyId(@PathVariable(name = "companyId") String companyId) {
-        return brakeFindService.findAllBreaksByCompanyId(companyId);
+        return brakeFindService.findAllBreaksByFactoryId(companyId);
     }
 
     @GetMapping("/all")
