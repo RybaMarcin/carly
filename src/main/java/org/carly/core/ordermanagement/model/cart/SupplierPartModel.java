@@ -13,6 +13,7 @@ public class SupplierPartModel {
 
     private PartType partType;
     private String factoryId;
+    private String consumerId;
 
     @Override
     public boolean equals(Object o) {
@@ -20,11 +21,12 @@ public class SupplierPartModel {
         if (!(o instanceof SupplierPartModel)) return false;
         SupplierPartModel that = (SupplierPartModel) o;
         return partType == that.partType &&
-                Objects.equals(factoryId, that.factoryId);
+                Objects.equals(factoryId, that.factoryId) &&
+                Objects.equals(consumerId, that.consumerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(partType, factoryId);
+        return Objects.hash(partType, factoryId, consumerId);
     }
 }

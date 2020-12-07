@@ -9,14 +9,11 @@ import org.carly.core.ordermanagement.model.cart.PartType;
 import org.carly.core.ordermanagement.model.cart.SpecificFactory;
 import org.carly.core.ordermanagement.model.cart.SpecificPart;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CartMapper {
 
-    public ConsumersCartsResponse mapFromConsumerCartToList(List<CartOrder> cartOrders) {
+    public ConsumersCartsResponse mapFromConsumerCartToList(Collection<CartOrder> cartOrders) {
         List<ConsumerCartResponse> ccr = new ArrayList<>();
         for (CartOrder cartOrder : cartOrders) {
             ccr.add(mapFromDomainToSingleResponse(cartOrder));
@@ -28,6 +25,8 @@ public class CartMapper {
         ConsumerCartResponse response = new ConsumerCartResponse();
         response.setConsumerId(cartOrder.getConsumerId());
         response.setConsumerName(cartOrder.getConsumerName());
+        response.setTotalAmount(cartOrder.getTotalAmount());
+        response.setTotalQuantity(cartOrder.getTotalQuantity());
         response.setFactoriesParts(createSupplierPartResponse(cartOrder.getFactoryParts()));
         return response;
     }
@@ -38,6 +37,8 @@ public class CartMapper {
             SupplierPartsResponse partsResponse = new SupplierPartsResponse();
             partsResponse.setSupplierId(factory.getFactoryId());
             partsResponse.setSupplierName(factory.getFactoryName());
+            partsResponse.setTotalFactoryAmount(factory.getTotalAmountOfFactory());
+            partsResponse.setTotalFactoryQuantity(factory.getTotalQuantityOfFactory());
             partsResponse.setParts(createPartResponse(factory.getParts()));
             supplierParts.add(partsResponse);
         }
