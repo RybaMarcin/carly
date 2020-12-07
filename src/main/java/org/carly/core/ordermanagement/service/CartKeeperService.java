@@ -3,7 +3,10 @@ package org.carly.core.ordermanagement.service;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.carly.api.rest.request.PartToCartRequest;
+import org.carly.api.rest.request.cart.CartPartUpdate;
+import org.carly.api.rest.request.cart.PartToCartRequest;
+import org.carly.api.rest.response.ErrorResponse;
+import org.carly.api.rest.response.SuccessResponse;
 import org.carly.api.rest.response.cart.ConsumerCartResponse;
 import org.carly.api.rest.response.cart.ConsumersCartsResponse;
 import org.carly.core.ordermanagement.mapper.CartMapper;
@@ -17,6 +20,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
@@ -84,7 +88,7 @@ public class CartKeeperService {
 
         countFactoryTotalAmount(cartOrder, request);
         cartOrder.setTotalAmount(countAmount(cartOrder));
-        return  ResponseEntity.ok(new CartMapper().mapFromConsumerCartToList(cartOrders.values()));
+        return ResponseEntity.ok(new CartMapper().mapFromConsumerCartToList(cartOrders.values()));
     }
 
     private void countFactoryTotalQuantity(CartOrder cartOrder, PartToCartRequest request) {
@@ -129,7 +133,7 @@ public class CartKeeperService {
                     factoriesTotalQuantityHolder.put(supplierPartModel, totalQuantity);
                 }
             }
-            return factoriesTotalQuantityHolder.entrySet().stream().filter(e->e.getKey().getConsumerId().equals(cartOrder.getConsumerId())).mapToInt(Map.Entry::getValue).sum();
+            return factoriesTotalQuantityHolder.entrySet().stream().filter(e -> e.getKey().getConsumerId().equals(cartOrder.getConsumerId())).mapToInt(Map.Entry::getValue).sum();
         }
         return totalQuantity;
     }
@@ -143,7 +147,7 @@ public class CartKeeperService {
                 factoriesTotalAmountHolder.put(supplierPartModel, sum);
             }
         }
-        return factoriesTotalAmountHolder.entrySet().stream().filter(e ->e.getKey().getConsumerId().equals(cartOrder.getConsumerId())).map(Map.Entry::getValue).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return factoriesTotalAmountHolder.entrySet().stream().filter(e -> e.getKey().getConsumerId().equals(cartOrder.getConsumerId())).map(Map.Entry::getValue).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private BigDecimal countAmountOfQuantity(BigDecimal amountPerItem, int quantity) {
@@ -163,5 +167,54 @@ public class CartKeeperService {
         final List<CartOrder> orders = new ArrayList<>(cartOrders.values());
         final ConsumersCartsResponse response = new CartMapper().mapFromConsumerCartToList(orders);
         return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<?> clearConsumerCart(String consumerId) {
+        final CartOwner cartOwner = new CartOwner(new ObjectId(consumerId));
+        CartOrder cartOrder = cartOrders.get(cartOwner);
+        if (cartOrder != null) {
+            cartOrders.remove(cartOwner);
+            return ResponseEntity.ok(new SuccessResponse("Successfully remove cart for consumer: " + cartOrder.getConsumerName()));
+        }
+        return ResponseEntity.badRequest().body(new ErrorResponse("Cannot find consumer cart, nothing happened"));
+    }
+
+    public ResponseEntity<?> removeFromCartItem(CartPartUpdate update) {
+        final CartOwner cartOwner = new CartOwner(new ObjectId(update.getConsumerId()));
+        CartOrder cartOrder = cartOrders.get(cartOwner);
+        if (cartOrder != null) {
+            SpecificPart partToRemove = cartOrder.getFactoryParts()
+                    .stream()
+                    .filter(sf -> sf.getFactoryId().equals(update.getSupplierId()))
+                    .flatMap(sf -> sf.getParts().entrySet()
+                            .stream()
+                            .flatMap(e -> e.getValue().stream()
+                                    .filter(sp -> sp.getPartId().equals(update.getPartId())))).findFirst().orElse(null);
+
+            if (partToRemove != null) {
+                final BigDecimal amountPerItem = partToRemove.getAmountPerItem();
+                final int quantity = partToRemove.getQuantity();
+
+                List<SpecificPart> updatedParts = cartOrder.getFactoryParts()
+                        .stream()
+                        .filter(sf -> sf.getFactoryId().equals(update.getSupplierId()))
+                        .flatMap(sf -> sf.getParts().entrySet()
+                                .stream()
+                                .flatMap(e -> e.getValue().stream()
+                                        .filter(sp -> !sp.getPartId().equals(update.getPartId())))).collect(Collectors.toList());
+
+                cartOrder.getFactoryParts().stream().filter(sf -> sf.getFactoryId().equals(update.getSupplierId())).findFirst().ifPresent(sp -> sp.getParts().put(update.getPartType(), updatedParts));
+                cartOrder.getFactoryParts().stream().filter(sf -> sf.getFactoryId().equals(update.getSupplierId())).findFirst().ifPresent(sf -> {
+                    sf.setTotalAmountOfFactory(sf.getTotalAmountOfFactory().subtract(amountPerItem));
+                    sf.setTotalQuantityOfFactory(sf.getTotalQuantityOfFactory() - quantity);
+                });
+                cartOrder.setTotalAmount(cartOrder.getTotalAmount().subtract(amountPerItem));
+                cartOrder.setTotalQuantity(cartOrder.getTotalQuantity() - quantity);
+
+                return ResponseEntity.ok().body(new SuccessResponse("Deleted part for consumer: " + update.getPartId()));
+
+            }
+        }
+        return ResponseEntity.badRequest().body(new ErrorResponse("Cannot find and delete part: " + update.getConsumerId()));
     }
 }
