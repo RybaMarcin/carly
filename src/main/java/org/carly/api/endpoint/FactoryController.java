@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import org.carly.api.rest.request.FactoryRequest;
 import org.carly.core.companymanagement.service.CompanyMatchingService;
 import org.carly.core.companymanagement.service.FactoryService;
+import org.carly.core.ordermanagement.model.cart.PartType;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/factory")
 public class FactoryController {
 
-    public static final String FIND_ALL_MATCHED_FACTORIES = "Find all matched factories";
-    public static final String GET_FACTORY_BY_ID = "Get factory by id";
+    private static final String FIND_ALL_MATCHED_FACTORIES = "Find all matched factories";
+    private static final String GET_FACTORY_BY_ID = "Get factory by id";
+    private static final String GET_PART_DETAILS = "Get part details";
 
     private final CompanyMatchingService companyMatchingService;
     private final FactoryService factoryService;
@@ -33,5 +36,12 @@ public class FactoryController {
     @ApiOperation(value = GET_FACTORY_BY_ID)
     public ResponseEntity<?> getFactoryById(@RequestBody FactoryRequest factoryRequest) {
         return factoryService.getFactoryById(factoryRequest);
+    }
+
+    @GetMapping("/get-part-details/{partId}")
+    @ApiOperation(value = GET_PART_DETAILS)
+    public ResponseEntity<?> getPartDetails(@PathVariable(value = "partId") String partId,
+                                            @Param(value = "partType") PartType partType) {
+        return factoryService.getPartDetailsById(partId, partType);
     }
 }

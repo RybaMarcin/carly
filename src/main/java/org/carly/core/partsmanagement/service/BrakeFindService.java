@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
 import org.carly.api.rest.response.BrakeResponse;
 import org.carly.core.partsmanagement.mapper.BrakeResponseMapper;
+import org.carly.core.partsmanagement.model.entity.Part;
 import org.carly.core.partsmanagement.repository.BrakeMongoRepository;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.partsmanagement.repository.BrakeRepository;
@@ -58,5 +59,9 @@ public class BrakeFindService  {
         Collection<Brake> brakes = brakesRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
         log.info("Find: ({}) - brakes", brakes.size());
         return brakes.stream().map(brakeResponseMapper::simplifyRestObject).collect(Collectors.toList());
+    }
+
+    public Collection<? extends Part> findAllDomainBreaksByFactoryId(String factoryId) {
+        return brakesRepository.findAllByFactoryCarlyFactoryId(new ObjectId(factoryId));
     }
 }
