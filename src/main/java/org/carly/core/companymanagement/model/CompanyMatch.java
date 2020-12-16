@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(collation = "companyMatcher")
+@Document(collection = "companyMatcher")
 public class CompanyMatch {
 
     @Id

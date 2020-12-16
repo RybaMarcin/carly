@@ -1,9 +1,13 @@
 package org.carly.core.security.model;
 
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 
 public class CarlyGrantedAuthority implements GrantedAuthority {
 
+    public static final String USER_ROLE = "userRole";
+
+    @Field(USER_ROLE)
     private final UserRole userRole;
 
     public CarlyGrantedAuthority(UserRole userRole) {

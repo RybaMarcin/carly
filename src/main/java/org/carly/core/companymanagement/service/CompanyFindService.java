@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class CompanyFindService {
@@ -64,5 +66,9 @@ public class CompanyFindService {
     public Page<CompanyResponse> findCompanies(CompanySearchCriteriaRequest searchCriteria, Pageable pageable) {
         return companyMongoRepository.findWithFilters(searchCriteria, pageable)
                 .map(companyMapper::simplifyRestObject);
+    }
+
+    public List<User> findAllFactoriesCompanies() {
+       return companyMongoRepository.findAllFactories();
     }
 }

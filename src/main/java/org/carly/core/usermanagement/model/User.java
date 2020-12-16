@@ -23,9 +23,11 @@ public class User {
 
     public static final String ID = "id";
     public static final String COMPANY_FIELD_NAME = "company";
+    public static final String ROLES = "roles";
     @Id
     @Field(ID)
     private ObjectId id;
+    @Field(ROLES)
     private List<CarlyGrantedAuthority> roles;
     @Field(COMPANY_FIELD_NAME)
     private Company company;

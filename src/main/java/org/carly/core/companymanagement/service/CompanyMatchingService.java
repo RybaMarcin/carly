@@ -5,7 +5,9 @@ import org.carly.api.rest.request.CompanyFactoryMatchRequest;
 import org.carly.api.rest.request.CompanyMatchingRequest;
 import org.carly.api.rest.response.CompanyFactoriesMatched;
 import org.carly.api.rest.response.CompanyMatchResponse;
+import org.carly.api.rest.response.CompanyResponse;
 import org.carly.api.rest.response.ErrorResponse;
+import org.carly.core.companymanagement.mapper.CompanyMapper;
 import org.carly.core.companymanagement.mapper.CompanyMatchMapper;
 import org.carly.core.companymanagement.model.CompanyMatch;
 import org.carly.core.companymanagement.model.CompanyMatchStatus;
@@ -18,6 +20,7 @@ import org.carly.core.usermanagement.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,17 +32,20 @@ public class CompanyMatchingService {
     private final LoggedUserProvider loggedUserProvider;
     private final TimeService timeService;
     private final CompanyMatchMapper companyMatchMapper;
+    private final CompanyMapper companyMapper;
 
     public CompanyMatchingService(CompanyMatchRepository companyMatchRepository,
                                   CompanyFindService companyFindService,
                                   LoggedUserProvider loggedUserProvider,
                                   TimeService timeService,
-                                  CompanyMatchMapper companyMatchMapper) {
+                                  CompanyMatchMapper companyMatchMapper,
+                                  CompanyMapper companyMapper) {
         this.companyMatchRepository = companyMatchRepository;
         this.companyFindService = companyFindService;
         this.loggedUserProvider = loggedUserProvider;
         this.timeService = timeService;
         this.companyMatchMapper = companyMatchMapper;
+        this.companyMapper = companyMapper;
     }
 
     public ResponseEntity<CompanyMatchResponse> createMatchingRequest(CompanyMatchingRequest matchingRequest) {
@@ -95,5 +101,22 @@ public class CompanyMatchingService {
             return ResponseEntity.ok(new CompanyFactoriesMatched(companyMatches));
         }
         return ResponseEntity.ok(new ErrorResponse("Cannot find any matched companies"));
+    }
+
+    public ResponseEntity<?> findAllNonMatchedFactories(String companyIdd) {
+        final ObjectId companyId = new ObjectId(companyIdd);
+        List<User> factories = companyFindService.findAllFactoriesCompanies();
+        List<User> matchedUsers = new ArrayList<>();
+        for (User factoryId : factories) {
+            final CompanyMatch matched = companyMatchRepository.findByCompanyIdAndFactoryId(companyId, factoryId.getId()).stream().findFirst().orElse(null);
+            if (matched != null) {
+                final User user = factories.stream()
+                        .filter(f -> f.getId().equals(matched.getFactoryId())).findFirst().orElse(null);
+                matchedUsers.add(user);
+            }
+        }
+        factories.removeIf(matchedUsers::contains);
+        final List<CompanyResponse> companyResponses = factories.stream().map(companyMapper::simplifyRestObject).collect(Collectors.toList());
+        return ResponseEntity.ok(companyResponses);
     }
 }

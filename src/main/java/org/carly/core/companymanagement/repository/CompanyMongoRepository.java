@@ -1,9 +1,9 @@
 package org.carly.core.companymanagement.repository;
 
 import org.carly.api.rest.criteria.CompanySearchCriteriaRequest;
-import org.carly.api.rest.response.CompanyResponse;
 import org.carly.core.companymanagement.model.Company;
 import org.carly.core.companymanagement.model.CompanyFilter;
+import org.carly.core.security.model.UserRole;
 import org.carly.core.usermanagement.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,5 +38,13 @@ public class CompanyMongoRepository {
         List<User> companies = mongoTemplate.find(query.with(pageable), User.class);
 
         return new PageImpl<>(companies, pageable, count);
+    }
+
+    public List<User> findAllFactories() {
+        Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
+                criteria(CompanyFilter.COMPANY_ROLE.getFilter(), Criteria::in, UserRole.CARLY_FACTORY.name()));
+        Query query = new Query();
+        query.addCriteria(criteria);
+        return mongoTemplate.find(query, User.class);
     }
 }

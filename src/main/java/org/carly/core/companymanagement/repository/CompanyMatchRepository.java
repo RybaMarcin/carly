@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface CompanyMatchRepository extends MongoRepository<CompanyMatch, ObjectId> {
 
     List<CompanyMatch> findAllByCompanyIdAndStatus(ObjectId companyId, CompanyMatchStatus status);
-}
+
+    Optional<CompanyMatch> findByCompanyIdAndFactoryId(ObjectId companyId, ObjectId factoryId);}
