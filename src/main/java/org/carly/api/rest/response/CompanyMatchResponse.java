@@ -9,7 +9,7 @@ import org.carly.core.companymanagement.model.CompanyMatchStatus;
 @Setter
 @AllArgsConstructor
 public class CompanyMatchResponse {
-
+    private String matchId;
     private String companyName;
     private String factoryName;
     private CompanyMatchStatus status;

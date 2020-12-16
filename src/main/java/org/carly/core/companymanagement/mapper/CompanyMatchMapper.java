@@ -8,7 +8,12 @@ import org.springframework.stereotype.Component;
 public class CompanyMatchMapper {
 
     public CompanyMatchResponse mapDomainToResponse(CompanyMatch domain) {
+        String matchId = "";
+        if (domain.getId() != null) {
+            matchId = domain.getId().toHexString();
+        }
         return new CompanyMatchResponse(
+                matchId,
                 domain.getCompanyName(),
                 domain.getFactoryName(),
                 domain.getStatus()
