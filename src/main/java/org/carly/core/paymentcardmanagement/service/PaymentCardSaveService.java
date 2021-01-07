@@ -23,6 +23,8 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 @Slf4j
 public class PaymentCardSaveService {
 
+    private final static Long ZERO = 0L;
+
     private final PaymentCardRequestMapper paymentCardRequestMapper;
     private final PaymentCardResponseMapper paymentCardResponseMapper;
     private final PaymentCardRepository paymentCardRepository;
@@ -39,10 +41,22 @@ public class PaymentCardSaveService {
     }
 
     public ResponseEntity<PaymentCardResponse> createPaymentCard(PaymentCardRequest request) {
+        String userId = loggedUserProvider.loggedUser().getId().toHexString();
         PaymentCard paymentCard = paymentCardRequestMapper.simplifyDomainObject(request);
         paymentCard.setUserId(loggedUserProvider.loggedUser().getId().toHexString());
         paymentCard.setCreatedDate(LocalDateTime.now());
         paymentCard.setModifiedDate(LocalDateTime.now());
+        // todo:
+        if (request.isCardActive()) {
+            deactivatePaymentCard();
+        }
+        // Always set first payment card as active one
+        Long paymentCardCount = paymentCardRepository.countByUserId(userId)
+                .orElse(ZERO);
+        log.info("Found {} payment card for user with id: {}", paymentCardCount, userId);
+        if (paymentCardCount.equals(ZERO)) {
+            paymentCard.setCardActive(true);
+        }
         paymentCardRepository.save(paymentCard);
         PaymentCardResponse response = paymentCardResponseMapper.simplifyRestObject(paymentCard);
         log.info("Payment card successfully created!");
@@ -67,6 +81,7 @@ public class PaymentCardSaveService {
         PaymentCard paymentCard = paymentCardRepository.findById(new ObjectId(paymentCardId))
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getDescription()));
         paymentCardRepository.delete(paymentCard);
+        // todo: If user has any other payment card we should set user last created card as active!
         log.info("Payment card with id: {} successfully deleted!", paymentCardId);
         return ResponseEntity.ok(new SuccessResponse("Payment card successfully deleted: " + paymentCardId));
     }
