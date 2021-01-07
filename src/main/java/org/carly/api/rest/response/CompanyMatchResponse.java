@@ -11,6 +11,7 @@ import org.carly.core.companymanagement.model.CompanyMatchStatus;
 public class CompanyMatchResponse {
     private String matchId;
     private String companyName;
+    private String factoryId;
     private String factoryName;
     private CompanyMatchStatus status;
 }

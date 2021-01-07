@@ -12,6 +12,7 @@ import org.carly.core.companymanagement.repository.CompanyRepository;
 import org.carly.core.ordermanagement.model.cart.PartType;
 import org.carly.core.partsmanagement.model.entity.Part;
 import org.carly.core.partsmanagement.service.BrakeFindService;
+import org.carly.core.security.model.CarlyGrantedAuthority;
 import org.carly.core.security.model.UserRole;
 import org.carly.core.shared.exception.EntityNotFoundException;
 import org.carly.core.usermanagement.model.User;
@@ -42,7 +43,7 @@ public class FactoryService {
 
     public ResponseEntity<?> getFactoryById(FactoryRequest factoryRequest) {
         final User user =
-                companyRepository.findByIdAndRolesIn(new ObjectId(factoryRequest.getFactoryId()), UserRole.CARLY_FACTORY.name())
+                companyRepository.findByIdAndRoles(new ObjectId(factoryRequest.getFactoryId()), new CarlyGrantedAuthority(UserRole.CARLY_FACTORY))
                         .stream().
                         findFirst()
                         .orElseThrow(() -> new EntityNotFoundException(ENTITY_NOT_FOUND.getDescription()));

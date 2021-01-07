@@ -85,9 +85,9 @@ public class CompanyMatchingService {
         if (companyMatch.getStatus() == CompanyMatchStatus.PENDING || companyMatch.getStatus() == CompanyMatchStatus.ACCEPTED) {
             companyMatch.setStatus(CompanyMatchStatus.DECLINED);
             companyMatchRepository.save(companyMatch);
-            return ResponseEntity.ok(new CompanyMatchResponse(companyMatch.getId().toHexString(), companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
+            return ResponseEntity.ok(new CompanyMatchResponse(companyMatch.getId().toHexString(), companyMatch.getCompanyName(), companyMatch.getFactoryId().toHexString(), companyMatch.getFactoryName(), companyMatch.getStatus()));
         }
-        return ResponseEntity.badRequest().body(new CompanyMatchResponse(companyMatch.getId().toHexString(), companyMatch.getCompanyName(), companyMatch.getFactoryName(), companyMatch.getStatus()));
+        return ResponseEntity.badRequest().body(new CompanyMatchResponse(companyMatch.getId().toHexString(), companyMatch.getCompanyName(), companyMatch.getFactoryId().toHexString(), companyMatch.getFactoryName(), companyMatch.getStatus()));
     }
 
     public List<CompanyMatch> findAllMatchedFactoriesByCompanyId(String companyId) {

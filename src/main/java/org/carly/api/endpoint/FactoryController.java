@@ -32,7 +32,7 @@ public class FactoryController {
         return companyMatchingService.getAllMatchedFactoriesByCompanyId(companyId);
     }
 
-    @PostMapping("/get-factories-details")
+    @PostMapping("/get-factory-details")
     @ApiOperation(value = GET_FACTORY_BY_ID)
     public ResponseEntity<?> getFactoryById(@RequestBody FactoryRequest factoryRequest) {
         return factoryService.getFactoryById(factoryRequest);
