@@ -3,6 +3,7 @@ package org.carly.core.partsmanagement.service;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.WheelsRequest;
+import org.carly.api.rest.response.SuccessResponse;
 import org.carly.api.rest.response.WheelsResponse;
 import org.carly.core.partsmanagement.mapper.WheelsRequestMapper;
 import org.carly.core.partsmanagement.mapper.WheelsResponseMapper;
@@ -56,10 +57,11 @@ public class WheelsSaveService {
         return ResponseEntity.ok(response);
     }
 
-    public void deletePart(ObjectId id) {
+    public ResponseEntity<SuccessResponse> deletePart(ObjectId id) {
         Wheels wheels = wheelsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         wheelsRepository.delete(wheels);
         log.info("Wheels with id: {} successfully deleted!", id);
+        return ResponseEntity.ok(new SuccessResponse("Wheels successfully deleted: " + wheels.getId()));
     }
 }
