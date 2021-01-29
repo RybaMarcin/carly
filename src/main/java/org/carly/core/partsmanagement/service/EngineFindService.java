@@ -4,6 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.EngineSearchCriteriaRequest;
 import org.carly.api.rest.response.EngineResponse;
+import org.carly.core.companymanagement.model.CompanyMatch;
+import org.carly.core.companymanagement.model.CompanyMatchStatus;
+import org.carly.core.companymanagement.repository.CompanyMatchRepository;
+import org.carly.core.companymanagement.service.CompanyMatchingService;
 import org.carly.core.partsmanagement.mapper.EngineResponseMapper;
 import org.carly.core.partsmanagement.model.entity.Engine;
 import org.carly.core.partsmanagement.repository.EngineMongoRepository;
@@ -27,19 +31,22 @@ public class EngineFindService  {
     private final EngineResponseMapper engineResponseMapper;
     private final EngineRepository engineRepository;
     private final EngineMongoRepository engineMongoRepository;
+    private final CompanyMatchingService companyMatchingService;
 
     public EngineFindService(EngineResponseMapper engineResponseMapper,
                              EngineRepository engineRepository,
-                             EngineMongoRepository engineMongoRepository) {
+                             EngineMongoRepository engineMongoRepository,
+                             CompanyMatchingService companyMatchingService) {
         this.engineResponseMapper = engineResponseMapper;
         this.engineRepository = engineRepository;
         this.engineMongoRepository = engineMongoRepository;
+        this.companyMatchingService = companyMatchingService;
     }
 
     public Collection<EngineResponse> findAll() {
         List<Engine> engineList = engineRepository.findAll();
         log.info("Engine list contains: {}", engineList.size());
-      return    engineList.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
+        return engineList.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
 
     public ResponseEntity<EngineResponse> findPartById(ObjectId id) {
@@ -54,8 +61,14 @@ public class EngineFindService  {
                 .map(engineResponseMapper::simplifyRestObject);
     }
 
-    public Collection<EngineResponse> findAllEnginesByCompanyId(String companyId) {
-        Collection<Engine> engines = engineRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
+    public Collection<EngineResponse> findAllEnginesByFactoryId(String factoryId) {
+        Collection<Engine> engines = engineRepository.findAllByFactoryCarlyFactoryId(new ObjectId(factoryId));
         return engines.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }
+
+    public Collection<EngineResponse> findAllEnginesAvailableForCompany(String companyId) {
+        Collection<Engine> availableEngines = engineMongoRepository.findEnginesWithFactoryIdInList(companyMatchingService.findMatchedFactoryIds(companyId));
+        return availableEngines.stream().map(engineResponseMapper::simplifyRestObject).collect(Collectors.toList());
+    }
+
 }
