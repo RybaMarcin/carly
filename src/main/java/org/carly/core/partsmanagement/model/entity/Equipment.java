@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.carly.core.partsmanagement.model.dictionaries.EquipmentType;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Setter
@@ -12,5 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "equipment")
 public class Equipment extends Part {
 
+    public static final String TYPE = "type";
+
+    @Field(TYPE)
     private EquipmentType type;
 }
