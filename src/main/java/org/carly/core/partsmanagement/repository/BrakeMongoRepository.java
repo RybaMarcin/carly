@@ -1,7 +1,9 @@
 package org.carly.core.partsmanagement.repository;
 
+import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.entity.Brake;
+import org.carly.core.vehiclemanagement.model.Factory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.carly.core.shared.utils.criteria.CriteriaBuilder.criteria;
@@ -18,6 +21,7 @@ import static org.carly.core.shared.utils.criteria.CriteriaBuilder.regexCriteria
 @Repository
 public class BrakeMongoRepository {
 
+    private static final String FACTORY_ID = Brake.FACTORY + "." + Factory.CARLY_FACTORY_ID;
 
     private final MongoTemplate mongoTemplate;
 
@@ -41,4 +45,13 @@ public class BrakeMongoRepository {
         return new PageImpl<>(aBrakes, pageable, count);
     }
 
+    public Collection<Brake> findBrakesWithFactoryIdInList(List<ObjectId> factoryIds) {
+
+        Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
+                            criteria(FACTORY_ID, Criteria::in, factoryIds));
+
+        Query query = new Query();
+        query.addCriteria(criteria);
+        return mongoTemplate.find(query, Brake.class);
+    }
 }

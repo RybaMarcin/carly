@@ -1,7 +1,9 @@
 package org.carly.core.partsmanagement.repository;
 
+import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.WheelsSearchCriteriaRequest;
 import org.carly.core.partsmanagement.model.entity.Wheels;
+import org.carly.core.vehiclemanagement.model.Factory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.carly.core.shared.utils.criteria.CriteriaBuilder.criteria;
@@ -18,8 +21,7 @@ import static org.carly.core.shared.utils.criteria.CriteriaBuilder.regexCriteria
 @Repository
 public class WheelsMongoRepository {
 
-
-
+    private static final String FACTORY_ID = Wheels.FACTORY + "." + Factory.CARLY_FACTORY_ID;
 
     private final MongoTemplate mongoTemplate;
 
@@ -45,4 +47,13 @@ public class WheelsMongoRepository {
         return new PageImpl<>(wheels, pageable, count);
     }
 
+    public Collection<Wheels> findWheelsWithFactoryIdInList(List<ObjectId> factoryIds) {
+
+        Criteria criteria = criteria(new Criteria(), Criteria::andOperator,
+                            criteria(FACTORY_ID, Criteria::in, factoryIds));
+
+        Query query = new Query();
+        query.addCriteria(criteria);
+        return mongoTemplate.find(query, Wheels.class);
+    }
 }
