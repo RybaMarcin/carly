@@ -19,6 +19,7 @@ public class CompanyMatchController {
     private static final String ADD_RESPONSE_FOR_COMPANY_MATCHING_BY_FACTORY = "Create response for company request by factory";
     private static final String ADD_DECLINE_FOR_REQUEST = "Decline request for matching";
     private static final String FIND_ALL_POTENTIAL_FACTORIES = "Find all non matched factories";
+    private static final String FIND_ALL_PENDING_CONTRACTS = "Find all pending contracts";
 
     private final CompanyMatchingService matchingService;
 
@@ -53,4 +54,12 @@ public class CompanyMatchController {
     public ResponseEntity<?> getAllPotentialFactoriesByCompanyId(@PathVariable(name = "companyId") String companyId) {
         return matchingService.findAllNonMatchedFactories(companyId);
     }
+
+    @GetMapping("/pending-contracts/{factoryId}")
+    @ApiOperation(value = FIND_ALL_PENDING_CONTRACTS)
+    @PreAuthorize("hasAnyAuthority('CARLY_FACTORY')")
+    public ResponseEntity<?> findAllPendingContracts(@PathVariable(name = "factoryId") String factoryId) {
+        return matchingService.findAllPendingContracts(factoryId);
+    }
+
 }

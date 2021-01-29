@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class FactoryController {
 
     private static final String FIND_ALL_MATCHED_FACTORIES = "Find all matched factories";
+    private static final String FIND_ALL_PENDING_FACTORIES = "Find all pending factories";
     private static final String GET_FACTORY_BY_ID = "Get factory by id";
     private static final String GET_PART_DETAILS = "Get part details";
 
@@ -30,6 +31,12 @@ public class FactoryController {
     @ApiOperation(value = FIND_ALL_MATCHED_FACTORIES)
     public ResponseEntity<?> getAllMatchedFactoriesForCompany(@PathVariable(value = "companyId") String companyId) {
         return companyMatchingService.getAllMatchedFactoriesByCompanyId(companyId);
+    }
+
+    @GetMapping("/all-pending-factories/{companyId}")
+    @ApiOperation(value = FIND_ALL_PENDING_FACTORIES)
+    public ResponseEntity<?> getAllPendingFactoriesForCompany(@PathVariable(value = "companyId") String companyId) {
+        return companyMatchingService.getAllPendingFactoriesByCompanyId(companyId);
     }
 
     @PostMapping("/get-factory-details")
