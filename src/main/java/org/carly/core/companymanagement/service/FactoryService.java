@@ -44,8 +44,8 @@ public class FactoryService {
     public ResponseEntity<?> getFactoryById(FactoryRequest factoryRequest) {
         final User user =
                 companyRepository.findByIdAndRoles(new ObjectId(factoryRequest.getFactoryId()), new CarlyGrantedAuthority(UserRole.CARLY_FACTORY))
-                        .stream().
-                        findFirst()
+                        .stream()
+                        .findFirst()
                         .orElseThrow(() -> new EntityNotFoundException(ENTITY_NOT_FOUND.getDescription()));
         Collection<? extends Part> parts = null;
         List<PartFactoriesMinModel> responseParts;
