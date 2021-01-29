@@ -23,7 +23,7 @@ import static org.carly.core.shared.utils.InfoUtils.NOT_FOUND;
 @Slf4j
 public class PaymentCardSaveService {
 
-    private final static Long ZERO = 0L;
+    private static final Long ZERO = 0L;
 
     private final PaymentCardRequestMapper paymentCardRequestMapper;
     private final PaymentCardResponseMapper paymentCardResponseMapper;
