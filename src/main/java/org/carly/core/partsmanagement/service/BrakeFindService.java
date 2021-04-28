@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.BreaksSearchCriteriaRequest;
 import org.carly.api.rest.response.BrakeResponse;
+import org.carly.api.rest.response.PartDetailsResponse;
+import org.carly.api.rest.response.factories.PartMinModel;
 import org.carly.core.companymanagement.service.CompanyMatchingService;
 import org.carly.core.partsmanagement.mapper.BrakeResponseMapper;
 import org.carly.core.partsmanagement.model.entity.Brake;
@@ -72,5 +74,11 @@ public class BrakeFindService  {
     public Collection<BrakeResponse> findAllBrakesAvailableForCompany(String companyId) {
         Collection<Brake> availableBrakes = brakeMongoRepository.findBrakesWithFactoryIdInList(companyMatchingService.findMatchedFactoryIds(companyId));
         return availableBrakes.stream().map(brakeResponseMapper::simplifyRestObject).collect(Collectors.toList());
+    }
+
+    public PartDetailsResponse findBrakesDetails(String partId) {
+        Brake brake = brakesRepository.findById(new ObjectId(partId))
+                .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
+        return brakeResponseMapper.mapFromDomainToDetails(brake);
     }
 }

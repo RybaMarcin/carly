@@ -21,7 +21,8 @@ public class CompanyMatchMapper {
                 domain.getCompanyName(),
                 factoryId,
                 domain.getFactoryName(),
-                domain.getStatus()
+                domain.getStatus(),
+                domain.getCreateDate()
         );
     }
 }

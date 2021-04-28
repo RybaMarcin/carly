@@ -59,7 +59,7 @@ public class WheelsFindService {
     }
 
     public Collection<WheelsResponse> findAllWheelsByFactoryId(String companyId) {
-        Collection<Wheels> wheels = wheelsRepository.findAllByFactoryId(new ObjectId(companyId));
+        Collection<Wheels> wheels = wheelsRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
         log.info("Found: ({}) - wheels", wheels.size());
         return wheels.stream().map(wheelsResponseMapper::simplifyRestObject).collect(Collectors.toList());
     }

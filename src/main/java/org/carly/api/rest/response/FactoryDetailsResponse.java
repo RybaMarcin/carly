@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.carly.api.rest.response.factories.PartFactoriesMinModel;
+import org.carly.api.rest.response.factories.PartMinModel;
 
 import java.util.Collection;
 
@@ -25,5 +25,5 @@ public class FactoryDetailsResponse {
     private String country;
     private String matchStatus;
 
-    private Collection<PartFactoriesMinModel> parts;
+    private Collection<PartMinModel> parts;
 }

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(collection = "companyMatcher")
+@Document(collection = "company-match")
 public class CompanyMatch {
 
     @Id
@@ -21,13 +21,13 @@ public class CompanyMatch {
     private ObjectId companyId;
     private String factoryName;
     private ObjectId factoryId;
-    private CompanyMatchStatus status;
+    private MatchStatus status;
     private LocalDateTime createDate;
     private String createBy;
     private LocalDateTime modifiedDate;
     private String modifiedBy;
 
-    public CompanyMatch(String companyName, ObjectId companyId, String factoryName, ObjectId factoryId, CompanyMatchStatus status, LocalDateTime createDate, String createBy) {
+    public CompanyMatch(String companyName, ObjectId companyId, String factoryName, ObjectId factoryId, MatchStatus status, LocalDateTime createDate, String createBy) {
         this.companyName = companyName;
         this.companyId = companyId;
         this.factoryName = factoryName;

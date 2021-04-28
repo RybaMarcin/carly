@@ -21,7 +21,6 @@ import java.util.Collection;
 @RequestMapping("/api/brakes")
 public class BrakesController {
 
-
     private static final String FIND_BRAKES_BY_ID = "Find brakes by id";
     private static final String FIND_ALL_BRAKES = "Find all brakes";
     private static final String FIND_ALL_BRAKES_BY_FACTORY_ID = "Find all brakes by factory id";
@@ -29,7 +28,6 @@ public class BrakesController {
     private static final String CREATE_BRAKES = "Create new brakes";
     private static final String UPDATE_BRAKES = "Update brakes";
     private static final String DELETE_BRAKES_BY_ID = "Delete brakes by id";
-
 
     private final BrakeFindService brakeFindService;
     private final BrakeSaveService brakeSaveService;

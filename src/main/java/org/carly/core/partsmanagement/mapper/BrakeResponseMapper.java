@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.carly.api.rest.request.BrakeRequest;
 import org.carly.api.rest.response.BrakeResponse;
 import org.carly.api.rest.response.FactoryResponse;
+import org.carly.api.rest.response.PartDetailsResponse;
 import org.carly.core.partsmanagement.model.entity.Brake;
 import org.carly.core.shared.utils.MapperService;
 import org.springframework.stereotype.Component;
@@ -58,6 +59,11 @@ public class BrakeResponseMapper implements MapperService<BrakeResponse, Brake> 
         domain.setPreview(rest.getPreview());
         domain.setPrice(rest.getPrice());
         return domain;
+    }
+
+    public PartDetailsResponse mapFromDomainToDetails(Brake domain) {
+        PartDetailsResponse partDetails = new PartDetailsResponse();
+        return partDetails;
     }
 
 }

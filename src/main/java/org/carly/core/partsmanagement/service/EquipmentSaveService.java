@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.request.EquipmentRequest;
 import org.carly.api.rest.response.EquipmentResponse;
+import org.carly.api.rest.response.SuccessResponse;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.entity.Equipment;
 import org.carly.core.partsmanagement.repository.EquipmentRepository;
@@ -50,10 +51,11 @@ public class EquipmentSaveService {
         return ResponseEntity.ok(equipmentMapper.mapFromDomainToResponse(equipmentToUpdate));
     }
 
-    public void deletePart(ObjectId id) {
-        Equipment equipment = equipmentRepository.findById(id)
+    public ResponseEntity<SuccessResponse> deletePart(String equipmentId) {
+        Equipment equipment = equipmentRepository.findById(new ObjectId(equipmentId))
                 .orElseThrow(() -> new EntityNotFoundException(NOT_FOUND));
         equipmentRepository.delete(equipment);
-        log.info("Equipment with id: {} successfully deleted!", id);
+        log.info("Equipment with id: {} successfully deleted!", equipmentId);
+        return ResponseEntity.ok(new SuccessResponse(String.format("Equipment with id: %s successfully deleted!", equipmentId)));
     }
 }

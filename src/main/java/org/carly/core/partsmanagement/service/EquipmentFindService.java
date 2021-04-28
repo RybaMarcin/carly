@@ -3,7 +3,6 @@ package org.carly.core.partsmanagement.service;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.carly.api.rest.criteria.EquipmentSearchCriteriaRequest;
-import org.carly.api.rest.response.EngineResponse;
 import org.carly.api.rest.response.EquipmentResponse;
 import org.carly.core.partsmanagement.mapper.EquipmentMapper;
 import org.carly.core.partsmanagement.model.entity.Equipment;
@@ -44,8 +43,8 @@ public class EquipmentFindService{
                 .map(equipmentMapper::mapFromDomainToResponse);
     }
 
-    public Collection<EquipmentResponse> findAllEquipmentsByCompanyId(String companyId) {
-        Collection<Equipment> equipments = equipmentRepository.findAllByFactoryCarlyFactoryId(new ObjectId(companyId));
+    public Collection<EquipmentResponse> findAllEquipmentsByFactoryId(String factoryId) {
+        Collection<Equipment> equipments = equipmentRepository.findAllByFactoryCarlyFactoryId(new ObjectId(factoryId));
         return equipments.stream().map(equipmentMapper::mapFromDomainToResponse).collect(Collectors.toList());
 
     }

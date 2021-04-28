@@ -8,6 +8,6 @@ import java.util.Collection;
 
 public interface WheelsRepository extends MongoRepository<Wheels, ObjectId> {
 
-    Collection<Wheels> findAllByFactoryId(ObjectId factoryId);
+    Collection<Wheels> findAllByFactoryCarlyFactoryId(ObjectId factoryId);
 
 }

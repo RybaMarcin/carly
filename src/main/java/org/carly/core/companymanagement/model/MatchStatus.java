@@ -1,6 +1,6 @@
 package org.carly.core.companymanagement.model;
 
-public enum  CompanyMatchStatus {
+public enum MatchStatus {
     PENDING,
     ACCEPTED,
     DECLINED
